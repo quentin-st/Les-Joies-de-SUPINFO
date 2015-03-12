@@ -5,4 +5,42 @@ body, html {
 
 body {
     background-color: #E6EAEB;
+    font-family: 'Roboto', sans-serif;
+}
+
+.gifItem {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #CFCFCF;
+    border-radius: 2px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow:    0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+    box-shadow:         0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+}
+.gifItem > img {
+    display: block;
+    margin: 0 auto;
+}
+.gifItem .catchPhrase {
+    margin: 30px 50px 25px 50px;
+    text-align: center;
+    font-size: 16px;
+}
+.gifItem .gifItemFooter {
+    margin: 10px -10px -10px -10px;
+    background-color: #F5F8F9;
+    border-top: 1px solid #ddd;
+}
+.gifItem .gifItemFooter > * {
+    display: inline-block;
+    width: 49%;
+    padding: 10px;
+    box-sizing: border-box;
+    font-weight: 300;
+    text-align: center;
+}
+.gifItem .gifItemFooter > * > span {
+    font-weight: normal;
 }

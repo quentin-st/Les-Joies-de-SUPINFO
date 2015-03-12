@@ -4,6 +4,7 @@ LJS DB description
 id
 catchPhrase
 submissionDate
+submittedBy
 gifStatus       // 0=submitted, 1=accepted, 2=refused
 fileName
 
