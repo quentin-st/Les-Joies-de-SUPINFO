@@ -1,0 +1,14 @@
+LJS DB description
+
+- Gif
+id
+catchPhrase
+submissionDate
+gifStatus       // 0=submitted, 1=accepted, 2=refused
+fileName
+
+- Admins
+id
+user
+password
+email
