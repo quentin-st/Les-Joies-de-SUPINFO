@@ -17,3 +17,9 @@ function ensureReady() {
         die();
     }
 }
+
+function getUrlReadyPermalink($catchPhrase) {
+    $catchPhrase = str_replace(' ', '-', $catchPhrase);
+    $catchPhrase = strtolower($catchPhrase);
+    return urlencode($catchPhrase);
+}
