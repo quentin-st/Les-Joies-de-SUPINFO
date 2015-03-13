@@ -2,3 +2,8 @@
 
 # Avoid pushing local ljs-config. Copy ljs-config-sample.php instead
 ljs-config.php
+
+# Do not track uploads
+uploads/*
+# ... but keep readme
+!uploads/readme.txt

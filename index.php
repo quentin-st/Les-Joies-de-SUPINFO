@@ -26,7 +26,7 @@ require_once('ljs-includes.php');
         <div class="content">
             <?php foreach (getGifs() as $gif) { ?>
                 <div class="gifItem">
-                    <img src="<?php echo $gif->fileName ?>" alt="<?php echo $gif->catchPhrase ?>" />
+                    <img src="<?php echo $gif->getGifUrl() ?>" alt="<?php echo $gif->catchPhrase ?>" />
                     <div class="catchPhrase"><?php echo $gif->catchPhrase ?></div>
                     <div class="gifItemFooter">
                         <div>Posté le <span><?php echo $gif->submissionDate ?></span></div>

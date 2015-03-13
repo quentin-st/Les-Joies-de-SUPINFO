@@ -7,10 +7,19 @@ class Gif {
     public $submittedBy;
     public $gifStatus;
     public $fileName;
+    public $permalink;
 
     function __construct() {
         $this->id = -1;
         $this->gifStatus = GifState::SUBMITTED; // default value
+    }
+
+    function getPermalink() {
+        return WEBSITE_URL . $this->permalink;
+    }
+
+    function getGifUrl() {
+        return WEBSITE_URL . 'uploads/' . $this->fileName;
     }
 }
 

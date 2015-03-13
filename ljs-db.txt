@@ -7,6 +7,7 @@ submissionDate
 submittedBy
 gifStatus       // 0=submitted, 1=accepted, 2=refused
 fileName
+permalink       // URL-proof version of catchPhrase, UNIQUE
 
 - Admins
 id
