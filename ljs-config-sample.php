@@ -11,6 +11,14 @@
 define('WEBSITE_URL', 'http://localhost/');
 
 /**
+ * Database connection parameters
+ */
+define('MYSQL_HOST', 'localhost');
+define('MYSQL_DATABASE', '');
+define('MYSQL_USER', '');
+define('MYSQL_PASSWORD', '');
+
+/**
  * Pagination: how many gifs should be displayed in one page
  *  (default: 5)
  */

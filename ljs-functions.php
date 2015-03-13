@@ -6,7 +6,7 @@
 /**
  * Return a valid DBO instance
  */
-function getDb() { return null; }
+function getDb() { return new PDO("mysql:host=" . MYSQL_HOST . ";dbname=" . MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD); }
 
 /**
  * Ensure that the local installation is ready to go
