@@ -2,7 +2,7 @@
 /**
  * @thomson: do your magic, that's just sample code
  */
-function getGifs() {
+function getGifs($page = -1) {
     $gif1 = new Gif();
     $gif1->gifStatus = GifState::ACCEPTED;
     $gif1->catchPhrase = 'Quand je vois les specs du nouveau projet';
@@ -39,4 +39,9 @@ function getGifFromPermalink($permalink) {
     $gif->submittedBy = 'fredlopi';
     $gif->permalink = getUrlReadyPermalink($gif->catchPhrase);
     return $gif;
+}
+
+function getPagesCount() {
+    // (int) (SELECT COUNT(*) / GIFS_PER_PAGE)
+    return 3;
 }

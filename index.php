@@ -9,12 +9,27 @@ require_once('ljs-includes.php');
 global $pageName;
 $pageName = '';
 
+// Pagination
+$page = isset($_GET['p']) ? intval($_GET['p']) : 1;
+$pagesCount = getPagesCount();
+if ($page < 1 || $page > $pagesCount)
+    $page = 1;
+
 include('ljs-template/header.part.php');
 ?>
 <div class="content">
-    <?php foreach (getGifs() as $gif) {
+    <?php foreach (getGifs($page) as $gif) {
         echo $gif->getHTML();
     } ?>
+
+    <div class="pagination">
+        <?php if ($page > 1) { ?>
+        <a href="?p=<?php echo $page-1 ?>">&lt; Plus récents</a>
+        <?php } ?>
+        <?php if ($page != $pagesCount) { ?>
+        <a href="?p=<?php echo $page+1 ?>">Plus anciens &gt;</a>
+        <?php } ?>
+    </div>
 </div>
 
 <?php include('ljs-template/facebook-sdk.part.php'); ?>

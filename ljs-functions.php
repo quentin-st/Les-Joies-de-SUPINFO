@@ -20,6 +20,7 @@ function ensureReady() {
 
 function getUrlReadyPermalink($catchPhrase) {
     $catchPhrase = str_replace(' ', '-', $catchPhrase);
+    $catchPhrase = preg_replace('/[^A-Za-z0-9\-]/', '', $catchPhrase);
     $catchPhrase = strtolower($catchPhrase);
     return urlencode($catchPhrase);
 }

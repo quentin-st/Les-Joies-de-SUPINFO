@@ -49,3 +49,11 @@ body {
 .gifItem .gifItemFooter > * > span {
     font-weight: normal;
 }
+
+.pagination {
+    text-align: center;
+}
+.pagination a {
+    margin: 0 10px;
+    padding: 10px;
+}
