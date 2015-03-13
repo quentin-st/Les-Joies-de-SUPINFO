@@ -29,3 +29,14 @@ function getGifs() {
 
     return [ $gif1, $gif2, $gif3 ];
 }
+
+function getGifFromPermalink($permalink) {
+    $gif = new Gif();
+    $gif->gifStatus = GifState::ACCEPTED;
+    $gif->catchPhrase = 'Quand je vois les specs du nouveau projet';
+    $gif->fileName = 'cbel57q.gif';
+    $gif->submissionDate = '01/02/2015';
+    $gif->submittedBy = 'fredlopi';
+    $gif->permalink = getUrlReadyPermalink($gif->catchPhrase);
+    return $gif;
+}

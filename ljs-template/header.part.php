@@ -22,3 +22,7 @@ if ($pageName != '')
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<div class="container">
+    <div class="header">
+        <h1>Les Joies de Supinfo</h1>
+    </div>
