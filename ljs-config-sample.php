@@ -5,4 +5,13 @@
  *  those changes in your ljs-config.php file.
  */
 
+/**
+ * Website URL, with trailing slash
+ */
+define('WEBSITE_URL', 'http://localhost/');
 
+/**
+ * Pagination: how many gifs should be displayed in one page
+ *  (default: 5)
+ */
+define('GIFS_PER_PAGE', 5);
