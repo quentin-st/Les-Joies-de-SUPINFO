@@ -10,3 +10,8 @@ require_once('ljs-functions.php');
 // If not, let's die()
 ensureReady();
 
+// Import model
+require_once('ljs-model/Gif.php');
+
+// Import controllers
+require_once('ljs-controller/GifsController.php');
