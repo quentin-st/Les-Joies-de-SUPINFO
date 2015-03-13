@@ -7,6 +7,9 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
     $catchPhrase = $_POST['catchPhrase'];
     $source = $_POST['source'];
 
+    // Create cookie with submittedBy value
+    setcookie('submittedBy', $submittedBy, time()+60*60*24*30, '/'); // Expire in one month
+
     if (!checkCatchPhrase($catchPhrase)) {
         // TODO handle errors
     }
@@ -36,11 +39,9 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
         } catch (RuntimeException $ex) {
             // TODO handle errors
         }
-    } else {
-        // TODO handle errors
     }
 
-    // Add this gif
+    // Insert this gif in DB
     $gif = new Gif();
     $gif->catchPhrase = $catchPhrase;
     $gif->fileName = $fileName;
@@ -61,7 +62,14 @@ include('ljs-template/header.part.php');
     <br />
 
     <form method="post" enctype="multipart/form-data">
-        <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" />
+        <?php
+        $submittedBy = '';
+        if (isset($_POST['submittedBy']))
+            $submittedBy = $_POST['submittedBy'];
+        else if (isset($_COOKIE['submittedBy']))
+            $submittedBy = $_COOKIE['submittedBy'];
+        ?>
+        <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="<?php echo $submittedBy ?>" />
         <input type="text" name="source" placeholder="Source du gif (optionnel)" />
 
         <input type="text" id="catchPhraseInput" name="catchPhrase" placeholder="Titre" />
