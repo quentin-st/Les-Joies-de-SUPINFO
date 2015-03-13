@@ -25,4 +25,8 @@ if ($pageName != '')
 <div class="container">
     <div class="header">
         <h1>Les Joies de Supinfo</h1>
+        <ul class="menu">
+            <li><a href="/">Accueil</a></li>
+            <li><a href="submit.php">Proposer un gif</a></li>
+        </ul>
     </div>
