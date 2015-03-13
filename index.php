@@ -26,6 +26,7 @@ include('ljs-template/header.part.php');
         <?php if ($page > 1) { ?>
         <a href="?p=<?php echo $page-1 ?>">&lt; Plus récents</a>
         <?php } ?>
+        Page <?php echo $page ?> / <?php echo $pagesCount ?>
         <?php if ($page != $pagesCount) { ?>
         <a href="?p=<?php echo $page+1 ?>">Plus anciens &gt;</a>
         <?php } ?>
