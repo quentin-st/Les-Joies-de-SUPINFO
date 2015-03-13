@@ -17,8 +17,9 @@ body {
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     -moz-box-shadow:    0 2px 5px 0 rgba(0, 0, 0, 0.1);
     box-shadow:         0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    position: relative;
 }
-.gifItem a {
+.gifItem a.gifLink {
     padding: 10px;
     display: block;
     color: #444;
@@ -34,7 +35,6 @@ body {
     font-size: 16px;
 }
 .gifItem .gifItemFooter {
-    margin: 10px -10px -10px -10px;
     background-color: #F5F8F9;
     border-top: 1px solid #ddd;
 }
@@ -48,6 +48,20 @@ body {
 }
 .gifItem .gifItemFooter > * > span {
     font-weight: normal;
+}
+.gifItem .reportGif {
+    width: 16px;
+    height: 16px;
+    display: block;
+    background: url('../img/glyphicons-halflings.png') -142px -118px;
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    opacity: 0.2;
+    transition-duration: 200ms;
+}
+.gifItem .reportGif:hover {
+    opacity: 0.8;
 }
 
 /* Pagination */
