@@ -12,6 +12,8 @@ ensureReady();
 
 // Import model
 require_once('ljs-model/Gif.php');
+require_once('ljs-model/User.php');
 
 // Import controllers
 require_once('ljs-controller/GifsController.php');
+require_once('ljs-controller/UsersController.php');
