@@ -3,7 +3,7 @@ require_once('ljs-includes.php');
 
 include('ljs-template/header.part.php');
 ?>
-<div class="content">
+<div class="content submitGif">
     <h2>Proposer un gif</h2>
     <p>Avant de proposer un gif, veuillez vous assurer que celui-ci est conforme aux règles
         d'utilisation du service.</p>
@@ -39,6 +39,9 @@ include('ljs-template/header.part.php');
             // No point
             if (text.substring(text.length-1) == '.')
                 warningsList[warningsList.length] = 'Le titre ne devrait pas terminer par un point';
+
+            if (text.length > 120)
+                warningsList[warningsList.length] = 'Le titre ne doit pas être trop long';
 
             var warnings = $('#warnings');
             warnings.html('');

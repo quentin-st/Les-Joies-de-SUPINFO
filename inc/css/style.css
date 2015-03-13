@@ -97,6 +97,10 @@ ul.menu li a:hover {
 }
 
 /* Submit a gif */
+.submitGif {
+    max-width: 800px;
+    margin: auto;
+}
 input#catchPhraseInput {
     width: 100%;
     display: block;
@@ -104,9 +108,11 @@ input#catchPhraseInput {
     font-size: 20px;
     border-radius: 2px;
     height: 42px;
+    line-height: 42px;
     padding: 0 10px;
     font-family: Roboto, sans-serif;
     font-weight: 300;
+    box-sizing: border-box;
 }
 .uploadMethods { text-align: center; }
 .uploadMethods > * {
@@ -116,4 +122,8 @@ input#catchPhraseInput {
 .uploadMethods > * > input {
     width: 100%;
     line-height: inherit;
+    box-sizing: border-box;
+    padding: 3px 10px;
+    height: 30px;
+    border-radius: 2px;
 }
