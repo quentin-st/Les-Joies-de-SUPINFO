@@ -15,7 +15,7 @@ class Gif {
     }
 
     function getPermalink() {
-        return WEBSITE_URL . 'gifs/' . $this->permalink;
+        return WEBSITE_URL . $this->permalink;
     }
 
     function getGifUrl() {
