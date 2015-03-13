@@ -21,6 +21,11 @@ function ensureReady() {
         echo 'uploads/ directory isn\'t writable. Please fix this.';
         die();
     }
+
+    if (ini_get('file_uploads') != 1) {
+        echo 'File uploads are\'nt enabled on this server. Please fix this.';
+        die();
+    }
 }
 
 function getUrlReadyPermalink($catchPhrase) {

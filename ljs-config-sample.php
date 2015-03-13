@@ -6,6 +6,13 @@
  */
 
 /**
+ * Defines if the scripts are run on a production server
+ * Do not forget to switch to true when uploading this file
+ *  on a production server!
+ */
+define('PRODUCTION', false);
+
+/**
  * Website URL, with trailing slash
  */
 define('WEBSITE_URL', 'http://localhost/');

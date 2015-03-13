@@ -1,22 +1,22 @@
 <?php
 require_once('ljs-includes.php');
 
-// TODO set submittedBy in cookie
-
 if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
-    && (isset($_POST['source_upload']) || isset($_POST['source_download']))) {
+    && (isset($_POST['file_upload']) || isset($_POST['file_download']))) {
     $submittedBy = $_POST['submittedBy'];
     $catchPhrase = $_POST['catchPhrase'];
+    $source = $_POST['source'];
 
     if (!checkCatchPhrase($catchPhrase)) {
         // TODO handle errors
     }
 
-    if ($_POST['source_download'] != '') {
+    $fileName = '';
+    if ($_POST['file_download'] != '') {
         require_once('ljs-helper/downloadHandler.php');
 
-        $source = $_POST['source_download'];
-        if (!str_endsWith($source, '.gif')) {
+        $fileUri = $_POST['file_download'];
+        if (!str_endsWith($fileUri, '.gif')) {
             // TODO handle errors
         }
 
@@ -24,25 +24,32 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
         $fileName = generateRandomFileName('uploads/', RANDOM_FILE_NAME_LENGTH, '.gif');
 
         // Download this file
-        downloadFile($source, 'uploads/'.$fileName);
+        downloadFile($fileUri, 'uploads/'.$fileName);
 
         // TODO check mime type?
-
-        // Add this gif
-        $gif = new Gif();
-        $gif->catchPhrase = $catchPhrase;
-        $gif->fileName = $fileName;
-        $gif->gifStatus = GifState::SUBMITTED;
-        $gif->permalink = getUrlReadyPermalink($catchPhrase);
-        $gif->submissionDate = new DateTime();
-        $gif->submittedBy = $submittedBy;
-        insertGif($gif);
-    } else if ($_POST['source_upload'] != '') { // TODO check if has file
+    } else if (!empty($_FILES)) {
         require_once('ljs-helper/uploadHandler.php');
 
+        $fileName = generateRandomFileName('uploads/', RANDOM_FILE_NAME_LENGTH, '.gif');
+        try {
+            handleFileUpload('uploads/'.$fileName);
+        } catch (RuntimeException $ex) {
+            // TODO handle errors
+        }
     } else {
         // TODO handle errors
     }
+
+    // Add this gif
+    $gif = new Gif();
+    $gif->catchPhrase = $catchPhrase;
+    $gif->fileName = $fileName;
+    $gif->gifStatus = GifState::SUBMITTED;
+    $gif->permalink = getUrlReadyPermalink($catchPhrase);
+    $gif->submissionDate = new DateTime();
+    $gif->submittedBy = $submittedBy;
+    $gif->source = $source;
+    insertGif($gif);
 }
 
 include('ljs-template/header.part.php');
@@ -53,19 +60,21 @@ include('ljs-template/header.part.php');
         d'utilisation du service.</p>
     <br />
 
-    <form method="post" action="submit.php">
-        <input type="text" name="submittedBy" placeholder="Proposé par" />
+    <form method="post" enctype="multipart/form-data">
+        <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" />
+        <input type="text" name="source" placeholder="Source du gif (optionnel)" />
+
         <input type="text" id="catchPhraseInput" name="catchPhrase" placeholder="Titre" />
         <ul id="warnings"></ul>
 
         <div class="uploadMethods">
             <div>
                 <h3>Envoyer un fichier</h3>
-                <input type="file" name="source_upload" />
+                <input type="file" name="file_upload" />
             </div>
             <div>
                 <h3>Télécharger un fichier</h3>
-                <input type="text" name="source_download" placeholder="URL vers le fichier .gif" />
+                <input type="text" name="file_download" placeholder="URL vers le fichier .gif" />
             </div>
         </div>
 

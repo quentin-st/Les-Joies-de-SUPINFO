@@ -6,6 +6,12 @@
 require_once('ljs-config.php');
 require_once('ljs-functions.php');
 
+// Enable errors logging on a dev environment
+if (!PRODUCTION) {
+    error_reporting(E_ALL);
+    ini_set('display_errors', TRUE);
+}
+
 // Check that everything is set
 // If not, let's die()
 ensureReady();

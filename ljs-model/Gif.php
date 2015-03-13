@@ -8,6 +8,7 @@ class Gif {
     public $gifStatus;
     public $fileName;
     public $permalink;
+    public $source;
 
     function __construct() {
         $this->id = -1;
