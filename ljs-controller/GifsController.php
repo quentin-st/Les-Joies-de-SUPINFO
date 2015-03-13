@@ -45,3 +45,7 @@ function getPagesCount() {
     // (int) (SELECT COUNT(*) / GIFS_PER_PAGE)
     return 3;
 }
+
+function insertGif($gif) {
+    // TODO
+}

@@ -23,3 +23,8 @@ define('MYSQL_PASSWORD', '');
  *  (default: 5)
  */
 define('GIFS_PER_PAGE', 5);
+
+/**
+ * Generated file name length for new gifs files
+ */
+define('RANDOM_FILE_NAME_LENGTH', 6);
