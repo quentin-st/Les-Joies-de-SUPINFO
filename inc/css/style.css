@@ -81,3 +81,25 @@ ul.menu li a {
 ul.menu li a:hover {
     background-color: rgba(255, 255, 255, 0.7);
 }
+
+/* Submit a gif */
+input#catchPhraseInput {
+    width: 100%;
+    display: block;
+    margin: 10px auto;
+    font-size: 20px;
+    border-radius: 2px;
+    height: 42px;
+    padding: 0 10px;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+}
+.uploadMethods { text-align: center; }
+.uploadMethods > * {
+    display: inline-block;
+    width: 49%;
+}
+.uploadMethods > * > input {
+    width: 100%;
+    line-height: inherit;
+}

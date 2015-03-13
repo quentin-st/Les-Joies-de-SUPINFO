@@ -20,13 +20,14 @@ if ($pageName != '')
     <link href="<?php echo WEBSITE_URL ?>inc/css/bootstrap-responsive.min.css" rel="stylesheet" />
     <link href="<?php echo WEBSITE_URL ?>inc/css/style.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
+    <script src="<?php echo WEBSITE_URL ?>inc/js/jquery-1.11.2.min.js"></script>
 </head>
 <body>
 <div class="container">
     <div class="header">
         <h1>Les Joies de Supinfo</h1>
         <ul class="menu">
-            <li><a href="/">Accueil</a></li>
+            <li><a href="index.php">Accueil</a></li>
             <li><a href="submit.php">Proposer un gif</a></li>
         </ul>
     </div>
