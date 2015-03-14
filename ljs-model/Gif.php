@@ -27,7 +27,10 @@ class Gif {
         ob_start();
         ?>
         <div class="gifItem">
-            <a href="#" class="reportGif" title="Signaler ce gif"></a>
+            <?php if ($this->source != '') { ?>
+            <a href="<?php echo $this->source ?>" class="gifSource topRightIcon" title="Source du gif" target="_blank"></a>
+            <?php } ?>
+            <a href="#" class="reportGif topRightIcon" title="Signaler ce gif"></a>
             <a href="<?php echo $this->getPermalink() ?>" class="gifLink">
                 <img src="<?php echo $this->getGifUrl() ?>" alt="<?php echo $this->catchPhrase ?>" />
                 <div class="catchPhrase"><?php echo $this->catchPhrase ?></div>

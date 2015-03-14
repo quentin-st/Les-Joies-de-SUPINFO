@@ -49,19 +49,26 @@ body {
 .gifItem .gifItemFooter > * > span {
     font-weight: normal;
 }
-.gifItem .reportGif {
+.gifItem .topRightIcon {
     width: 16px;
     height: 16px;
     display: block;
-    background: url('../img/glyphicons-halflings.png') -142px -118px;
     position: absolute;
-    right: 5px;
     top: 3px;
     opacity: 0.2;
     transition-duration: 200ms;
+    background: url('../img/glyphicons-halflings.png');
 }
-.gifItem .reportGif:hover {
+.gitItem .topRightIcon:hover {
     opacity: 0.8;
+}
+.gifItem .reportGif {
+    background-position: -142px -118px;
+    right: 5px;
+}
+.gifItem .gifSource {
+    background-position: -117px -70px;
+    right: 25px;
 }
 
 /* Pagination */
