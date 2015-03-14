@@ -12,12 +12,12 @@ function getDb() { return new PDO("mysql:host=" . MYSQL_HOST . ";dbname=" . MYSQ
  * Ensure that the local installation is ready to go
  */
 function ensureReady() {
-    if (!file_exists('ljs-config.php')) {
+    if (!file_exists(ROOT_DIR.'/ljs-config.php')) {
         echo 'You forgot to create ljs-config.php from ljs-config-sample.php.';
         die();
     }
 
-    if (!is_writable('uploads/')) {
+    if (!is_writable(ROOT_DIR.'/uploads/')) {
         echo 'uploads/ directory isn\'t writable. Please fix this.';
         die();
     }

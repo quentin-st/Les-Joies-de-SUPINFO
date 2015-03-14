@@ -3,7 +3,7 @@
  * Generate a RSS feed
  */
 
-require_once('ljs-includes.php');
+require_once(ROOT_DIR.'/ljs-includes.php');
 ?>
 <rss version="2.0">
     <channel>

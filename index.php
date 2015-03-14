@@ -15,7 +15,7 @@ $pagesCount = getPagesCount();
 if ($page < 1 || $page > $pagesCount)
     $page = 1;
 
-include('ljs-template/header.part.php');
+include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content">
     <?php foreach (getGifs($page) as $gif) {
@@ -33,5 +33,5 @@ include('ljs-template/header.part.php');
     </div>
 </div>
 
-<?php include('ljs-template/facebook-sdk.part.php'); ?>
-<?php include('ljs-template/footer.part.php'); ?>
+<?php include(ROOT_DIR.'/ljs-template/facebook-sdk.part.php'); ?>
+<?php include(ROOT_DIR.'/ljs-template/footer.part.php'); ?>

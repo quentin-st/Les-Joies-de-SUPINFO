@@ -1,7 +1,7 @@
 <?php
 require_once('ljs-includes.php');
 
-include('ljs-template/header.part.php');
+include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content submitGif">
     <h2>Règles d'utilisation du service</h2>
@@ -12,4 +12,4 @@ include('ljs-template/header.part.php');
     </ul>
 </div>
 
-<?php include('ljs-template/footer.part.php');
+<?php include(ROOT_DIR.'/ljs-template/footer.part.php');

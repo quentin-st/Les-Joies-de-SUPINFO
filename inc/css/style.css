@@ -59,7 +59,7 @@ body {
     transition-duration: 200ms;
     background: url('../img/glyphicons-halflings.png');
 }
-.gitItem .topRightIcon:hover {
+.gifItem .topRightIcon:hover {
     opacity: 0.8;
 }
 .gifItem .reportGif {

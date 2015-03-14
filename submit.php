@@ -16,7 +16,7 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
 
     $fileName = '';
     if ($_POST['file_download'] != '') {
-        require_once('ljs-helper/downloadHandler.php');
+        require_once(ROOT_DIR.'/ljs-helper/downloadHandler.php');
 
         $fileUri = $_POST['file_download'];
         if (!str_endsWith($fileUri, '.gif')) {
@@ -31,7 +31,7 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
 
         // TODO check mime type?
     } else if (!empty($_FILES)) {
-        require_once('ljs-helper/uploadHandler.php');
+        require_once(ROOT_DIR.'/ljs-helper/uploadHandler.php');
 
         $fileName = generateRandomFileName('uploads/', RANDOM_FILE_NAME_LENGTH, '.gif');
         try {
@@ -53,7 +53,7 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
     insertGif($gif);
 }
 
-include('ljs-template/header.part.php');
+include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content submitGif">
     <h2>Proposer un gif</h2>
@@ -117,7 +117,7 @@ include('ljs-template/header.part.php');
     });
 </script>
 
-<?php include('ljs-template/footer.part.php');
+<?php include(ROOT_DIR.'/ljs-template/footer.part.php');
 
 function checkCatchPhrase($catchPhrase) {
     if (strlen($catchPhrase) < 10)

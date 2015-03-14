@@ -35,3 +35,9 @@ define('GIFS_PER_PAGE', 5);
  * Generated file name length for new gifs files
  */
 define('RANDOM_FILE_NAME_LENGTH', 6);
+
+/**
+ * Giphy API key
+ * You can temporarily use public beta key (dc6zaTOxFJmzC)
+ */
+define ('GIPHY_API_KEY', 'dc6zaTOxFJmzC');

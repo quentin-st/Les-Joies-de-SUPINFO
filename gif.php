@@ -19,10 +19,10 @@ if ($gif == null)
 global $pageName;
 $pageName = $gif->catchPhrase;
 
-include('ljs-template/header.part.php');
+include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content">
     <?php echo $gif->getHTML(); ?>
 </div>
-<?php include('ljs-template/facebook-sdk.part.php'); ?>
-<?php include('ljs-template/footer.part.php'); ?>
+<?php include(ROOT_DIR.'/ljs-template/facebook-sdk.part.php'); ?>
+<?php include(ROOT_DIR.'/ljs-template/footer.part.php'); ?>
