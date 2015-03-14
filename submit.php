@@ -69,8 +69,8 @@ include('ljs-template/header.part.php');
         else if (isset($_COOKIE['submittedBy']))
             $submittedBy = $_COOKIE['submittedBy'];
         ?>
-        <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="<?php echo $submittedBy ?>" />
-        <input type="text" name="source" placeholder="Source du gif (optionnel)" />
+        <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="<?php echo $submittedBy ?>" class="submittedBy" />
+        <input type="text" name="source" placeholder="Source du gif (optionnel)" class="source" />
 
         <input type="text" id="catchPhraseInput" name="catchPhrase" placeholder="Titre" />
         <ul id="warnings"></ul>

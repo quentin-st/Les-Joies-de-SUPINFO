@@ -101,29 +101,42 @@ ul.menu li a:hover {
     max-width: 800px;
     margin: auto;
 }
+.submitGif form { text-align: center; }
+.submitGif input[type="text"] {
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    min-height: 30px;
+}
+.submitGif .submittedBy {
+    width: 47%;
+    margin: 10px 2% 10px 0;
+}
+.submitGif .source {
+    width: 47%;
+    margin: 10px 0 10px 2%;
+}
 input#catchPhraseInput {
-    width: 100%;
+    width: 98%;
     display: block;
     margin: 10px auto;
     font-size: 20px;
-    border-radius: 2px;
     height: 42px;
     line-height: 42px;
-    padding: 0 10px;
     font-family: Roboto, sans-serif;
     font-weight: 300;
-    box-sizing: border-box;
 }
 .uploadMethods { text-align: center; }
 .uploadMethods > * {
     display: inline-block;
     width: 49%;
 }
-.uploadMethods > * > input {
+.uploadMethods input[type="text"] {
     width: 100%;
-    line-height: inherit;
-    box-sizing: border-box;
-    padding: 3px 10px;
-    height: 30px;
-    border-radius: 2px;
+}
+.uploadMethods > input[type="file"] {
+    line-height: 24px;
+}
+.submitGif input[type="submit"] {
+    margin-top: 50px;
 }
