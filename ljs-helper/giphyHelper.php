@@ -13,7 +13,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'getTrendingGifs') {
 }
 
 function getTrendingGifs() {
-    $url = 'http://api.giphy.com/v1/gifs/trending?api_key=' . GIPHY_API_KEY;
+    $url = 'http://api.giphy.com/v1/gifs/trending?api_key=' . GIPHY_API_KEY . '&limit=24';
     $apiResult = file_get_contents($url);
 
     $res = array();
@@ -27,7 +27,10 @@ function getTrendingGifs() {
     $res['gifs'] = array();
 
     foreach ($json['data'] as $giphyGif) {
-        $res['gifs'][] = $giphyGif['images']['downsized']['url'];
+        $res['gifs'][] = [
+            'image' => $giphyGif['images']['downsized']['url'],
+            'url' => $giphyGif['bitly_url']
+        ];
     }
 
     $res['success'] = true;

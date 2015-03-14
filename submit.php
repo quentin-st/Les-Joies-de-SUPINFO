@@ -70,10 +70,15 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
             $submittedBy = $_COOKIE['submittedBy'];
         ?>
         <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="<?php echo $submittedBy ?>" class="submittedBy" />
-        <input type="text" name="source" placeholder="Source du gif (optionnel)" class="source" />
+        <input type="text" id="source" name="source" placeholder="Source du gif (optionnel)" class="source" />
 
         <input type="text" id="catchPhraseInput" name="catchPhrase" placeholder="Titre" />
         <ul id="warnings"></ul>
+
+        <input id="giphy_ajax" type="button" value="Besoin d'inspiration ?" /> <img id="ajaxLoading" src="inc/img/ajax-loader.gif" style="visibility: hidden;" />
+        <div id="giphyGifs" style="display: none;">
+            <ul id="giphyGifsList"></ul>
+        </div>
 
         <div class="uploadMethods">
             <div>
@@ -82,7 +87,7 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
             </div>
             <div>
                 <h3>Télécharger un fichier</h3>
-                <input type="text" name="file_download" placeholder="URL vers le fichier .gif" />
+                <input type="text" id="file_download" name="file_download" placeholder="URL vers le fichier .gif" />
             </div>
         </div>
 
@@ -113,6 +118,47 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
             warnings.html('');
             for (var i=0; i<warningsList.length; i++)
                 warnings.append('<li>' + warningsList[i] + '</li>');
+        });
+
+        $('#giphy_ajax').click(function () {
+            $('#ajaxLoading').css('visibility', 'visible');
+
+            $.ajax({
+                url: 'ljs-helper/giphyHelper.php',
+                method: 'POST',
+                data: {
+                    action: 'getTrendingGifs'
+                },
+                success: function(data) {
+                    var jsonData = JSON.parse(data);
+                    if (jsonData.success) {
+                        $('#giphy_ajax').remove();
+                        $('#giphyGifs').show();
+                        $('.uploadMethods').children().first().css('opacity', '0.2');
+                        $('#ajaxLoading').hide();
+
+                        var ul = $('#giphyGifsList');
+
+                        for (var i=0; i<jsonData.gifs.length; i++) {
+                            var imageUrl = jsonData.gifs[i]['image'];
+                            var sourceUrl = jsonData.gifs[i]['url'];
+                            ul.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
+                        }
+                    }
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            });
+        });
+
+        $('#giphyGifsList').on('click', 'img', function() {
+            var img = $(this);
+            $('#source').val(img.attr('data-source'));
+            $('#file_download').val(img.attr('src'));
+            $('#giphyGifsList').find('img').removeClass('selected');
+            $('#giphyGifsList').find('img').addClass('notSelected');
+            $(this).addClass('selected');
         });
     });
 </script>
