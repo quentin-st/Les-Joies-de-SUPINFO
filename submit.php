@@ -57,8 +57,8 @@ include('ljs-template/header.part.php');
 ?>
 <div class="content submitGif">
     <h2>Proposer un gif</h2>
-    <p>Avant de proposer un gif, veuillez vous assurer que celui-ci est conforme aux règles
-        d'utilisation du service.</p>
+    <p>Avant de proposer un gif, veuillez vous assurer que celui-ci est conforme <a href="rulesOfTheGame.php">aux règles
+        d'utilisation du service</a>.</p>
     <br />
 
     <form method="post" enctype="multipart/form-data">
