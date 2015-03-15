@@ -77,6 +77,7 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
 
         <input id="giphy_ajax" type="button" value="Besoin d'inspiration ?" /> <img id="ajaxLoading" src="inc/img/ajax-loader.gif" style="visibility: hidden;" />
         <div id="giphyGifs" style="display: none;">
+            <img src="inc/img/poweredByGiphy.png" class="poweredByGiphy" />
             <ul id="giphyGifsList"></ul>
         </div>
 
@@ -97,6 +98,8 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
 
 <script type="application/javascript">
     $(document).ready(function() {
+        var giphyGifsList = $('#giphyGifsList');
+
         $('#catchPhraseInput').keyup(function() {
             var text = $(this).val();
 
@@ -137,12 +140,10 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
                         $('.uploadMethods').children().first().css('opacity', '0.2');
                         $('#ajaxLoading').hide();
 
-                        var ul = $('#giphyGifsList');
-
                         for (var i=0; i<jsonData.gifs.length; i++) {
                             var imageUrl = jsonData.gifs[i]['image'];
                             var sourceUrl = jsonData.gifs[i]['url'];
-                            ul.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
+                            giphyGifsList.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
                         }
                     }
                 },
@@ -152,13 +153,25 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
             });
         });
 
-        $('#giphyGifsList').on('click', 'img', function() {
+        // Select one gif
+        giphyGifsList.on('click', 'img', function(e) {
             var img = $(this);
             $('#source').val(img.attr('data-source'));
             $('#file_download').val(img.attr('src'));
-            $('#giphyGifsList').find('img').removeClass('selected');
-            $('#giphyGifsList').find('img').addClass('notSelected');
+            giphyGifsList.find('img').removeClass('selected');
+            giphyGifsList.find('img').addClass('notSelected');
             $(this).addClass('selected');
+
+            // Avoid onclick on giphyGifsList (that's for unselecting gif)
+            e.stopPropagation();
+        });
+
+        // Unselect all gifs
+        giphyGifsList.click(function() {
+            $('#source').val('');
+            $('#file_download').val('');
+            giphyGifsList.find('img').removeClass('selected');
+            giphyGifsList.find('img').removeClass('notSelected');
         });
     });
 </script>
