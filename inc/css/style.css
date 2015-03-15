@@ -8,6 +8,16 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.footer {
+    text-align: center;
+    font-weight: 300;
+    opacity: 0.3;
+    transition-duration: 200ms;
+    margin: 10px 0;
+    padding: 10px 0;
+}
+.footer:hover { opacity: 1; }
+
 .gifItem {
     max-width: 600px;
     margin: 20px auto;
