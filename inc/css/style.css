@@ -19,6 +19,26 @@ body {
     display: inline-block;
 }
 .header a:hover { text-decoration: none; }
+.homeHeader {
+    background: url('../img/header_background.jpg') no-repeat center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.header.homeHeader h1 {
+    font-size: 32px;
+    margin: 15px 0;
+}
+.subHeader {
+    padding: 10px 30px;
+    color: #fff;
+}
+.subHeader h2 {
+    font-size: 19px;
+    font-weight: 300;
+    margin: 0;
+}
 
 .container {
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -116,7 +136,7 @@ body {
 ul.menu {
     list-style: none;
     text-align: right;
-    margin: 16px 10px 0 0;
+    margin: 18px 10px 10px 0;
 }
 ul.menu > li {
     display: inline-block;

@@ -7,6 +7,9 @@
 global $pageName;
 if ($pageName != '')
     $pageName .= ' - ';
+
+$isHomePage = isset($homePage) && $homePage;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +27,7 @@ if ($pageName != '')
 </head>
 <body>
 <div class="container">
-    <div class="header">
+    <div class="header <?php if($isHomePage) echo 'homeHeader'; ?>">
         <div class="row">
             <div class="span4">
                 <a href="<?php echo WEBSITE_URL ?>"><h1>Les Joies de Supinfo</h1></a>
@@ -36,4 +39,10 @@ if ($pageName != '')
                 </ul>
             </div>
         </div>
+        <?php if ($isHomePage) { ?>
+        <div class="subHeader">
+            <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de Supinfo</h2>
+            <p>Suivre Les Joies de Supinfo - <a href="<?php echo WEBSITE_URL ?>feed/">feed</a></p>
+        </div>
+        <?php } ?>
     </div>

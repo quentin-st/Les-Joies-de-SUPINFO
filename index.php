@@ -1,19 +1,15 @@
 <?php
 require_once('ljs-includes.php');
 
-/*
- * This is the main page of the project
- */
-
-// Set pageName for header.part.php template (empty for index)
-global $pageName;
-$pageName = '';
-
 // Pagination
 $page = isset($_GET['p']) ? intval($_GET['p']) : 1;
 $pagesCount = getPagesCount();
 if ($page < 1 || $page > $pagesCount)
     $page = 1;
+
+// Set pageName and homePage for header.part.php template (empty for index)
+global $pageName;   $pageName = '';
+global $homePage;   $homePage = $page == 1;
 
 include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
