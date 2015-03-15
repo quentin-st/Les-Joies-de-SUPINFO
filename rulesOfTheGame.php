@@ -12,4 +12,4 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
     </ul>
 </div>
 
-<?php include(ROOT_DIR.'/ljs-template/footer.part.php');
+<? include(ROOT_DIR.'/ljs-template/footer.part.php');

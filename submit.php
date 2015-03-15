@@ -62,14 +62,14 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
     <br />
 
     <form method="post" enctype="multipart/form-data">
-        <?php
+        <?
         $submittedBy = '';
         if (isset($_POST['submittedBy']))
             $submittedBy = $_POST['submittedBy'];
         else if (isset($_COOKIE['submittedBy']))
             $submittedBy = $_COOKIE['submittedBy'];
         ?>
-        <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="<?php echo $submittedBy ?>" class="submittedBy" />
+        <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="<?= $submittedBy ?>" class="submittedBy" />
         <input type="text" id="source" name="source" placeholder="Source du gif (optionnel)" class="source" />
 
         <input type="text" id="catchPhraseInput" name="catchPhrase" placeholder="Titre" />
@@ -163,7 +163,7 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
     });
 </script>
 
-<?php include(ROOT_DIR.'/ljs-template/footer.part.php');
+<? include(ROOT_DIR.'/ljs-template/footer.part.php');
 
 function checkCatchPhrase($catchPhrase) {
     if (strlen($catchPhrase) < 10)

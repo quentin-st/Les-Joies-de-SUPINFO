@@ -28,21 +28,21 @@ class Gif {
         ob_start();
         ?>
         <div class="gifItem">
-            <?php if ($this->source != '') { ?>
-            <a href="<?php echo $this->source ?>" class="gifSource topRightIcon" title="Source du gif" target="_blank"></a>
-            <?php } ?>
+            <? if ($this->source != '') { ?>
+            <a href="<?= $this->source ?>" class="gifSource topRightIcon" title="Source du gif" target="_blank"></a>
+            <? } ?>
             <a href="#" class="reportGif topRightIcon" title="Signaler ce gif"></a>
-            <a href="<?php echo $this->getPermalink() ?>" class="gifLink">
-                <img src="<?php echo $this->getGifUrl() ?>" alt="<?php echo $this->catchPhrase ?>" />
-                <div class="catchPhrase"><?php echo $this->catchPhrase ?></div>
+            <a href="<?= $this->getPermalink() ?>" class="gifLink">
+                <img src="<?= $this->getGifUrl() ?>" alt="<?= $this->catchPhrase ?>" />
+                <div class="catchPhrase"><?= $this->catchPhrase ?></div>
             </a>
             <div class="gifItemFooter">
-                <div>Posté le <span><?php echo $this->submissionDate->format('d-m-Y') ?></span></div>
-                <div>Proposé par <span><?php echo $this->submittedBy ?></span></div>
-                <div class="fb-like" data-href="<?php echo $this->getPermalink() ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
+                <div>Posté le <span><?= $this->submissionDate->format('d-m-Y') ?></span></div>
+                <div>Proposé par <span><?= $this->submittedBy ?></span></div>
+                <div class="fb-like" data-href="<?= $this->getPermalink() ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
             </div>
         </div>
-        <?php
+        <?
         return ob_get_clean();
     }
 }

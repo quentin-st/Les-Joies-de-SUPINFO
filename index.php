@@ -14,20 +14,20 @@ global $homePage;   $homePage = $page == 1;
 include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content">
-    <?php foreach (getGifs($page) as $gif) {
+    <? foreach (getGifs($page) as $gif) {
         echo $gif->getHTML();
     } ?>
 
     <div class="pagination">
-        <?php if ($page > 1) { ?>
-        <a href="?p=<?php echo $page-1 ?>">&lt; Plus récents</a>
-        <?php } ?>
-        Page <?php echo $page ?> / <?php echo $pagesCount ?>
-        <?php if ($page != $pagesCount) { ?>
-        <a href="?p=<?php echo $page+1 ?>">Plus anciens &gt;</a>
-        <?php } ?>
+        <? if ($page > 1) { ?>
+        <a href="?p=<?= $page-1 ?>">&lt; Plus récents</a>
+        <? } ?>
+        Page <?= $page ?> / <?= $pagesCount ?>
+        <? if ($page != $pagesCount) { ?>
+        <a href="?p=<?= $page+1 ?>">Plus anciens &gt;</a>
+        <? } ?>
     </div>
 </div>
 
-<?php include(ROOT_DIR.'/ljs-template/facebook-sdk.part.php'); ?>
-<?php include(ROOT_DIR.'/ljs-template/footer.part.php'); ?>
+<? include(ROOT_DIR.'/ljs-template/facebook-sdk.part.php'); ?>
+<? include(ROOT_DIR.'/ljs-template/footer.part.php'); ?>
