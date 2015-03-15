@@ -25,9 +25,15 @@ if ($pageName != '')
 <body>
 <div class="container">
     <div class="header">
-        <h1>Les Joies de Supinfo</h1>
-        <ul class="menu">
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="submit.php">Proposer un gif</a></li>
-        </ul>
+        <div class="row">
+            <div class="span4">
+                <a href="<?php echo WEBSITE_URL ?>"><h1>Les Joies de Supinfo</h1></a>
+            </div>
+            <div class="span4"></div>
+            <div class="span4">
+                <ul class="menu">
+                    <li><a href="<?php echo WEBSITE_URL ?>submit.php">Proposer un gif</a></li>
+                </ul>
+            </div>
+        </div>
     </div>

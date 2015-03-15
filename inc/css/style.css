@@ -4,9 +4,31 @@ body, html {
 }
 
 body {
-    background-color: #E6EAEB;
+    background-color: #ebebeb;
     font-family: 'Roboto', sans-serif;
 }
+
+.header {
+    background: #424242;
+}
+.header h1 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 22px;
+    padding: 0 30px;
+    display: inline-block;
+}
+.header a:hover { text-decoration: none; }
+
+.container {
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-top: 20px;
+    padding-bottom: 2px;
+}
+.container::before { content: none; }
 
 .footer {
     text-align: center;
@@ -93,24 +115,28 @@ body {
 /* Menu */
 ul.menu {
     list-style: none;
-    text-align: center;
-    margin: 20px 0 5px 0;
+    text-align: right;
+    margin: 16px 10px 0 0;
 }
 ul.menu > li {
     display: inline-block;
-    text-shadow: 1px 1px 2px #fff;
-    text-transform: uppercase;
-    font-size: 16px;
     margin: 3px 4px;
 }
 ul.menu li a {
-    color: #444;
+    color: #eee;
+    font-weight: 300;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 5px 13px;
     transition-duration: 200ms;
     border-radius: 2px;
+    text-shadow: 1px 1px 2px #000;
+    font-size: 16px;
 }
 ul.menu li a:hover {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    text-shadow: none;
+    color: #fff;
 }
 
 /* Submit a gif */
