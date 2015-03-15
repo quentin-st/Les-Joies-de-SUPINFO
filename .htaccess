@@ -1,5 +1,7 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # /quand-... to /gif.php?gif=quand-...
     RewriteCond %{SCRIPT_FILENAME} !-d
     RewriteCond %{SCRIPT_FILENAME} !-f
     RewriteRule ^(.*)$ ./gif.php?gif=$1
