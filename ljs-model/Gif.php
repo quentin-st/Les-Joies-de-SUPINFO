@@ -51,4 +51,5 @@ abstract class GifState {
     const SUBMITTED = 0;
     const ACCEPTED = 1;
     const REFUSED = 2;
+    const PUBLISHED = 3;
 }

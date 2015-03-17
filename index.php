@@ -18,6 +18,7 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
         echo $gif->getHTML();
     } ?>
 
+    <? if ($pagesCount > 1) { ?>
     <div class="pagination">
         <? if ($page > 1) { ?>
         <a href="?p=<?= $page-1 ?>">&lt; Plus récents</a>
@@ -27,6 +28,7 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
         <a href="?p=<?= $page+1 ?>">Plus anciens &gt;</a>
         <? } ?>
     </div>
+    <? } ?>
 </div>
 
 <? include(ROOT_DIR.'/ljs-template/facebook-sdk.part.php'); ?>
