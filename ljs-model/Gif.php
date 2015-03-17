@@ -5,7 +5,7 @@ class Gif {
     public $catchPhrase;
     public $submissionDate;
     public $submittedBy;
-    public $publicationDate;
+    public $publishDate;
     public $gifStatus;
     public $fileName;
     public $permalink;
@@ -37,7 +37,7 @@ class Gif {
                 <div class="catchPhrase"><?= $this->catchPhrase ?></div>
             </a>
             <div class="gifItemFooter">
-                <div>Posté le <span><?= $this->submissionDate->format('d-m-Y') ?></span></div>
+                <div>Posté le <span><?= $this->$publishDate->format('d-m-Y') ?></span></div>
                 <div>Proposé par <span><?= $this->submittedBy ?></span></div>
                 <div class="fb-like" data-href="<?= $this->getPermalink() ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false"></div>
             </div>

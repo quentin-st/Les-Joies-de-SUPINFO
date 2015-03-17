@@ -41,3 +41,8 @@ define('RANDOM_FILE_NAME_LENGTH', 6);
  * You can temporarily use public beta key (dc6zaTOxFJmzC)
  */
 define ('GIPHY_API_KEY', 'dc6zaTOxFJmzC');
+
+/**
+ * Max gifs posted each time the cron is run
+ */
+define('CRON_MAX_ITEMS_PER_PUBLICATION', 2);

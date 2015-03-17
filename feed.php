@@ -16,7 +16,7 @@ require_once('ljs-includes.php');
                 <title><?= $gif->catchPhrase ?></title>
                 <link><?= $gif->getPermalink() ?></link>
                 <description><?= $gif->getGifUrl() ?></description>
-                <pubDate><?= $gif->publicationDate->format('Y-m-d H:i:s') ?></pubDate>
+                <pubDate><?= $gif->publishDate->format('Y-m-d H:i:s') ?></pubDate>
             </item>
         <? } ?>
 </channel>
