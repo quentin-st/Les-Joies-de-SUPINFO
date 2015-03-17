@@ -2,6 +2,7 @@
 /**
  * @thomson: do your magic, that's just sample code
  */
+
 function getGifs($page = -1) {
     $gif1 = new Gif();
     $gif1->gifStatus = GifState::PUBLISHED;
@@ -40,17 +41,12 @@ function getGifsByState($state) {
     return getGifs();
 }
 
+function getGif($id) {
+    return getGifs()[0];
+}
+
 function getGifFromPermalink($permalink) {
-    $gif = new Gif();
-    $gif->gifStatus = GifState::PUBLISHED;
-    $gif->catchPhrase = 'Quand je vois les specs du nouveau projet';
-    $gif->fileName = 'cbel57q.gif';
-    $gif->submissionDate = new DateTime();
-    $gif->submittedBy = 'fredlopi';
-    $gif->publishDate = new DateTime();
-    $gif->source='http://lesjoiesducode.fr';
-    $gif->permalink = getUrlReadyPermalink($gif->catchPhrase);
-    return $gif;
+    return getGifs()[0];
 }
 
 function getPagesCount() {
