@@ -33,6 +33,8 @@ switch ($_POST['action']) {
             case 'refused': $gif->gifState = GifState::REFUSED; break;
         }
 
+        updateGif($gif);
+
         break;
     default:
         finishOnError('unknown_action');

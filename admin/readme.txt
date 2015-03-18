@@ -1,5 +1,0 @@
-/*
- *
- * Super secret administration
- *
- */
