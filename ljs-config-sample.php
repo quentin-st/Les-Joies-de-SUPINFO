@@ -43,6 +43,12 @@ define('RANDOM_FILE_NAME_LENGTH', 6);
 define ('GIPHY_API_KEY', 'dc6zaTOxFJmzC');
 
 /**
+ * Giphy gifs limit
+ * How many gifs are fetched from Giphy API
+ */
+define('GIPHY_GIFS_LIMIT', 24);
+
+/**
  * Max gifs posted each time the cron is run
  */
 define('CRON_MAX_ITEMS_PER_PUBLICATION', 2);

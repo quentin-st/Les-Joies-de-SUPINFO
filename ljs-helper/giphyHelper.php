@@ -13,7 +13,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'getTrendingGifs') {
 }
 
 function getTrendingGifs() {
-    $url = 'http://api.giphy.com/v1/gifs/trending?api_key=' . GIPHY_API_KEY . '&limit=24';
+    $url = 'http://api.giphy.com/v1/gifs/trending?api_key=' . GIPHY_API_KEY . '&limit=' . GIPHY_GIFS_LIMIT;
     $apiResult = file_get_contents($url);
 
     $res = array();
