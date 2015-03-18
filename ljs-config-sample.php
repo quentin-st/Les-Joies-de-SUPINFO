@@ -18,6 +18,12 @@ define('PRODUCTION', false);
 define('WEBSITE_URL', 'http://localhost/');
 
 /**
+ * Defines if we use pretty urls for single gif page
+ * Should be set to false with WAMP on Windows
+ */
+define('PRETTY_URLS', true);
+
+/**
  * Database connection parameters
  */
 define('MYSQL_HOST', 'localhost');
