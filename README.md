@@ -7,7 +7,7 @@ If you want to contribute, here's how!
 Here is a checklist for running a functional project:
 
 * Clone the repository
-        git clone git@github.com:chteuchteu/Les-Joies-de-Supinfo.git
+        `git clone git@github.com:chteuchteu/Les-Joies-de-Supinfo.git`
 * Please be sure that `short_open_tag` PHP configuration item is set to "On":
     * **Windows** (Wamp):
     Open `C:\wamp\bin\apache\apache*\bin\php.ini`, find `short_open_tag` property and switch it from `Off` to `On`. Finally, restart Wamp (left click on the icon in the task bar, "Restart all services")
@@ -20,6 +20,8 @@ Here is a checklist for running a functional project:
     * `MYSQL_HOST`, `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD` **must** be set according to your local configuration.
 
     The other configuration keys are optionnal and can be left as-is.
+
+* Execute the `create-tables.sql` script on a new database (the one you set as `MYSQL_DATABASE` configuration value)
 
 * Please be sure that the `/uploads/` directory is writable by the apache user. On Linux, you can `cd`, `chown www-data:www-data ./`, and if necessary `chmod u+w ./uploads/`.
 
