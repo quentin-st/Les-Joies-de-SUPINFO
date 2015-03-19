@@ -8,6 +8,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+hr {
+    margin-top: 45px;
+    margin-bottom: 20px;
+}
+
 .header {
     background: #424242;
 }
@@ -68,66 +73,76 @@ body {
 .footer:hover { opacity: 1; }
 
 .gifItem {
-    max-width: 600px;
-    margin: 20px auto;
-    border: 1px solid #CFCFCF;
-    border-radius: 2px;
-    background-color: #fff;
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
-    -moz-box-shadow:    0 2px 5px 0 rgba(0, 0, 0, 0.1);
-    box-shadow:         0 2px 5px 0 rgba(0, 0, 0, 0.1);
-    position: relative;
+    margin: 30px 0;
+    font-family: Roboto, sans-serif;
+    display: table;
+    width: 100%;
 }
-.gifItem a.gifLink {
-    padding: 10px;
-    display: block;
-    color: #444;
+.gifItem > * {
+    display: table-cell
+}
+.gifItem .gifInfos {
+    width: 180px;
+    padding-right: 25px;
+    opacity: 0.2;
+    transition-duration: 200ms;
+}
+.gifItem:hover .gifInfos {
+    opacity: 1;
+}
+.gifItem .gifMain img {
+    border-radius: 2px;
+}
+.gifItem .gifLink { color: #333; }
+.gifItem .gifLink:hover {
+    color: #0087F7;
     text-decoration: none;
 }
-.gifItem img {
-    display: block;
-    margin: 0 auto;
-}
 .gifItem .catchPhrase {
-    margin: 30px 50px 25px 50px;
-    text-align: center;
-    font-size: 16px;
+    font-size: 18px;
+    margin-bottom: 15px;
 }
-.gifItem .gifItemFooter {
-    background-color: #F5F8F9;
-    border-top: 1px solid #ddd;
-}
-.gifItem .gifItemFooter > * {
-    display: inline-block;
-    width: 32%;
-    padding: 10px;
-    box-sizing: border-box;
+.gifItem .gifInfos {
+    text-align: right;
     font-weight: 300;
-    text-align: center;
 }
-.gifItem .gifItemFooter > * > span {
-    font-weight: normal;
+.gifItem .gifInfos > * {
+    margin: 6px;
 }
-.gifItem .topRightIcon {
+
+.gifItem .actionIconContainer {
+    display: inline-block;
+    margin: 0 10px;
+}
+.gifItem .actionIconContainer .actionIconText {
+    opacity: 0;
+    transition-duration: 300ms;
+    font-size: 12px;
+}
+.gifItem .actionIconContainer:hover .actionIconText {
+    opacity: 1;
+}
+.gifItem .actionIconContainer { text-decoration: none!important; }
+.gifItem .actionIconContainer span.gifSourceIcon,
+.gifItem .actionIconContainer span.reportGifIcon {
     width: 16px;
     height: 16px;
-    display: block;
-    position: absolute;
-    top: 3px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 3px;
     opacity: 0.2;
     transition-duration: 200ms;
     background: url('../img/glyphicons-halflings.png');
 }
-.gifItem .topRightIcon:hover {
+.gifItem .actionIconContainer span.gifSourceIcon {
+    background-position: -117px -72px;
+}
+.gifItem .actionIconContainer span.reportGifIcon {
+    background-position: -142px -120px;
+}
+.gifItem .actionIconContainer:hover span.gifSourceIcon,
+.gifItem .actionIconContainer:hover span.reportGifIcon {
     opacity: 0.8;
-}
-.gifItem .reportGif {
-    background-position: -142px -118px;
-    right: 5px;
-}
-.gifItem .gifSource {
-    background-position: -117px -70px;
-    right: 25px;
 }
 
 /* Pagination */
