@@ -19,6 +19,27 @@ function getGifs($page = -1, $state = 'ALL') {
     return $gifs;
 }
 
+function getGifsCountBySubmitter($submitter) {
+    $stmt = getDb()->prepare('SELECT COUNT(*) FROM gifs WHERE submittedBy=:submitter');
+    $stmt->bindParam(':submitter', $submitter);
+    $stmt->execute();
+    return $stmt->fetchAll()[0][0];
+}
+
+function getGifsBySubmitter($submitter, $page) {
+    $stmt = getDb()->prepare('SELECT * FROM gifs WHERE submittedBy=:submitter
+                ORDER BY publishDate DESC LIMIT ' . ($page-1)*GIFS_PER_PAGE . ',' . GIFS_PER_PAGE);
+    $stmt->bindParam(':submitter', $submitter);
+    $stmt->execute();
+    $dbGifs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $gifs = [];
+    foreach ($dbGifs as $dbGif)
+        $gifs[] = Gif::createFromDb($dbGif);
+
+    return $gifs;
+}
+
 function getGif($id) {
     $stmt = getDb()->prepare('SELECT * FROM gifs WHERE id = :gifId');
     $stmt->bindParam(':gifId', $id);

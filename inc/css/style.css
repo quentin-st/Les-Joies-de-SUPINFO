@@ -8,6 +8,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+hr {
+    margin-top: 45px;
+    margin-bottom: 20px;
+}
+
 .header {
     background: #424242;
 }
