@@ -7,3 +7,4 @@ ljs-config.php
 uploads/*
 # ... but keep readme
 !uploads/readme.txt
+!uploads/sample.gif

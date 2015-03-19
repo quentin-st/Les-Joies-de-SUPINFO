@@ -41,9 +41,9 @@ function getGifFromPermalink($permalink) {
 }
 
 function getPagesCount() {
-    $stmt = getDb()->prepare('SELECT COUNT(*)');
-    // (int) (SELECT COUNT(*) / GIFS_PER_PAGE)
-    return 3;
+    $stmt = getDb()->prepare('SELECT CEIL(COUNT(*)/' . GIFS_PER_PAGE . ') as count FROM gifs');
+    $stmt->execute();
+    return intval($stmt->fetchAll(PDO::FETCH_ASSOC)[0]['count']);
 }
 
 function insertGif(Gif $gif) {
@@ -87,7 +87,7 @@ function insertSampleData() {
     $gif1 = new Gif();
     $gif1->gifStatus = GifState::PUBLISHED;
     $gif1->catchPhrase = 'Quand je vois les specs du nouveau projet';
-    $gif1->fileName = 'http://www.placecage.com/c/515/315';
+    $gif1->fileName = 'sample.gif';
     $gif1->submissionDate = new DateTime();
     $gif1->submittedBy = 'fredlopi';
     $gif1->publishDate = new DateTime();
@@ -98,7 +98,7 @@ function insertSampleData() {
     $gif2 = new Gif();
     $gif2->gifStatus = GifState::PUBLISHED;
     $gif2->catchPhrase = 'Quand le chef cherche quelqu’un pour taffer sur un vieux projet avec lui';
-    $gif2->fileName = 'http://www.placecage.com/c/515/315';
+    $gif2->fileName = 'sample.gif';
     $gif2->submissionDate = new DateTime();
     $gif2->submittedBy = 'fredlopi';
     $gif2->publishDate = new DateTime();
@@ -109,7 +109,7 @@ function insertSampleData() {
     $gif3 = new Gif();
     $gif3->gifStatus = GifState::PUBLISHED;
     $gif3->catchPhrase = 'Quand je déplace mon projet et que j’ai oublié de copier ses fichiers de référence';
-    $gif3->fileName = 'http://www.placecage.com/c/515/315';
+    $gif3->fileName = 'sample.gif';
     $gif3->submissionDate = new DateTime();
     $gif3->submittedBy = 'fredlopi';
     $gif3->publishDate = new DateTime();
@@ -120,7 +120,7 @@ function insertSampleData() {
     $gif4 = new Gif();
     $gif4->gifStatus = GifState::PUBLISHED;
     $gif4->catchPhrase = 'Quand je laisse le stagiaire faire sa première mise en prod';
-    $gif4->fileName = 'http://www.placecage.com/c/515/315';
+    $gif4->fileName = 'sample.gif';
     $gif4->submissionDate = new DateTime();
     $gif4->submittedBy = 'fredlopi';
     $gif4->publishDate = new DateTime();
