@@ -5,3 +5,7 @@
 function downloadFile($remoteUri, $destinationDir) {
     file_put_contents($destinationDir, fopen($remoteUri, 'r'));
 }
+
+function isImageGif($filePath) {
+    return exif_imagetype($filePath) == IMAGETYPE_GIF;
+}

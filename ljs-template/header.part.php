@@ -43,7 +43,7 @@ $isHomePage = isset($homePage) && $homePage;
         <? if ($isHomePage) { ?>
         <div class="subHeader">
             <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de Supinfo</h2>
-            <p>Suivre Les Joies de Supinfo - <a href="<?= WEBSITE_URL ?>feed.php">feed</a></p>
+            <p>Suivre Les Joies de Supinfo - <a href="<?= WEBSITE_URL ?>feed/">feed</a></p>
         </div>
         <? } ?>
     </div>
