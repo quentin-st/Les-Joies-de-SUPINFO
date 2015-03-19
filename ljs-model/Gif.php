@@ -33,7 +33,7 @@ class Gif {
         <div class="gifItem row">
             <div class="gifInfos">
                 <div>
-                    <?= $this->publishDate->format('d-m-Y') ?> -
+                    <?= getRelativeTime($this->publishDate->format('Y-m-d h:m:s')) ?> -
                     <a href="submitter.php?s=<?= $this->submittedBy ?>"><?= $this->submittedBy ?></a>
                 </div>
                 <div class="fb-like" data-href="<?= $this->getPermalink() ?>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>

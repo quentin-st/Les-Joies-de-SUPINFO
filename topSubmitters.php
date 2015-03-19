@@ -8,7 +8,10 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
     <h1>Top contributeurs</h1>
     <ol>
         <? foreach (getTopContributors() as $topCont) { ?>
-        <li><?= $topCont['contributor'] ?> <span> - <?= $topCont['gifsCount'] ?> gif<?= intval($topCont['gifsCount']) > 1 ? 's' : '' ?></span></li>
+        <li>
+            <a href="submitter.php?s=<?= $topCont['contributor'] ?>"><?= $topCont['contributor'] ?></a>
+            <span> - <?= $topCont['gifsCount'] ?> gif<?= intval($topCont['gifsCount']) > 1 ? 's' : '' ?></span>
+        </li>
         <? } ?>
     </ol>
 </div>
