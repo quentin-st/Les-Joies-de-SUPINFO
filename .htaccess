@@ -1,6 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    # /feed/ to feed.php
+    RewriteRule ^feed.*$ feed.php
+
     # /quand-... to /gif.php?gif=quand-...
     RewriteCond %{SCRIPT_FILENAME} !-d
     RewriteCond %{SCRIPT_FILENAME} !-f
