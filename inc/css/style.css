@@ -256,3 +256,15 @@ ul#giphyGifsList > li > img.notSelected:hover{ opacity: 1; }
     right: 0;
     top: 2px;
 }
+
+.topSubmitters ol li {
+    font-size: 27px;
+    color: #333;
+    font-family: Roboto, sans-serif;
+    font-weight: 300;
+}
+.topSubmitters ol li span {
+    font-size: 17px;
+    color: #555;
+    vertical-align: middle;
+}
