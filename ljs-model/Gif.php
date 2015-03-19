@@ -48,6 +48,20 @@ class Gif {
         <?
         return ob_get_clean();
     }
+
+    static function createFromDb($dbGif) {
+        $gif = new Gif();
+        $gif->id = $dbGif['id'];
+        $gif->gifStatus = $dbGif['gifStatus'];
+        $gif->catchPhrase = $dbGif['catchPhrase'];
+        $gif->fileName = $dbGif['fileName'];
+        $gif->submissionDate = new DateTime($dbGif['submissionDate']);
+        $gif->submittedBy = $dbGif['submittedBy'];
+        $gif->publishDate = new DateTime($dbGif['publishDate']);
+        $gif->source = $dbGif['source'];
+        $gif->permalink = $dbGif['permalink'];
+        return $gif;
+    }
 }
 
 abstract class GifState {

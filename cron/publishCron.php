@@ -5,7 +5,7 @@
  */
 require_once('../ljs-includes.php');
 
-$acceptedGifs = getGifsByState(GifState::ACCEPTED);
+$acceptedGifs = getGifs(-1, GifState::ACCEPTED);
 
 $reportString = PHP_EOL
               . 'Publish Cron - ' . (new DateTime())->format('Y-m-d h:m:s') . PHP_EOL;
