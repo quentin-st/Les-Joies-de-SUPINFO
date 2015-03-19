@@ -3,7 +3,10 @@
 function getGifs($page = -1, $state = 'ALL') {
     $sqlReq = 'SELECT * FROM gifs';
     if ($state != 'ALL')
-        $sqlReq.= ' WHERE gifs.state == ' . $state;
+        $sqlReq .= ' WHERE gifs.state == ' . $state;
+    $sqlReq .= ' ORDER BY publishDate DESC';
+    if ($page != -1)
+        $sqlReq .= ' LIMIT ' . ($page-1)*GIFS_PER_PAGE . ',' . GIFS_PER_PAGE;
 
     $stmt = getDb()->prepare($sqlReq);
     $stmt->execute();
