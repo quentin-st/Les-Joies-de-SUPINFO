@@ -14,8 +14,12 @@ global $homePage;   $homePage = $page == 1;
 include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content">
-    <? foreach (getGifs($page) as $gif) {
+    <?
+    $gifs = getGifs($page);
+    foreach ($gifs as $i => $gif) {
         echo $gif->getHTML();
+        if ($i != count($gifs)-1)
+            echo '<hr />';
     } ?>
 
     <? if ($pagesCount > 1) { ?>

@@ -30,19 +30,24 @@ class Gif {
     function getHTML() {
         ob_start();
         ?>
-        <div class="gifItem">
-            <? if ($this->source != '') { ?>
-            <a href="<?= $this->source ?>" class="gifSource topRightIcon" title="Source du gif" target="_blank"></a>
-            <? } ?>
-            <a href="#" class="reportGif topRightIcon" title="Signaler ce gif"></a>
-            <a href="<?= $this->getPermalink() ?>" class="gifLink">
-                <img src="<?= $this->getGifUrl() ?>" alt="<?= $this->catchPhrase ?>" />
-                <div class="catchPhrase"><?= $this->catchPhrase ?></div>
-            </a>
-            <div class="gifItemFooter">
-                <div>Posté le <span><?= $this->publishDate->format('d-m-Y') ?></span></div>
-                <div>Proposé par <span><?= $this->submittedBy ?></span></div>
+        <div class="gifItem row">
+            <div class="gifInfos">
+                <div><?= $this->publishDate->format('d-m-Y') ?> - <?= $this->submittedBy ?></div>
                 <div class="fb-like" data-href="<?= $this->getPermalink() ?>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                <? if ($this->source != '') { ?>
+                    <a href="<?= $this->source ?>" target="_blank" class="actionIconContainer">
+                        <span class="actionIconText">Source du gif</span> <span class="gifSourceIcon"></span>
+                    </a>
+                <? } ?>
+                <a href="#" class="actionIconContainer">
+                    <span class="actionIconText">Signaler ce gif</span> <span class="reportGifIcon"></span>
+                </a>
+            </div>
+            <div class="gifMain">
+                <a href="<?= $this->getPermalink() ?>" class="gifLink">
+                    <div class="catchPhrase"><?= $this->catchPhrase ?></div>
+                    <img src="<?= $this->getGifUrl() ?>" alt="<?= $this->catchPhrase ?>" />
+                </a>
             </div>
         </div>
         <?
