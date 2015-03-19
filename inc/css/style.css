@@ -50,6 +50,11 @@ body {
 }
 .container::before { content: none; }
 
+.content {
+    max-width: 800px;
+    margin: auto;
+}
+
 .footer {
     text-align: center;
     font-weight: 300;
@@ -161,10 +166,6 @@ ul.menu li a:hover {
 }
 
 /* Submit a gif */
-.submitGif {
-    max-width: 800px;
-    margin: auto;
-}
 .submitGif form { text-align: center; }
 .submitGif input[type="text"] {
     border-radius: 2px;

@@ -86,6 +86,13 @@ function updateGif($gif) {
     $stmt->execute();
 }
 
+function getTopContributors() {
+    $stmt = getDb()->prepare('SELECT submittedBy as contributor, COUNT(*) as gifsCount
+                              FROM gifs GROUP BY submittedBy ORDER BY gifsCount DESC');
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function insertSampleData() {
     $gif1 = new Gif();
     $gif1->gifStatus = GifState::PUBLISHED;
