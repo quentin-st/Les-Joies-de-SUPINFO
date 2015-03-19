@@ -23,14 +23,19 @@ $result = [ 'success' => true ];
 /* Execute request */
 switch ($_POST['action']) {
     case 'change_gif_status':
-        checkParameters('gif_id', 'new_gif_state');
+        checkParameters('gif_id', 'new_gif_state', 'caption');
 
         $gif = getGif($_POST['gif_id']);
 
+        if ($gif == null)
+            finishOnError('unkown_gif');
+
+        $gif->catchPhrase = $_POST['caption'];
+
         switch ($_POST['new_gif_state']) {
-            case 'submitted': $gif->gifState = GifState::SUBMITTED; break;
-            case 'accepted': $gif->gifState = GifState::ACCEPTED; break;
-            case 'refused': $gif->gifState = GifState::REFUSED; break;
+            case 'submitted': $gif->gifStatus = GifState::SUBMITTED; break;
+            case 'accepted': $gif->gifStatus = GifState::ACCEPTED; break;
+            case 'refused': $gif->gifStatus = GifState::REFUSED; break;
         }
 
         updateGif($gif);

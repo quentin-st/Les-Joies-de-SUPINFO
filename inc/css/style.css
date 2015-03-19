@@ -54,7 +54,9 @@ body {
     max-width: 800px;
     margin: auto;
 }
-
+.fullWidth{
+    max-width: 100%;
+}
 .footer {
     text-align: center;
     font-weight: 300;

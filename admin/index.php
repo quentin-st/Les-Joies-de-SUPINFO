@@ -43,23 +43,22 @@ if ($page < 1 || $page > $pagesCount)
             </div>
         </div>
     </div>
-    <div class="content">
+    <div class="content fullWidth">
         <div class="gifsAdmin">
             <? foreach (getGifs(-1,GifState::SUBMITTED) as $gif) {
                 ?>
                 <div class="gifItemAdmin">
                         <img src="<?= $gif->getGifUrl() ?>" alt="<?= $gif->catchPhrase ?>" />
-                        <div class="catchPhrase"><span><?= $gif->catchPhrase ?></span></div>
 
                         <div class="gifValidation">
-                            <button type="button" data-gifid="<? echo $gif->id ?>" class="btn btn-success acceptGif">Valider</button>
-                            <button type="button" data-gifid="<? echo $gif->id ?>" class="btn btn-danger rejectGif">Rejeter</button>
-                        </div>
-
-                        <div class="gifItemFooter">
-                            <div>Posté le <span><?= $gif->publishDate->format('d-m-Y') ?></span></div>
-                            <div>Proposé par <span><?= $gif->submittedBy ?></span></div>
-                            <div class="fb-like" data-href="<?= $gif->getPermalink() ?>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+                            <div><span><textarea id="caption<? echo $gif->id ?>" type="text" rows="2"><?= $gif->catchPhrase ?></textarea></span></div>
+                            <div>
+                                <span>
+                                    <button type="button" data-state="accepted" data-gifid="<? echo $gif->id ?>" class="btn btn-success btnValidation">Valider</button>
+                                    <button type="button" data-state="refused" data-gifid="<? echo $gif->id ?>" class="btn btn-danger btnValidation">Rejeter</button>
+                                </span>
+                            </div>
+                            <div><span><?= $gif->publishDate->format('d-m-Y') ?> par <?= $gif->submittedBy ?></span></div>
                         </div>
                 </div>
                 <?
@@ -72,23 +71,33 @@ if ($page < 1 || $page > $pagesCount)
 </div>
 <script src="<?= WEBSITE_URL ?>inc/js/bootstrap.min.js"></script>
 <script>
-    $('.acceptGif').click(function() {
-        var gifId = $(this).attr('data-gifid');
+    $('.btnValidation').click(function() {
         var domElement = $(this);
+        var gifId = domElement.attr('data-gifid');
+        var state = domElement.attr('data-state');
+        var caption = $('#caption'+gifId).val();
+        console.log (caption);
+        console.log();
+
         $.ajax({
             url : 'ws.php',
             type : 'POST',
             data : {
                 action : 'change_gif_status',
                 gif_id : parseInt(gifId),
-                new_gif_state : 'accepted',
+                caption : caption,
+                new_gif_state : state,
                 api_key : ''
             },
             success: function (data) {
-                domElement.parent().parent().remove();
+                console.log(data);
+                domElement.parent().parent().parent().parent().remove();
+            },
+            error:function(data){
+                console.log(data);
             }
         });
-        console.log(gifId)
+        console.log(gifId + " " + state);
     });
 </script>
 </body>

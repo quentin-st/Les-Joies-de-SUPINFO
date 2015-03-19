@@ -1,9 +1,9 @@
 <?php
 
-function getGifs($page = -1, $state = 'ALL') {
+function getGifs($page = -1, $gifStatus = -1) {
     $sqlReq = 'SELECT * FROM gifs';
-    if ($state != 'ALL')
-        $sqlReq .= ' WHERE gifs.state == ' . $state;
+    if ($gifStatus != -1)
+        $sqlReq .= ' WHERE gifStatus = ' . $gifStatus;
     $sqlReq .= ' ORDER BY publishDate DESC';
     if ($page != -1)
         $sqlReq .= ' LIMIT ' . ($page-1)*GIFS_PER_PAGE . ',' . GIFS_PER_PAGE;
