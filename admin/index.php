@@ -44,26 +44,22 @@ if ($page < 1 || $page > $pagesCount)
         </div>
     </div>
     <div class="content fullWidth">
-        <div class="gifsAdmin">
-            <? foreach (getGifs(-1,GifState::SUBMITTED) as $gif) {
-                ?>
-                <div class="gifItemAdmin">
-                        <img src="<?= $gif->getGifUrl() ?>" alt="<?= $gif->catchPhrase ?>" />
-
-                        <div class="gifValidation">
-                            <div><span><textarea id="caption<? echo $gif->id ?>" type="text" rows="2"><?= $gif->catchPhrase ?></textarea></span></div>
-                            <div>
-                                <span>
-                                    <button type="button" data-state="accepted" data-gifid="<? echo $gif->id ?>" class="btn btn-success btnValidation">Valider</button>
-                                    <button type="button" data-state="refused" data-gifid="<? echo $gif->id ?>" class="btn btn-danger btnValidation">Rejeter</button>
-                                </span>
-                            </div>
-                            <div><span><?= $gif->publishDate->format('d-m-Y') ?> par <?= $gif->submittedBy ?></span></div>
-                        </div>
-                </div>
-                <?
-            } ?>
+        <div class="adminTabs">
+            <ul class="nav nav-pills">
+                <li class="mSubmitted"><a href="index.php?state=submitted">A modérer</a></li>
+                <li class="mAccepted"><a href="index.php?state=accepted">Acceptés</a></li>
+                <li class="mRefused"><a href="index.php?state=refused">Refusés</a></li>
+            </ul>
         </div>
+        <?
+        if ( isset($_GET['state']) ){
+            switch ($_GET['state']) {
+                case 'submitted': require_once 'submitted.part.php'; break;
+                case 'refused': require_once 'refused.part.php'; break;
+                case 'accepted': require_once 'accepted.part.php'; break;
+            }
+        }else require_once 'submitted.part.php';
+        ?>
     </div>
 </div>
 <div class="footer">
