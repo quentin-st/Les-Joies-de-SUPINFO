@@ -36,11 +36,26 @@ switch ($_POST['action']) {
             case 'submitted': $gif->gifStatus = GifState::SUBMITTED; break;
             case 'accepted': $gif->gifStatus = GifState::ACCEPTED; break;
             case 'refused': $gif->gifStatus = GifState::REFUSED; break;
+            case 'published': $gif->gifStatus = GifState::PUBLISHED; $gif->publishDate = new DateTime();break;
         }
 
         updateGif($gif);
 
         break;
+
+    case 'delete_gif':
+        checkParameters('gif_id');
+
+        $gif = getGif($_POST['gif_id']);
+
+        if ($gif == null)
+            finishOnError('unknown gif');
+
+        deleteGif($gif);
+
+
+        break;
+
     default:
         finishOnError('unknown_action');
         break;

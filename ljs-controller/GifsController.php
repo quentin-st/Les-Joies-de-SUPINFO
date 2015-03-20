@@ -109,6 +109,16 @@ function updateGif($gif) {
     $stmt->execute();
 }
 
+function deleteGif($gif) {
+    $stmt = getDb()->prepare('DELETE FROM gifs WHERE id=:gifId');
+    $stmt->bindParam(':gifId', $gif->id);
+    $stmt->execute();
+
+    // Delete file
+    if ($gif->fileName != 'sample.gif')
+        unlink('../uploads/'.$gif->fileName);
+}
+
 function getTopContributors() {
     $stmt = getDb()->prepare('SELECT submittedBy as contributor, COUNT(*) as gifsCount
                               FROM gifs GROUP BY submittedBy ORDER BY gifsCount DESC');

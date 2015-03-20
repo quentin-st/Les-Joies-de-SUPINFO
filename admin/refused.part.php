@@ -9,7 +9,7 @@
                 <div>
                     <span>
                         <button type="button" data-state="accepted" data-gifid="<? echo $gif->id ?>" class="btn btn-success btnValidation">Valider</button>
-                        <button type="button" data-state="refused" data-gifid="<? echo $gif->id ?>" class="btn btn-danger btnValidation">Rejeter</button>
+                        <button type="button" data-state="deleted" data-gifid="<? echo $gif->id ?>" class="btn btn-warning btnValidation">Supprimer</button>
                     </span>
                 </div>
                 <div><span><?= $gif->publishDate->format('d-m-Y') ?> par <?= $gif->submittedBy ?></span></div>
@@ -20,4 +20,6 @@
 </div>
 <script>
     $('.mRefused').addClass('active');
+    $('.mAccepted').removeClass('active');
+    $('.mSubmitted').removeClass('active');
 </script>

@@ -18,3 +18,8 @@
     <?
     } ?>
 </div>
+<script>
+    $('.mRefused').removeClass('active');
+    $('.mAccepted').removeClass('active');
+    $('.mSubmitted').addClass('active');
+</script>

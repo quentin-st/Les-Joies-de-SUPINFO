@@ -72,14 +72,16 @@ if ($page < 1 || $page > $pagesCount)
         var gifId = domElement.attr('data-gifid');
         var state = domElement.attr('data-state');
         var caption = $('#caption'+gifId).val();
-        console.log (caption);
-        console.log();
+        var action;
+        if (state == 'deleted'){
+            action = 'delete_gif';
+        } else action = 'change_gif_status';
 
         $.ajax({
             url : 'ws.php',
             type : 'POST',
             data : {
-                action : 'change_gif_status',
+                action : action,
                 gif_id : parseInt(gifId),
                 caption : caption,
                 new_gif_state : state,
@@ -93,7 +95,6 @@ if ($page < 1 || $page > $pagesCount)
                 console.log(data);
             }
         });
-        console.log(gifId + " " + state);
     });
 </script>
 </body>
