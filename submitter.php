@@ -7,7 +7,7 @@ $submitter = $_GET['s'];
 
 // Pagination
 $page = isset($_GET['p']) ? intval($_GET['p']) : 1;
-$pagesCount = getGifsCountBySubmitter($submitter);
+$pagesCount = ceil(getGifsCountBySubmitter($submitter)/GIFS_PER_PAGE);
 if ($page < 1 || $page > $pagesCount)
     $page = 1;
 
@@ -31,11 +31,11 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
     if ($pagesCount > 1) { ?>
         <div class="pagination">
             <? if ($page > 1) { ?>
-                <a href="?p=<?= $page-1 ?>">&lt; Plus récents</a>
+                <a href="?s=<?= $submitter ?>&p=<?= $page-1 ?>">&lt; Plus récents</a>
             <? } ?>
             Page <?= $page ?> / <?= $pagesCount ?>
             <? if ($page != $pagesCount) { ?>
-                <a href="?p=<?= $page+1 ?>">Plus anciens &gt;</a>
+                <a href="?s=<?= $submitter ?>&p=<?= $page+1 ?>">Plus anciens &gt;</a>
             <? } ?>
         </div>
     <? } ?>
