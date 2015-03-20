@@ -16,9 +16,7 @@ $gif = getGifFromPermalink($gif_permalink);
 if ($gif == null)
     die();
 
-global $pageName;
-$pageName = $gif->catchPhrase;
-
+global $pageName;   $pageName = $gif->catchPhrase;
 include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content">

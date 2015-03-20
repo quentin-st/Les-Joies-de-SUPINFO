@@ -33,9 +33,10 @@ $isHomePage = isset($homePage) && $homePage;
             <div class="col-md-6">
                 <a href="<?= WEBSITE_URL ?>"><h1>Les Joies de Supinfo</h1></a>
             </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <ul class="menu">
+                    <li><a href="topGifs.php">Top gifs</a></li>
+                    <li><a href="topSubmitters.php">Top contributeurs</a></li>
                     <li><a href="<?= WEBSITE_URL ?>submit.php">Proposer un gif</a></li>
                 </ul>
             </div>

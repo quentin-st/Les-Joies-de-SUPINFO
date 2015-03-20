@@ -1,6 +1,7 @@
 <?php
 require_once('ljs-includes.php');
 
+global $pageName;   $pageName = 'Conditions d\'utilisation';
 include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content submitGif">

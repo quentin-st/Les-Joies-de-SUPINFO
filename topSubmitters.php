@@ -1,6 +1,7 @@
 <?php
 require_once('ljs-includes.php');
 
+global $pageName;   $pageName = 'Top contributeurs';
 include(ROOT_DIR.'/ljs-template/header.part.php');
 
 ?>

@@ -14,7 +14,6 @@ if ($page < 1 || $page > $pagesCount)
 $gifs = getGifsBySubmitter($submitter, $page);
 
 global $pageName;   $pageName = $submitter;
-
 include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content">

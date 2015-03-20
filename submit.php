@@ -59,6 +59,7 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
     }
 }
 
+global $pageName;   $pageName = 'Proposer un gif';
 include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
     <div class="content submitGif">
