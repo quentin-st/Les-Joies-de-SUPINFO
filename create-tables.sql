@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS gifs (
   catchPhrase varchar(255) NOT NULL,
   submissionDate datetime NOT NULL,
   submittedBy varchar(255) NOT NULL,
-  publishDate datetime NOT NULL,
+  publishDate datetime DEFAULT NULL,
   gifStatus tinyint(4) NOT NULL DEFAULT '0',
   fileName varchar(32) NOT NULL,
   permalink varchar(255) NOT NULL,

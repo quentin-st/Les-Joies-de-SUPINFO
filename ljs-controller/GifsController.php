@@ -80,7 +80,7 @@ function insertGif(Gif $gif) {
     $submissionDate = $gif->submissionDate->format('Y-m-d H:i:s');
     $stmt->bindParam(':submissionDate', $submissionDate);
     $stmt->bindParam(':submittedBy', $gif->submittedBy);
-    $publishDate = $gif->publishDate->format('Y-m-d H:i:s');
+    $publishDate = is_null($gif->publishDate) ? null : $gif->publishDate->format('Y-m-d H:i:s');
     $stmt->bindParam(':publishDate', $publishDate);
     $stmt->bindParam(':gifStatus', $gif->gifStatus);
     $stmt->bindParam(':fileName', $gif->fileName);
