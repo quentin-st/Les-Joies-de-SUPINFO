@@ -43,7 +43,7 @@ class Gif {
                     </a>
                 <? } ?>
                 <a href="#" class="actionIconContainer">
-                    <span class="actionIconText">Signaler ce gif</span> <span class="reportGifIcon"></span>
+                    <span class="actionIconText report" id="<?= $this->id ?>">Signaler ce gif</span> <span class="reportGifIcon"></span>
                 </a>
             </div>
             <div class="gifMain">

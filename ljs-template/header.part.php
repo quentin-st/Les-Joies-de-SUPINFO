@@ -25,6 +25,7 @@ $isHomePage = isset($homePage) && $homePage;
     <link href="<?= WEBSITE_URL ?>inc/css/style.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
     <script src="<?= WEBSITE_URL ?>inc/js/jquery-1.11.2.min.js"></script>
+    <script src="<?= WEBSITE_URL ?>inc/js/script.js"></script>
 </head>
 <body>
 <div class="container">
