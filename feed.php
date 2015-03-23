@@ -7,7 +7,7 @@
 header("Content-Type: application/rss+xml; charset=UTF-8");
 
 require_once('ljs-includes.php');
-echo '<?xml version="1.0" encoding="ISO-8859-1"?>'; // We have to echo it because of short tags (<?)
+echo '<?xml version="1.0" encoding="UTF-8"?>'; // We have to echo it because of short tags (<?)
 ?>
 
 <rss version="2.0">
