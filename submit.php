@@ -19,6 +19,7 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
 
     if ($gifSubmittedError === false) {
         $fileName = '';
+        $continue = true;
         if ($_POST['file_download'] != '') {
             require_once(ROOT_DIR . '/ljs-helper/downloadHandler.php');
 
@@ -34,6 +35,7 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
                 unlink('uploads/' . $fileName);
 
                 $gifSubmittedError = 'Il semble que ce fichier n\'est pas un gif.';
+                $continue = false;
             }
         } else if (!empty($_FILES)) {
             require_once(ROOT_DIR . '/ljs-helper/uploadHandler.php');
@@ -43,19 +45,22 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
                 handleFileUpload('uploads/' . $fileName);
             } catch (RuntimeException $ex) {
                 $gifSubmittedError = 'Erreur lors de l\'envoi du gif : ' . $ex;
+                $continue = false;
             }
         }
 
-        // Insert this gif in DB
-        $gif = new Gif();
-        $gif->catchPhrase = $catchPhrase;
-        $gif->fileName = $fileName;
-        $gif->gifStatus = GifState::SUBMITTED;
-        $gif->permalink = getUrlReadyPermalink($catchPhrase);
-        $gif->submissionDate = new DateTime();
-        $gif->submittedBy = $submittedBy;
-        $gif->source = $source;
-        insertGif($gif);
+        // Insert this gif in DB if no error handled this far
+        if ($continue) {
+            $gif = new Gif();
+            $gif->catchPhrase = $catchPhrase;
+            $gif->fileName = $fileName;
+            $gif->gifStatus = GifState::SUBMITTED;
+            $gif->permalink = getUrlReadyPermalink($catchPhrase);
+            $gif->submissionDate = new DateTime();
+            $gif->submittedBy = $submittedBy;
+            $gif->source = $source;
+            insertGif($gif);
+        }
     }
 }
 
