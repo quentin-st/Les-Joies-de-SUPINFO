@@ -43,7 +43,7 @@ class Gif {
                     </a>
                 <? } ?>
                 <a href="#" class="actionIconContainer">
-                    <span class="actionIconText report" id="<?= $this->id ?>">Signaler ce gif</span> <span class="reportGifIcon"></span>
+                    <span class="actionIconText report" data-id="<?= $this->id ?>">Signaler ce gif</span> <span class="reportGifIcon"></span>
                 </a>
             </div>
             <div class="gifMain">
@@ -72,7 +72,9 @@ class Gif {
     }
 }
 
-abstract class GifState {
+abstract class GifState
+{
+    const REPORTED = -1;
     const SUBMITTED = 0;
     const ACCEPTED = 1;
     const REFUSED = 2;

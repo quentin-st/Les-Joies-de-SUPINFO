@@ -10,10 +10,11 @@ $(document).ready(function() {
             $.ajax({
                 url : 'abuse.php',
                 type : 'POST',
-                data : 'id=' + $(this).attr('id'),
+                data : 'id=' + $(this).attr('data-id'),
                 context: this,
-                success : function(){
-                    $(this).parent().append('<div class="alert alert-danger">Ce gif a bien été signalé, nous allons le vérifier d\'un peu plus près.</div>');
+                success : function(msg){
+                    $(this).parent().append('<div class="alert alert-danger reported">'+msg+'</div>');
+                    setTimeout(function(){ $('.reported').remove(); }, 10000);
                 }
             });
 
