@@ -6,10 +6,10 @@ if (isset($_POST['id'])) {
     $gif = getGif($_POST['id']);
 
     if ($gif) {
-        if ($gif->gifStatus == GifState::REPORTED) {
+        if ($gif->reportStatus == ReportState::REPORTED) {
             echo "Ce gif a déjà été reporté par quelqu'un, nous y jetterons un œil dès que possible";
         } else {
-            $gif->gifStatus = GifState::REPORTED;
+            $gif->reportStatus = ReportState::REPORTED;
             updateGif($gif);
             echo "Le gif a bien été signalé, nous allons vérifier ça !";
         }

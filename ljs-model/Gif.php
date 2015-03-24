@@ -7,6 +7,7 @@ class Gif {
     public $submittedBy;
     public $publishDate;
     public $gifStatus;
+    public $reportStatus;
     public $fileName;
     public $permalink;
     public $source;
@@ -61,6 +62,7 @@ class Gif {
         $gif = new Gif();
         $gif->id = $dbGif['id'];
         $gif->gifStatus = $dbGif['gifStatus'];
+        $gif->reportStatus = $dbGif['reportStatus'];
         $gif->catchPhrase = $dbGif['catchPhrase'];
         $gif->fileName = $dbGif['fileName'];
         $gif->submissionDate = new DateTime($dbGif['submissionDate']);
@@ -74,9 +76,16 @@ class Gif {
 
 abstract class GifState
 {
-    const REPORTED = -1;
     const SUBMITTED = 0;
     const ACCEPTED = 1;
     const REFUSED = 2;
     const PUBLISHED = 3;
 }
+
+abstract class ReportState
+{
+    const NONE = 0;
+    const REPORTED = 1;
+    const IGNORED = 2;
+}
+

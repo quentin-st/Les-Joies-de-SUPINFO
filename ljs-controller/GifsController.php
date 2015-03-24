@@ -74,8 +74,8 @@ function insertGif(Gif $gif) {
     $db = getDb();
     $stmt = $db->prepare(
         'INSERT INTO gifs
-            (catchPhrase, submissionDate, submittedBy, publishDate, gifStatus, fileName, permalink, source)
-            VALUES (:catchPhrase, :submissionDate, :submittedBy, :publishDate, :gifStatus, :fileName, :permalink, :source)');
+            (catchPhrase, submissionDate, submittedBy, publishDate, gifStatus, reportStatus, fileName, permalink, source)
+            VALUES (:catchPhrase, :submissionDate, :submittedBy, :publishDate, :gifStatus, :reportStatus :fileName, :permalink, :source)');
     $stmt->bindParam(':catchPhrase', $gif->catchPhrase);
     $submissionDate = $gif->submissionDate->format('Y-m-d H:i:s');
     $stmt->bindParam(':submissionDate', $submissionDate);
@@ -83,6 +83,7 @@ function insertGif(Gif $gif) {
     $publishDate = is_null($gif->publishDate) ? null : $gif->publishDate->format('Y-m-d H:i:s');
     $stmt->bindParam(':publishDate', $publishDate);
     $stmt->bindParam(':gifStatus', $gif->gifStatus);
+    $stmt->bindParam(':reportStatus', $gif->reportStatus);
     $stmt->bindParam(':fileName', $gif->fileName);
     $stmt->bindParam(':permalink', $gif->permalink);
     $stmt->bindParam(':source', $gif->source);
@@ -93,7 +94,7 @@ function insertGif(Gif $gif) {
 
 function updateGif($gif) {
     $stmt = getDb()->prepare('UPDATE gifs SET catchPhrase=:catchPhrase, submissionDate=:submissionDate, submittedBy=:submittedBy,
-                                publishDate=:publishDate, gifStatus=:gifStatus, fileName=:fileName, permalink=:permalink, source=:source
+                                publishDate=:publishDate, gifStatus=:gifStatus, reportStatus=:reportStatus, fileName=:fileName, permalink=:permalink, source=:source
                                 WHERE id=:gifId');
     $stmt->bindParam(':catchPhrase', $gif->catchPhrase);
     $submissionDate = $gif->submissionDate->format('Y-m-d H:i:s');
@@ -102,6 +103,7 @@ function updateGif($gif) {
     $publishDate = $gif->publishDate->format('Y-m-d H:i:s');
     $stmt->bindParam(':publishDate', $publishDate);
     $stmt->bindParam(':gifStatus', $gif->gifStatus);
+    $stmt->bindParam(':reportStatus', $gif->reportStatus);
     $stmt->bindParam(':fileName', $gif->fileName);
     $stmt->bindParam(':permalink', $gif->permalink);
     $stmt->bindParam(':source', $gif->source);
@@ -128,6 +130,7 @@ function getTopContributors() {
 
 function insertSampleData() {
     $gif1 = new Gif();
+    $gif1->reportStatus = ReportState::NONE;
     $gif1->gifStatus = GifState::PUBLISHED;
     $gif1->catchPhrase = 'Quand je vois les specs du nouveau projet';
     $gif1->fileName = 'sample.gif';
@@ -139,6 +142,7 @@ function insertSampleData() {
     insertGif($gif1);
 
     $gif2 = new Gif();
+    $gif2->reportStatus = ReportState::NONE;
     $gif2->gifStatus = GifState::PUBLISHED;
     $gif2->catchPhrase = 'Quand le chef cherche quelqu’un pour taffer sur un vieux projet avec lui';
     $gif2->fileName = 'sample.gif';
@@ -150,6 +154,7 @@ function insertSampleData() {
     insertGif($gif2);
 
     $gif3 = new Gif();
+    $gif3->reportStatus = ReportState::NONE;
     $gif3->gifStatus = GifState::SUBMITTED;
     $gif3->catchPhrase = 'Quand je déplace mon projet et que j’ai oublié de copier ses fichiers de référence';
     $gif3->fileName = 'sample.gif';
@@ -161,6 +166,7 @@ function insertSampleData() {
     insertGif($gif3);
 
     $gif4 = new Gif();
+    $gif4->reportStatus = ReportState::NONE;
     $gif4->gifStatus = GifState::SUBMITTED;
     $gif4->catchPhrase = 'Quand je laisse le stagiaire faire sa première mise en prod';
     $gif4->fileName = 'sample.gif';

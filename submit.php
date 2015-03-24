@@ -54,6 +54,7 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
             $gif = new Gif();
             $gif->catchPhrase = $catchPhrase;
             $gif->fileName = $fileName;
+            $gif->reportStatus = ReportState::NONE;
             $gif->gifStatus = GifState::SUBMITTED;
             $gif->permalink = getUrlReadyPermalink($catchPhrase);
             $gif->submissionDate = new DateTime();

@@ -15,7 +15,7 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
 ?>
 <div class="content">
     <?
-    $gifs = getGifs($page);
+    $gifs = getGifs($page, GifState::PUBLISHED);
     foreach ($gifs as $i => $gif) {
         echo $gif->getHTML();
         if ($i != count($gifs)-1)
