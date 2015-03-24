@@ -19,6 +19,27 @@ function getGifs($page = -1, $gifStatus = -1) {
     return $gifs;
 }
 
+// The "ignored" param here serves to hide (default behavior) gifs that have been reported BUT ignored by the admin team.
+function getReportedGifs($ignored = false) {
+    $sqlReq = 'SELECT * FROM gifs';
+    if ($ignored) {
+        $sqlReq .= ' WHERE reportStatus > 0';
+    } else {
+        $sqlReq .= ' WHERE reportStatus = 1';
+    }
+
+    $stmt = getDb()->prepare($sqlReq);
+    $stmt->execute();
+    $dbGifs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $gifs = [];
+    foreach ($dbGifs as $dbGif)
+        $gifs[] = Gif::createFromDb($dbGif);
+
+    return $gifs;
+}
+
+
 function getGifsCountBySubmitter($submitter) {
     $stmt = getDb()->prepare('SELECT COUNT(*) FROM gifs WHERE submittedBy=:submitter');
     $stmt->bindParam(':submitter', $submitter);
@@ -75,7 +96,7 @@ function insertGif(Gif $gif) {
     $stmt = $db->prepare(
         'INSERT INTO gifs
             (catchPhrase, submissionDate, submittedBy, publishDate, gifStatus, reportStatus, fileName, permalink, source)
-            VALUES (:catchPhrase, :submissionDate, :submittedBy, :publishDate, :gifStatus, :reportStatus :fileName, :permalink, :source)');
+            VALUES (:catchPhrase, :submissionDate, :submittedBy, :publishDate, :gifStatus, :reportStatus, :fileName, :permalink, :source)');
     $stmt->bindParam(':catchPhrase', $gif->catchPhrase);
     $submissionDate = $gif->submissionDate->format('Y-m-d H:i:s');
     $stmt->bindParam(':submissionDate', $submissionDate);
@@ -130,8 +151,6 @@ function getTopContributors() {
 
 function insertSampleData() {
     $gif1 = new Gif();
-    $gif1->reportStatus = ReportState::NONE;
-    $gif1->gifStatus = GifState::PUBLISHED;
     $gif1->catchPhrase = 'Quand je vois les specs du nouveau projet';
     $gif1->fileName = 'sample.gif';
     $gif1->submissionDate = new DateTime();
@@ -142,8 +161,6 @@ function insertSampleData() {
     insertGif($gif1);
 
     $gif2 = new Gif();
-    $gif2->reportStatus = ReportState::NONE;
-    $gif2->gifStatus = GifState::PUBLISHED;
     $gif2->catchPhrase = 'Quand le chef cherche quelqu’un pour taffer sur un vieux projet avec lui';
     $gif2->fileName = 'sample.gif';
     $gif2->submissionDate = new DateTime();
@@ -154,8 +171,6 @@ function insertSampleData() {
     insertGif($gif2);
 
     $gif3 = new Gif();
-    $gif3->reportStatus = ReportState::NONE;
-    $gif3->gifStatus = GifState::SUBMITTED;
     $gif3->catchPhrase = 'Quand je déplace mon projet et que j’ai oublié de copier ses fichiers de référence';
     $gif3->fileName = 'sample.gif';
     $gif3->submissionDate = new DateTime();
@@ -166,8 +181,6 @@ function insertSampleData() {
     insertGif($gif3);
 
     $gif4 = new Gif();
-    $gif4->reportStatus = ReportState::NONE;
-    $gif4->gifStatus = GifState::SUBMITTED;
     $gif4->catchPhrase = 'Quand je laisse le stagiaire faire sa première mise en prod';
     $gif4->fileName = 'sample.gif';
     $gif4->submissionDate = new DateTime();

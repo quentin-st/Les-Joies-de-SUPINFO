@@ -43,6 +43,21 @@ switch ($_POST['action']) {
 
         break;
 
+    case 'change_report_status':
+        checkParameters('gif_id');
+
+        $gif = getGif($_POST['gif_id']);
+
+        if ($gif == null)
+            finishOnError('unkown_gif');
+
+        $gif->reportStatus = ReportState::IGNORED;
+
+        updateGif($gif);
+
+        break;
+
+
     case 'delete_gif':
         checkParameters('gif_id');
 

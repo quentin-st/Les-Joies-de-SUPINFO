@@ -13,7 +13,7 @@ $(document).ready(function() {
                 data : 'id=' + $(this).attr('data-id'),
                 context: this,
                 success : function(msg){
-                    $(this).parent().append('<div class="alert alert-danger reported">'+msg+'</div>');
+                    $(this).parent().append(msg);
                     setTimeout(function(){ $('.reported').remove(); }, 10000);
                 }
             });

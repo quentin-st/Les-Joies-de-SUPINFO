@@ -49,6 +49,7 @@ if ($page < 1 || $page > $pagesCount)
                 <li class="mSubmitted"><a href="index.php?state=submitted">A modérer</a></li>
                 <li class="mAccepted"><a href="index.php?state=accepted">Acceptés</a></li>
                 <li class="mRefused"><a href="index.php?state=refused">Refusés</a></li>
+                <li class="mReported"><a href="index.php?state=reported">Signalés</a></li>
             </ul>
         </div>
         <?
@@ -57,6 +58,7 @@ if ($page < 1 || $page > $pagesCount)
                 case 'submitted': require_once 'submitted.part.php'; break;
                 case 'refused': require_once 'refused.part.php'; break;
                 case 'accepted': require_once 'accepted.part.php'; break;
+                case 'reported': require_once 'reported.part.php'; break;
             }
         }else require_once 'submitted.part.php';
         ?>
@@ -75,6 +77,8 @@ if ($page < 1 || $page > $pagesCount)
         var action;
         if (state == 'deleted'){
             action = 'delete_gif';
+        } else if (state == 'ignored') {
+            action = 'change_report_status';
         } else action = 'change_gif_status';
 
         $.ajax({

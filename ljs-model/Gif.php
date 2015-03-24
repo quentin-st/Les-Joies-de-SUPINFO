@@ -15,6 +15,7 @@ class Gif {
     function __construct() {
         $this->id = -1;
         $this->gifStatus = GifState::SUBMITTED; // default value
+        $this->reportStatus = ReportState::NONE; // default value
     }
 
     function getPermalink() {
