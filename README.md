@@ -14,6 +14,11 @@ Here is a checklist for running a functional project:
     * **Linux**:
     Open `/etc/php5/apache2/php.ini` file, find and set the `short_open_tag` property, and `(sudo) service apache2 reload`
 
+* You also need to enable `mod_rewrite` apache module: run `(sudo) a2enmod rewrite`, then `(sudo) service apache2 restart`.
+
+* By default, on Linux, apache doesn't read `.htaccess` files. To enable this, edit the `/etc/apache2/sites-available/default` file (may change depending on the vhost you're using),
+and replace `AllowOverride None` with `AllowOverride All`. You'll have to reload apache configuration in order to apply changes: `(sudo) service apache2 reload` (a restart is not needed).
+
 * Copy `ljs-config-sample.php` to `ljs-config.php`. There are some configuration items that has to be set in order to make things work:
     * `WEBSITE_URL` should be the project absolute URL prefix. `http://localhost/` should be fine, except if you run it in a subdirectory or if apache listens on a different port.
     * `PRETTY_URL` should be set to `false` if you're running the project on Wamp. There has indeed been some compatibility issues with those on Windows.
