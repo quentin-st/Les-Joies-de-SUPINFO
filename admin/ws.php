@@ -4,7 +4,6 @@
  * Ajax calls from admin ends up here
  */
 require_once('../ljs-includes.php');
-require_once('ws.lib.php');
 
 /* Request integrity check */
 if (!isset($_POST['api_key']))
