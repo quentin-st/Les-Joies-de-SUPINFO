@@ -8,3 +8,6 @@ uploads/*
 # ... but keep readme
 !uploads/readme.txt
 !uploads/sample.gif
+
+# Ignore SASS map file
+*.css.map

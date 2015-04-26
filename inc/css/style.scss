@@ -1,0 +1,324 @@
+/**
+ * IMPORTANT: please de not edit style.css file manually.
+ *	We're using SASS to maintain styling, so your changes would be overriden.
+ *	Please edit style.scss file instead, and use a sass compiler.
+ *		Learn more about SASS: http://sass-lang.com/guide
+ *
+ *  Sass compiler arguments:  --style expanded
+ */
+
+body, html {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	background-color: #ebebeb;
+	font-family: 'Roboto', sans-serif;
+}
+
+hr {
+	margin-top: 45px;
+	margin-bottom: 20px;
+}
+
+.header {
+	background: #424242;
+
+	h1 {
+		color: #fff;
+		font-weight: 300;
+		font-size: 22px;
+		padding: 0 30px;
+		display: inline-block;
+	}
+
+	a:hover { text-decoration: none; }
+
+	.subHeader {
+		padding: 10px 30px;
+		color: #fff;
+
+		h2 {
+			font-size: 19px;
+			font-weight: 300;
+			margin: 0;
+		}
+	}
+}
+.homeHeader {
+	background: url('../img/header_background.jpg') no-repeat center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+
+	h1 {
+		font-size: 32px;
+		margin: 15px 0;
+	}
+}
+
+.container {
+	-webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+	-moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+	background-color: #fff;
+	margin-top: 20px;
+	padding: 0 0 10px 0;
+}
+.container::before { content: none; }
+
+.content {
+	max-width: 800px;
+	margin: auto;
+}
+.fullWidth{
+	max-width: 100%;
+}
+.footer {
+	text-align: center;
+	font-weight: 300;
+	opacity: 0.3;
+	transition-duration: 200ms;
+	margin: 10px 0;
+	padding: 10px 0;
+}
+.footer:hover { opacity: 1; }
+
+.gifItem {
+	margin: 30px 0;
+	font-family: Roboto, sans-serif;
+	display: table;
+	width: 100%;
+
+	> * { display: table-cell; }
+
+	.gifInfos {
+		width: 180px;
+		padding-right: 25px;
+		opacity: 0.2;
+		transition-duration: 200ms;
+	}
+
+	.gifMain img {
+		border-radius: 2px;
+	}
+
+	.gifLink { color: #333; }
+	.gifLink:hover {
+		color: #0087F7;
+		text-decoration: none;
+	}
+
+	.catchPhrase {
+		font-size: 18px;
+		margin-bottom: 15px;
+	}
+	.gifInfos {
+		text-align: right;
+		font-weight: 300;
+
+		> * { margin: 6px; }
+	}
+
+	.actionIconContainer {
+		display: inline-block;
+		margin: 0 10px;
+		text-decoration: none!important;
+
+		.actionIconText {
+			opacity: 0;
+			transition-duration: 300ms;
+			font-size: 12px;
+		}
+
+		span.gifSourceIcon,
+		span.reportGifIcon {
+			width: 16px;
+			height: 16px;
+			display: inline-block;
+			vertical-align: middle;
+			margin-left: 3px;
+			opacity: 0.2;
+			transition-duration: 200ms;
+			background: url('../img/glyphicons-halflings.png');
+		}
+		span.gifSourceIcon {
+			background-position: -117px -72px;
+		}
+		span.reportGifIcon {
+			background-position: -142px -120px;
+		}
+	}
+	.actionIconContainer:hover {
+		.actionIconText {
+			opacity: 1;
+		}
+		span.gifSourceIcon,
+		span.reportGifIcon {
+			opacity: 0.8;
+		}
+	}
+}
+.gifItem:hover .gifInfos {
+	opacity: 1;
+}
+
+/* Pagination */
+.pagination {
+	text-align: center;
+	display: block;
+
+	a {
+		margin: 0 10px;
+		padding: 10px;
+	}
+}
+
+/* Menu */
+ul.menu {
+	list-style: none;
+	text-align: right;
+	margin: 18px 10px 15px 0;
+
+	li {
+		display: inline-block;
+		margin: 3px 4px;
+
+		a {
+			color: #eee;
+			font-weight: 300;
+			border: 1px solid rgba(255, 255, 255, 0.3);
+			padding: 5px 13px;
+			transition-duration: 200ms;
+			border-radius: 2px;
+			text-shadow: 1px 1px 2px #000;
+			font-size: 16px;
+		}
+		a:hover {
+			background-color: rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.6);
+			text-shadow: none;
+			color: #fff;
+		}
+	}
+}
+
+/* Submit a gif */
+.submitGif {
+	form { text-align: center; }
+	input[type="text"] {
+		border-radius: 2px;
+		box-sizing: border-box;
+		padding: 0 10px;
+		min-height: 30px;
+		border: 1px solid #ccc;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+		-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+		-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+		transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	}
+	input[type="text"]:focus {
+		border-color: #66afe9;
+		outline: 0;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+		box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+	}
+	.submittedBy {
+		width: 47%;
+		margin: 10px 2% 10px 0;
+	}
+	.source {
+		width: 47%;
+		margin: 10px 0 10px 2%;
+	}
+	input#catchPhraseInput {
+		width: 98%;
+		display: block;
+		margin: 10px auto;
+		font-size: 20px;
+		height: 42px;
+		line-height: 42px;
+		font-family: Roboto, sans-serif;
+		font-weight: 300;
+	}
+	.uploadMethods {
+		text-align: center;
+
+		> * {
+			display: inline-block;
+			width: 49%;
+		}
+		input[type="text"] {
+			width: 100%;
+		}
+		> input[type="file"] {
+			line-height: 24px;
+		}
+	}
+	input[type="submit"] {
+		margin-top: 50px;
+	}
+}
+
+/* Submit a gif - Giphy */
+#giphyGifs {
+	background: #ededed;
+	background-image: -webkit-gradient(linear,0 0,0 2%,from(#dedede),to(#ededed));
+	background-image: -moz-linear-gradient(top,#dedede,#ededed 2%);
+	border: 1px solid #c8c8c8;
+	margin-top: 30px;
+	padding: 15px;
+	overflow-y: auto;
+	max-height: 450px;
+	position: relative;
+
+	ul#giphyGifsList {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		background: #f6f6f6;
+		border: 1px solid #c8c8c8;
+		border-radius: 2px;
+
+		> li {
+			max-width: 32%;
+			display: inline-block;
+			padding: 10px;
+			box-sizing: border-box;
+
+			> img {
+				cursor: pointer;
+				transition-duration: 300ms;
+				max-width: 100%;
+			}
+			> img.notSelected { opacity: 0.5; }
+			> img.selected,
+			> img.notSelected:hover{ opacity: 1; }
+		}
+	}
+	ul#giphyGifsList > li > img.notSelected { opacity: 0.5; }
+	ul#giphyGifsList > li > img.selected,
+	ul#giphyGifsList > li > img.notSelected:hover{ opacity: 1; }
+	.poweredByGiphy {
+		position: absolute;
+		right: 0;
+		top: 2px;
+	}
+}
+
+
+.topSubmitters ol li {
+	font-size: 27px;
+	color: #333;
+	font-family: Roboto, sans-serif;
+	font-weight: 300;
+
+	span {
+		font-size: 17px;
+		color: #555;
+		vertical-align: middle;
+	}
+}
