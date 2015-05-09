@@ -1,3 +1,4 @@
+# PhpStorm files
 .idea/
 
 # Avoid pushing local ljs-config. Copy ljs-config-sample.php instead

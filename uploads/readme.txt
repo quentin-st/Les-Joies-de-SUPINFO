@@ -1,6 +1,5 @@
 /*
- *
- * This directory contains every GIF we have
- *  (none for now, let's fix this)
- *
+ * This directory contains all uploaded & downloaded GIFs
+ *	(it must be writable by web server user (www-data on Linux),
+ *		an exception will be thrown if not)
  */
