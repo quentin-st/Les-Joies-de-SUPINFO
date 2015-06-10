@@ -17,3 +17,13 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Custom parameters
+    enable_facebook_autopost: false
+	facebook_app_id: null
+	facebook_app_secret: null
+
+	giphy_api_key: dc6zaTOxFJmzC # Development giphy api key
+	giphy_gifs_limit: 24
+
+	cron_max_items_per_publication: 2
