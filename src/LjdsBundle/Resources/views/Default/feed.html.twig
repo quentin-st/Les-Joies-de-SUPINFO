@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+    <channel>
+        <title>Les Joies de Supinfo</title>
+        <link>{{ path('index') }}</link>
+        <description></description>
+        <language>fr</language>
+        {% for gif in gifs %}
+        <item>
+            <title>{{ gif.catchPhrase }}</title>
+            <link>{{ gif.permalink }}</link>
+            <description>{{ gif.gifUrl }}</description>
+            <pubDate>{{ gif.publishDate|date('Y-m-d H:i:s') }}</pubDate>
+        </item>
+        {% endfor %}
+    </channel>
+</rss>

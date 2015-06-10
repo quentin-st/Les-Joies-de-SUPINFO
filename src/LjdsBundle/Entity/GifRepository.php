@@ -51,4 +51,17 @@ class GifRepository extends EntityRepository
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getForFeed()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('g')
+            ->from('LjdsBundle\Entity\Gif', 'g')
+            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->orderBy('g.publishDate', 'DESC');
+
+        $query = $qb->getQuery();
+        $query->execute();
+        return $query->getResult();
+    }
 }

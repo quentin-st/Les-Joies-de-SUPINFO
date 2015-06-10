@@ -6,6 +6,7 @@ use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class GifsController extends Controller
 {
@@ -54,6 +55,19 @@ class GifsController extends Controller
      */
     public function feedAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        /** @var GifRepository $gifsRepo */
+        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
 
+        $params = [
+            'gifs' => $gifsRepo->getForFeed()
+        ];
+
+        $response = new Response(
+            $this->renderView('LjdsBundle:Default:feed.html.twig', $params)
+        );
+        $response->headers->set('Content-Type', 'application/rss+xml; charset=UTF-8');
+
+        return $response;
     }
 }
