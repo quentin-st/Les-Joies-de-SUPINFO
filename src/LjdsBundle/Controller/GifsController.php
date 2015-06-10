@@ -2,6 +2,8 @@
 
 namespace LjdsBundle\Controller;
 
+use LjdsBundle\Entity\GifRepository;
+use LjdsBundle\Entity\GifState;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -9,10 +11,26 @@ class GifsController extends Controller
 {
     /**
      * @Route("/", name="index")
+     * @Route("/page/{page}", name="page")
      */
-    public function indexAction()
+    public function pageAction($page=1)
     {
-        return $this->render('LjdsBundle:Default:index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        /** @var GifRepository $gifsRepo */
+        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
+
+        // Pagination
+        $page = intval($page);
+
+        $params = [
+            'gifs' => $gifsRepo->findByGifState(GifState::PUBLISHED, $page),
+            'homePage' => $page == 1,
+            'pagination' => [
+                'page' => $page,
+                'pageCount' => $gifsRepo->getPaginationPagesCount(GifState::PUBLISHED)
+            ]
+        ];
+        return $this->render('LjdsBundle:Gifs:index.html.twig', $params);
     }
 
     /**

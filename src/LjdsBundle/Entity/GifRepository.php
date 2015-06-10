@@ -12,4 +12,33 @@ use Doctrine\ORM\EntityRepository;
  */
 class GifRepository extends EntityRepository
 {
+    private $GIFS_PER_PAGE = 5;
+
+    public function findByGifState($gifState, $page)
+    {
+        $firstResult = $this->GIFS_PER_PAGE * $page - $this->GIFS_PER_PAGE;
+
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('g')
+            ->from('LjdsBundle\Entity\Gif', 'g')
+            ->where('g.gifStatus = ' . $gifState)
+            ->orderBy('g.publishDate', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($this->GIFS_PER_PAGE);
+
+        $query = $qb->getQuery();
+        $query->execute();
+        return $query->getResult();
+    }
+
+    public function getPaginationPagesCount($gifState)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('COUNT(g.id)')
+            ->from('LjdsBundle\Entity\Gif', 'g')
+            ->where('g.gifStatus = ' . $gifState);
+        $query = $qb->getQuery();
+
+        return intval($query->getSingleScalarResult());
+    }
 }

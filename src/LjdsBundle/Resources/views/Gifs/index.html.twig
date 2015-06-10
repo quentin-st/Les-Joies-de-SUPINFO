@@ -1,0 +1,21 @@
+{% extends 'LjdsBundle:Default:parent.html.twig' %}
+
+{% block content %}
+    <div class="content">
+        {% for gif in gifs %}
+            {% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}
+            {% if not loop.last %}<hr />{% endif %}
+        {% endfor %}
+
+        {# Pagination #}
+        <div class="pagination">
+            {% if pagination.page > 1 %}
+                <a href="{{ path('page', {'page': pagination.page-1}) }}">&lt; Plus récents</a>
+            {% endif %}
+            Page {{ pagination.page }} / {{ pagination.pageCount }}
+            {% if pagination.page != pagination.pageCount %}
+                <a href="{{ path('page', {'page': pagination.page+1}) }}">Plus anciens &gt;</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="header {% if app.request.attributes.get('_route') == 'index' %}homeheader{% endif %}">
+    <div class="header {% if homePage is defined and homePage %}homeheader{% endif %}">
         <div class="row">
             <div class="col-md-6">
                 <a href="{{ path('index') }}"><h1>Les Joies de Supinfo</h1></a>
@@ -29,7 +29,7 @@
                 </ul>
             </div>
         </div>
-        {% if app.request.attributes.get('_route') == '/' %}
+        {% if homePage is defined and homePage %}
             <div class="subHeader">
                 <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de Supinfo</h2>
                 <p>Suivre Les Joies de Supinfo - <a href="{{ path('feed') }}">feed</a></p>

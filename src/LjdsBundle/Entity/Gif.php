@@ -302,3 +302,18 @@ class Gif
         return $this->source;
     }
 }
+
+abstract class GifState
+{
+    const SUBMITTED = 0;
+    const ACCEPTED = 1;
+    const REFUSED = 2;
+    const PUBLISHED = 3;
+}
+
+abstract class ReportState
+{
+    const NONE = 0;
+    const REPORTED = 1;
+    const IGNORED = 2;
+}
