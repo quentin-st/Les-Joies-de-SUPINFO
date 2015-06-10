@@ -32,6 +32,21 @@ class GifRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findBySubmitter($submitter)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('g')
+            ->from('LjdsBundle\Entity\Gif', 'g')
+            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->andWhere('g.submittedBy = :submittedBy')
+            ->setParameter('submittedBy', $submitter)
+            ->orderBy('g.publishDate', 'DESC');
+
+        $query = $qb->getQuery();
+        $query->execute();
+        return $query->getResult();
+    }
+
     public function getPaginationPagesCount($gifState)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -40,7 +55,9 @@ class GifRepository extends EntityRepository
             ->where('g.gifStatus = ' . $gifState);
         $query = $qb->getQuery();
 
-        return intval($query->getSingleScalarResult());
+        $gifsCount = intval($query->getSingleScalarResult());
+
+        return ceil($gifsCount/$this->GIFS_PER_PAGE);
     }
 
     public function getTopSubmitters()

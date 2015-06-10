@@ -1,0 +1,12 @@
+{% extends 'LjdsBundle:Default:parent.html.twig' %}
+
+{% block content %}
+    <div class="content">
+        <h1>Contributions par {{ submitter }}</h1>
+
+        {% for gif in gifs %}
+            {% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}
+            {% if not loop.last %}<hr />{% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
