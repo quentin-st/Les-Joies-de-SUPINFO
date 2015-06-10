@@ -3,6 +3,7 @@
 namespace LjdsBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use PDO;
 
 /**
  * GifRepository
@@ -40,5 +41,14 @@ class GifRepository extends EntityRepository
         $query = $qb->getQuery();
 
         return intval($query->getSingleScalarResult());
+    }
+
+    public function getTopSubmitters()
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare('SELECT submittedBy as name, COUNT(*) as gifsCount
+                              FROM gif GROUP BY submittedBy ORDER BY gifsCount DESC');
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
