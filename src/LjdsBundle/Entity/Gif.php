@@ -45,7 +45,7 @@ class Gif
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="publishDate", type="datetime")
+     * @ORM\Column(name="publishDate", type="datetime", nullable=true)
      */
     private $publishDate;
 
