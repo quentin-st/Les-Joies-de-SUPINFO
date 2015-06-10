@@ -1,0 +1,20 @@
+security:
+    providers:
+        in_memory:
+            memory:
+                users:
+                    SupAdmin: { password: IknowYouCanSeeThisAllRight?, roles: 'ROLE_ADMIN' }
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        default:
+            anonymous: ~
