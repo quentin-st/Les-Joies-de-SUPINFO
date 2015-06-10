@@ -1,51 +1,45 @@
-.adminTabs{
-    margin:5px 10px;
-}
+.adminTabs {
+  margin: 5px 10px; }
 
-.gifsAdmin{
-    text-align: center;
-    margin:10px 0;
-}
-.gifItemAdmin{
+ul.gifsAdmin {
+  text-align: center;
+  margin: 10px 0; }
+  ul.gifsAdmin li {
     position: relative;
-    display:inline-block;
-    width:48%;
+    display: inline-block;
+    width: 48%;
     height: 210px;
     vertical-align: top;
-    margin:0 5px 10px 5px;
-}
-.gifItemAdmin img{
-    height: 210px;
-}
-.gifValidation{
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 210px;
-    color:white;
-    transition-duration: 200ms;
-    border-radius: 2px;
-}
-.gifValidation div{
-    display: table;
-    width: 100%;
-    height: 70px;
-    text-align: center;
-}
-.gifValidation div span{
-    display: table-cell;
-    vertical-align: middle;
-}
-.gifValidation div textarea{
-    background-color: rgba(0, 0, 0, 0);
-    text-align: center;
-    width:95%;
-    border:0;
-    resize:none;
-}
-.gifItemAdmin:hover > .gifValidation{
-    opacity: 1;
-    background-color: rgba(0, 0, 0, 0.8);
-}
+    margin: 0 5px 10px 5px;
+    list-style: none; }
+    ul.gifsAdmin li img {
+      height: 210px; }
+    ul.gifsAdmin li .gifValidation {
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 210px;
+      color: white;
+      transition-duration: 200ms;
+      border-radius: 2px; }
+      ul.gifsAdmin li .gifValidation textarea {
+        background-color: transparent;
+        text-align: center;
+        width: 95%;
+        border: 0;
+        resize: none; }
+      ul.gifsAdmin li .gifValidation div {
+        display: table;
+        width: 100%;
+        height: 70px;
+        text-align: center; }
+        ul.gifsAdmin li .gifValidation div span {
+          display: table-cell;
+          vertical-align: middle; }
+    ul.gifsAdmin li:hover > .gifValidation {
+      opacity: 1;
+      background-color: rgba(0, 0, 0, 0.8); }
+
+/*# sourceMappingURL=style_admin.css.map */
