@@ -13,13 +13,13 @@ class LjdsExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFilter(
-                'relativeTime',
-                [$this, 'relativeTime']
+                'relativeDate',
+                [$this, 'relativeDate']
             )
         ];
     }
 
-    public function relativeTime(\DateTime $datetime)
+    public function relativeDate(\DateTime $datetime)
     {
         $time = time() - strtotime($datetime->format('Y-m-d h:m:s'));
 
