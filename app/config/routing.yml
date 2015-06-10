@@ -2,7 +2,3 @@ ljds:
     resource: "@LjdsBundle/Controller/"
     type:     annotation
     prefix:   /
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
