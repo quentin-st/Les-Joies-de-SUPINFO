@@ -1,14 +1,13 @@
-# PhpStorm files
-.idea/
+/app/bootstrap.php.cache
+/app/cache/*
+!app/cache/.gitkeep
+/app/config/parameters.yml
+/app/logs/*
+!app/logs/.gitkeep
+/app/phpunit.xml
+/bin/
+/composer.phar
+/vendor/
+/web/bundles/
 
-# Avoid pushing local ljs-config. Copy ljs-config-sample.php instead
-ljs-config.php
-
-# Do not track uploads
-uploads/*
-# ... but keep readme
-!uploads/readme.txt
-!uploads/sample.gif
-
-# Ignore SASS map file
-*.css.map
+.idea
