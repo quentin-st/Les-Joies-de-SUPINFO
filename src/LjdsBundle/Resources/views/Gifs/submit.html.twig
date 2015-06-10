@@ -33,80 +33,82 @@
 
             <input type="submit" value="Proposer" />
         </form>
-
-        <script type="application/javascript">
-            $(document).ready(function() {
-                var giphyGifsList = $('#giphyGifsList');
-
-                $('#catchPhraseInput').keyup(function() {
-                    var text = $(this).val();
-
-                    var warningsList = [];
-                    // Rules
-                    if (text.substring(0, 'Quand'.length) != 'Quand')
-                        warningsList[warningsList.length] = 'Le titre doit commencer par "Quand"';
-
-                    // No point
-                    if (text.substring(text.length-1) == '.')
-                        warningsList[warningsList.length] = 'Le titre ne doit pas terminer par un point';
-
-                    if (text.length > 120)
-                        warningsList[warningsList.length] = 'Le titre ne doit pas être trop long';
-                    else if (text.length < 10)
-                        warningsList[warningsList.length] = 'Le titre est trop court';
-
-                    var warnings = $('#warnings');
-                    warnings.html('');
-                    for (var i=0; i<warningsList.length; i++)
-                        warnings.append('<li>' + warningsList[i] + '</li>');
-                });
-
-                $('#ajaxLoading').css('visibility', 'visible');
-
-                $.ajax({
-                    url: '{{ path('giphyProxy') }}',
-                    method: 'POST',
-                    data: {
-                        action: 'getTrendingGifs'
-                    },
-                    success: function(jsonData) {
-                        if (jsonData.success) {
-                            $('#giphyGifs').show();
-                            $('#ajaxLoading').hide();
-
-                            for (var i=0; i<jsonData.gifs.length; i++) {
-                                var imageUrl = jsonData.gifs[i]['image'];
-                                var sourceUrl = jsonData.gifs[i]['url'];
-                                giphyGifsList.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
-                            }
-                        }
-                    },
-                    error: function(data) {
-                        console.log(data);
-                    }
-                });
-
-                // Select one gif
-                giphyGifsList.on('click', 'img', function(e) {
-                    var img = $(this);
-                    $('#source').val(img.attr('data-source'));
-                    $('#giphy_url').val(img.attr('src'));
-                    giphyGifsList.find('img').removeClass('selected');
-                    giphyGifsList.find('img').addClass('notSelected');
-                    $(this).addClass('selected');
-
-                    // Avoid onclick on giphyGifsList (that's for unselecting gif)
-                    e.stopPropagation();
-                });
-
-                // Unselect all gifs
-                giphyGifsList.click(function() {
-                    $('#source').val('');
-                    $('#giphy_url').val('');
-                    giphyGifsList.find('img').removeClass('selected');
-                    giphyGifsList.find('img').removeClass('notSelected');
-                });
-            });
-        </script>
     </div>
+{% endblock %}
+
+{% block customScripts %}
+	<script>
+		$(document).ready(function() {
+			var giphyGifsList = $('#giphyGifsList');
+
+			$('#catchPhraseInput').keyup(function() {
+				var text = $(this).val();
+
+				var warningsList = [];
+				// Rules
+				if (text.substring(0, 'Quand'.length) != 'Quand')
+					warningsList[warningsList.length] = 'Le titre doit commencer par "Quand"';
+
+				// No point
+				if (text.substring(text.length-1) == '.')
+					warningsList[warningsList.length] = 'Le titre ne doit pas terminer par un point';
+
+				if (text.length > 120)
+					warningsList[warningsList.length] = 'Le titre ne doit pas être trop long';
+				else if (text.length < 10)
+					warningsList[warningsList.length] = 'Le titre est trop court';
+
+				var warnings = $('#warnings');
+				warnings.html('');
+				for (var i=0; i<warningsList.length; i++)
+					warnings.append('<li>' + warningsList[i] + '</li>');
+			});
+
+			$('#ajaxLoading').css('visibility', 'visible');
+
+			$.ajax({
+				url: '{{ path('giphyProxy') }}',
+				method: 'POST',
+				data: {
+					action: 'getTrendingGifs'
+				},
+				success: function(jsonData) {
+					if (jsonData.success) {
+						$('#giphyGifs').show();
+						$('#ajaxLoading').hide();
+
+						for (var i=0; i<jsonData.gifs.length; i++) {
+							var imageUrl = jsonData.gifs[i]['image'];
+							var sourceUrl = jsonData.gifs[i]['url'];
+							giphyGifsList.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
+						}
+					}
+				},
+				error: function(data) {
+					console.log(data);
+				}
+			});
+
+			// Select one gif
+			giphyGifsList.on('click', 'img', function(e) {
+				var img = $(this);
+				$('#source').val(img.attr('data-source'));
+				$('#giphy_url').val(img.attr('src'));
+				giphyGifsList.find('img').removeClass('selected');
+				giphyGifsList.find('img').addClass('notSelected');
+				$(this).addClass('selected');
+
+				// Avoid onclick on giphyGifsList (that's for unselecting gif)
+				e.stopPropagation();
+			});
+
+			// Unselect all gifs
+			giphyGifsList.click(function() {
+				$('#source').val('');
+				$('#giphy_url').val('');
+				giphyGifsList.find('img').removeClass('selected');
+				giphyGifsList.find('img').removeClass('notSelected');
+			});
+		});
+	</script>
 {% endblock %}
