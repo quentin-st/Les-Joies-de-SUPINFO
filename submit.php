@@ -16,23 +16,17 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy']) && isset($_POST
         $gifSubmittedError = 'La phrase n\'est pas valide';
     }
 
-    if ($gifSubmittedError === false) {
-        $fileName = '';
-
-        if ($_POST['giphy_url'] != '') {
-            $fileUri = $_POST['giphy_url'];
-
-            $gif = new Gif();
-            $gif->catchPhrase = $catchPhrase;
-            $gif->fileName = $fileName;
-            $gif->reportStatus = ReportState::NONE;
-            $gif->gifStatus = GifState::SUBMITTED;
-            $gif->permalink = getUrlReadyPermalink($catchPhrase);
-            $gif->submissionDate = new DateTime();
-            $gif->submittedBy = $submittedBy;
-            $gif->source = $source;
-            insertGif($gif);
-        }
+    if ($gifSubmittedError === false && $_POST['giphy_url'] != '') {
+        $gif = new Gif();
+        $gif->catchPhrase = $catchPhrase;
+        $gif->fileName = $_POST['giphy_url'];
+        $gif->reportStatus = ReportState::NONE;
+        $gif->gifStatus = GifState::SUBMITTED;
+        $gif->permalink = getUrlReadyPermalink($catchPhrase);
+        $gif->submissionDate = new DateTime();
+        $gif->submittedBy = $submittedBy;
+        $gif->source = $source;
+        insertGif($gif);
     }
 }
 

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS gifs (
   publishDate datetime DEFAULT NULL,
   reportStatus tinyint(4) NOT NULL DEFAULT '0',
   gifStatus tinyint(4) NOT NULL DEFAULT '0',
-  fileName varchar(32) NOT NULL,
+  fileName varchar(256) NOT NULL,
   permalink varchar(255) NOT NULL,
   `source` varchar(255) NOT NULL,
   PRIMARY KEY (id)
