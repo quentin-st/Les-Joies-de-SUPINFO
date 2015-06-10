@@ -20,10 +20,10 @@ parameters:
 
     # Custom parameters
     enable_facebook_autopost: false
-	facebook_app_id: null
-	facebook_app_secret: null
+    facebook_app_id: null
+    facebook_app_secret: null
 
-	giphy_api_key: dc6zaTOxFJmzC # Development giphy api key
-	giphy_gifs_limit: 24
+    giphy_api_key: dc6zaTOxFJmzC # Development giphy api key
+    giphy_gifs_limit: 24
 
-	cron_max_items_per_publication: 2
+    cron_max_items_per_publication: 2
