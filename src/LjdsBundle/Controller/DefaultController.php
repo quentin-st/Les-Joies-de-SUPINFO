@@ -12,6 +12,6 @@ class DefaultController extends Controller
      */
     public function rulesOfTheGameAction()
     {
-
+        return $this->render('LjdsBundle:Default:rulesOfTheGame.html.twig');
     }
 }
