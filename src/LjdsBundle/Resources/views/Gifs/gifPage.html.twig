@@ -1,0 +1,7 @@
+{% extends 'LjdsBundle:Default:parent.html.twig' %}
+
+{% block content %}
+	<div class="content">
+		{% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}
+	</div>
+{% endblock %}

@@ -107,6 +107,7 @@ class AdminController extends Controller
 
 	private static function checkApiKey($apiKey)
 	{
+		// TODO
 		return true;
 	}
 

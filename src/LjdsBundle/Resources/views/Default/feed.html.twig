@@ -8,8 +8,8 @@
         {% for gif in gifs %}
         <item>
             <title>{{ gif.catchPhrase }}</title>
-            <link>{{ gif.permalink }}</link>
-            <description>{{ gif.gifUrl }}</description>
+            <link>{{ url('gif', {'permalink': gif.permalink}) }}</link>
+            <description>{{ gif.fileName }}</description>
             <pubDate>{{ gif.publishDate|date('Y-m-d H:i:s') }}</pubDate>
         </item>
         {% endfor %}

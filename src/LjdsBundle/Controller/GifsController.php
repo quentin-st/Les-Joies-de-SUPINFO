@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GifsController extends Controller
 {
@@ -38,6 +39,29 @@ class GifsController extends Controller
         ];
         return $this->render('LjdsBundle:Gifs:index.html.twig', $params);
     }
+
+	/**
+	 * @Route("/gif/{permalink}", name="gif")
+	 */
+	public function gifAction($permalink)
+	{
+		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifsRepo */
+		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
+
+		$gif = $gifsRepo->findOneBy([
+			'permalink' => $permalink
+		]);
+
+		if (!$gif)
+			throw new NotFoundHttpException();
+
+		$params = [
+			'gif' => $gif
+		];
+
+		return $this->render('LjdsBundle:Gifs:gifPage.html.twig', $params);
+	}
 
     /**
      * @Route("/submit", name="submit")
@@ -101,7 +125,7 @@ class GifsController extends Controller
      */
     public function topGifsAction()
     {
-
+		// TODO
     }
 
     /**
