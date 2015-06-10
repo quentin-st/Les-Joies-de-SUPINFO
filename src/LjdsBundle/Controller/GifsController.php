@@ -28,17 +28,33 @@ class GifsController extends Controller
 
         // Pagination
         $page = intval($page);
+		$gifsPerPage = intval($this->getParameter('gifs_per_page'));
 
         $params = [
-            'gifs' => $gifsRepo->findByGifState(GifState::PUBLISHED, $page),
+            'gifs' => $gifsRepo->findByGifState(GifState::PUBLISHED, $page, $gifsPerPage),
             'homePage' => $page == 1,
             'pagination' => [
                 'page' => $page,
-                'pageCount' => $gifsRepo->getPaginationPagesCount(GifState::PUBLISHED)
+                'pageCount' => $gifsRepo->getPaginationPagesCount(GifState::PUBLISHED, $gifsPerPage)
             ]
         ];
-        return $this->render('LjdsBundle:Gifs:index.html.twig', $params);
+        return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
     }
+
+	/**
+	 * @Route("/top", name="top")
+	 */
+	public function topGifsAction()
+	{
+		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifsRepo */
+		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
+
+		$params = [
+			'gifs' => $gifsRepo->getTop(20)
+		];
+		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
+	}
 
 	/**
 	 * @Route("/gif/{permalink}", name="gif")
@@ -118,14 +134,6 @@ class GifsController extends Controller
         );
 
         return $response;
-    }
-
-    /**
-     * @Route("/top", name="top")
-     */
-    public function topGifsAction()
-    {
-		// TODO
     }
 
     /**
