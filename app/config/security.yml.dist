@@ -16,5 +16,8 @@ security:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
 
-        default:
+        secured_area:
+            pattern:    ^/
             anonymous: ~
+            http_basic:
+                realm: "Secured Demo Area"
