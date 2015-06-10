@@ -301,6 +301,17 @@ class Gif
     {
         return $this->source;
     }
+
+    public function generateUrlReadyPermalink()
+    {
+        $permalink = $this->getCatchPhrase();
+        $permalink = str_replace(' ', '-', $permalink);
+        $permalink = preg_replace('/[^A-Za-z0-9\-]/', '', $permalink);
+        $permalink = strtolower($permalink);
+        $permalink = urlencode($permalink);
+        $this->permalink = $permalink;
+        return $permalink;
+    }
 }
 
 abstract class GifState
