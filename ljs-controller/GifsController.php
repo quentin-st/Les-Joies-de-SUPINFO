@@ -86,7 +86,7 @@ function getGifFromPermalink($permalink) {
 }
 
 function getPagesCount() {
-    $stmt = getDb()->prepare('SELECT CEIL(COUNT(*)/' . GIFS_PER_PAGE . ') as count FROM gifs');
+    $stmt = getDb()->prepare('SELECT CEIL(COUNT(*)/' . GIFS_PER_PAGE . ') as count FROM gifs WHERE gifStatus = ' . GifState::PUBLISHED);
     $stmt->execute();
     return intval($stmt->fetchAll(PDO::FETCH_ASSOC)[0]['count']);
 }
