@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}Les Joies de Supinfo</title>
+    <meta name="description" content="">
+    <meta name="author" content="Quentin Stoeckel, Frédéric Strebler, Thomas Nold">
+    <link href="{{ asset('bundles/ljds/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/ljds/css/bootstrap-theme.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('bundles/ljds/css/style.css') }}" rel="stylesheet" />
+    <script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ asset('bundles/ljds/js/script.js') }}"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div class="container">
+    <div class="header {% if app.request.attributes.get('_route') == 'index' %}homeheader{% endif %}">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{{ path('index') }}"><h1>Les Joies de Supinfo</h1></a>
+            </div>
+            <div class="col-md-6">
+                <ul class="menu">
+                    <li><a href="{{ path('top') }}">Top gifs</a></li>
+                    <li><a href="{{ path('topSubmitters') }}">Top contributeurs</a></li>
+                    <li><a href="{{ path('submit') }}">Proposer un gif</a></li>
+                </ul>
+            </div>
+        </div>
+        {% if app.request.attributes.get('_route') == '/' %}
+            <div class="subHeader">
+                <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de Supinfo</h2>
+                <p>Suivre Les Joies de Supinfo - <a href="{{ path('feed') }}">feed</a></p>
+            </div>
+        {% endif %}
+    </div>
+    {% block content %}{% endblock %}
+</div>
+<div class="footer">
+    <a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo">Contribuer</a> &bull; <a href="{{ path('rulesOfTheGame') }}">Conditions d'utilisation</a>
+</div>
+<script src="{{ asset('bundles/ljds/js/bootstrap.min.js') }}"></script>
+</body>
+</html>
