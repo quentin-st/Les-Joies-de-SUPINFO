@@ -7,9 +7,7 @@
         <ol>
             {% for submitter in submitters %}
                 <li>
-                    <a href="{{ path('submitter', {'submitter': submitter.name}) }}">
-                        {{ submitter.name }}
-                    </a>
+                    <a href="{{ path('submitter', {'submitter': submitter.name}) }}">{{ submitter.name }}</a>
                     <span> - {{ submitter.gifsCount }} gif{% if submitter.gifsCount > 1 %}s{% endif %}</span>
                 </li>
             {% endfor %}
