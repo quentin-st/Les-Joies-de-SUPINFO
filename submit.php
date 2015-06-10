@@ -3,8 +3,7 @@ require_once('ljs-includes.php');
 
 $gifSubmitted = false;
 $gifSubmittedError = false;
-if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
-    && (isset($_POST['file_upload']) || isset($_POST['file_download']))) {
+if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy']) && isset($_POST['giphy_url'])) {
     $gifSubmitted = true;
     $submittedBy = $_POST['submittedBy'];
     $catchPhrase = $_POST['catchPhrase'];
@@ -19,38 +18,10 @@ if (isset($_POST['catchPhrase']) && isset($_POST['submittedBy'])
 
     if ($gifSubmittedError === false) {
         $fileName = '';
-        $continue = true;
-        if ($_POST['file_download'] != '') {
-            require_once(ROOT_DIR . '/ljs-helper/downloadHandler.php');
 
-            $fileUri = $_POST['file_download'];
+        if ($_POST['giphy_url'] != '') {
+            $fileUri = $_POST['giphy_url'];
 
-            // Generate filename
-            $fileName = generateRandomFileName('uploads/', RANDOM_FILE_NAME_LENGTH, '.gif');
-
-            // Download this file
-            downloadFile($fileUri, 'uploads/' . $fileName);
-
-            if (!isImageGif('uploads/' . $fileName)) {
-                unlink('uploads/' . $fileName);
-
-                $gifSubmittedError = 'Il semble que ce fichier n\'est pas un gif.';
-                $continue = false;
-            }
-        } else if (!empty($_FILES)) {
-            require_once(ROOT_DIR . '/ljs-helper/uploadHandler.php');
-
-            $fileName = generateRandomFileName('uploads/', RANDOM_FILE_NAME_LENGTH, '.gif');
-            try {
-                handleFileUpload('uploads/' . $fileName);
-            } catch (RuntimeException $ex) {
-                $gifSubmittedError = 'Erreur lors de l\'envoi du gif : ' . $ex;
-                $continue = false;
-            }
-        }
-
-        // Insert this gif in DB if no error handled this far
-        if ($continue) {
             $gif = new Gif();
             $gif->catchPhrase = $catchPhrase;
             $gif->fileName = $fileName;
@@ -90,27 +61,18 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
                 $submittedBy = $_COOKIE['submittedBy'];
             ?>
             <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="<?= $submittedBy ?>" class="submittedBy" />
-            <input type="text" id="source" name="source" placeholder="Source du gif (optionnel)" class="source" />
+            <input type="hidden" id="source" name="source" class="source" />
 
             <input type="text" id="catchPhraseInput" name="catchPhrase" placeholder="Titre" />
             <ul id="warnings"></ul>
 
-            <input id="giphy_ajax" type="button" value="Besoin d'inspiration ?" /> <img id="ajaxLoading" src="inc/img/ajax-loader.gif" style="visibility: hidden;" />
+            <img id="ajaxLoading" src="inc/img/ajax-loader.gif" style="visibility: hidden;" />
             <div id="giphyGifs" style="display: none;">
                 <img src="inc/img/poweredByGiphy.png" class="poweredByGiphy" />
                 <ul id="giphyGifsList"></ul>
             </div>
 
-            <div class="uploadMethods">
-                <div>
-                    <h3>Envoyer un fichier</h3>
-                    <input type="file" name="file_upload" />
-                </div>
-                <div>
-                    <h3>Télécharger un fichier</h3>
-                    <input type="text" id="file_download" name="file_download" placeholder="URL vers le fichier .gif" />
-                </div>
-            </div>
+            <input type="hidden" id="giphy_url" name="giphy_url" />
 
             <input type="submit" value="Proposer" />
         </form>
@@ -144,41 +106,37 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
                     warnings.append('<li>' + warningsList[i] + '</li>');
             });
 
-            $('#giphy_ajax').click(function () {
-                $('#ajaxLoading').css('visibility', 'visible');
+            $('#ajaxLoading').css('visibility', 'visible');
 
-                $.ajax({
-                    url: 'ljs-helper/giphyHelper.php',
-                    method: 'POST',
-                    data: {
-                        action: 'getTrendingGifs'
-                    },
-                    success: function(data) {
-                        var jsonData = JSON.parse(data);
-                        if (jsonData.success) {
-                            $('#giphy_ajax').remove();
-                            $('#giphyGifs').show();
-                            $('.uploadMethods').children().first().css('opacity', '0.2');
-                            $('#ajaxLoading').hide();
+            $.ajax({
+                url: 'ljs-helper/giphyHelper.php',
+                method: 'POST',
+                data: {
+                    action: 'getTrendingGifs'
+                },
+                success: function(data) {
+                    var jsonData = JSON.parse(data);
+                    if (jsonData.success) {
+                        $('#giphyGifs').show();
+                        $('#ajaxLoading').hide();
 
-                            for (var i=0; i<jsonData.gifs.length; i++) {
-                                var imageUrl = jsonData.gifs[i]['image'];
-                                var sourceUrl = jsonData.gifs[i]['url'];
-                                giphyGifsList.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
-                            }
+                        for (var i=0; i<jsonData.gifs.length; i++) {
+                            var imageUrl = jsonData.gifs[i]['image'];
+                            var sourceUrl = jsonData.gifs[i]['url'];
+                            giphyGifsList.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
                         }
-                    },
-                    error: function(data) {
-                        console.log(data);
                     }
-                });
+                },
+                error: function(data) {
+                    console.log(data);
+                }
             });
 
             // Select one gif
             giphyGifsList.on('click', 'img', function(e) {
                 var img = $(this);
                 $('#source').val(img.attr('data-source'));
-                $('#file_download').val(img.attr('src'));
+                $('#giphy_url').val(img.attr('src'));
                 giphyGifsList.find('img').removeClass('selected');
                 giphyGifsList.find('img').addClass('notSelected');
                 $(this).addClass('selected');
@@ -190,7 +148,7 @@ include(ROOT_DIR.'/ljs-template/header.part.php');
             // Unselect all gifs
             giphyGifsList.click(function() {
                 $('#source').val('');
-                $('#file_download').val('');
+                $('#giphy_url').val('');
                 giphyGifsList.find('img').removeClass('selected');
                 giphyGifsList.find('img').removeClass('notSelected');
             });

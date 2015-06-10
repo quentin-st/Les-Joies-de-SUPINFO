@@ -26,7 +26,7 @@ class Gif {
     }
 
     function getGifUrl() {
-        return WEBSITE_URL . 'uploads/' . $this->fileName;
+        return $this->fileName;
     }
 
     function getHTML() {
