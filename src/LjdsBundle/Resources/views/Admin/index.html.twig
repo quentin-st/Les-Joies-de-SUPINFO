@@ -1,38 +1,52 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
+{% block customStyle %}
+	<link href="{{ asset('bundles/ljds/css/style_admin.css') }}" rel="stylesheet" />
+{% endblock %}
+
 {% block content %}
     <div class="content fullWidth">
         <div class="adminTabs">
             <ul class="nav nav-pills">
-                <li class="mSubmitted"><a href="{{ path('admin', {'gifState': 'submitted'}) }}">A modérer</a></li>
-                <li class="mAccepted"><a href="{{ path('admin', {'gifState': 'accepted'}) }}">Acceptés</a></li>
-                <li class="mRefused"><a href="{{ path('admin', {'gifState': 'refused'}) }}">Refusés</a></li>
-                <li class="mReported"><a href="{{ path('admin', {'gifState': 'reported'}) }}">Signalés</a></li>
+                <li class="mSubmitted {% if type == 'submitted' %}active{% endif %}"><a href="{{ path('admin', {'type': 'submitted'}) }}">A modérer</a></li>
+                <li class="mAccepted {% if type == 'accepted' %}active{% endif %}"><a href="{{ path('admin', {'type': 'accepted'}) }}">Acceptés</a></li>
+                <li class="mRefused {% if type == 'refused' %}active{% endif %}"><a href="{{ path('admin', {'type': 'refused'}) }}">Refusés</a></li>
+                <li class="mReported {% if type == 'reported' %}active{% endif %}"><a href="{{ path('admin', {'type': 'reported'}) }}">Signalés</a></li>
             </ul>
         </div>
 
-        <div class="gifsAdmin">
+        <ul class="gifsAdmin">
             {% for gif in gifs %}
-                <div class="gifItemAdmin">
-                    <img src="{{ gif.gifUrl }}" alt="{{ gif.catchPhrase }}" />
+                <li>
+                    <img src="{{ gif.fileName }}" alt="{{ gif.catchPhrase }}" />
 
                     <div class="gifValidation">
                         <div>
                             <span>
-                                <textarea id="caption{{ gif.id }}" type="text" rows="2">
-                                    {{ gif.catchPhrase }}
-                                </textarea>
+                                <textarea id="caption{{ gif.id }}" type="text" rows="2">{{ gif.catchPhrase }}</textarea>
                             </span>
                         </div>
                         <div>
                             <span>
-                                <button type="button" data-state="" />
+								{% if type == 'accepted' %}
+									<button type="button" data-state="published" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Publier</button>
+									<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
+								{% elseif type == 'refused' %}
+									<button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
+                        			<button type="button" data-state="deleted" data-gifid="{{ gif.id }}" class="btn btn-warning btnValidation">Supprimer</button>
+								{% elseif type == 'reported' %}
+									<button type="button" data-state="ignored" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Ignorer</button>
+                        			<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Supprimer</button>
+								{% elseif type == 'submitted' %}
+									<button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
+                        			<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
+								{% endif %}
                             </span>
                         </div>
                     </div>
-                </div>
+                </li>
             {% endfor %}
-        </div>
+        </ul>
     </div>
 {% endblock %}
 
@@ -51,7 +65,7 @@
             } else action = 'change_gif_status';
 
             $.ajax({
-                url : 'ws.php',
+                url : '{{ path('adminApi') }}',
                 type : 'POST',
                 data : {
                     action : action,

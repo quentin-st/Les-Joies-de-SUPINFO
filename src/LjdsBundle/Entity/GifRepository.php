@@ -15,7 +15,7 @@ class GifRepository extends EntityRepository
 {
     private $GIFS_PER_PAGE = 5;
 
-    public function findByGifState($gifState, $page)
+    public function findByGifState($gifState, $page=-1)
     {
         $firstResult = $this->GIFS_PER_PAGE * $page - $this->GIFS_PER_PAGE;
 
@@ -23,9 +23,12 @@ class GifRepository extends EntityRepository
         $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g')
             ->where('g.gifStatus = ' . $gifState)
-            ->orderBy('g.publishDate', 'DESC')
-            ->setFirstResult($firstResult)
-            ->setMaxResults($this->GIFS_PER_PAGE);
+            ->orderBy('g.publishDate', 'DESC');
+
+		if ($page != -1) {
+			$qb->setFirstResult($firstResult)
+				->setMaxResults($this->GIFS_PER_PAGE);
+		}
 
         $query = $qb->getQuery();
         $query->execute();

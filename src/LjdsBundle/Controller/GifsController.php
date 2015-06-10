@@ -136,7 +136,7 @@ class GifsController extends Controller
 
         if (!$post->has('action')
             || !in_array($post->get('action'), $valid_actions)) {
-            return new JsonResponse([ 'error' => 'Invalid action' ], 300);
+            return new JsonResponse([ 'error' => 'Invalid action' ], 500);
         }
 
         $giphy_api_key = $this->getParameter('giphy_api_key');
@@ -145,7 +145,7 @@ class GifsController extends Controller
         $apiResult = file_get_contents($url);
 
         if ($apiResult === false) {
-            return new JsonResponse([ 'error' => 'Invalid Giphy response' ], 300);
+            return new JsonResponse([ 'error' => 'Invalid Giphy response' ], 500);
         }
 
         $json = json_decode($apiResult, true);
