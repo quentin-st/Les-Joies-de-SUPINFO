@@ -1,0 +1,18 @@
+{% extends 'LjdsBundle:Default:parent.html.twig' %}
+
+{% block content %}
+    <div class="content topSubmitters">
+        <h1>Top contributeurs</h1>
+
+        <ol>
+            {% for submitter in submitters %}
+                <li>
+                    <a href="{{ path('submitter', {'submitter': submitter.name}) }}">
+                        {{ submitter.name }}
+                    </a>
+                    <span> - {{ submitter.gifsCount }} gif{% if submitter.gifsCount > 1 %}s{% endif %}</span>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock %}
