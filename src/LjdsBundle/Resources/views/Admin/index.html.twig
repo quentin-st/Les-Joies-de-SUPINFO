@@ -1,0 +1,73 @@
+{% extends 'LjdsBundle:Default:parent.html.twig' %}
+
+{% block content %}
+    <div class="content fullWidth">
+        <div class="adminTabs">
+            <ul class="nav nav-pills">
+                <li class="mSubmitted"><a href="{{ path('admin', {'gifState': 'submitted'}) }}">A modérer</a></li>
+                <li class="mAccepted"><a href="{{ path('admin', {'gifState': 'accepted'}) }}">Acceptés</a></li>
+                <li class="mRefused"><a href="{{ path('admin', {'gifState': 'refused'}) }}">Refusés</a></li>
+                <li class="mReported"><a href="{{ path('admin', {'gifState': 'reported'}) }}">Signalés</a></li>
+            </ul>
+        </div>
+
+        <div class="gifsAdmin">
+            {% for gif in gifs %}
+                <div class="gifItemAdmin">
+                    <img src="{{ gif.gifUrl }}" alt="{{ gif.catchPhrase }}" />
+
+                    <div class="gifValidation">
+                        <div>
+                            <span>
+                                <textarea id="caption{{ gif.id }}" type="text" rows="2">
+                                    {{ gif.catchPhrase }}
+                                </textarea>
+                            </span>
+                        </div>
+                        <div>
+                            <span>
+                                <button type="button" data-state="" />
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block customScripts %}
+    <script>
+        $('.btnValidation').click(function() {
+            var domElement = $(this);
+            var gifId = domElement.attr('data-gifid');
+            var state = domElement.attr('data-state');
+            var caption = $('#caption'+gifId).val();
+            var action;
+            if (state == 'deleted'){
+                action = 'delete_gif';
+            } else if (state == 'ignored') {
+                action = 'change_report_status';
+            } else action = 'change_gif_status';
+
+            $.ajax({
+                url : 'ws.php',
+                type : 'POST',
+                data : {
+                    action : action,
+                    gif_id : parseInt(gifId),
+                    caption : caption,
+                    new_gif_state : state,
+                    api_key : ''
+                },
+                success: function (data) {
+                    console.log(data);
+                    domElement.parent().parent().parent().parent().remove();
+                },
+                error:function(data){
+                    console.log(data);
+                }
+            });
+        });
+    </script>
+{% endblock %}

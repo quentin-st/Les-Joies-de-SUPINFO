@@ -10,8 +10,6 @@
     <link href="{{ asset('bundles/ljds/css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/ljds/css/bootstrap-theme.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('bundles/ljds/css/style.css') }}" rel="stylesheet" />
-    <script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
-    <script src="{{ asset('bundles/ljds/js/script.js') }}"></script>
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -42,5 +40,8 @@
     <a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo">Contribuer</a> &bull; <a href="{{ path('rulesOfTheGame') }}">Conditions d'utilisation</a>
 </div>
 <script src="{{ asset('bundles/ljds/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
+<script src="{{ asset('bundles/ljds/js/script.js') }}"></script>
+{% block customScripts %}{% endblock %}
 </body>
 </html>

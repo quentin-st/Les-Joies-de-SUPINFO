@@ -9,9 +9,14 @@ class AdminController extends Controller
 {
     /**
      * @Route("/admin/", name="admin")
+     * @Route("/admin/{gifState}")
      */
-    public function adminAction()
+    public function adminAction($gifState='accepted')
     {
+        $params = [
+
+        ];
+
         return $this->render('LjdsBundle:Admin:index.html.twig');
     }
 }
