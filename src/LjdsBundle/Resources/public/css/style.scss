@@ -359,3 +359,16 @@ ul.menu {
 		vertical-align: middle;
 	}
 }
+
+.errorPage {
+	div {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	div.errorNumber {
+		font-size: 160px;
+		font-family: Helvetica, sans-serif;
+		color: #555;
+		margin: 0 10px;
+	}
+}

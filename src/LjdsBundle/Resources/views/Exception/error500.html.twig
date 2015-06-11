@@ -1,0 +1,13 @@
+{% extends 'LjdsBundle:Default:parent.html.twig' %}
+
+{% block content %}
+    <div class="content errorPage">
+        <div class="errorNumber">500</div>
+        <div>
+            <p>Une erreur serveur est survenue...</p>
+            <p>Vous pouvez <a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo">ouvrir une <i>issue</i> sur GitHub</a> pour nous avertir !</p>
+            <br />
+            <p><a href="{{ path('index') }}">< Retour</a></p>
+        </div>
+    </div>
+{% endblock %}

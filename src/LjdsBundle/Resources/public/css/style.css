@@ -9,53 +9,43 @@
 /* SASS mixins */
 body, html {
   padding: 0;
-  margin: 0;
-}
+  margin: 0; }
 
 body {
   background-color: #ebebeb;
-  font-family: 'Roboto', sans-serif;
-}
+  font-family: 'Roboto', sans-serif; }
 
 hr {
   margin-top: 45px;
-  margin-bottom: 20px;
-}
+  margin-bottom: 20px; }
 
 .header {
-  background: #424242;
-}
-.header h1 {
-  color: #fff;
-  font-weight: 300;
-  font-size: 22px;
-  padding: 0 30px;
-  display: inline-block;
-}
-.header a:hover {
-  text-decoration: none;
-}
-.header .subHeader {
-  padding: 10px 30px;
-  color: #fff;
-}
-.header .subHeader h2 {
-  font-size: 19px;
-  font-weight: 300;
-  margin: 0;
-}
+  background: #424242; }
+  .header h1 {
+    color: #fff;
+    font-weight: 300;
+    font-size: 22px;
+    padding: 0 30px;
+    display: inline-block; }
+  .header a:hover {
+    text-decoration: none; }
+  .header .subHeader {
+    padding: 10px 30px;
+    color: #fff; }
+    .header .subHeader h2 {
+      font-size: 19px;
+      font-weight: 300;
+      margin: 0; }
 
 .homeHeader {
   background: url("../img/header_background.jpg") no-repeat center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-}
-.homeHeader h1 {
-  font-size: 32px;
-  margin: 15px 0;
-}
+  background-size: cover; }
+  .homeHeader h1 {
+    font-size: 32px;
+    margin: 15px 0; }
 
 .container {
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
@@ -64,21 +54,17 @@ hr {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   background-color: #fff;
   margin-top: 20px;
-  padding: 0 0 10px 0;
-}
+  padding: 0 0 10px 0; }
 
 .container::before {
-  content: none;
-}
+  content: none; }
 
 .content {
   max-width: 800px;
-  margin: auto;
-}
+  margin: auto; }
 
 .fullWidth {
-  max-width: 100%;
-}
+  max-width: 100%; }
 
 .footer {
   text-align: center;
@@ -90,151 +76,125 @@ hr {
   -o-transition-duration: 200ms;
   transition-duration: 200ms;
   margin: 10px 0;
-  padding: 10px 0;
-}
+  padding: 10px 0; }
 
 .footer:hover {
   opacity: 1;
-  filter: alpha(opacity=100);
-}
+  filter: alpha(opacity=100); }
 
 .gifItem {
   margin: 30px 0;
   font-family: Roboto, sans-serif;
   display: table;
-  width: 100%;
-}
-.gifItem > * {
-  display: table-cell;
-}
-.gifItem .gifInfos {
-  width: 180px;
-  padding-right: 25px;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-  transition-duration: 200ms;
-}
-.gifItem .gifMain img {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  border-radius: 2px;
-}
-.gifItem .gifLink {
-  color: #333;
-}
-.gifItem .gifLink:hover {
-  color: #0087F7;
-  text-decoration: none;
-}
-.gifItem .catchPhrase {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-.gifItem .gifInfos {
-  text-align: right;
-  font-weight: 300;
-}
-.gifItem .gifInfos > * {
-  margin: 6px;
-}
-.gifItem .actionIconContainer {
-  display: inline-block;
-  margin: 0 10px;
-  text-decoration: none !important;
-}
-.gifItem .actionIconContainer .actionIconText {
-  opacity: 0;
-  filter: alpha(opacity=0);
-  -webkit-transition-duration: 300ms;
-  -moz-transition-duration: 300ms;
-  -o-transition-duration: 300ms;
-  transition-duration: 300ms;
-  font-size: 12px;
-}
-.gifItem .actionIconContainer span.gifSourceIcon,
-.gifItem .actionIconContainer span.reportGifIcon {
-  width: 16px;
-  height: 16px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 3px;
-  opacity: 0.2;
-  filter: alpha(opacity=20);
-  -webkit-transition-duration: 200ms;
-  -moz-transition-duration: 200ms;
-  -o-transition-duration: 200ms;
-  transition-duration: 200ms;
-  background: url("../img/glyphicons-halflings.png");
-}
-.gifItem .actionIconContainer span.gifSourceIcon {
-  background-position: -117px -72px;
-}
-.gifItem .actionIconContainer span.reportGifIcon {
-  background-position: -142px -120px;
-}
-.gifItem .actionIconContainer:hover .actionIconText {
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-.gifItem .actionIconContainer:hover span.gifSourceIcon,
-.gifItem .actionIconContainer:hover span.reportGifIcon {
-  opacity: 0.8;
-  filter: alpha(opacity=80);
-}
+  width: 100%; }
+  .gifItem > * {
+    display: table-cell; }
+  .gifItem .gifInfos {
+    width: 180px;
+    padding-right: 25px;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    transition-duration: 200ms; }
+  .gifItem .gifMain img {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px; }
+  .gifItem .gifLink {
+    color: #333; }
+  .gifItem .gifLink:hover {
+    color: #0087F7;
+    text-decoration: none; }
+  .gifItem .catchPhrase {
+    font-size: 18px;
+    margin-bottom: 15px; }
+  .gifItem .gifInfos {
+    text-align: right;
+    font-weight: 300; }
+    .gifItem .gifInfos > * {
+      margin: 6px; }
+  .gifItem .actionIconContainer {
+    display: inline-block;
+    margin: 0 10px;
+    text-decoration: none !important; }
+    .gifItem .actionIconContainer .actionIconText {
+      opacity: 0;
+      filter: alpha(opacity=0);
+      -webkit-transition-duration: 300ms;
+      -moz-transition-duration: 300ms;
+      -o-transition-duration: 300ms;
+      transition-duration: 300ms;
+      font-size: 12px; }
+    .gifItem .actionIconContainer span.gifSourceIcon,
+    .gifItem .actionIconContainer span.reportGifIcon {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 3px;
+      opacity: 0.2;
+      filter: alpha(opacity=20);
+      -webkit-transition-duration: 200ms;
+      -moz-transition-duration: 200ms;
+      -o-transition-duration: 200ms;
+      transition-duration: 200ms;
+      background: url("../img/glyphicons-halflings.png"); }
+    .gifItem .actionIconContainer span.gifSourceIcon {
+      background-position: -117px -72px; }
+    .gifItem .actionIconContainer span.reportGifIcon {
+      background-position: -142px -120px; }
+  .gifItem .actionIconContainer:hover .actionIconText {
+    opacity: 1;
+    filter: alpha(opacity=100); }
+  .gifItem .actionIconContainer:hover span.gifSourceIcon,
+  .gifItem .actionIconContainer:hover span.reportGifIcon {
+    opacity: 0.8;
+    filter: alpha(opacity=80); }
 
 .gifItem:hover .gifInfos {
   opacity: 1;
-  filter: alpha(opacity=100);
-}
+  filter: alpha(opacity=100); }
 
 /* Pagination */
 .pagination {
   text-align: center;
-  display: block;
-}
-.pagination a {
-  margin: 0 10px;
-  padding: 10px;
-}
+  display: block; }
+  .pagination a {
+    margin: 0 10px;
+    padding: 10px; }
 
 /* Menu */
 ul.menu {
   list-style: none;
   text-align: right;
-  margin: 18px 10px 15px 0;
-}
-ul.menu li {
-  display: inline-block;
-  margin: 3px 4px;
-}
-ul.menu li a {
-  color: #eee;
-  font-weight: 300;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 5px 13px;
-  -webkit-transition-duration: 200ms;
-  -moz-transition-duration: 200ms;
-  -o-transition-duration: 200ms;
-  transition-duration: 200ms;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  border-radius: 2px;
-  text-shadow: 1px 1px 2px #000;
-  font-size: 16px;
-}
-ul.menu li a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  text-shadow: none;
-  color: #fff;
-}
+  margin: 18px 10px 15px 0; }
+  ul.menu li {
+    display: inline-block;
+    margin: 3px 4px; }
+    ul.menu li a {
+      color: #eee;
+      font-weight: 300;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 5px 13px;
+      -webkit-transition-duration: 200ms;
+      -moz-transition-duration: 200ms;
+      -o-transition-duration: 200ms;
+      transition-duration: 200ms;
+      -webkit-border-radius: 2px;
+      -moz-border-radius: 2px;
+      -ms-border-radius: 2px;
+      border-radius: 2px;
+      text-shadow: 1px 1px 2px #000;
+      font-size: 16px; }
+    ul.menu li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-shadow: none;
+      color: #fff; }
 
 /* Submit a gif */
 .submitGif form {
-  text-align: center;
-}
+  text-align: center; }
 .submitGif input[type="text"] {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -253,24 +213,20 @@ ul.menu li a:hover {
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -moz-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-}
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s; }
 .submitGif input[type="text"]:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
   -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-}
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
 .submitGif .submittedBy {
   width: 47%;
-  margin: 10px 2% 10px 0;
-}
+  margin: 10px 2% 10px 0; }
 .submitGif .source {
   width: 47%;
-  margin: 10px 0 10px 2%;
-}
+  margin: 10px 0 10px 2%; }
 .submitGif input#catchPhraseInput {
   width: 98%;
   display: block;
@@ -279,24 +235,18 @@ ul.menu li a:hover {
   height: 42px;
   line-height: 42px;
   font-family: Roboto, sans-serif;
-  font-weight: 300;
-}
+  font-weight: 300; }
 .submitGif .uploadMethods {
-  text-align: center;
-}
-.submitGif .uploadMethods > * {
-  display: inline-block;
-  width: 49%;
-}
-.submitGif .uploadMethods input[type="text"] {
-  width: 100%;
-}
-.submitGif .uploadMethods > input[type="file"] {
-  line-height: 24px;
-}
+  text-align: center; }
+  .submitGif .uploadMethods > * {
+    display: inline-block;
+    width: 49%; }
+  .submitGif .uploadMethods input[type="text"] {
+    width: 100%; }
+  .submitGif .uploadMethods > input[type="file"] {
+    line-height: 24px; }
 .submitGif input[type="submit"] {
-  margin-top: 50px;
-}
+  margin-top: 50px; }
 
 /* Submit a gif - Giphy */
 #giphyGifs {
@@ -308,69 +258,67 @@ ul.menu li a:hover {
   padding: 15px;
   overflow-y: auto;
   max-height: 450px;
-  position: relative;
-}
-#giphyGifs ul#giphyGifsList {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  background: #f6f6f6;
-  border: 1px solid #c8c8c8;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  border-radius: 2px;
-}
-#giphyGifs ul#giphyGifsList > li {
-  max-width: 32%;
-  display: inline-block;
-  padding: 10px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-#giphyGifs ul#giphyGifsList > li > img {
-  cursor: pointer;
-  -webkit-transition-duration: 300ms;
-  -moz-transition-duration: 300ms;
-  -o-transition-duration: 300ms;
-  transition-duration: 300ms;
-  max-width: 100%;
-}
-#giphyGifs ul#giphyGifsList > li > img.notSelected {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-#giphyGifs ul#giphyGifsList > li > img.selected,
-#giphyGifs ul#giphyGifsList > li > img.notSelected:hover {
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-#giphyGifs ul#giphyGifsList > li > img.notSelected {
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-}
-#giphyGifs ul#giphyGifsList > li > img.selected,
-#giphyGifs ul#giphyGifsList > li > img.notSelected:hover {
-  opacity: 1;
-  filter: alpha(opacity=100);
-}
-#giphyGifs .poweredByGiphy {
-  position: absolute;
-  right: 0;
-  top: 2px;
-}
+  position: relative; }
+  #giphyGifs ul#giphyGifsList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #f6f6f6;
+    border: 1px solid #c8c8c8;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px; }
+    #giphyGifs ul#giphyGifsList > li {
+      max-width: 32%;
+      display: inline-block;
+      padding: 10px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box; }
+      #giphyGifs ul#giphyGifsList > li > img {
+        cursor: pointer;
+        -webkit-transition-duration: 300ms;
+        -moz-transition-duration: 300ms;
+        -o-transition-duration: 300ms;
+        transition-duration: 300ms;
+        max-width: 100%; }
+      #giphyGifs ul#giphyGifsList > li > img.notSelected {
+        opacity: 0.5;
+        filter: alpha(opacity=50); }
+      #giphyGifs ul#giphyGifsList > li > img.selected,
+      #giphyGifs ul#giphyGifsList > li > img.notSelected:hover {
+        opacity: 1;
+        filter: alpha(opacity=100); }
+  #giphyGifs ul#giphyGifsList > li > img.notSelected {
+    opacity: 0.5;
+    filter: alpha(opacity=50); }
+  #giphyGifs ul#giphyGifsList > li > img.selected,
+  #giphyGifs ul#giphyGifsList > li > img.notSelected:hover {
+    opacity: 1;
+    filter: alpha(opacity=100); }
+  #giphyGifs .poweredByGiphy {
+    position: absolute;
+    right: 0;
+    top: 2px; }
 
 .topSubmitters ol li {
   font-size: 27px;
   color: #333;
   font-family: Roboto, sans-serif;
-  font-weight: 300;
-}
-.topSubmitters ol li span {
-  font-size: 17px;
+  font-weight: 300; }
+  .topSubmitters ol li span {
+    font-size: 17px;
+    color: #555;
+    vertical-align: middle; }
+
+.errorPage div {
+  display: inline-block;
+  vertical-align: middle; }
+.errorPage div.errorNumber {
+  font-size: 160px;
+  font-family: Helvetica, sans-serif;
   color: #555;
-  vertical-align: middle;
-}
+  margin: 0 10px; }
 
 /*# sourceMappingURL=style.css.map */
