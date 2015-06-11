@@ -95,7 +95,9 @@ class GifRepository extends EntityRepository
     {
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare('SELECT submittedBy as name, COUNT(*) as gifsCount
-                              FROM gif GROUP BY submittedBy ORDER BY gifsCount DESC');
+                              FROM gif
+                              WHERE gifStatus = ' . GifState::PUBLISHED . '
+                              GROUP BY submittedBy ORDER BY gifsCount DESC');
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
