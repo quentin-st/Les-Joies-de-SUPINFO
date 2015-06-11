@@ -224,8 +224,6 @@ class GifsController extends Controller
             ], 404);
         }
 
-        $message = '';
-        $class = '';
         switch ($gif->getReportStatus()) {
             case ReportState::REPORTED:
                 $message = "Ce gif a déjà été reporté par quelqu'un, nous y jetterons un œil dès que possible";
