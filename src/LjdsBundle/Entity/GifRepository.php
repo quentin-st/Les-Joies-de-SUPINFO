@@ -35,6 +35,9 @@ class GifRepository extends EntityRepository
 	{
 		$gifs = $this->findByGifState(GifState::PUBLISHED, 1, $amount);
 
+        if (count($gifs) == 0)
+            return [];
+
 		$likes = FacebookHelper::getFacebookLikes($gifs);
 
 		$list = [];
