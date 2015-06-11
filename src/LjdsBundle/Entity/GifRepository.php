@@ -44,6 +44,22 @@ class GifRepository extends EntityRepository
 		return $list;
 	}
 
+    public function getReportedGifs($ignored = false)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('g')
+            ->from('LjdsBundle\Entity\Gif', 'g');
+
+        if ($ignored)
+            $qb->where('g.reportStatus > 0');
+        else
+            $qb->where('g.reportStatus = 1');
+
+        $query = $qb->getQuery();
+        $query->execute();
+        return $query->getResult();
+    }
+
     public function findBySubmitter($submitter)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();

@@ -139,7 +139,7 @@ class AdminController extends Controller
 				$gifs = $gifRepo->findByGifState($gifState);
 				break;
 			case 'reported':
-				// TODO
+				$gifs = $gifRepo->getReportedGifs();
 				break;
 			default:
 				throw new NotFoundHttpException();
