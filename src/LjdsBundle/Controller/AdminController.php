@@ -12,6 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends Controller
@@ -152,5 +153,31 @@ class AdminController extends Controller
         ];
 
         return $this->render('LjdsBundle:Admin:index.html.twig', $params);
+    }
+
+    /**
+     * @Route("/stats/{type}")
+     */
+    public function statsAction($type)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var GifRepository $gifRepo */
+        $gifRepo = $em->getRepository('LjdsBundle:Gif');
+
+        $response = '';
+        switch ($type)
+        {
+            case 'publish_queue': // How many gifs are waiting to be published
+                $response = $gifRepo->getCountByGifState(GifState::ACCEPTED);
+                break;
+            case 'waiting_for_approval': // How many gifs are submitted and are waiting for approval
+                $response = $gifRepo->getCountByGifState(GifState::SUBMITTED);
+                break;
+            default:
+                $response = 'unknown_action';
+                break;
+        }
+
+        return new Response($response);
     }
 }

@@ -114,4 +114,15 @@ class GifRepository extends EntityRepository
         $query->execute();
         return $query->getResult();
     }
+
+    public function getCountByGifState($gifState)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('COUNT(g.id)')
+            ->from('LjdsBundle\Entity\Gif', 'g')
+            ->where('g.gifStatus = ' . $gifState);
+        $query = $qb->getQuery();
+
+        return intval($query->getSingleScalarResult());
+    }
 }
