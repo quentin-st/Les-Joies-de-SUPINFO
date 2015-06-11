@@ -8,12 +8,12 @@ $(document).ready(function() {
 
             // Ajax call to abuse.php
             $.ajax({
-                url : 'abuse.php',
+                url : '/abuse',
                 type : 'POST',
                 data : 'id=' + $(this).attr('data-id'),
                 context: this,
-                success : function(msg){
-                    $(this).parent().append(msg);
+                success : function(data){
+                    $(this).parent().append('<div class="alert ' + data.class + ' reported">' + data.message + '</div>');
                     setTimeout(function(){ $('.reported').remove(); }, 10000);
                 }
             });

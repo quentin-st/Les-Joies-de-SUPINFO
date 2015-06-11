@@ -195,4 +195,58 @@ class GifsController extends Controller
             'success' => true
         ]);
     }
+
+    /**
+     * @Route("/abuse")
+     */
+    public function abuseAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var GifRepository $gifsRepo */
+        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
+
+        $post = $request->request;
+
+        if (!$post->has('id')) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => 'Invalid request'
+            ], 500);
+        }
+
+        /** @var Gif $gif */
+        $gif = $gifsRepo->find($post->get('id'));
+
+        if (!$gif) {
+            return new JsonResponse([
+                'success' => false,
+                'message' => 'Gif not found'
+            ], 404);
+        }
+
+        $message = '';
+        $class = '';
+        switch ($gif->getReportStatus()) {
+            case ReportState::REPORTED:
+                $message = "Ce gif a déjà été reporté par quelqu'un, nous y jetterons un œil dès que possible";
+                $class = 'alert-warning';
+                break;
+            case ReportState::IGNORED:
+                $message = 'La modération a décidé de ne pas supprimer ce gif malgré un précédent signalement.';
+                $class = 'alert-danger';
+                break;
+            default:
+                $gif->setReportStatus(ReportState::REPORTED);
+                $em->flush();
+                $message = "Merci d'avoir signalé ce gif, nous y jetterons un œil dès que possible";
+                $class = 'alert-info';
+                break;
+        }
+
+        return new JsonResponse([
+            'success' => true,
+            'message' => $message,
+            'class' => $class
+        ]);
+    }
 }
