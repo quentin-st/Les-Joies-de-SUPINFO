@@ -28,3 +28,4 @@ parameters:
 
     cron_max_items_per_publication: 2
     gifs_per_page: 5
+    admin_api_key: null

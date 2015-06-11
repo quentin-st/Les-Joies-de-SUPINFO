@@ -105,10 +105,9 @@ class AdminController extends Controller
 		return true;
 	}
 
-	private static function checkApiKey($apiKey)
+	private function checkApiKey($apiKey)
 	{
-		// TODO
-		return true;
+		return $apiKey == $this->getParameter('admin_api_key');
 	}
 
 	private static function apiError($error)
@@ -148,7 +147,8 @@ class AdminController extends Controller
 
         $params = [
 			'gifs' => $gifs,
-			'type' => $type
+			'type' => $type,
+            'admin_api_key' => $this->getParameter('admin_api_key')
         ];
 
         return $this->render('LjdsBundle:Admin:index.html.twig', $params);
