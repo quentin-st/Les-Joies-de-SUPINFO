@@ -31,3 +31,7 @@ parameters:
     admin_api_key: null
 
     analytics_tracking_code: null
+
+twig:
+    globals:
+        analytics_tracking_code: %analytics_tracking_code%
