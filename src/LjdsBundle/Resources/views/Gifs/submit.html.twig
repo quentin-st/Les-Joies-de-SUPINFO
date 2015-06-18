@@ -40,6 +40,16 @@
 {% block customScripts %}
 	<script>
 		$(document).ready(function() {
+            // Prevent unwanted form submit from enter keypress
+            $(document).ready(function() {
+                $(window).keydown(function(event){
+                    if(event.keyCode == 13) {
+                        event.preventDefault();
+                        return false;
+                    }
+                });
+            });
+
 			var giphyGifsList = $('#giphyGifsList');
 
             var searchField = $('#giphySearch');
