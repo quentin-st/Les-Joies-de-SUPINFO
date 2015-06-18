@@ -6,6 +6,7 @@ use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use LjdsBundle\Entity\ReportState;
+use LjdsBundle\Helper\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -102,7 +103,21 @@ class GifsController extends Controller
         if ($request->request->has('catchPhrase')) {
             $post = $request->request;
 
-            // TODO gif validation (gifUrl)
+            // Check if mandatory fields are filled up
+            if (trim($post->get('submittedBy')) == ''
+                || trim($post->get('catchPhrase')) == ''
+                || trim($post->get('gifUrl')) == '')
+            {
+                $gifSubmittedError = "un des champs requis n'est pas renseigné, veuillez rééssayer.";
+            }
+
+			// Check if URL is a gif/mp4 video
+			$gifUrl = $post->get('gifUrl');
+			if (!Util::endsWith($gifUrl, '.gif')
+				|| !Util::endsWith($gifUrl, '.mp4'))
+			{
+				$gifSubmittedError = "l'URL ne semble pas être celle d'un fichier gif";
+			}
 
             $gifSubmitted = true;
             $submittedBy = $post->get('submittedBy');
@@ -117,7 +132,7 @@ class GifsController extends Controller
             if ($gifSubmittedError === false) {
                 $gif = new Gif();
                 $gif->setCatchPhrase($catchPhrase);
-                $gif->setGifUrl($post->get('gifUrl'));
+                $gif->setGifUrl($gifUrl);
                 $gif->setReportStatus(ReportState::NONE);
                 $gif->setGifStatus(GifState::SUBMITTED);
                 $gif->generateUrlReadyPermalink();
