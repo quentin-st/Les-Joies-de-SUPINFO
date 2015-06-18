@@ -56,6 +56,13 @@ class AdminController extends Controller
 				$caption = $post->get('caption');
 				$gifState = GifState::fromName($post->get('new_gif_state'));
 
+				$gif->setCatchPhrase($caption);
+				$gif->setGifStatus($gifState);
+				if ($gifState == GifState::PUBLISHED)
+					$gif->setPublishDate(new DateTime());
+
+				$em->flush();
+
 				if ($gifState == GifState::PUBLISHED)
 				{
 					// Publish link to Facebook page
@@ -66,12 +73,6 @@ class AdminController extends Controller
 					);
 				}
 
-				$gif->setCatchPhrase($caption);
-				$gif->setGifStatus($gifState);
-				if ($gifState == GifState::PUBLISHED)
-					$gif->setPublishDate(new DateTime());
-
-				$em->flush();
 				break;
 			case 'change_report_status':
 				$check = $this->checkParameters($post, ['gif_id']);
