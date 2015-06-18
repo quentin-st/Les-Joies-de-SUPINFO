@@ -1,7 +1,8 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
 {% block content %}
-    <div class="content">
+	<div class="col-md-1"></div>
+    <div class="col-md-10">
         {% for gif in gifs %}
             {% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}
             {% if not loop.last %}<hr />{% endif %}

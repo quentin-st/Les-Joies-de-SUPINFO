@@ -1,0 +1,25 @@
+/*
+ * This file contains everything that makes the website responsive.
+ * It is included in style (main stylesheet)
+ */
+
+/* Small devices (tablets, smartphones) */
+@media (max-width: 768px) {
+	.hide-mobile { display: none!important; }
+
+	.container { margin-top: 0; }
+	.menu { margin-top: 0; }
+
+	.gifItem {
+		.gifInfos {
+			* { display: inline-block; }
+			br { display: none; }
+		}
+		.gifMain {
+			img, video {
+				min-width: 0;
+				max-width: 100%;
+			}
+		}
+	}
+}

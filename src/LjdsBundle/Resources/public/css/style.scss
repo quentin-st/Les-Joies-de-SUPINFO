@@ -110,10 +110,6 @@ hr {
 }
 .container::before { content: none; }
 
-.content {
-	max-width: 800px;
-	margin: auto;
-}
 .fullWidth{
 	max-width: 100%;
 }
@@ -128,15 +124,11 @@ hr {
 .footer:hover { @include opacity(1); }
 
 .gifItem {
-	margin: 30px 0;
+	margin-top: 30px;
+	margin-bottom: 30px;
 	font-family: Roboto, sans-serif;
-	display: table;
-	width: 100%;
-
-	> * { display: table-cell; }
 
 	.gifInfos {
-		width: 180px;
 		padding-right: 25px;
 		@include opacity(0.2);
 		transition-duration: 200ms;
@@ -227,11 +219,12 @@ hr {
 ul.menu {
 	list-style: none;
 	text-align: right;
-	margin: 18px 10px 15px 0;
+	margin: 11px 10px 15px 0;
 
 	li {
 		display: inline-block;
 		margin: 3px 4px;
+		line-height: 30px;
 
 		a {
 			color: #eee;
@@ -441,3 +434,6 @@ ul.menu {
 	color: #fff;
 	@include border-radius(2px);
 }
+
+/* Include style-responsive file */
+@import 'style-responsive';

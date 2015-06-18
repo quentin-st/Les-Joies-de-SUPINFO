@@ -59,10 +59,6 @@ hr {
 .container::before {
   content: none; }
 
-.content {
-  max-width: 800px;
-  margin: auto; }
-
 .fullWidth {
   max-width: 100%; }
 
@@ -83,14 +79,10 @@ hr {
   filter: alpha(opacity=100); }
 
 .gifItem {
-  margin: 30px 0;
-  font-family: Roboto, sans-serif;
-  display: table;
-  width: 100%; }
-  .gifItem > * {
-    display: table-cell; }
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: Roboto, sans-serif; }
   .gifItem .gifInfos {
-    width: 180px;
     padding-right: 25px;
     opacity: 0.2;
     filter: alpha(opacity=20);
@@ -168,10 +160,11 @@ hr {
 ul.menu {
   list-style: none;
   text-align: right;
-  margin: 18px 10px 15px 0; }
+  margin: 11px 10px 15px 0; }
   ul.menu li {
     display: inline-block;
-    margin: 3px 4px; }
+    margin: 3px 4px;
+    line-height: 30px; }
     ul.menu li a {
       color: #eee;
       font-weight: 300;
@@ -378,5 +371,29 @@ ul.menu {
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   border-radius: 2px; }
+
+/* Include style-responsive file */
+/*
+ * This file contains everything that makes the website responsive.
+ * It is included in style (main stylesheet)
+ */
+/* Small devices (tablets, smartphones) */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important; }
+
+  .container {
+    margin-top: 0; }
+
+  .menu {
+    margin-top: 0; }
+
+  .gifItem .gifInfos * {
+    display: inline-block; }
+  .gifItem .gifInfos br {
+    display: none; }
+  .gifItem .gifMain img, .gifItem .gifMain video {
+    min-width: 0;
+    max-width: 100%; } }
 
 /*# sourceMappingURL=style.css.map */

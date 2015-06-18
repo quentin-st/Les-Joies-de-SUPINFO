@@ -1,5 +1,5 @@
 <div class="gifItem row">
-    <div class="gifInfos">
+    <div class="gifInfos col-md-3">
         <div>
             {% if gif.label is not null and gif.label != 'étudiant' %}
                 <div class="gifLabel">{{ gif.label }}</div>
@@ -14,12 +14,12 @@
             <a href="{{ gif.source }}" target="_blank" class="actionIconContainer">
                 <span class="actionIconText">Source du gif</span> <span class="gifSourceIcon"></span>
             </a>
-            <a href="#" class="actionIconContainer">
-                <span class="actionIconText report" data-id="{{ gif.id }}">Signaler ce gif</span> <span class="reportGifIcon"></span>
-            </a>
         {% endif %}
+		<a href="#" class="actionIconContainer">
+			<span class="actionIconText report" data-id="{{ gif.id }}">Signaler ce gif</span> <span class="reportGifIcon"></span>
+		</a>
     </div>
-    <div class="gifMain">
+    <div class="gifMain col-md-7">
         <a href="{{ path('gif', {'permalink': gif.permalink}) }}" class="gifLink">
             <div class="catchPhrase">{{ gif.catchPhrase }}</div>
 			{% if gif.fileType == 'gif' %}
