@@ -250,6 +250,9 @@ ul.menu {
 .submitGif input[type="submit"] {
   margin: 50px auto 0 auto;
   display: block; }
+.submitGif #gifUrl {
+  width: 100%;
+  font-weight: 300; }
 .submitGif .labelsContainer {
   float: right;
   display: inline-block;

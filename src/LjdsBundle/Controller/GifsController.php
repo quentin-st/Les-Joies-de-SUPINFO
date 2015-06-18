@@ -102,7 +102,7 @@ class GifsController extends Controller
         if ($request->request->has('catchPhrase')) {
             $post = $request->request;
 
-            // TODO gif validation
+            // TODO gif validation (gifUrl)
 
             $gifSubmitted = true;
             $submittedBy = $post->get('submittedBy');
@@ -117,7 +117,7 @@ class GifsController extends Controller
             if ($gifSubmittedError === false) {
                 $gif = new Gif();
                 $gif->setCatchPhrase($catchPhrase);
-                $gif->setGifUrl($post->get('giphy_url'));
+                $gif->setGifUrl($post->get('gifUrl'));
                 $gif->setReportStatus(ReportState::NONE);
                 $gif->setGifStatus(GifState::SUBMITTED);
                 $gif->generateUrlReadyPermalink();
