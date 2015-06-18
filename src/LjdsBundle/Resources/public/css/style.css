@@ -99,7 +99,8 @@ hr {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -ms-border-radius: 2px;
-    border-radius: 2px; }
+    border-radius: 2px;
+    min-width: 325px; }
   .gifItem .gifLink {
     color: #333; }
   .gifItem .gifLink:hover {
@@ -193,8 +194,6 @@ ul.menu {
       color: #fff; }
 
 /* Submit a gif */
-.submitGif form {
-  text-align: center; }
 .submitGif input[type="text"] {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -228,9 +227,9 @@ ul.menu {
   width: 47%;
   margin: 10px 0 10px 2%; }
 .submitGif input#catchPhraseInput {
-  width: 98%;
+  width: 100%;
   display: block;
-  margin: 10px auto;
+  margin: 10px 0;
   font-size: 20px;
   height: 42px;
   line-height: 42px;
@@ -245,8 +244,55 @@ ul.menu {
     width: 100%; }
   .submitGif .uploadMethods > input[type="file"] {
     line-height: 24px; }
+.submitGif #ajaxLoading {
+  margin: auto;
+  display: block; }
 .submitGif input[type="submit"] {
-  margin-top: 50px; }
+  margin: 50px auto 0 auto;
+  display: block; }
+.submitGif .labelsContainer {
+  float: right;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 10px; }
+  .submitGif .labelsContainer .labels {
+    display: inline-block;
+    padding: 1px;
+    font-size: 0;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    -o-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.2);
+    background-color: #9B9B9B; }
+    .submitGif .labelsContainer .labels input[type=radio] {
+      display: none; }
+    .submitGif .labelsContainer .labels label {
+      display: inline-block;
+      list-style: none;
+      margin: 0;
+      padding: 0 10px;
+      min-height: 30px;
+      line-height: 30px;
+      font-size: 14px;
+      -webkit-transition-duration: 200ms;
+      -moz-transition-duration: 200ms;
+      -o-transition-duration: 200ms;
+      transition-duration: 200ms;
+      font-weight: 300;
+      color: #fff; }
+    .submitGif .labelsContainer .labels input[type=radio]:checked + label {
+      background-color: #fff;
+      border-radius: 1px;
+      text-shadow: none;
+      font-weight: 400;
+      color: inherit; }
 
 /* Submit a gif - Giphy */
 #giphyGifs {
@@ -318,5 +364,16 @@ ul.menu {
   font-family: Helvetica, sans-serif;
   color: #555;
   margin: 0 10px; }
+
+.gifLabel {
+  font-size: 11px;
+  background-color: #777;
+  display: inline-block;
+  padding: 2px 4px;
+  color: #fff;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
 
 /*# sourceMappingURL=style.css.map */

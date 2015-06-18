@@ -102,10 +102,13 @@ class GifsController extends Controller
         if ($request->request->has('catchPhrase')) {
             $post = $request->request;
 
+            // TODO gif validation
+
             $gifSubmitted = true;
             $submittedBy = $post->get('submittedBy');
             $catchPhrase = $post->get('catchPhrase');
             $source = $post->get('source');
+            $label = $post->get('label');
 
             // Create cookie with submittedBy value
             $cookie = new Cookie('submittedBy', $submittedBy, time()+60*60*24*30);
@@ -121,6 +124,7 @@ class GifsController extends Controller
                 $gif->setSubmissionDate(new \DateTime());
                 $gif->setSubmittedBy($submittedBy);
                 $gif->setSource($source);
+                $gif->setLabel($label);
 
                 $em->persist($gif);
                 $em->flush();

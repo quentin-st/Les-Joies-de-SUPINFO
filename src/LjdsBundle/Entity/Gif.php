@@ -84,6 +84,13 @@ class Gif
      */
     private $source;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="label", type="string", length=255, nullable=true)
+     */
+    private $label;
+
 
     /**
      * Get id
@@ -301,6 +308,23 @@ class Gif
     {
         return $this->source;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param mixed $label
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
+    }
+
 
     public function generateUrlReadyPermalink()
     {
