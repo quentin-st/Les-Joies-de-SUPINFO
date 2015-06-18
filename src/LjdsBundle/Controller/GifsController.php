@@ -2,6 +2,7 @@
 
 namespace LjdsBundle\Controller;
 
+use LjdsBundle\Entity\FileType;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
@@ -113,8 +114,8 @@ class GifsController extends Controller
 
 			// Check if URL is a gif/mp4 video
 			$gifUrl = $post->get('gifUrl');
-			if (!Util::endsWith($gifUrl, '.gif')
-				|| !Util::endsWith($gifUrl, '.mp4'))
+			if (!Util::extensionMatches($gifUrl, 'gif')
+				&& !Util::extensionMatches($gifUrl, 'mp4'))
 			{
 				$gifSubmittedError = "l'URL ne semble pas être celle d'un fichier gif";
 			}

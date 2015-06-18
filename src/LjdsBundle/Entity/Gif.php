@@ -3,6 +3,7 @@
 namespace LjdsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use LjdsBundle\Helper\Util;
 
 /**
  * Gif
@@ -331,6 +332,18 @@ class Gif
         $this->permalink = $permalink;
         return $permalink;
     }
+
+
+	public function getFileType()
+	{
+		return Util::getFileExtension($this->getGifUrl());
+	}
+}
+
+abstract class FileType
+{
+	const GIF = '.gif';
+	const MP4 = '.mp4';
 }
 
 abstract class GifState
