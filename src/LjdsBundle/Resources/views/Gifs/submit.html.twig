@@ -40,50 +40,21 @@
 {% block customScripts %}
 	<script>
 		$(document).ready(function() {
+            var searchField = $('#giphySearch');
+            var giphyGifsList = $('#giphyGifsList');
+
             // Prevent unwanted form submit from enter keypress
             $(document).ready(function() {
-                $(window).keydown(function(event){
-                    if(event.keyCode == 13) {
-                        event.preventDefault();
+                $(window).keydown(function(e){
+                    if(e.keyCode == 13) {
+                        e.preventDefault();
+
+                        if (searchField.is(':focus'))
+                            search(searchField.val());
+
                         return false;
                     }
                 });
-            });
-
-			var giphyGifsList = $('#giphyGifsList');
-
-            var searchField = $('#giphySearch');
-            searchField.on('keypress', function(e) {
-                var code = e.keyCode || e.which;
-                if (code == 13) {
-                    e.preventDefault();
-
-                    if (searchField.val().trim().length == 0)
-                        return;
-
-                    $('#ajaxLoading').show();
-
-                    $.ajax({
-                        url: '{{ path('giphyProxy') }}',
-                        method: 'POST',
-                        data: {
-                            action: 'search',
-                            keywords: searchField.val()
-                        },
-                        success: function(jsonData) {
-                            $('#ajaxLoading').hide();
-
-                            if (jsonData.success) {
-                                populateGifsList(jsonData.gifs);
-                            }
-                        },
-                        error: function(data) {
-                            $('#ajaxLoading').hide();
-
-                            console.log(data);
-                        }
-                    });
-                }
             });
 
 			$('#catchPhraseInput').keyup(function() {
@@ -149,6 +120,34 @@
 				giphyGifsList.find('img').removeClass('notSelected');
 			});
 		});
+
+        function search(keywords) {
+            if (keywords.trim().length == 0)
+                return;
+
+            $('#ajaxLoading').show();
+
+            $.ajax({
+                url: '{{ path('giphyProxy') }}',
+                method: 'POST',
+                data: {
+                    action: 'search',
+                    keywords: keywords
+                },
+                success: function(jsonData) {
+                    $('#ajaxLoading').hide();
+
+                    if (jsonData.success) {
+                        populateGifsList(jsonData.gifs);
+                    }
+                },
+                error: function(data) {
+                    $('#ajaxLoading').hide();
+
+                    console.log(data);
+                }
+            });
+        }
 
         function populateGifsList(gifs) {
             var giphyGifsList = $('#giphyGifsList');
