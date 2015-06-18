@@ -57,8 +57,9 @@ class GifsController extends Controller
 		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
 
 		$params = [
-			'gifs' => $gifsRepo->getTop(20)
+			'gifs' => $gifsRepo->getTop(20, $this->get('router'))
 		];
+
 		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
 	}
 

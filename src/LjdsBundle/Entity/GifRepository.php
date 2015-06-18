@@ -5,6 +5,7 @@ namespace LjdsBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use LjdsBundle\Helper\FacebookHelper;
 use PDO;
+use Symfony\Component\Routing\Router;
 
 /**
  * GifRepository
@@ -31,20 +32,21 @@ class GifRepository extends EntityRepository
         return $query->getResult();
     }
 
-	public function getTop($amount)
+	public function getTop($amount, Router $router)
 	{
-		$gifs = $this->findByGifState(GifState::PUBLISHED, 1, $amount);
+		$gifs = $this->findByGifState(GifState::PUBLISHED);
 
         if (count($gifs) == 0)
             return [];
 
-		$likes = FacebookHelper::getFacebookLikes($gifs);
+		$likes = FacebookHelper::getFacebookLikes($gifs, $router);
 
 		$list = [];
 		foreach ($likes as $like)
 			$list[] = $like['gif'];
 
-		return $list;
+        // Take the $amount top ones
+        return array_slice($list, 0, $amount);
 	}
 
     public function getReportedGifs($ignored = false)
