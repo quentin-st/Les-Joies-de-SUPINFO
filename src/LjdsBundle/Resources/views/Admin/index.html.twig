@@ -20,9 +20,9 @@
                 <li>
 					{% if gif.fileType == 'gif' %}
                     	<img src="{{ gif.gifUrl }}" alt="{{ gif.catchPhrase }}" />
-					{% elseif gif.fileType == 'mp4' %}
+					{% else %}
 						<video autoplay loop muted>
-							<source src="{{ gif.gifUrl }}" type="video/mp4">
+							<source src="{{ gif.gifUrl }}" type="video/{{ gif.fileType }}">
 						</video>
 					{% endif %}
 
