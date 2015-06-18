@@ -68,7 +68,7 @@ class Gif
      *
      * @ORM\Column(name="fileName", type="string", length=255)
      */
-    private $fileName;
+    private $gifUrl;
 
     /**
      * @var string
@@ -241,26 +241,21 @@ class Gif
     }
 
     /**
-     * Set fileName
-     *
-     * @param string $fileName
-     * @return Gif
+     * @return string
      */
-    public function setFileName($fileName)
+    public function getGifUrl()
     {
-        $this->fileName = $fileName;
-
-        return $this;
+        return $this->gifUrl;
     }
 
     /**
-     * Get fileName
-     *
-     * @return string 
+     * @param string $gifUrl
+     * @return $this
      */
-    public function getFileName()
+    public function setGifUrl($gifUrl)
     {
-        return $this->fileName;
+        $this->gifUrl = $gifUrl;
+        return $this;
     }
 
     /**

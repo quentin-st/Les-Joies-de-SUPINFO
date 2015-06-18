@@ -9,7 +9,7 @@
         <item>
             <title>{{ gif.catchPhrase }}</title>
             <link>{{ url('gif', {'permalink': gif.permalink}) }}</link>
-            <description>{{ gif.fileName }}</description>
+            <description>{{ gif.gifUrl }}</description>
             <pubDate>{{ gif.publishDate|date('Y-m-d H:i:s') }}</pubDate>
         </item>
         {% endfor %}

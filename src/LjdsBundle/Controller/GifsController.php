@@ -117,7 +117,7 @@ class GifsController extends Controller
             if ($gifSubmittedError === false) {
                 $gif = new Gif();
                 $gif->setCatchPhrase($catchPhrase);
-                $gif->setFileName($post->get('giphy_url'));
+                $gif->setGifUrl($post->get('giphy_url'));
                 $gif->setReportStatus(ReportState::NONE);
                 $gif->setGifStatus(GifState::SUBMITTED);
                 $gif->generateUrlReadyPermalink();

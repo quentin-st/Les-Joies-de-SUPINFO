@@ -18,12 +18,12 @@
         <ul class="gifsAdmin">
             {% for gif in gifs %}
                 <li>
-                    <img src="{{ gif.fileName }}" alt="{{ gif.catchPhrase }}" />
+                    <img src="{{ gif.gifUrl }}" alt="{{ gif.catchPhrase }}" />
 
                     <div class="gifValidation">
                         <div>
                             <span>
-                                <textarea id="caption{{ gif.id }}" type="text" rows="2">{{ gif.catchPhrase }}</textarea>
+                                <textarea id="caption{{ gif.id }}" rows="2">{{ gif.catchPhrase }}</textarea>
                             </span>
                         </div>
                         <div>
