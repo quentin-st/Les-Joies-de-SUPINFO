@@ -32,6 +32,10 @@ parameters:
 
     analytics_tracking_code: null
 
+    facebook_app_id: null
+    facebook_app_secret: null
+    facebook_access_token: null
+
 twig:
     globals:
         analytics_tracking_code: %analytics_tracking_code%

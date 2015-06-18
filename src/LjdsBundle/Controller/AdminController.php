@@ -7,6 +7,7 @@ use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use LjdsBundle\Entity\ReportState;
+use LjdsBundle\Helper\FacebookHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -54,6 +55,16 @@ class AdminController extends Controller
 
 				$caption = $post->get('caption');
 				$gifState = GifState::fromName($post->get('new_gif_state'));
+
+				if ($gifState == GifState::PUBLISHED)
+				{
+					// Publish link to Facebook page
+					FacebookHelper::publishLinkOnFacebook(
+						$gif,
+						$this->getParameter('facebook_app_id'), $this->getParameter('facebook_app_secret'), $this->getParameter('facebook_access_token'),
+						$this->get('router')
+					);
+				}
 
 				$gif->setCatchPhrase($caption);
 				$gif->setGifStatus($gifState);

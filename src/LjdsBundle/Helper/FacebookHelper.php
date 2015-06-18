@@ -2,6 +2,9 @@
 
 namespace LjdsBundle\Helper;
 
+use Facebook\FacebookRequest;
+use Facebook\FacebookRequestException;
+use Facebook\FacebookSession;
 use LjdsBundle\Entity\Gif;
 use SimpleXMLElement;
 use Symfony\Component\Routing\Router;
@@ -41,6 +44,46 @@ class FacebookHelper
 		});
 
 		return $likes;
+	}
+
+	public static function publishLinkOnFacebook(Gif $gif, $facebookAppId, $facebookAppSecret, $facebookAccessToken, Router $router)
+	{
+		FacebookSession::setDefaultApplication($facebookAppId, $facebookAppSecret);
+
+		// Open Facebook SDK session
+		$session = FacebookSession::newAppSession();
+		// To validate the session:
+		try {
+			$session->validate();
+		} catch (FacebookRequestException $ex) {
+			// Session not valid, Graph API returned an exception with the reason.
+			//echo $ex->getMessage();
+			return false;
+		} catch (\Exception $ex) {
+			// Graph API returned info, but it may mismatch the current app or have expired.
+			//echo $ex->getMessage();
+			return false;
+		}
+
+		$link = $router->generate('gif', ['permalink' => $gif->getPermalink()], true);
+
+		try {
+			$response = (new FacebookRequest(
+				$session, 'POST', '/joiesDeSupinfo/feed', array(
+					'access_token' => $facebookAccessToken,
+					'link' => $link,
+					'message' => $gif->getCatchPhrase(),
+					'picture' => $gif->getGifUrl()
+				)
+			))->execute()->getGraphObject();
+			//echo "Posted with id: " . $response->getProperty('id');
+		} catch(FacebookRequestException $e) {
+			//echo "Exception occured, code: " . $e->getCode();
+			//echo " with message: " . $e->getMessage();
+			return false;
+		}
+
+		return true;
 	}
 
     /**
