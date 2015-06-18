@@ -8,7 +8,20 @@
 	.hide-mobile { display: none!important; }
 
 	.container { margin-top: 0; }
-	.menu { margin-top: 0; }
+	.header {
+		.row {
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		h1 { padding: 0 10px; }
+
+		.menu {
+			margin-top: 0;
+			margin-left: 10px;
+			padding-left: 0;
+		}
+	}
 
 	.gifItem {
 		.gifInfos {

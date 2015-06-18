@@ -385,8 +385,15 @@ ul.menu {
   .container {
     margin-top: 0; }
 
-  .menu {
-    margin-top: 0; }
+  .header .row {
+    margin-left: 0;
+    margin-right: 0; }
+  .header h1 {
+    padding: 0 10px; }
+  .header .menu {
+    margin-top: 0;
+    margin-left: 10px;
+    padding-left: 0; }
 
   .gifItem .gifInfos * {
     display: inline-block; }
