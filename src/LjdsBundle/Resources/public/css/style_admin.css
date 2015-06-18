@@ -12,8 +12,9 @@ ul.gifsAdmin {
     vertical-align: top;
     margin: 0 5px 10px 5px;
     list-style: none; }
-    ul.gifsAdmin li img {
-      height: 210px; }
+    ul.gifsAdmin li img, ul.gifsAdmin li video {
+      height: 210px;
+      max-width: 100%; }
     ul.gifsAdmin li .gifValidation {
       opacity: 0;
       position: absolute;

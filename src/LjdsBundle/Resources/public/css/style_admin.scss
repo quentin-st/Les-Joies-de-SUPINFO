@@ -15,8 +15,9 @@ ul.gifsAdmin {
 		margin: 0 5px 10px 5px;
 		list-style: none;
 
-		img {
+		img, video {
 			height: 210px;
+			max-width: 100%;
 		}
 
 		.gifValidation {

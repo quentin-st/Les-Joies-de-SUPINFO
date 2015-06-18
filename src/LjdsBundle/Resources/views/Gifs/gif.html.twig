@@ -22,7 +22,13 @@
     <div class="gifMain">
         <a href="{{ path('gif', {'permalink': gif.permalink}) }}" class="gifLink">
             <div class="catchPhrase">{{ gif.catchPhrase }}</div>
-            <img src="{{ gif.gifUrl }}" alt="{{ gif.catchPhrase }}" />
+			{% if gif.fileType == 'gif' %}
+            	<img src="{{ gif.gifUrl }}" alt="{{ gif.catchPhrase }}" />
+			{% elseif gif.fileType == 'mp4' %}
+				<video autoplay loop muted>
+					<source src="{{ gif.gifUrl }}" type="video/mp4">
+				</video>
+			{% endif %}
         </a>
     </div>
 </div>

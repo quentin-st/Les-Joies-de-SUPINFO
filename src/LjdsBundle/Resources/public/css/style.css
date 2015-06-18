@@ -95,11 +95,12 @@ hr {
     opacity: 0.2;
     filter: alpha(opacity=20);
     transition-duration: 200ms; }
-  .gifItem .gifMain img {
+  .gifItem .gifMain img, .gifItem .gifMain video {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     -ms-border-radius: 2px;
-    border-radius: 2px;
+    border-radius: 2px; }
+  .gifItem .gifMain img {
     min-width: 325px; }
   .gifItem .gifLink {
     color: #333; }
@@ -151,10 +152,9 @@ hr {
   .gifItem .actionIconContainer:hover span.reportGifIcon {
     opacity: 0.8;
     filter: alpha(opacity=80); }
-
-.gifItem:hover .gifInfos {
-  opacity: 1;
-  filter: alpha(opacity=100); }
+  .gifItem:hover .gifInfos {
+    opacity: 1;
+    filter: alpha(opacity=100); }
 
 /* Pagination */
 .pagination {

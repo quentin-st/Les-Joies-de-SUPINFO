@@ -340,12 +340,6 @@ class Gif
 	}
 }
 
-abstract class FileType
-{
-	const GIF = '.gif';
-	const MP4 = '.mp4';
-}
-
 abstract class GifState
 {
     const SUBMITTED = 0;

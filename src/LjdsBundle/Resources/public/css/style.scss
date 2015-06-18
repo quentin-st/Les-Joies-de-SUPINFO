@@ -142,9 +142,13 @@ hr {
 		transition-duration: 200ms;
 	}
 
-	.gifMain img {
-		@include border-radius(2px);
-		min-width: 325px;
+	.gifMain {
+		img, video {
+			@include border-radius(2px);
+		}
+		img {
+			min-width: 325px;
+		}
 	}
 
 	.gifLink { color: #333; }
@@ -202,9 +206,10 @@ hr {
 			@include opacity(0.8);
 		}
 	}
-}
-.gifItem:hover .gifInfos {
-	@include opacity(1);
+
+	&:hover .gifInfos {
+		@include opacity(1);
+	}
 }
 
 /* Pagination */
