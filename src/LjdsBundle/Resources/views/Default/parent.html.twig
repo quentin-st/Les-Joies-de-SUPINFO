@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}Les Joies de Supinfo</title>
+    <title>{% block title %}{% endblock %}Les Joies de SUPINFO</title>
     <meta name="description" content="">
     <meta name="author" content="Quentin Stoeckel, Frédéric Strebler, Thomas Nold">
     <link href="{{ asset('bundles/ljds/css/bootstrap.min.css') }}" rel="stylesheet" />
@@ -20,7 +20,7 @@
     <div class="header {% if homePage is defined and homePage %}homeHeader{% endif %}">
         <div class="row">
             <div class="col-md-6">
-                <a href="{{ path('index') }}"><h1>Les Joies de Supinfo</h1></a>
+                <a href="{{ path('index') }}"><h1>Les Joies de SUPINFO</h1></a>
             </div>
             <div class="col-md-6">
                 <ul class="menu">
@@ -32,8 +32,8 @@
         </div>
         {% if homePage is defined and homePage %}
             <div class="subHeader">
-                <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de Supinfo</h2>
-                <p>Suivre Les Joies de Supinfo - <a href="{{ path('feed') }}">feed</a></p>
+                <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
+                <p>Suivre Les Joies de SUPINFO - <a href="{{ path('feed') }}">feed</a></p>
             </div>
         {% endif %}
     </div>

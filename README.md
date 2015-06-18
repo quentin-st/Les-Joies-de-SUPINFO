@@ -1,5 +1,5 @@
-# Les Joies de Supinfo
-Welcome to the public repository for Les Joies de Supinfo project!
+# Les Joies de SUPINFO
+Welcome to the public repository for Les Joies de SUPINFO project!
 
 This project is based on Symfony2. But at first, we wrote it in vanilla PHP :
 you can check the original sources (in the `vanilla-php` branch), but it is neither used nor maintained anymore.
