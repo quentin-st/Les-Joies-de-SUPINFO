@@ -170,16 +170,30 @@ class GifsController extends Controller
     {
         $post = $request->request;
 
-        $valid_actions = [ 'getTrendingGifs' ];
-
-        if (!$post->has('action')
-            || !in_array($post->get('action'), $valid_actions)) {
+        if (!$post->has('action'))
             return new JsonResponse([ 'error' => 'Invalid action' ], 500);
-        }
 
         $giphy_api_key = $this->getParameter('giphy_api_key');
         $giphy_gifs_limit = $this->getParameter('giphy_gifs_limit');
-        $url = 'http://api.giphy.com/v1/gifs/trending?api_key=' . $giphy_api_key . '&limit=' . $giphy_gifs_limit;
+
+        $action = $post->get('action');
+        switch ($action)
+        {
+            case 'getTrendingGifs':
+                $url = 'http://api.giphy.com/v1/gifs/trending?api_key=' . $giphy_api_key . '&limit=' . $giphy_gifs_limit;
+                break;
+            case 'search':
+                if (!$post->has('keywords'))
+                    return new JsonResponse([ 'error' => 'Missing keywords' ], 500);
+
+                $keywords = $post->get('keywords');
+                $url = 'http://api.giphy.com/v1/gifs/search?q=' . urlencode($keywords) . '&api_key=' . $giphy_api_key . '&limit=' . $giphy_gifs_limit;
+                break;
+            default:
+                return new JsonResponse([ 'error' => 'Invalid action' ], 500);
+                break;
+        }
+
         $apiResult = file_get_contents($url);
 
         if ($apiResult === false) {

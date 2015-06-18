@@ -26,6 +26,7 @@
             <img id="ajaxLoading" src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" style="visibility: hidden;" />
             <div id="giphyGifs" style="display: none;">
                 <img src="{{ asset('bundles/ljds/img/poweredByGiphy.png') }}" class="poweredByGiphy" />
+                <input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
                 <ul id="giphyGifsList"></ul>
             </div>
 
@@ -40,6 +41,40 @@
 	<script>
 		$(document).ready(function() {
 			var giphyGifsList = $('#giphyGifsList');
+
+            var searchField = $('#giphySearch');
+            searchField.on('keypress', function(e) {
+                var code = e.keyCode || e.which;
+                if (code == 13) {
+                    e.preventDefault();
+
+                    if (searchField.val().trim().length == 0)
+                        return;
+
+                    $('#ajaxLoading').show();
+
+                    $.ajax({
+                        url: '{{ path('giphyProxy') }}',
+                        method: 'POST',
+                        data: {
+                            action: 'search',
+                            keywords: searchField.val()
+                        },
+                        success: function(jsonData) {
+                            $('#ajaxLoading').hide();
+
+                            if (jsonData.success) {
+                                populateGifsList(jsonData.gifs);
+                            }
+                        },
+                        error: function(data) {
+                            $('#ajaxLoading').hide();
+
+                            console.log(data);
+                        }
+                    });
+                }
+            });
 
 			$('#catchPhraseInput').keyup(function() {
 				var text = $(this).val();
@@ -66,6 +101,7 @@
 
 			$('#ajaxLoading').css('visibility', 'visible');
 
+            // Get trending gifs
 			$.ajax({
 				url: '{{ path('giphyProxy') }}',
 				method: 'POST',
@@ -74,14 +110,7 @@
 				},
 				success: function(jsonData) {
 					if (jsonData.success) {
-						$('#giphyGifs').show();
-						$('#ajaxLoading').hide();
-
-						for (var i=0; i<jsonData.gifs.length; i++) {
-							var imageUrl = jsonData.gifs[i]['image'];
-							var sourceUrl = jsonData.gifs[i]['url'];
-							giphyGifsList.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
-						}
+						populateGifsList(jsonData.gifs);
 					}
 				},
 				error: function(data) {
@@ -110,5 +139,18 @@
 				giphyGifsList.find('img').removeClass('notSelected');
 			});
 		});
+
+        function populateGifsList(gifs) {
+            var giphyGifsList = $('#giphyGifsList');
+            giphyGifsList.empty();
+            $('#giphyGifs').show();
+            $('#ajaxLoading').hide();
+
+            for (var i=0; i<gifs.length; i++) {
+                var imageUrl = gifs[i]['image'];
+                var sourceUrl = gifs[i]['url'];
+                giphyGifsList.append('<li><img src="' + imageUrl + '" data-source="' + sourceUrl + '" /></li>');
+            }
+        }
 	</script>
 {% endblock %}
