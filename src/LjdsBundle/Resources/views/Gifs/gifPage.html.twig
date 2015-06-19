@@ -4,8 +4,7 @@
 {% block metas %}
     <meta property="og:title" content="{{ gif.caption }}" />
     <meta property="og:type" content="article" />
-    <meta property="og:url" content="{{ path(app.request.attributes.get('_route'),
-                                            app.request.attributes.get('_route_params')) }}" />
+    <meta property="og:url" content="{{ url('gif', {'permalink': gif.permalink}) }}" />
     {% if gif.fileType == 'gif' %}
         <meta property="og:image" content="{{ gif.gifUrl }}" />
     {% endif %}
