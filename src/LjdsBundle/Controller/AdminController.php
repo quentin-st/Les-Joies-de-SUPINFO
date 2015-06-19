@@ -56,7 +56,7 @@ class AdminController extends Controller
 				$caption = $post->get('caption');
 				$gifState = GifState::fromName($post->get('new_gif_state'));
 
-				$gif->setCatchPhrase($caption);
+				$gif->setCaption($caption);
 				$gif->setGifStatus($gifState);
 				if ($gifState == GifState::PUBLISHED)
 					$gif->setPublishDate(new DateTime());

@@ -27,7 +27,7 @@ class Gif
      *
      * @ORM\Column(name="catchPhrase", type="string", length=255)
      */
-    private $catchPhrase;
+    private $caption;
 
     /**
      * @var \DateTime
@@ -104,26 +104,26 @@ class Gif
     }
 
     /**
-     * Set catchPhrase
+     * Set caption
      *
-     * @param string $catchPhrase
+     * @param string $caption
      * @return Gif
      */
-    public function setCatchPhrase($catchPhrase)
+    public function setCaption($caption)
     {
-        $this->catchPhrase = $catchPhrase;
+        $this->caption = $caption;
 
         return $this;
     }
 
     /**
-     * Get catchPhrase
+     * Get caption
      *
      * @return string 
      */
-    public function getCatchPhrase()
+    public function getCaption()
     {
-        return $this->catchPhrase;
+        return $this->caption;
     }
 
     /**
@@ -324,7 +324,7 @@ class Gif
 
     public function generateUrlReadyPermalink()
     {
-        $permalink = $this->getCatchPhrase();
+        $permalink = $this->getCaption();
         $permalink = str_replace(' ', '-', $permalink);
         $permalink = preg_replace('/[^A-Za-z0-9\-]/', '', $permalink);
         $permalink = strtolower($permalink);

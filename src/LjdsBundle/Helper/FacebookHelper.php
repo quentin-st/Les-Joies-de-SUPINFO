@@ -71,7 +71,7 @@ class FacebookHelper
             $requestParaps = [
                 'access_token' => $facebookAccessToken,
                 'link' => $link,
-                'message' => $gif->getCatchPhrase()
+                'message' => $gif->getCaption()
             ];
 
             // Only provide picture if this is a gif

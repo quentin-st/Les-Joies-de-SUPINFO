@@ -19,7 +19,7 @@
             {% for gif in gifs %}
                 <li>
 					{% if gif.fileType == 'gif' %}
-                    	<img src="{{ gif.gifUrl }}" alt="{{ gif.catchPhrase }}" />
+                    	<img src="{{ gif.gifUrl }}" alt="{{ gif.caption }}" />
 					{% else %}
 						<video autoplay loop muted>
 							<source src="{{ gif.gifUrl }}" type="video/{{ gif.fileType }}">
@@ -29,7 +29,7 @@
                     <div class="gifValidation">
                         <div>
                             <span>
-                                <textarea id="caption{{ gif.id }}" rows="2">{{ gif.catchPhrase }}</textarea>
+                                <textarea id="caption{{ gif.id }}" rows="2">{{ gif.caption }}</textarea>
                             </span>
                         </div>
                         <div>

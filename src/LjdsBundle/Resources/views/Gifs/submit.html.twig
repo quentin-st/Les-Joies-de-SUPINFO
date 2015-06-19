@@ -34,7 +34,7 @@
 
             <input type="hidden" id="source" name="source" class="source" />
 
-            <input type="text" id="catchPhraseInput" name="catchPhrase" placeholder="Titre" required />
+            <input type="text" id="captionInput" name="caption" placeholder="Titre" required />
             <ul id="warnings"></ul>
 
             <input type="text" id="gifUrl" name="gifUrl" placeholder="Url du gif" required />
@@ -71,7 +71,7 @@
                 });
             });
 
-			$('#catchPhraseInput').keyup(function() {
+			$('#captionInput').keyup(function() {
 				var text = $(this).val();
 
 				var warningsList = [];

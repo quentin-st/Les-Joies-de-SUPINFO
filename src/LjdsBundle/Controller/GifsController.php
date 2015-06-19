@@ -100,12 +100,12 @@ class GifsController extends Controller
         $gifSubmittedError = false;
 
         // Form is submitted
-        if ($request->request->has('catchPhrase')) {
+        if ($request->request->has('caption')) {
             $post = $request->request;
 
             // Check if mandatory fields are filled up
             if (trim($post->get('submittedBy')) == ''
-                || trim($post->get('catchPhrase')) == ''
+                || trim($post->get('caption')) == ''
                 || trim($post->get('gifUrl')) == '')
             {
                 $gifSubmittedError = "un des champs requis n'est pas renseigné, veuillez rééssayer.";
@@ -121,7 +121,7 @@ class GifsController extends Controller
 
             $gifSubmitted = true;
             $submittedBy = $post->get('submittedBy');
-            $catchPhrase = $post->get('catchPhrase');
+            $caption = $post->get('caption');
             $source = $post->get('source');
             $label = $post->get('label');
 
@@ -131,7 +131,7 @@ class GifsController extends Controller
 
             if ($gifSubmittedError === false) {
                 $gif = new Gif();
-                $gif->setCatchPhrase($catchPhrase);
+                $gif->setCaption($caption);
                 $gif->setGifUrl($gifUrl);
                 $gif->setReportStatus(ReportState::NONE);
                 $gif->setGifStatus(GifState::SUBMITTED);

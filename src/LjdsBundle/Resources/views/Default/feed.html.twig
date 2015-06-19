@@ -7,7 +7,7 @@
         <language>fr</language>
         {% for gif in gifs %}
         <item>
-            <title>{{ gif.catchPhrase }}</title>
+            <title>{{ gif.caption }}</title>
             <link>{{ url('gif', {'permalink': gif.permalink}) }}</link>
             <description>{{ gif.gifUrl }}</description>
             <pubDate>{{ gif.publishDate|date('Y-m-d H:i:s') }}</pubDate>
