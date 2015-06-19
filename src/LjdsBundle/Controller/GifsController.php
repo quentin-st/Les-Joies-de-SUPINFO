@@ -64,6 +64,24 @@ class GifsController extends Controller
 		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
 	}
 
+    /**
+     * @Route("/gif/random", name="randomGif")
+     */
+    public function randomAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var GifRepository $gifsRepo */
+        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
+
+        /** @var Gif $gif */
+        $gif = $gifsRepo->getRandomGif();
+
+        if (!$gif)
+            throw new NotFoundHttpException();
+
+        return $this->redirect($this->generateUrl('gif', ['permalink' => $gif->getPermalink()]));
+    }
+
 	/**
 	 * @Route("/gif/{permalink}", name="gif")
 	 */

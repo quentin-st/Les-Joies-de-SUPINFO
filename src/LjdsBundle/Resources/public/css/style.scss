@@ -62,6 +62,7 @@ $primary-text-color: #212121;
 $secondary-text-color: #727272;
 $divider-color: #B6B6B6;
 
+.clear { clear:both; }
 
 body, html {
 	padding: 0;
@@ -81,16 +82,22 @@ hr {
 
 .header {
 	background: $dark-primary-color;
+	@include border-radius(2px 2px 0 0);
 
-	h1 {
-		color: #fff;
-		font-weight: 300;
-		font-size: 22px;
-		padding: 0 30px;
+	a.h1Link {
 		display: inline-block;
-	}
 
-	a:hover { text-decoration: none; }
+		h1 {
+			color: #fff;
+			font-weight: 300;
+			font-size: 22px;
+			padding: 0 30px;
+			margin: 15px 0;
+			display: inline-block;
+		}
+
+		&:hover { text-decoration: none; }
+	}
 
 	.subHeader {
 		padding: 15px 30px;
@@ -231,12 +238,13 @@ hr {
 ul.menu {
 	list-style: none;
 	text-align: right;
-	margin: 11px 10px 15px 0;
+	margin: 10px;
+	float: right;
 
 	li {
 		display: inline-block;
 		margin: 3px 4px;
-		line-height: 30px;
+		line-height: 27px;
 
 		a {
 			color: #eee;

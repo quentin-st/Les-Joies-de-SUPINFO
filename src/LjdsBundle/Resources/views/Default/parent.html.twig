@@ -14,32 +14,29 @@
 	{% block customStyle %}{% endblock %}
     <link rel="shortcut icon" href="{{ asset('bundles/ljds/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('bundles/ljds/favicon.ico') }}" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="Flux RSS - Gifs" href="/feed/" />
 </head>
 <body>
 <div class="container">
     <div class="header {% if homePage is defined and homePage %}homeHeader{% endif %}">
-        <div class="row">
-            <div class="col-md-6">
-                <a href="{{ path('index') }}"><h1>Les Joies de SUPINFO</h1></a>
-            </div>
-            <div class="col-md-6">
-                <ul class="menu">
-                    <li><a href="{{ path('top') }}">Top gifs</a></li>
-                    <li><a href="{{ path('topSubmitters') }}">Top contributeurs</a></li>
-                    <li><a href="{{ path('submit') }}">Proposer un gif</a></li>
-                </ul>
-            </div>
-        </div>
+        <ul class="menu">
+            <li><a href="{{ path('top') }}">Top gifs</a></li>
+            <li><a href="{{ path('topSubmitters') }}">Top contributeurs</a></li>
+            <li><a href="{{ path('randomGif') }}">Au hasard</a></li>
+            <li><a href="{{ path('submit') }}">Proposer un gif</a></li>
+        </ul>
+        <a href="{{ path('index') }}" class="h1Link"><h1>Les Joies de SUPINFO</h1></a>
         {% if homePage is defined and homePage %}
             <div class="subHeader">
                 <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
             </div>
         {% endif %}
+        <div class="clear"></div>
     </div>
     {% block content %}{% endblock %}
 </div>
 <div class="footer">
-    <a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo">Contribuer</a> &bull; <a href="{{ path('rulesOfTheGame') }}">Conditions d'utilisation</a>
+    <a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo" target="_blank">Contribuer</a> &bull; <a href="{{ path('rulesOfTheGame') }}">Conditions d'utilisation</a>
 </div>
 <script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
 <script src="{{ asset('bundles/ljds/js/bootstrap.min.js') }}"></script>

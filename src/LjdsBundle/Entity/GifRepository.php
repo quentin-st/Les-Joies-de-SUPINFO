@@ -127,4 +127,20 @@ class GifRepository extends EntityRepository
 
         return intval($query->getSingleScalarResult());
     }
+
+    public function getRandomGif()
+    {
+        $count = $this->createQueryBuilder('g')
+            ->select('COUNT(g)')
+            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $this->createQueryBuilder('g')
+            ->setFirstResult(rand(0, $count - 1))
+            ->setMaxResults(1)
+            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->getQuery()
+            ->getSingleResult();
+    }
 }
