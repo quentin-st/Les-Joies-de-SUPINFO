@@ -26,7 +26,7 @@ class SubmittersController extends Controller
     }
 
     /**
-     * @Route("/submitters/{submitter}", name="submitter")
+     * @Route("/submitter/{submitter}", name="submitter")
      */
     public function submitterGifsAction($submitter)
     {
