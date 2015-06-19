@@ -185,6 +185,9 @@ class AdminController extends Controller
             case 'waiting_for_approval': // How many gifs are submitted and are waiting for approval
                 $response = $gifRepo->getCountByGifState(GifState::SUBMITTED);
                 break;
+            case 'published':
+                $response = $gifRepo->getCountByGifState(GifState::PUBLISHED);
+                break;
             default:
                 $response = 'unknown_action';
                 break;
