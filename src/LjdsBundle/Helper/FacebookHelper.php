@@ -68,14 +68,19 @@ class FacebookHelper
 		$link = $router->generate('gif', ['permalink' => $gif->getPermalink()], true);
 
 		try {
-			$response = (new FacebookRequest(
-				$session, 'POST', '/joiesDeSupinfo/feed', array(
-					'access_token' => $facebookAccessToken,
-					'link' => $link,
-					'message' => $gif->getCatchPhrase(),
-					'picture' => $gif->getGifUrl()
-				)
-			))->execute()->getGraphObject();
+            $requestParaps = [
+                'access_token' => $facebookAccessToken,
+                'link' => $link,
+                'message' => $gif->getCatchPhrase()
+            ];
+
+            // Only provide picture if this is a gif
+            if ($gif->getFileType() == 'gif')
+                $requestParaps['picture'] = $gif->getGifUrl();
+
+            $facebookRequest = new FacebookRequest($session, 'POST', '/joiesDeSupinfo/feed', $requestParaps);
+
+			/*$response = */$facebookRequest->execute()->getGraphObject();
 			//echo "Posted with id: " . $response->getProperty('id');
 		} catch(FacebookRequestException $e) {
 			//echo "Exception occured, code: " . $e->getCode();
