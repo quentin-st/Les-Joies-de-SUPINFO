@@ -120,6 +120,13 @@ hr {
 		margin: 15px 0;
 	}
 }
+.subHeader {
+	min-height: 70px;
+
+	.facebookPageLike {
+		text-align: right;
+	}
+}
 
 .container {
 	@include box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.1));

@@ -60,6 +60,11 @@ hr {
     font-size: 32px;
     margin: 15px 0; }
 
+.subHeader {
+  min-height: 70px; }
+  .subHeader .facebookPageLike {
+    text-align: right; }
+
 .container {
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
