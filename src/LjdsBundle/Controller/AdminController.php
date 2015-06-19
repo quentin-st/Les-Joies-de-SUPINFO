@@ -61,6 +61,9 @@ class AdminController extends Controller
 				if ($gifState == GifState::PUBLISHED)
 					$gif->setPublishDate(new DateTime());
 
+                // Regenerate permalink in case of caption changed
+                $gif->generateUrlReadyPermalink();
+
 				$em->flush();
 
 				if ($gifState == GifState::PUBLISHED && $this->getParameter('facebook_autopost'))
