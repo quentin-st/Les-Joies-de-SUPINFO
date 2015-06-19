@@ -7,9 +7,11 @@
  *  Sass compiler arguments:  --style expanded
  */
 /* SASS mixins */
+/* Define colors */
 body, html {
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  color: #212121; }
 
 body {
   background-color: #ebebeb;
@@ -20,7 +22,7 @@ hr {
   margin-bottom: 20px; }
 
 .header {
-  background: #424242; }
+  background: #E64A19; }
   .header h1 {
     color: #fff;
     font-weight: 300;
@@ -30,8 +32,9 @@ hr {
   .header a:hover {
     text-decoration: none; }
   .header .subHeader {
-    padding: 10px 30px;
-    color: #fff; }
+    padding: 15px 30px;
+    color: #fff;
+    margin-top: 30px; }
     .header .subHeader h2 {
       font-size: 19px;
       font-weight: 300;

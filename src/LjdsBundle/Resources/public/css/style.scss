@@ -53,9 +53,20 @@
 	background-size: $param;
 }
 
+/* Define colors */
+$primary-color: #FF5722;
+$dark-primary-color: #E64A19;
+$light-primary-color: #FFCCBC;
+$accent-color: #795548;
+$primary-text-color: #212121;
+$secondary-text-color: #727272;
+$divider-color: #B6B6B6;
+
+
 body, html {
 	padding: 0;
 	margin: 0;
+	color: $primary-text-color;
 }
 
 body {
@@ -69,7 +80,7 @@ hr {
 }
 
 .header {
-	background: #424242;
+	background: $dark-primary-color;
 
 	h1 {
 		color: #fff;
@@ -82,8 +93,9 @@ hr {
 	a:hover { text-decoration: none; }
 
 	.subHeader {
-		padding: 10px 30px;
+		padding: 15px 30px;
 		color: #fff;
+		margin-top: 30px;
 
 		h2 {
 			font-size: 19px;
