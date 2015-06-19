@@ -325,9 +325,15 @@ class Gif
     public function generateUrlReadyPermalink()
     {
         $permalink = $this->getCaption();
+        // Replace spaces with -
         $permalink = str_replace(' ', '-', $permalink);
+        // Translate accents to non-accent chars
+        $permalink = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $permalink);
+        // Remove all non-alphabetic chars
         $permalink = preg_replace('/[^A-Za-z0-9\-]/', '', $permalink);
+        // Tolowerize permalink
         $permalink = strtolower($permalink);
+
         $permalink = urlencode($permalink);
         $this->permalink = $permalink;
         return $permalink;
