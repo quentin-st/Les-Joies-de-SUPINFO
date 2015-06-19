@@ -32,7 +32,7 @@ class GifRepository extends EntityRepository
         return $query->getResult();
     }
 
-	public function getTop($amount, Router $router)
+	public function getTop($limit, Router $router)
 	{
 		$gifs = $this->findByGifState(GifState::PUBLISHED);
 
@@ -46,7 +46,7 @@ class GifRepository extends EntityRepository
 			$list[] = $like['gif'];
 
         // Take the $amount top ones
-        return array_slice($list, 0, $amount);
+        return array_slice($list, 0, $limit);
 	}
 
     public function getReportedGifs($ignored = false)

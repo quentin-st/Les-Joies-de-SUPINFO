@@ -27,9 +27,11 @@ class FacebookHelper
 		$likes = [];
 		for ($i=0; $i<count($xmlRes[0]); $i++) {
 			$url = $xmlRes->link_stat[$i]->url;
-			$likesCount = (int)$xmlRes->link_stat[$i]->like_count;
+			$likesCount = intval($xmlRes->link_stat[$i]->like_count);
 
-            if ($likesCount > 0) {
+            // Each time a gif is published, it is posted on the Facebook page's wall
+            // Se it has been liked if the likesCount is > than 1
+            if ($likesCount > 1) {
                 $likes[] = [
                     'url' => $url,
                     'likes' => $likesCount,
@@ -40,7 +42,7 @@ class FacebookHelper
 
 		// Sort array
 		usort($likes, function($a, $b) {
-			return $b['likes'] - $a['likes'];
+			return intval($b['likes']) - intval($a['likes']);
 		});
 
 		return $likes;
