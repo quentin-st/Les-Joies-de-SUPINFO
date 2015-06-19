@@ -19,7 +19,7 @@
 			<span class="actionIconText report" data-id="{{ gif.id }}">Signaler ce gif</span> <span class="reportGifIcon"></span>
 		</a>
     </div>
-    <div class="gifMain col-md-7">
+    <div class="gifMain col-md-8">
         <a href="{{ path('gif', {'permalink': gif.permalink}) }}" class="gifLink">
             <div class="caption">{{ gif.caption }}</div>
 			{% if gif.fileType == 'gif' %}

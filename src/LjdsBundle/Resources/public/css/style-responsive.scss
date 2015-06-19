@@ -3,7 +3,7 @@
  * It is included in style (main stylesheet)
  */
 
-/* Small devices (tablets, smartphones) */
+/* Small devices (smartphones) */
 @media (max-width: 768px) {
 	.hide-mobile { display: none!important; }
 
@@ -24,15 +24,25 @@
 	}
 
 	.gifItem {
-		.gifInfos {
-			* { display: inline-block; }
-			br { display: none; }
-		}
 		.gifMain {
 			img, video {
 				min-width: 0;
 				max-width: 100%;
 			}
+		}
+	}
+}
+
+/* Medium devices (tablets) */
+@media (max-width: 992px) {
+	.gifItem {
+		.gifInfos {
+			* {
+				display: inline-block;
+				margin: 0 10px;
+			}
+			br { display: none; }
+			.actionIconContainer { display: none; }
 		}
 	}
 }

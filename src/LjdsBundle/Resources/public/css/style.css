@@ -391,7 +391,7 @@ ul.menu {
  * This file contains everything that makes the website responsive.
  * It is included in style (main stylesheet)
  */
-/* Small devices (tablets, smartphones) */
+/* Small devices (smartphones) */
 @media (max-width: 768px) {
   .hide-mobile {
     display: none !important; }
@@ -409,12 +409,17 @@ ul.menu {
     margin-left: 10px;
     padding-left: 0; }
 
-  .gifItem .gifInfos * {
-    display: inline-block; }
-  .gifItem .gifInfos br {
-    display: none; }
   .gifItem .gifMain img, .gifItem .gifMain video {
     min-width: 0;
     max-width: 100%; } }
+/* Medium devices (tablets) */
+@media (max-width: 992px) {
+  .gifItem .gifInfos * {
+    display: inline-block;
+    margin: 0 10px; }
+  .gifItem .gifInfos br {
+    display: none; }
+  .gifItem .gifInfos .actionIconContainer {
+    display: none; } }
 
 /*# sourceMappingURL=style.css.map */
