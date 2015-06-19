@@ -63,7 +63,7 @@ class AdminController extends Controller
 
 				$em->flush();
 
-				if ($gifState == GifState::PUBLISHED)
+				if ($gifState == GifState::PUBLISHED && $this->getParameter('facebook_autopost'))
 				{
 					// Publish link to Facebook page
 					FacebookHelper::publishLinkOnFacebook(
