@@ -1,6 +1,16 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
 {% block title %}{{ gif.caption }} - {% endblock %}
+{% block metas %}
+    <meta property="og:title" content="{{ gif.caption }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{ path(app.request.attributes.get('_route'),
+                                            app.request.attributes.get('_route_params')) }}" />
+    {% if gif.fileType == 'gif' %}
+        <meta property="og:image" content="{{ gif.gifUrl }}" />
+    {% endif %}
+    <meta property="og:site_name" content="Les Joies de Supinfo" />
+{% endblock %}
 {% block content %}
 	<div class="col-md-1"></div>
 	<div class="col-md-10">
