@@ -2,6 +2,7 @@
 namespace LjdsBundle\Service;
 
 use Codebird\Codebird;
+use LjdsBundle\Entity\Gif;
 
 class TwitterService
 {
@@ -12,7 +13,12 @@ class TwitterService
 		$this->container = $container;
 	}
 
-	public function postTweet($text)
+	public function postGif($gifCaption, $gifUrl)
+	{
+		return $this->postTweet($gifCaption . ' ' . $gifUrl);
+	}
+
+	private function postTweet($text)
 	{
 		Codebird::setConsumerKey(
 			$this->container->getParameter('twitter_consumer_key'),

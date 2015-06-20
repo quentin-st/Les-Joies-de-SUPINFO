@@ -8,6 +8,7 @@ use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use LjdsBundle\Entity\ReportState;
 use LjdsBundle\Helper\FacebookHelper;
+use LjdsBundle\Service\TwitterService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -66,14 +67,25 @@ class AdminController extends Controller
 
 				$em->flush();
 
-				if ($gifState == GifState::PUBLISHED && $this->getParameter('facebook_autopost'))
+				if ($gifState == GifState::PUBLISHED)
 				{
-					// Publish link to Facebook page
-					FacebookHelper::publishLinkOnFacebook(
-						$gif,
-						$this->getParameter('facebook_app_id'), $this->getParameter('facebook_app_secret'), $this->getParameter('facebook_access_token'),
-						$this->get('router')
-					);
+					if ($this->getParameter('facebook_autopost')) {
+						// Publish link to Facebook page
+						FacebookHelper::publishLinkOnFacebook(
+							$gif,
+							$this->getParameter('facebook_app_id'), $this->getParameter('facebook_app_secret'), $this->getParameter('facebook_access_token'),
+							$this->get('router')
+						);
+					}
+					if ($this->getParameter('twitter_autopost')) {
+						$router = $this->get('router');
+						/** @var TwitterService $twitterService */
+						$twitterService = $this->get('app.twitter');
+						$twitterService->postGif(
+							$gif->getCaption(),
+							$router->generate('gif', ['permalink' => $gif->getPermalink()], true)
+						);
+					}
 				}
 
 				break;
