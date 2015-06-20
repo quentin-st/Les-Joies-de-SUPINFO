@@ -32,10 +32,16 @@ parameters:
 
     analytics_tracking_code: null
 
-	facebook_autopost: false
+    facebook_autopost: false
     facebook_app_id: null
     facebook_app_secret: null
     facebook_access_token: null
+
+    twitter_autopost: false
+    twitter_consumer_key: null
+    twitter_consumer_secret: null
+    twitter_access_token: null
+    twitter_access_token_secret: null
 
 twig:
     globals:

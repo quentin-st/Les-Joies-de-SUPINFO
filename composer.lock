@@ -4,8 +4,103 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9590e285bac76bafcd239c3bf9e18bd4",
+    "hash": "42a827800c091a30a2ed1ece90f325ca",
     "packages": [
+        {
+            "name": "composer/installers",
+            "version": "v1.0.21",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/installers.git",
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
+                "reference": "d64e23fce42a4063d63262b19b8e7c0f3b5e4c45",
+                "shasum": ""
+            },
+            "replace": {
+                "roundcube/plugin-installer": "*",
+                "shama/baton": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev",
+                "phpunit/phpunit": "4.1.*"
+            },
+            "type": "composer-installer",
+            "extra": {
+                "class": "Composer\\Installers\\Installer",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer\\Installers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "https://github.com/shama"
+                }
+            ],
+            "description": "A multi-framework Composer library installer",
+            "homepage": "http://composer.github.com/installers/",
+            "keywords": [
+                "Craft",
+                "Dolibarr",
+                "Hurad",
+                "MODX Evo",
+                "OXID",
+                "SMF",
+                "Thelia",
+                "WolfCMS",
+                "agl",
+                "aimeos",
+                "annotatecms",
+                "bitrix",
+                "cakephp",
+                "chef",
+                "codeigniter",
+                "concrete5",
+                "croogo",
+                "dokuwiki",
+                "drupal",
+                "elgg",
+                "fuelphp",
+                "grav",
+                "installer",
+                "joomla",
+                "kohana",
+                "laravel",
+                "lithium",
+                "magento",
+                "mako",
+                "mediawiki",
+                "modulework",
+                "moodle",
+                "phpbb",
+                "piwik",
+                "ppi",
+                "puppet",
+                "roundcube",
+                "shopware",
+                "silverstripe",
+                "symfony",
+                "typo3",
+                "wordpress",
+                "zend",
+                "zikula"
+            ],
+            "time": "2015-02-18 17:17:01"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.6",
@@ -853,6 +948,59 @@
             "time": "2014-01-12 16:20:24"
         },
         {
+            "name": "jublonet/codebird-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jublonet/codebird-php.git",
+                "reference": "58c58d73a57206d00903efa5338dba38eddac82a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jublonet/codebird-php/zipball/58c58d73a57206d00903efa5338dba38eddac82a",
+                "reference": "58c58d73a57206d00903efa5338dba38eddac82a",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "ext-hash": "*",
+                "ext-json": "*",
+                "lib-openssl": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Joshua Atkins",
+                    "email": "joshua.atkins@jublo.net",
+                    "homepage": "http://atkins.im/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "J.M.",
+                    "email": "jm@jublo.net",
+                    "homepage": "http://mynetx.net/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Twitter library in PHP.",
+            "homepage": "http://www.jublo.net/projects/codebird/php",
+            "keywords": [
+                "api",
+                "networking",
+                "twitter"
+            ],
+            "time": "2014-12-13 17:07:19"
+        },
+        {
             "name": "kriswallsmith/assetic",
             "version": "v1.2.1",
             "source": {
@@ -1664,7 +1812,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "symfony/symfony": 10
+        "symfony/symfony": 10,
+        "jublonet/codebird-php": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
