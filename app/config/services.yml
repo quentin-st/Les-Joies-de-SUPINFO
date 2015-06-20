@@ -12,3 +12,7 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+    app.twitter:
+        class: LjdsBundle\Service\TwitterService
+        arguments:
+            container: "@service_container"
