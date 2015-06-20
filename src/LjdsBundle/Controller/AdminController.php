@@ -171,31 +171,19 @@ class AdminController extends Controller
     }
 
     /**
-     * @Route("/stats/{type}")
+     * @Route("/stats/{state}")
      */
-    public function statsAction($type)
+    public function statsAction($state)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var GifRepository $gifRepo */
         $gifRepo = $em->getRepository('LjdsBundle:Gif');
 
-        $response = '';
-        switch ($type)
-        {
-            case 'publish_queue': // How many gifs are waiting to be published
-                $response = $gifRepo->getCountByGifState(GifState::ACCEPTED);
-                break;
-            case 'waiting_for_approval': // How many gifs are submitted and are waiting for approval
-                $response = $gifRepo->getCountByGifState(GifState::SUBMITTED);
-                break;
-            case 'published':
-                $response = $gifRepo->getCountByGifState(GifState::PUBLISHED);
-                break;
-            default:
-                $response = 'unknown_action';
-                break;
-        }
+		$gifState = GifState::fromName($state);
 
-        return new Response($response);
+		if ($gifState == -1)
+			return new Response('unknown_action');
+
+		return new Response($gifRepo->getCountByGifState($gifState));
     }
 }
