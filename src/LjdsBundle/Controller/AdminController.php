@@ -81,10 +81,7 @@ class AdminController extends Controller
 						$router = $this->get('router');
 						/** @var TwitterService $twitterService */
 						$twitterService = $this->get('app.twitter');
-						$twitterService->postGif(
-							$gif->getCaption(),
-							$router->generate('gif', ['permalink' => $gif->getPermalink()], true)
-						);
+						$twitterService->postGif($gif);
 					}
 				}
 

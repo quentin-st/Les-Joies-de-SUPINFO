@@ -7,15 +7,18 @@ use LjdsBundle\Entity\Gif;
 class TwitterService
 {
 	protected $container;
+	protected $router;
 
-	public function __construct($container)
+	public function __construct($container, $router)
 	{
 		$this->container = $container;
+		$this->router = $router;
 	}
 
-	public function postGif($gifCaption, $gifUrl)
+	public function postGif(Gif $gif)
 	{
-		return $this->postTweet($gifCaption . ' ' . $gifUrl);
+		$gifUrl = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
+		return $this->postTweet($gif->getCaption() . ' ' . $gifUrl);
 	}
 
 	private function postTweet($text)

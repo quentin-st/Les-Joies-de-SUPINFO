@@ -14,5 +14,4 @@ services:
             - { name: twig.extension }
     app.twitter:
         class: LjdsBundle\Service\TwitterService
-        arguments:
-            container: "@service_container"
+        arguments: [@service_container, @router]
