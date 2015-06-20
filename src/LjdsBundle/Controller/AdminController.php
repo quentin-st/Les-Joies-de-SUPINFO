@@ -7,7 +7,7 @@ use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use LjdsBundle\Entity\ReportState;
-use LjdsBundle\Helper\FacebookHelper;
+use LjdsBundle\Service\FacebookService;
 use LjdsBundle\Service\TwitterService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -70,15 +70,11 @@ class AdminController extends Controller
 				if ($gifState == GifState::PUBLISHED)
 				{
 					if ($this->getParameter('facebook_autopost')) {
-						// Publish link to Facebook page
-						FacebookHelper::publishLinkOnFacebook(
-							$gif,
-							$this->getParameter('facebook_app_id'), $this->getParameter('facebook_app_secret'), $this->getParameter('facebook_access_token'),
-							$this->get('router')
-						);
+						/** @var FacebookService $facebookService */
+						$facebookService = $this->get('app.facebook');
+						$facebookService->postGif($gif);
 					}
 					if ($this->getParameter('twitter_autopost')) {
-						$router = $this->get('router');
 						/** @var TwitterService $twitterService */
 						$twitterService = $this->get('app.twitter');
 						$twitterService->postGif($gif);

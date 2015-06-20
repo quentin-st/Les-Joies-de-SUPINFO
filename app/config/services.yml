@@ -15,3 +15,6 @@ services:
     app.twitter:
         class: LjdsBundle\Service\TwitterService
         arguments: [@service_container, @router]
+    app.facebook:
+        class: LjdsBundle\Service\FacebookService
+        arguments: [@service_container, @router]
