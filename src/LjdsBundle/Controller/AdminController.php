@@ -57,29 +57,18 @@ class AdminController extends Controller
 				$caption = $post->get('caption');
 				$gifState = GifState::fromName($post->get('new_gif_state'));
 
+				if ($gifState == -1)
+					return new JsonResponse(['success' => false]);
+
 				$gif->setCaption($caption);
 				$gif->setGifStatus($gifState);
-				if ($gifState == GifState::PUBLISHED)
-					$gif->setPublishDate(new DateTime());
-
                 // Regenerate permalink in case of caption changed
                 $gif->generateUrlReadyPermalink();
 
 				$em->flush();
 
 				if ($gifState == GifState::PUBLISHED)
-				{
-					if ($this->getParameter('facebook_autopost')) {
-						/** @var FacebookService $facebookService */
-						$facebookService = $this->get('app.facebook');
-						$facebookService->postGif($gif);
-					}
-					if ($this->getParameter('twitter_autopost')) {
-						/** @var TwitterService $twitterService */
-						$twitterService = $this->get('app.twitter');
-						$twitterService->postGif($gif);
-					}
-				}
+					$this->publishGif($gif);
 
 				break;
 			case 'change_report_status':
@@ -139,6 +128,36 @@ class AdminController extends Controller
 		], 500);
 	}
 
+	public function publishGif(Gif $gif)
+	{
+		$em = $this->getDoctrine()->getManager();
+
+		if (!$gif)
+			return false;
+
+		if (!$gif->getGifStatus() == GifState::ACCEPTED)
+			return false;
+
+		$gif->setPublishDate(new DateTime());
+		$gif->setGifStatus(GifState::PUBLISHED);
+		$gif->generateUrlReadyPermalink();
+
+		if ($this->getParameter('facebook_autopost')) {
+			/** @var FacebookService $facebookService */
+			$facebookService = $this->get('app.facebook');
+			$facebookService->postGif($gif);
+		}
+		if ($this->getParameter('twitter_autopost')) {
+			/** @var TwitterService $twitterService */
+			$twitterService = $this->get('app.twitter');
+			$twitterService->postGif($gif);
+		}
+
+		$em->flush();
+
+		return true;
+	}
+
 
     /**
 	 * @Route("/admin/{type}", name="admin")
@@ -191,4 +210,35 @@ class AdminController extends Controller
 
 		return new Response($gifRepo->getCountByGifState($gifState));
     }
+
+	/**
+	 * @Route("/cron/publishCron")
+	 */
+	public function publishCronAction(Request $request)
+	{
+		if (!$request->request->has('admin_api_key')
+			|| $request->request->get('admin_api_key') != $this->getParameter('admin_api_key'))
+			return new Response('invalid_action');
+
+		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifRepository */
+		$gifRepository = $em->getRepository('LjdsBundle:Gif');
+
+		// Find next gif to publish
+		$acceptedGifs = $gifRepository->findByGifState(GifState::ACCEPTED);
+
+		if (count($acceptedGifs) > 0) {
+			// Publish the first one (oldest one = FIFO)
+			$gif = $acceptedGifs[0];
+
+			$res = $this->publishGif($gif);
+
+			if (!$res)
+				return new Response('publish_failed');
+
+			return new Response('publish_succeeded');
+		}
+
+		return new Response('empty_publish_queue');
+	}
 }

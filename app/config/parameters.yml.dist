@@ -26,7 +26,6 @@ parameters:
     giphy_api_key: dc6zaTOxFJmzC # Development giphy api key
     giphy_gifs_limit: 48
 
-    cron_max_items_per_publication: 2
     gifs_per_page: 5
     admin_api_key: null
 
