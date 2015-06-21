@@ -142,6 +142,8 @@ class AdminController extends Controller
 		$gif->setGifStatus(GifState::PUBLISHED);
 		$gif->generateUrlReadyPermalink();
 
+		$em->flush();
+
 		if ($this->getParameter('facebook_autopost')) {
 			/** @var FacebookService $facebookService */
 			$facebookService = $this->get('app.facebook');
@@ -152,8 +154,6 @@ class AdminController extends Controller
 			$twitterService = $this->get('app.twitter');
 			$twitterService->postGif($gif);
 		}
-
-		$em->flush();
 
 		return true;
 	}
