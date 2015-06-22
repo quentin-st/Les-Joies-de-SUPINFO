@@ -5,7 +5,9 @@
                 <div class="gifLabel">{{ gif.label }}</div>
                 <br />
             {% endif %}
-            {{ gif.publishDate|relativeDate }}
+			{% if gif.publishDate is not null %}
+            	{{ gif.publishDate|relativeDate }}
+			{% endif %}
             <br />
             <a href="{{ path('submitter', { 'submitter': gif.submittedBy }) }}">{{ gif.submittedBy }}</a><br /><br />
         </div>
