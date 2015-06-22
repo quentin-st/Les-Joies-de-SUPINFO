@@ -91,11 +91,16 @@ class GifsController extends Controller
 		/** @var GifRepository $gifsRepo */
 		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
 
+		/** @var Gif $gif */
 		$gif = $gifsRepo->findOneBy([
 			'permalink' => $permalink
 		]);
 
 		if (!$gif)
+			throw new NotFoundHttpException();
+
+		// Check if gif has been published
+		if ($gif->getGifStatus() != GifState::PUBLISHED)
 			throw new NotFoundHttpException();
 
 		$params = [
