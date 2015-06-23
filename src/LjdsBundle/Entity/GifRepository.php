@@ -143,4 +143,47 @@ class GifRepository extends EntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+	public function getUpcomingPublication()
+	{
+		// First, check if there is something to post
+		$acceptedGifs = $this->findByGifState(GifState::ACCEPTED);
+
+		if (count($acceptedGifs) == 0)
+			return false;
+
+		// Build a list of DateTime : publications for the upcoming 7 days
+		/** @var \DateTime[] $publications */
+		$publications = [];
+		foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $weekDay) {
+			foreach (['10:00', '14:00', '17:00'] as $hour)
+				$publications[] = new \DateTime('this ' . $weekDay . ' ' . $hour);
+		}
+		foreach (['saturday', 'sunday'] as $weekEndDay) {
+			$publications[] = new \DateTime('this ' . $weekEndDay . ' 15:00');
+		}
+
+		// Sort this array
+		usort($publications, function($a, $b) {
+			return $a < $b ? -1 : 1;
+		});
+
+		$now = new \DateTime();
+
+		// Browse this array, and find the first upcoming date
+		$upcomingPublication = null;
+		foreach ($publications as $publication) {
+			if ($publication > $now) {
+				$upcomingPublication = $publication;
+				break;
+			}
+		}
+
+		if ($upcomingPublication === null) {
+			// This shouldn't happen...
+			return false;
+		}
+
+		return $upcomingPublication;
+	}
 }

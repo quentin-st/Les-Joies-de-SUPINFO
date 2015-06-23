@@ -1,9 +1,20 @@
 $(document).ready(function() {
-
     // Avoid the hash (#) in the URL
     $('a[href="#"]').on('click', function(e){ e.preventDefault() });
 
     report();
+
+	// Countdown until upcoming gif
+	var countdown = $('.countdown');
+	if (countdown.length) {
+		var container = countdown.find('ul');
+		var d = new Date(container.data('datetime'));
+		container.countdown({
+			until: d,
+			format: 'HMs',
+			layout: '<li>{hn}</li><li class="sep">:</li><li>{mnn}</li><li class="sep">:</li><li>{snn}</li>'
+		});
+	}
 });
 
 function report() {

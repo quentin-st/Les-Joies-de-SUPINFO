@@ -391,6 +391,31 @@ ul.menu {
   -ms-border-radius: 2px;
   border-radius: 2px; }
 
+.countdown {
+  display: inline-block;
+  float: right;
+  clear: both;
+  color: #fff;
+  text-align: right;
+  padding-right: 10px;
+  font-weight: 200;
+  margin-top: 30px; }
+  .countdown ul li {
+    list-style: none;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 2px 5px;
+    margin: 0 3px;
+    border-radius: 3px;
+    min-width: 30px;
+    text-align: right;
+    font-size: 18px; }
+  .countdown ul li.sep {
+    min-width: 0;
+    background-color: transparent;
+    padding: 0;
+    margin: 0; }
+
 /* Include style-responsive file */
 /*
  * This file contains everything that makes the website responsive.

@@ -28,6 +28,7 @@
         </ul>
         <a href="{{ path('index') }}" class="h1Link"><h1>Les Joies de SUPINFO</h1></a>
         {% if homePage is defined and homePage %}
+			{{ publicationCountdown() }}
             <div class="subHeader">
                 <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
             </div>
@@ -50,6 +51,8 @@
 <script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
 <script src="{{ asset('bundles/ljds/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('bundles/ljds/js/script.js') }}"></script>
+<script src="{{ asset('bundles/ljds/js/jquery.plugin.min.js') }}"></script>
+<script src="{{ asset('bundles/ljds/js/jquery.countdown.min.js') }}"></script>
 {% block customScripts %}{% endblock %}
 {% include 'LjdsBundle:Default:analytics.html.twig' %}
 </body>

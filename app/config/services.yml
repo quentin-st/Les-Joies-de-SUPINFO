@@ -12,6 +12,7 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+        arguments: [@doctrine.orm.entity_manager]
     app.twitter:
         class: LjdsBundle\Service\TwitterService
         arguments: [@service_container, @router]
