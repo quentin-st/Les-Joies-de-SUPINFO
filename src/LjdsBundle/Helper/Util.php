@@ -30,6 +30,11 @@ class Util {
 		return strtr($str, $unwanted_array);
 	}
 
+	/**
+	 * Adapted from JS to PHP, source: https://stackoverflow.com/questions/11/how-do-i-calculate-relative-time
+	 * @param \DateTime $dateTime DateTime to be compared to now. We assume it is in the past
+	 * @return string Human-readable relative time
+	 */
 	public static function relativeTime(\DateTime $dateTime) {
 		$now = new \DateTime();
 
