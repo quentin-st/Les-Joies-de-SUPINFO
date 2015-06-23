@@ -29,4 +29,39 @@ class Util {
 		);
 		return strtr($str, $unwanted_array);
 	}
+
+	public static function relativeTime(\DateTime $dateTime) {
+		$now = new \DateTime();
+
+		$delta = abs($now->getTimestamp() - $dateTime->getTimestamp());
+
+		$second = 1;
+		$minute = 60*$second;
+		$hour = 60*$minute;
+		$day = 24*$hour;
+		$month = 30*$day;
+
+		if ($delta < $minute)
+			return "il y a " . $delta . " secondes";
+		if ($delta < 2*$minute)
+			return "il y a une minute";
+		if ($delta < 45*$minute)
+			return "il y a " . round($delta/$minute) . " minutes";
+		if ($delta < 90*$minute)
+			return "il y a une heure";
+		if ($delta < 24*$hour)
+			return "il y a " . round($delta/$hour) . " heures";
+		if ($delta < 48*$hour)
+			return "hier";
+		if ($delta < 30*$day)
+			return "il y a " . round($delta/$day) . " jours";
+		if ($delta < 12*$month) {
+			$months = round($delta/$day/30);
+			return $months <= 1 ? "il y a un mois" : "il y a " . $months . " mois";
+		}
+		else {
+			$years = round($delta/$day/365);
+			return $years <= 1 ? "il y a un an" : "il y a " . $years . " ans";
+		}
+	}
 }
