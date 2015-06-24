@@ -144,6 +144,10 @@ class GifRepository extends EntityRepository
             ->getSingleResult();
     }
 
+    /**
+     * Get the DateTime of the upcoming publication
+     * @return bool|\DateTime false if none
+     */
 	public function getUpcomingPublication()
 	{
 		// First, check if there is something to post
@@ -186,4 +190,39 @@ class GifRepository extends EntityRepository
 
 		return $upcomingPublication;
 	}
+
+    /**
+     * Returns when the recently submitted gif will be published
+     */
+    public function getEstimatedPublicationDate()
+    {
+        $remainingGifs = count($this->findByGifState(GifState::ACCEPTED));
+
+        $currentDate = new \DateTime();
+        while ($remainingGifs >= 0)
+        {
+            $dow = intval($currentDate->format('w'));
+            switch ($dow)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    // Week day: 3 gifs per day
+                    $remainingGifs -= 3;
+                    break;
+                case 6:
+                case 0:
+                    // Weekend: 1 gif per day
+                    $remainingGifs -= 1;
+
+                    break;
+            }
+
+            $currentDate->modify('+1 day');
+        }
+
+        return $currentDate;
+    }
 }

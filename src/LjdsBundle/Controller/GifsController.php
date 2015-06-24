@@ -166,6 +166,9 @@ class GifsController extends Controller
 
                 $em->persist($gif);
                 $em->flush();
+
+                $gifRepo = $this->getDoctrine()->getRepository('LjdsBundle:Gif');
+                $params['estimatedPublishDate'] = $gifRepo->getEstimatedPublicationDate();
             } else {
                 $params['submitError'] = $gifSubmittedError;
             }
