@@ -9,6 +9,14 @@
         <meta property="og:image" content="{{ gif.gifUrl }}" />
     {% endif %}
     <meta property="og:site_name" content="Les Joies de Supinfo" />
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@joiesdesupinfo">
+    <meta name="twitter:creator" content="{{ gif.submittedBy }}">
+    <meta name="twitter:title" content="{{ gif.caption }}">
+    {% if gif.fileType == 'gif' %}
+        <meta name="twitter:image" content="{{ gif.gifUrl }}">
+    {% endif %}
 {% endblock %}
 {% block content %}
 	<div class="col-md-1"></div>
