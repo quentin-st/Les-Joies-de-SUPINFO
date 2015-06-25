@@ -3,7 +3,9 @@
 namespace LjdsBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use LjdsBundle\Helper\AutoPostHelper;
 use LjdsBundle\Helper\FacebookHelper;
+use LjdsBundle\Helper\WeekPart;
 use PDO;
 use Symfony\Component\Routing\Router;
 
@@ -160,11 +162,12 @@ class GifRepository extends EntityRepository
 		/** @var \DateTime[] $publications */
 		$publications = [];
 		foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $weekDay) {
-			foreach (['10:00', '14:00', '17:00'] as $hour)
+			foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_DAYS) as $hour)
 				$publications[] = new \DateTime('this ' . $weekDay . ' ' . $hour);
 		}
 		foreach (['saturday', 'sunday'] as $weekEndDay) {
-			$publications[] = new \DateTime('this ' . $weekEndDay . ' 15:00');
+            foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_END) as $hour)
+                $publications[] = new \DateTime('this ' . $weekEndDay . ' ' . $hour);
 		}
 
 		// Sort this array
@@ -209,13 +212,13 @@ class GifRepository extends EntityRepository
                 case 3:
                 case 4:
                 case 5:
-                    // Week day: 3 gifs per day
-                    $remainingGifs -= 3;
+                    // Week days
+                    $remainingGifs -= count(AutoPostHelper::getPublicationTimes(WeekPart::WEEK_DAYS));
                     break;
                 case 6:
                 case 0:
-                    // Weekend: 1 gif per day
-                    $remainingGifs -= 1;
+                    // Weekend
+                    $remainingGifs -= count(AutoPostHelper::getPublicationTimes(WeekPart::WEEK_END));
 
                     break;
             }
