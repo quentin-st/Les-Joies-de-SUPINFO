@@ -11,7 +11,8 @@
                 <div class="alert alert-danger">Erreur lors de l'envoi du gif : {{ submitError }}</div>
             {% else %}
                 <div class="alert alert-success">Votre gif a bien été envoyé ! Il passe maintenant en modération en attente d'être publié.
-                    S'il est accepté, il sera normalement publié le <b>{{ estimatedPublishDate|date('d-m-Y') }}</b> (en fonction du nombre de gifs en attente de publication). Merci !</div>
+                    S'il est accepté, il sera normalement publié le <b>{{ estimatedPublishDate|date('d-m-Y') }}</b> (en fonction du nombre de gifs en attente de publication),
+                    <b>ou immédiatement s'il concerne un évènement d'actualité</b>. Merci !</div>
             {% endif %}
         {% endif %}
 
