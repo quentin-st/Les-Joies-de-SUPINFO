@@ -18,7 +18,22 @@ class TwitterService
 	public function postGif(Gif $gif)
 	{
 		$gifUrl = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
-		return $this->postTweet($gif->getCaption() . ' ' . $gifUrl);
+
+        $tweetMaxLength = 140;
+        $linkStrLength = 22;
+        $hashTag = " - Les Joies de #SUPINFO ";
+
+        if ((strlen($gif->getCaption()) + strlen($hashTag) + $linkStrLength) <= $tweetMaxLength) {
+            // Good news, we don't have to trim anything
+            $tweetContent = $gif->getCaption() . $hashTag . $gifUrl;
+        } else {
+            // Trim caption
+            $availableLength = $tweetMaxLength - (strlen($hashTag) + $linkStrLength + strlen("..."));
+
+            $tweetContent = substr($gif->getCaption(), 0, $availableLength) . " - Les Joies de #Supinfo " . $gifUrl;
+        }
+
+		return $this->postTweet($tweetContent);
 	}
 
 	private function postTweet($text)
