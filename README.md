@@ -24,17 +24,19 @@ joies-de-supinfo_cron.sh :
 
     #!/bin/bash
     
-    wget http://joies-de-supinfo.s-quent.in/cron/publishCron -q --post-data "admin_api_key=(put the admin api key here)"
+    wget http://joies-de-supinfo.s-quent.in/cron/publishCron -q --post-data "admin_api_key=(put the admin api key here)" -O /dev/null
 
 cron jobs :
 
-    # Weekdays (3 times a day)
-    # Morning
-    0 10 * * 1-5 /root/joies-de-supinfo_cron.sh
-    # Afternoon (x2)
-    0 14 * * 1-5 /root/joies-de-supinfo_cron.sh
-    0 17 * * 1-5 /root/joies-de-supinfo_cron.sh
-    
-    # Week-end (once a day)
-    0 15 * * 6-7 /root/joies-de-supinfo_cron.sh
+	# Weekdays (4 times a day)
+	# Morning (x2)
+	0 10 * * 1-5 /root/joies-de-supinfo_cron.sh
+	0 12 * * 1-5 /root/joies-de-supinfo_cron.sh
+	# Afternoon (x2)
+	30 14 * * 1-5 /root/joies-de-supinfo_cron.sh
+	0 17 * * 1-5 /root/joies-de-supinfo_cron.sh
+	
+	# Week-end (twice a day)
+	30 14 * * 6-7 /root/joies-de-supinfo_cron.sh
+	0 17 * * 6-7 /root/joies-de-supinfo_cron.sh
 
