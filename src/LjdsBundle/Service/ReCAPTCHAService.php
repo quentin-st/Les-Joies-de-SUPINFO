@@ -19,19 +19,14 @@ class ReCAPTCHAService
             'response' => $captchaResponse
         ];
 
-        // URLify parameters
-        $postString = '';
-        foreach ($postParameters as $key => $value)
-            $postString .= $key . '=' . $value . '&';
-        $postString = rtrim($postString, '&');
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-        curl_setopt($ch, CURLOPT_POST, count($postString));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $postString);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json')); // Assuming you're requesting JSON
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postParameters));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
+        var_dump($response);
+
         curl_close($ch);
 
         $data = json_decode($response, true);
