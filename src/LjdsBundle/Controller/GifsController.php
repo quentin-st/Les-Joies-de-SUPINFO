@@ -125,15 +125,6 @@ class GifsController extends Controller
         // Form is submitted
         $post = $request->request;
         if ($post->has('caption')) {
-            if ($post->has('g-recaptcha-response')) {
-                // Check reCAPTCHA
-                $reCaptchaService = $this->get('app.recaptcha');
-                $captchaSuccess = $reCaptchaService->checkCaptcha($post->get('g-recaptcha-response'));
-
-                if (!$captchaSuccess)
-                    $gifSubmittedError = 'error lors de la vérification du captcha';
-            }
-
             // Check if mandatory fields are filled up
             if (trim($post->get('submittedBy')) == ''
                 || trim($post->get('caption')) == ''

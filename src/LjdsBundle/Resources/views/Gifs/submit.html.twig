@@ -1,9 +1,6 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
 {% block title %}Proposer un gif - {% endblock %}
-{% block customScripts_head %}
-    <script src='https://www.google.com/recaptcha/api.js'></script>
-{% endblock %}
 {% block content %}
 	<div class="col-md-1"></div>
     <div class="col-md-10 submitGif">
@@ -53,8 +50,6 @@
                 <input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
                 <ul id="giphyGifsList"></ul>
             </div>
-
-            <div class="g-recaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
 
             <input type="submit" value="Proposer" />
         </form>
