@@ -34,7 +34,7 @@ class ReCAPTCHAService
         $response = curl_exec($ch);
         curl_close($ch);
 
-        $data = json_decode($response);
+        $data = json_decode($response, true);
         return $data['success'];
     }
 }

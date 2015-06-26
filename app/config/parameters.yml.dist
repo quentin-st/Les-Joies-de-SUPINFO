@@ -48,3 +48,5 @@ parameters:
 twig:
     globals:
         analytics_tracking_code: %analytics_tracking_code%
+        recaptcha_sitekey: '%recaptcha_sitekey%'
+		recaptcha_secretkey: '%recaptcha_secretkey%'
