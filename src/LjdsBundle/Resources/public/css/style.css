@@ -257,7 +257,7 @@ ul.menu {
   .submitGif .uploadMethods > input[type="file"] {
     line-height: 24px; }
 .submitGif #ajaxLoading {
-  margin: auto;
+  margin: 10px auto;
   display: block; }
 .submitGif input[type="submit"] {
   margin: 50px auto 0 auto;
@@ -360,6 +360,11 @@ ul.menu {
         filter: alpha(opacity=100); }
   #giphyGifs .poweredByGiphy {
     float: right; }
+
+.g-recaptcha {
+  margin-top: 20px; }
+  .g-recaptcha > div > div {
+    margin: auto; }
 
 .topSubmitters ol li {
   font-size: 27px;

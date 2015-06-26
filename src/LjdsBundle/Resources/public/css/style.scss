@@ -321,7 +321,7 @@ ul.menu {
 		}
 	}
 	#ajaxLoading {
-		margin: auto;
+		margin: 10px auto;
 		display: block;
 	}
 	input[type="submit"] {
@@ -423,6 +423,14 @@ ul.menu {
 	}
 	.poweredByGiphy {
 		float: right;
+	}
+}
+
+.g-recaptcha {
+	margin-top: 20px;
+
+	> div > div {
+		margin: auto;
 	}
 }
 

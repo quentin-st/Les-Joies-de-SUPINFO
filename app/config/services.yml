@@ -19,3 +19,6 @@ services:
     app.facebook:
         class: LjdsBundle\Service\FacebookService
         arguments: [@service_container, @router]
+    app.recaptcha:
+        class: LjdsBundle\Service\ReCAPTCHAService
+        arguments: [@service_container]

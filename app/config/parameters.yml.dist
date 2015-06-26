@@ -42,6 +42,9 @@ parameters:
     twitter_access_token: null
     twitter_access_token_secret: null
 
+    recaptcha_sitekey: null
+    recaptcha_secretkey: null
+
 twig:
     globals:
         analytics_tracking_code: %analytics_tracking_code%

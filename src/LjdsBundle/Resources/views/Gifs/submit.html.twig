@@ -1,6 +1,9 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
 {% block title %}Proposer un gif - {% endblock %}
+{% block customScripts_head %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
 {% block content %}
 	<div class="col-md-1"></div>
     <div class="col-md-10 submitGif">
@@ -11,8 +14,11 @@
                 <div class="alert alert-danger">Erreur lors de l'envoi du gif : {{ submitError }}</div>
             {% else %}
                 <div class="alert alert-success">Votre gif a bien été envoyé ! Il passe maintenant en modération en attente d'être publié.
-                    S'il est accepté, il sera normalement publié le <b>{{ estimatedPublishDate|date('d-m-Y') }}</b> (en fonction du nombre de gifs en attente de publication),
-                    <b>ou immédiatement s'il concerne un évènement d'actualité</b>. Merci !</div>
+                    {% if estimatedPublishDate is defined %}
+                        S'il est accepté, il sera normalement publié le <b>{{ estimatedPublishDate|date('d-m-Y') }}</b> (en fonction du nombre de gifs en attente de publication),
+                        <b>ou immédiatement s'il concerne un évènement d'actualité</b>.
+                    {% endif %}
+                    Merci !</div>
             {% endif %}
         {% endif %}
 
@@ -47,6 +53,8 @@
                 <input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
                 <ul id="giphyGifsList"></ul>
             </div>
+
+            <div class="g-recaptcha" data-sitekey="{{ recaptcha_sitekey }}"></div>
 
             <input type="submit" value="Proposer" />
         </form>
