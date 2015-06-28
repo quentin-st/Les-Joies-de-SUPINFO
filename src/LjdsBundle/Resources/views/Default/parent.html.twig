@@ -45,6 +45,7 @@
         </div>
     </div>
     {% block content %}{% endblock %}
+	{% include 'LjdsBundle:Default:facebookSdk.html.twig' %}
 </div>
 <div class="footer">
     <a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo" target="_blank">Contribuer</a> &bull; <a href="{{ path('rulesOfTheGame') }}">Conditions d'utilisation</a>
