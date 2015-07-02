@@ -28,15 +28,11 @@ joies-de-supinfo_cron.sh :
 
 cron jobs :
 
-	# Weekdays (4 times a day)
-	# Morning (x2)
-	0 10 * * 1-5 /root/joies-de-supinfo_cron.sh
-	0 12 * * 1-5 /root/joies-de-supinfo_cron.sh
-	# Afternoon (x2)
-	30 14 * * 1-5 /root/joies-de-supinfo_cron.sh
-	0 17 * * 1-5 /root/joies-de-supinfo_cron.sh
+	# Weekdays (twice a day)
+	# Morning
+	0 11 * * 1-5 /root/joies-de-supinfo_cron.sh
+	# Afternoon
+	0 18 * * 1-5 /root/joies-de-supinfo_cron.sh
 	
-	# Week-end (twice a day)
-	30 14 * * 6-7 /root/joies-de-supinfo_cron.sh
-	0 17 * * 6-7 /root/joies-de-supinfo_cron.sh
-
+	# Week-end (once a day)
+	0 16 * * 6-7 /root/joies-de-supinfo_cron.sh
