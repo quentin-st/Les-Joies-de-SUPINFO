@@ -1,6 +1,8 @@
 # Les Joies de SUPINFO
 Welcome to the public repository for Les Joies de SUPINFO project!
 
+The project is currently hosted at [joies-de-supinfo.s-quent.in](http://joies-de-supinfo.s-quent.in/).
+
 This project is based on Symfony2. But at first, we wrote it in vanilla PHP :
 you can check the original sources (in the `vanilla-php` branch), but it is neither used nor maintained anymore.
 
