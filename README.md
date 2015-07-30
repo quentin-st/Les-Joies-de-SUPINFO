@@ -40,8 +40,12 @@ cron jobs :
 	0 16 * * 6-7 /root/joies-de-supinfo_cron.sh
 
 ## API
-You can either get the last published gif or a random one by querying the following URLS. In both case, you'll
-receive a single JSON-encoded gif:
+You can either get the last published gif or a random one by dropping a GET request on the following URLS:
+
+* last: http://joies-de-supinfo.s-quent.in/api/last
+* random: http://joies-de-supinfo.s-quent.in/api/random
+
+In both case, you'll receive a JSON-encoded response such as this one :
 
 	{
 		caption: "Quand ton CM passe dans l'open space ",
@@ -50,5 +54,5 @@ receive a single JSON-encoded gif:
 		type: "gif"
 	}
 
-Depending on the `type` attribute (either `gif` or `mp4`), you may want to treat it differently. Please read
+Depending on the `type` attribute (either `gif` or `mp4`), you may want to handle it differently. Please read
 [gif.html.twig](src/LjdsBundle/Resources/views/Gifs/gif.html.twig) to see how we handle this.
