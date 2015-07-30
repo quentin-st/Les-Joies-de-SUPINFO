@@ -1,36 +1,36 @@
 <div class="gifItem row">
-    <div class="gifInfos col-md-3">
-        <div>
-            {% if gif.label is not null and gif.label != 'étudiant' %}
-                <div class="gifLabel">{{ gif.label }}</div>
-                <br />
-            {% endif %}
-			{% if gif.publishDate is not null %}
-            	{{ gif.publishDate|relativeDate }}
+	<div class="gifInfos col-md-3">
+		<div>
+			{% if gif.label is not null and gif.label != 'étudiant' %}
+				<div class="gifLabel">{{ gif.label }}</div>
+				<br />
 			{% endif %}
-            <br />
-            <a href="{{ path('submitter', { 'submitter': gif.submittedBy }) }}">{{ gif.submittedBy }}</a><br /><br />
-        </div>
-        <div class="fb-like" data-href="{{ path('gif', {'permalink': gif.permalink}) }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
-        {% if gif.source != '' %}
-            <a href="{{ gif.source }}" target="_blank" class="actionIconContainer">
-                <span class="actionIconText">Source du gif</span> <span class="gifSourceIcon"></span>
-            </a>
-        {% endif %}
+			{% if gif.publishDate is not null %}
+				{{ gif.publishDate|relativeDate }}
+			{% endif %}
+			<br />
+			<a href="{{ path('submitter', { 'submitter': gif.submittedBy }) }}">{{ gif.submittedBy }}</a><br /><br />
+		</div>
+		<div class="fb-like" data-href="{{ path('gif', {'permalink': gif.permalink}) }}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+		{% if gif.source != '' %}
+			<a href="{{ gif.source }}" target="_blank" class="actionIconContainer">
+				<span class="actionIconText">Source du gif</span> <span class="gifSourceIcon"></span>
+			</a>
+		{% endif %}
 		<a href="#" class="actionIconContainer">
 			<span class="actionIconText report" data-id="{{ gif.id }}">Signaler ce gif</span> <span class="reportGifIcon"></span>
 		</a>
-    </div>
-    <div class="gifMain col-md-8">
-        <a href="{{ path('gif', {'permalink': gif.permalink}) }}" class="gifLink">
-            <div class="caption">{{ gif.caption }}</div>
+	</div>
+	<div class="gifMain col-md-8">
+		<a href="{{ path('gif', {'permalink': gif.permalink}) }}" class="gifLink">
+			<div class="caption">{{ gif.caption }}</div>
 			{% if gif.fileType == 'gif' %}
-            	<img src="{{ gif.gifUrl }}" alt="{{ gif.caption }}" />
+				<img src="{{ gif.gifUrl }}" alt="{{ gif.caption }}" />
 			{% else %}
 				<video autoplay loop muted>
 					<source src="{{ gif.gifUrl }}" type="video/{{ gif.fileType }}">
 				</video>
 			{% endif %}
-        </a>
-    </div>
+		</a>
+	</div>
 </div>

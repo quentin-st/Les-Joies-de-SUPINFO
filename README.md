@@ -46,9 +46,9 @@ receive a single JSON-encoded gif:
 	{
 		caption: "Quand ton CM passe dans l'open space ",
 		file: "http://media0.giphy.com/media/phaN2NxXBzHMs/giphy.gif",
-		permalink: "/gif/quand-ton-cm-passe-dans-lopen-space-",
+		permalink: "http://joies-de-supinfo.s-quent.in/gif/quand-ton-cm-passe-dans-lopen-space-",
 		type: "gif"
 	}
 
 Depending on the `type` attribute (either `gif` or `mp4`), you may want to treat it differently. Please read
-[gif.html.twig](src/LjdsBundle/Resources/views/Gifs) to see how we handle this.
+[gif.html.twig](src/LjdsBundle/Resources/views/Gifs/gif.html.twig) to see how we handle this.
