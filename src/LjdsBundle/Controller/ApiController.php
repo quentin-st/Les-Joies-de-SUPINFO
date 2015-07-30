@@ -52,7 +52,7 @@ class ApiController extends Controller
             'caption' => $gif->getCaption(),
             'type' => $gif->getFileType(),
             'file' => $gif->getGifUrl(),
-            'permalink' => $this->generateUrl('gif', ['permalink' => $gif->getPermalink()])
+            'permalink' => $this->generateUrl('gif', ['permalink' => $gif->getPermalink()], true)
         ];
     }
 }
