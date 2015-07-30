@@ -146,6 +146,16 @@ class GifRepository extends EntityRepository
             ->getSingleResult();
     }
 
+    public function getLastPublishedGif()
+    {
+        return $this->createQueryBuilder('g')
+            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->orderBy('g.publishDate', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     /**
      * Get the DateTime of the upcoming publication
      * @return bool|\DateTime false if none
