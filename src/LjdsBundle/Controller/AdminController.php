@@ -7,8 +7,6 @@ use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use LjdsBundle\Entity\ReportState;
-use LjdsBundle\Service\FacebookService;
-use LjdsBundle\Service\TwitterService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -179,35 +177,4 @@ class AdminController extends Controller
 
 		return new Response($gifRepo->getCountByGifState($gifState));
     }
-
-	/**
-	 * @Route("/cron/publishCron")
-	 */
-	public function publishCronAction(Request $request)
-	{
-		if (!$request->request->has('admin_api_key')
-			|| $request->request->get('admin_api_key') != $this->getParameter('admin_api_key'))
-			return new Response('invalid_action');
-
-		$em = $this->getDoctrine()->getManager();
-		/** @var GifRepository $gifRepository */
-		$gifRepository = $em->getRepository('LjdsBundle:Gif');
-
-		// Find next gif to publish
-		$acceptedGifs = $gifRepository->findByGifState(GifState::ACCEPTED);
-
-		if (count($acceptedGifs) > 0) {
-			// Publish the first one (oldest one = FIFO)
-			$gif = $acceptedGifs[0];
-
-			$res = $this->publishGif($gif);
-
-			if (!$res)
-				return new Response('publish_failed');
-
-			return new Response('publish_succeeded');
-		}
-
-		return new Response('empty_publish_queue');
-	}
 }
