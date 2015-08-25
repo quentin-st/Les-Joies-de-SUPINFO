@@ -2,7 +2,6 @@
 
 namespace LjdsBundle\Controller;
 
-use DateTime;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
@@ -12,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends Controller
@@ -159,22 +157,5 @@ class AdminController extends Controller
         ];
 
         return $this->render('LjdsBundle:Admin:index.html.twig', $params);
-    }
-
-    /**
-     * @Route("/stats/{state}")
-     */
-    public function statsAction($state)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var GifRepository $gifRepo */
-        $gifRepo = $em->getRepository('LjdsBundle:Gif');
-
-		$gifState = GifState::fromName($state);
-
-		if ($gifState == -1)
-			return new Response('unknown_action');
-
-		return new Response($gifRepo->getCountByGifState($gifState));
     }
 }
