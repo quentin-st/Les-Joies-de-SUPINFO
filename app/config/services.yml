@@ -4,9 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     app.ljds_extension:
         class: LjdsBundle\Twig\LjdsExtension
         public: false
@@ -22,3 +19,11 @@ services:
     app.recaptcha:
         class: LjdsBundle\Service\ReCAPTCHAService
         arguments: [@service_container]
+    app.gif:
+        class: LjdsBundle\Service\GifService
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            facebookAutopost: "%facebook_autopost%"
+            facebookService: "@app.facebook"
+            twitterAutopost: "%twitter_autopost%"
+            twitterService: "@app.twitter"

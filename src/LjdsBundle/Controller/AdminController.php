@@ -68,7 +68,7 @@ class AdminController extends Controller
 				$em->flush();
 
 				if ($gifState == GifState::PUBLISHED)
-					$this->publishGif($gif);
+					$this->get('app.gif')->publish($gif);
 
 				break;
 			case 'change_report_status':
@@ -128,36 +128,6 @@ class AdminController extends Controller
 		], 500);
 	}
 
-	public function publishGif(Gif $gif)
-	{
-		$em = $this->getDoctrine()->getManager();
-
-		if (!$gif)
-			return false;
-
-		if (!$gif->getGifStatus() == GifState::ACCEPTED)
-			return false;
-
-		$gif->setPublishDate(new DateTime());
-		$gif->setGifStatus(GifState::PUBLISHED);
-		$gif->generateUrlReadyPermalink();
-
-		$em->flush();
-
-		if ($this->getParameter('facebook_autopost')) {
-			/** @var FacebookService $facebookService */
-			$facebookService = $this->get('app.facebook');
-			$facebookService->postGif($gif);
-		}
-		if ($this->getParameter('twitter_autopost')) {
-			/** @var TwitterService $twitterService */
-			$twitterService = $this->get('app.twitter');
-			$twitterService->postGif($gif);
-		}
-
-		return true;
-	}
-
 
     /**
 	 * @Route("/admin/{type}", name="admin")
@@ -169,7 +139,6 @@ class AdminController extends Controller
 		/** @var GifRepository $gifRepo */
 		$gifRepo = $em->getRepository('LjdsBundle:Gif');
 
-		$gifs = [];
 		switch ($type) {
 			case 'submitted':
 			case 'accepted':
