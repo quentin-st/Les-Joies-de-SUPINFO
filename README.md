@@ -26,7 +26,7 @@ joies-de-supinfo_cron.sh :
 
     #!/bin/bash
     
-    wget http://joies-de-supinfo.s-quent.in/cron/publishCron -q --post-data "admin_api_key=(put the admin api key here)" -O /dev/null
+    php app/console ljds:publish
 
 cron jobs :
 
