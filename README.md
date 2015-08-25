@@ -20,7 +20,7 @@ With all these things set, you should be able to contribute! If you have any con
 ## Technical information
 ### Cron configuration
 To publish gifs without a manual action, a cron is configured on the server to automatically publish accepted gifs.
-Cron jobs are set to execute a script, calling the `/cron/publishCron` route (`AdminController`):
+Cron jobs are set to execute a custom command, `ljds:publish`:
 
 joies-de-supinfo_cron.sh :
 
