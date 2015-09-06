@@ -187,7 +187,8 @@ class GifsController extends Controller
     }
 
     /**
-     * @Route("/feed", name="feed")
+     * @Route("/feed/", name="feed")
+     * @Route("/feed")
      */
     public function feedAction()
     {
