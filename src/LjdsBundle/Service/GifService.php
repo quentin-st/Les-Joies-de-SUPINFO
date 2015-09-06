@@ -21,8 +21,8 @@ class GifService
     private $twitterService;
 
     public function __construct(EntityManager $em,
-                                boolean $facebookAutopost, FacebookService $facebookService,
-                                boolean $twitterAutopost, TwitterService $twitterService)
+                                $facebookAutopost, FacebookService $facebookService,
+                                $twitterAutopost, TwitterService $twitterService)
     {
         $this->em = $em;
         $this->facebookAutopost = $facebookAutopost;
