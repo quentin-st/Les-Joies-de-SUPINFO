@@ -3,6 +3,7 @@ namespace LjdsBundle\Service;
 
 use Codebird\Codebird;
 use LjdsBundle\Entity\Gif;
+use LjdsBundle\Helper\Util;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Routing\Router;
 
@@ -22,9 +23,8 @@ class TwitterService
 	public function postGif(Gif $gif)
 	{
 		$gifUrl = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
-		// There's a bug with Symfony 2.8 where generated URLs can have two '/' after the domain
-		// name. Let's hard-fix that here:
-		$gifUrl = str_replace('//', '/', $gifUrl);
+		$gifUrl = Util::fixSymfonyGeneratedURLs($gifUrl);
+
 
         $tweetMaxLength = 140;
         $linkStrLength = 22;

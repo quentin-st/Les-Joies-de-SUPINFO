@@ -69,4 +69,18 @@ class Util {
 			return $years <= 1 ? "il y a un an" : "il y a " . $years . " ans";
 		}
 	}
+
+	/**
+	 * There's a bug with Symfony 2.8 where generated URLs can have two '/' after the domain
+	 * name. This is a hard fix for this issue:
+	 * @param $url
+	 * @return mixed
+	 */
+	public static function fixSymfonyGeneratedURLs($url)
+	{
+		$url = str_replace('//', '/', $url);
+		// Put back http:// (it has become http:/)
+		$url = str_replace('http:/', 'http://', $url);
+		return $url;
+	}
 }
