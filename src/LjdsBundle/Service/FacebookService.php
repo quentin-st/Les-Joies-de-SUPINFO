@@ -5,10 +5,14 @@ use Facebook\FacebookRequest;
 use Facebook\FacebookRequestException;
 use Facebook\FacebookSession;
 use LjdsBundle\Entity\Gif;
+use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Routing\Router;
 
 class FacebookService
 {
+	/** @var Container */
 	protected $container;
+	/** @var Router */
 	protected $router;
 
 	public function __construct($container, $router)
@@ -41,6 +45,9 @@ class FacebookService
 		}
 
 		$link = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
+		// There's a bug with Symfony 2.8 where generated URLs can have two '/' after the domain
+		// name. Let's hard-fix that here:
+		$link = str_replace('//', '/', $link);
 
 		try {
 			$requestParaps = [
