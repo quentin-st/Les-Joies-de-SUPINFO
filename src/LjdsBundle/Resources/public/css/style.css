@@ -167,12 +167,8 @@ hr {
     filter: alpha(opacity=100); }
 
 /* Pagination */
-.pagination {
-  text-align: center;
-  display: block; }
-  .pagination a {
-    margin: 0 10px;
-    padding: 10px; }
+.pagination-wrap {
+  text-align: center; }
 
 /* Menu */
 ul.menu {

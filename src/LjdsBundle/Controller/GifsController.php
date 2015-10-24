@@ -2,10 +2,10 @@
 
 namespace LjdsBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
-use LjdsBundle\Entity\ReportState;
 use LjdsBundle\Helper\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,14 +23,35 @@ class GifsController extends Controller
      */
     public function pageAction($page=1)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
-        /** @var GifRepository $gifsRepo */
-        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
+
+        // Create query
+        $qb = $em->createQueryBuilder();
+        $qb->select('g')
+            ->from('LjdsBundle\Entity\Gif', 'g')
+            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->orderBy('g.publishDate', 'DESC');
 
         // Pagination
         $page = intval($page);
-		$gifsPerPage = intval($this->getParameter('gifs_per_page'));
-        $pagesCount = $gifsRepo->getPaginationPagesCount(GifState::PUBLISHED, $gifsPerPage);
+        $gifsPerPage = intval($this->getParameter('gifs_per_page'));
+
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $qb->getQuery(),
+            $page,
+            $gifsPerPage
+        );
+        $pagination->setUsedRoute('page');
+
+
+        // Redirect on wrong page
+        $ref = new \ReflectionClass(get_class($pagination));
+        $totalCountAttr = $ref->getProperty('totalCount');
+        $totalCountAttr->setAccessible(true);
+        $totalCount = $totalCountAttr->getValue($pagination);
+        $pagesCount = ceil($totalCount/$gifsPerPage);
 
         if ($page <= 0)
             return $this->redirect($this->generateUrl('page', ['page' => 0]));
@@ -38,12 +59,9 @@ class GifsController extends Controller
             return $this->redirect($this->generateUrl('page', ['page' => $pagesCount]));
 
         $params = [
-            'gifs' => $gifsRepo->findByGifState(GifState::PUBLISHED, $page, $gifsPerPage),
-            'homePage' => $page == 1,
-            'pagination' => [
-                'page' => $page,
-                'pageCount' => $pagesCount
-            ]
+            'gifs' => $pagination,
+            'pagination' => true,
+            'homePage' => $page == 1
         ];
         return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
     }
@@ -58,7 +76,8 @@ class GifsController extends Controller
 		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
 
 		$params = [
-			'gifs' => $gifsRepo->getTop(20, $this->get('router'))
+			'gifs' => $gifsRepo->getTop(20, $this->get('router')),
+            'pagination' => false
 		];
 
 		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);

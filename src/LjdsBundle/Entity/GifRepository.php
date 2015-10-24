@@ -14,22 +14,15 @@ use Symfony\Component\Routing\Router;
  */
 class GifRepository extends EntityRepository
 {
-    public function findByGifState($gifState, $page=-1, $gifsPerPage=5)
+    public function findByGifState($gifState)
     {
-        $firstResult = $gifsPerPage * $page - $gifsPerPage;
-
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('g')
+        $query = $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g')
             ->where('g.gifStatus = ' . $gifState)
-            ->orderBy('g.publishDate', 'DESC');
+            ->orderBy('g.publishDate', 'DESC')
+            ->getQuery();
 
-		if ($page != -1) {
-			$qb->setFirstResult($firstResult)
-				->setMaxResults($gifsPerPage);
-		}
-
-        $query = $qb->getQuery();
         $query->execute();
         return $query->getResult();
     }
@@ -80,19 +73,6 @@ class GifRepository extends EntityRepository
         $query = $qb->getQuery();
         $query->execute();
         return $query->getResult();
-    }
-
-    public function getPaginationPagesCount($gifState, $gifsPerPage)
-    {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('COUNT(g.id)')
-            ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . $gifState);
-        $query = $qb->getQuery();
-
-        $gifsCount = intval($query->getSingleScalarResult());
-
-        return ceil($gifsCount/$gifsPerPage);
     }
 
     public function getTopSubmitters()

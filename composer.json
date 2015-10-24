@@ -21,7 +21,8 @@
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "facebook/php-sdk-v4" : "4.0.*",
-        "jublonet/codebird-php": "dev-master"
+        "jublonet/codebird-php": "dev-master",
+        "knplabs/knp-paginator-bundle": "^2.5"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

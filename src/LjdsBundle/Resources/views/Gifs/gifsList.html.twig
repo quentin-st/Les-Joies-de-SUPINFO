@@ -9,16 +9,10 @@
         {% endfor %}
 
         {# Pagination #}
-		{% if pagination is defined %}
-			<div class="pagination">
-				{% if pagination.page > 1 %}
-					<a href="{{ path('page', {'page': pagination.page-1}) }}">&lt; Plus récents</a>
-				{% endif %}
-				Page {{ pagination.page }} / {{ pagination.pageCount }}
-				{% if pagination.page != pagination.pageCount %}
-					<a href="{{ path('page', {'page': pagination.page+1}) }}">Plus anciens &gt;</a>
-				{% endif %}
-			</div>
+		{% if pagination %}
+            <div class="pagination-wrap">
+			    {{ knp_pagination_render(gifs) }}
+            </div>
 		{% endif %}
     </div>
 {% endblock %}
