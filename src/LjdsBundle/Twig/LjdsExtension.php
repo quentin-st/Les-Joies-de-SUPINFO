@@ -17,7 +17,6 @@ class LjdsExtension extends \Twig_Extension
 	}
 
 
-
     public function getFunctions()
     {
         return [

@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class GifsController extends Controller
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/", name="index", options={"sitemap"=true})
      * @Route("/page/{page}", name="page")
      */
     public function pageAction($page=1)
@@ -68,7 +68,7 @@ class GifsController extends Controller
     }
 
 	/**
-	 * @Route("/top", name="top")
+	 * @Route("/top", name="top", options={"sitemap"=true})
 	 */
 	public function topGifsAction()
 	{
@@ -131,7 +131,7 @@ class GifsController extends Controller
 	}
 
     /**
-     * @Route("/submit", name="submit")
+     * @Route("/submit", name="submit", options={"sitemap"=true})
      */
     public function submitAction(Request $request)
     {

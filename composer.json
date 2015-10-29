@@ -22,7 +22,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "facebook/php-sdk-v4" : "4.0.*",
         "jublonet/codebird-php": "dev-master",
-        "knplabs/knp-paginator-bundle": "^2.5"
+        "knplabs/knp-paginator-bundle": "^2.5",
+        "presta/sitemap-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

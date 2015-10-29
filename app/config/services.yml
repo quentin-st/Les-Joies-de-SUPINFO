@@ -9,16 +9,26 @@ services:
         public: false
         tags:
             - { name: twig.extension }
-        arguments: [@doctrine.orm.entity_manager]
+        arguments:
+            em: @doctrine.orm.entity_manager
+
     app.twitter:
         class: LjdsBundle\Service\TwitterService
-        arguments: [@service_container, @router]
+        arguments:
+            container: @service_container
+            router: @router
+
     app.facebook:
         class: LjdsBundle\Service\FacebookService
-        arguments: [@service_container, @router]
+        arguments:
+            container: @service_container
+            router: @router
+
     app.recaptcha:
         class: LjdsBundle\Service\ReCAPTCHAService
-        arguments: [@service_container]
+        arguments:
+            container: @service_container
+
     app.gif:
         class: LjdsBundle\Service\GifService
         arguments:
@@ -27,3 +37,10 @@ services:
             facebookService: "@app.facebook"
             twitterAutopost: "%twitter_autopost%"
             twitterService: "@app.twitter"
+
+    app.sitemap.listener:
+        class: LjdsBundle\EventListener\SitemapListener
+        arguments:
+            router: @router
+            em: @doctrine.orm.entity_manager
+        tags: [{name: "presta.sitemap.listener"}]

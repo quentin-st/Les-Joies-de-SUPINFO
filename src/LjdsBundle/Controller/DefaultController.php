@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/rulesOfTheGame", name="rulesOfTheGame")
+     * @Route("/rulesOfTheGame", name="rulesOfTheGame", options={"sitemap"=true})
      */
     public function rulesOfTheGameAction()
     {
