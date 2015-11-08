@@ -55,7 +55,7 @@ class GifsController extends Controller
         $pagesCount = ceil($totalCount/$gifsPerPage);
 
         if ($page <= 0)
-            return $this->redirect($this->generateUrl('page', ['page' => 0]));
+            return $this->redirect($this->generateUrl('page', ['page' => 1]));
         else if ($page > $pagesCount)
             return $this->redirect($this->generateUrl('page', ['page' => $pagesCount]));
 
