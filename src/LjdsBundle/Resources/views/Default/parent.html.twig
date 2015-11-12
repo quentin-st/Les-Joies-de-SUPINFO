@@ -7,9 +7,12 @@
     <title>{% block title %}{% endblock %}Les Joies de SUPINFO</title>
     <meta name="description" content="">
     <meta name="author" content="Quentin Stoeckel, Frédéric Strebler, Thomas Nold">
-    <link href="{{ asset('bundles/ljds/css/bootstrap.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/ljds/css/bootstrap-theme.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('bundles/ljds/css/style.css') }}" rel="stylesheet" />
+    {% stylesheets
+        'bundles/ljds/css/bootstrap.min.css'
+        'bundles/ljds/css/bootstrap-theme.min.css'
+        'bundles/ljds/css/style.css' filter='cssrewrite' %}
+        <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
     <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
 	{% block customStyle %}{% endblock %}
     <link rel="shortcut icon" href="{{ asset('bundles/ljds/favicon.ico') }}" type="image/x-icon">
@@ -84,11 +87,15 @@
     </div>
 </div>
 
-<script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
-<script src="{{ asset('bundles/ljds/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('bundles/ljds/js/script.js') }}"></script>
-<script src="{{ asset('bundles/ljds/js/jquery.plugin.min.js') }}"></script>
-<script src="{{ asset('bundles/ljds/js/jquery.countdown.min.js') }}"></script>
+{% javascripts
+    '@LjdsBundle/Resources/public/js/jquery-1.11.2.min.js'
+    '@LjdsBundle/Resources/public/js/bootstrap.min.js'
+    '@LjdsBundle/Resources/public/js/script.js'
+    '@LjdsBundle/Resources/public/js/jquery.plugin.min.js'
+    '@LjdsBundle/Resources/public/js/jquery.countdown.min.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
 {% block customScripts %}{% endblock %}
 {% include 'LjdsBundle:Default:analytics.html.twig' %}
 </body>
