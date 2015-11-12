@@ -151,25 +151,40 @@ hr {
 }
 
 .container {
-	@include box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.1));
-	background-color: #fff;
-	margin-top: 20px;
-	padding: 0 0 10px 0;
+	.content {
+		@include box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.1));
+		background-color: #fff;
+		margin-top: 20px;
+		padding: 0 0 10px 0;
+	}
 }
-.container::before { content: none; }
 
 .fullWidth{
 	max-width: 100%;
 }
 .footer {
-	text-align: center;
 	font-weight: 300;
-	@include opacity(0.3);
+	@include opacity(0.5);
 	@include transition-duration(200ms);
 	margin: 10px 0;
-	padding: 10px 0;
+	padding-bottom: 10px;
+
+	&:hover { @include opacity(0.75); }
+
+	h2 {
+		color: #333;
+		font-size: 17px;
+	}
+	ul {
+		padding-left: 0;
+		margin-bottom: 0;
+		list-style: none;
+
+		li {
+			a {}
+		}
+	}
 }
-.footer:hover { @include opacity(1); }
 
 .gifItem {
 	margin-top: 30px;
