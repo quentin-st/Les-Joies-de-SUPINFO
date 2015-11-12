@@ -38,7 +38,11 @@ hr {
     background: -moz-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
     background: -webkit-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
     background: radial-gradient(ellipse at center, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#26000000',GradientType=1 ); }
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#26000000',GradientType=1 );
+    -webkit-border-radius: 2px 2px 0 0;
+    -moz-border-radius: 2px 2px 0 0;
+    -ms-border-radius: 2px 2px 0 0;
+    border-radius: 2px 2px 0 0; }
   .header h1 {
     font-size: 32px;
     margin: 15px 0; }
@@ -206,12 +210,17 @@ ul.menu {
       -moz-border-radius: 2px;
       -ms-border-radius: 2px;
       border-radius: 2px;
-      font-size: 16px;
+      font-size: 15px;
       background-color: rgba(0, 0, 0, 0.15); }
+      ul.menu li a.submit {
+        background-color: #03a9f4;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); }
     ul.menu li a:hover {
       color: #fff;
       background-color: rgba(0, 0, 0, 0.3);
       text-decoration: none; }
+      ul.menu li a:hover.submit {
+        background-color: rgba(3, 169, 244, 0.7); }
 
 /* Submit a gif */
 .submitGif input[type="text"] {
@@ -326,9 +335,13 @@ ul.menu {
   margin-top: 30px;
   padding: 15px;
   overflow-y: auto;
-  max-height: 450px;
+  max-height: 550px;
   position: relative;
-  text-align: left; }
+  text-align: left;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
   #giphyGifs .search {
     margin: -5px 0 10px 0;
     font-family: Roboto, sans-serif;
@@ -412,7 +425,9 @@ ul.menu {
   text-align: right;
   padding-right: 10px;
   font-weight: 200;
-  margin-top: 30px; }
+  margin-top: 40px; }
+  .countdown p {
+    margin-bottom: 0; }
   .countdown ul li {
     list-style: none;
     display: inline-block;

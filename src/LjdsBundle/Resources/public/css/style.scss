@@ -90,6 +90,7 @@ hr {
 		background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.15) 100%);
 		background: radial-gradient(ellipse at center,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.15) 100%);
 		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#26000000',GradientType=1 );
+		@include border-radius(2px 2px 0 0);
 	}
 
 	h1 {
@@ -287,13 +288,22 @@ ul.menu {
 			padding: 5px 13px;
 			@include transition-duration(200ms);
 			@include border-radius(2px);
-			font-size: 16px;
+			font-size: 15px;
 			background-color: rgba(0, 0, 0, 0.15);
+
+			&.submit {
+				background-color: rgba(3, 169, 244, 1);
+				text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+			}
 		}
 		a:hover {
 			color: #fff;
 			background-color: rgba(0, 0, 0, 0.3);
 			text-decoration: none;
+
+			&.submit {
+				background-color: rgba(3, 169, 244, 0.7);
+			}
 		}
 	}
 }
@@ -411,9 +421,10 @@ ul.menu {
 	margin-top: 30px;
 	padding: 15px;
 	overflow-y: auto;
-	max-height: 450px;
+	max-height: 550px;
 	position: relative;
 	text-align: left;
+	@include border-radius(2px);
 
 	.search {
 		margin: -5px 0 10px 0;
@@ -504,7 +515,11 @@ ul.menu {
 	text-align: right;
 	padding-right: 10px;
 	font-weight: 200;
-	margin-top: 30px;
+	margin-top: 40px;
+
+	p {
+		margin-bottom: 0;
+	}
 
 	ul {
 		li {
