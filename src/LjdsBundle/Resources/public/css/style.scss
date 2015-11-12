@@ -110,16 +110,38 @@ hr {
 			margin: 0;
 		}
 	}
-}
-.homeHeader {
-	background: url('../img/header_background.jpg') no-repeat center;
-	@include background-size(cover);
 
-	h1 {
-		font-size: 32px;
-		margin: 15px 0;
+	&.homeHeader {
+		background: url('../img/header_background.jpg') no-repeat top;
+		@include background-size(cover);
+
+		> div {
+			background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 52%, rgba(0,0,0,0.15) 100%);
+			background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.15) 100%);
+			background: radial-gradient(ellipse at center,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.15) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#26000000',GradientType=1 );
+		}
+
+		h1 {
+			font-size: 32px;
+			margin: 15px 0;
+		}
+	}
+
+	.subTitle {
+		padding: 15px 30px;
+		color: #fff;
+		margin-top: 50px;
+
+		h2 {
+			font-size: 19px;
+			font-weight: 300;
+			margin: 0;
+			text-shadow: 0 0 7px #000;
+		}
 	}
 }
+
 .subHeader {
 	min-height: 70px;
 
@@ -250,18 +272,17 @@ ul.menu {
 		a {
 			color: #eee;
 			font-weight: 300;
-			border: 1px solid rgba(255, 255, 255, 0.3);
+			text-transform: uppercase;
 			padding: 5px 13px;
 			@include transition-duration(200ms);
 			@include border-radius(2px);
-			text-shadow: 1px 1px 2px #000;
 			font-size: 16px;
+			background-color: rgba(0, 0, 0, 0.15);
 		}
 		a:hover {
-			background-color: rgba(255, 255, 255, 0.1);
-			border: 1px solid rgba(255, 255, 255, 0.6);
-			text-shadow: none;
 			color: #fff;
+			background-color: rgba(0, 0, 0, 0.3);
+			text-decoration: none;
 		}
 	}
 }
@@ -475,11 +496,10 @@ ul.menu {
 	margin-top: 30px;
 
 	ul {
-
 		li {
 			list-style: none;
 			display: inline-block;
-			background-color: rgba(0, 0, 0, 0.8);
+			background-color: rgba(0, 0, 0, 0.15);
 			padding: 2px 5px;
 			margin: 0 3px;
 			border-radius: 3px;

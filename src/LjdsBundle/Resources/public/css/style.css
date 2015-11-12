@@ -49,16 +49,29 @@ hr {
       font-size: 19px;
       font-weight: 300;
       margin: 0; }
-
-.homeHeader {
-  background: url("../img/header_background.jpg") no-repeat center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; }
-  .homeHeader h1 {
-    font-size: 32px;
-    margin: 15px 0; }
+  .header.homeHeader {
+    background: url("../img/header_background.jpg") no-repeat top;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover; }
+    .header.homeHeader > div {
+      background: -moz-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
+      background: -webkit-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
+      background: radial-gradient(ellipse at center, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#26000000',GradientType=1 ); }
+    .header.homeHeader h1 {
+      font-size: 32px;
+      margin: 15px 0; }
+  .header .subTitle {
+    padding: 15px 30px;
+    color: #fff;
+    margin-top: 50px; }
+    .header .subTitle h2 {
+      font-size: 19px;
+      font-weight: 300;
+      margin: 0;
+      text-shadow: 0 0 7px #000; }
 
 .subHeader {
   min-height: 70px; }
@@ -183,7 +196,7 @@ ul.menu {
     ul.menu li a {
       color: #eee;
       font-weight: 300;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      text-transform: uppercase;
       padding: 5px 13px;
       -webkit-transition-duration: 200ms;
       -moz-transition-duration: 200ms;
@@ -193,13 +206,12 @@ ul.menu {
       -moz-border-radius: 2px;
       -ms-border-radius: 2px;
       border-radius: 2px;
-      text-shadow: 1px 1px 2px #000;
-      font-size: 16px; }
+      font-size: 16px;
+      background-color: rgba(0, 0, 0, 0.15); }
     ul.menu li a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.6);
-      text-shadow: none;
-      color: #fff; }
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.3);
+      text-decoration: none; }
 
 /* Submit a gif */
 .submitGif input[type="text"] {
@@ -404,7 +416,7 @@ ul.menu {
   .countdown ul li {
     list-style: none;
     display: inline-block;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.15);
     padding: 2px 5px;
     margin: 0 3px;
     border-radius: 3px;

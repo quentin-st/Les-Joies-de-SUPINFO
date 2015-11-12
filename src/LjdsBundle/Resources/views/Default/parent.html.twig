@@ -21,20 +21,22 @@
 <body>
 <div class="container">
     <div class="header {% if homePage is defined and homePage %}homeHeader{% endif %}">
-        <ul class="menu">
-            <li><a href="{{ path('top') }}">Top gifs</a></li>
-            <li><a href="{{ path('topSubmitters') }}">Top contributeurs</a></li>
-            <li><a href="{{ path('randomGif') }}">Au hasard</a></li>
-            <li><a href="{{ path('submit') }}">Proposer un gif</a></li>
-        </ul>
-        <a href="{{ path('index') }}" class="h1Link"><h1>Les Joies de SUPINFO</h1></a>
-        {% if homePage is defined and homePage %}
-			{{ publicationCountdown() }}
-            <div class="subHeader">
-                <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
-            </div>
-        {% endif %}
-        <div class="clear"></div>
+        <div>
+            <ul class="menu">
+                <li><a href="{{ path('top') }}">Top gifs</a></li>
+                <li><a href="{{ path('topSubmitters') }}">Top contributeurs</a></li>
+                <li><a href="{{ path('randomGif') }}">Au hasard</a></li>
+                <li><a href="{{ path('submit') }}">Proposer un gif</a></li>
+            </ul>
+            <a href="{{ path('index') }}" class="h1Link"><h1>Les Joies de SUPINFO</h1></a>
+            {% if homePage is defined and homePage %}
+                {{ publicationCountdown() }}
+                <div class="subTitle">
+                    <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
+                </div>
+            {% endif %}
+            <div class="clear"></div>
+        </div>
     </div>
     <div class="subHeader">
         <div class="row">
