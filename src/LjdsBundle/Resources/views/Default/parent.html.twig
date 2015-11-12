@@ -14,14 +14,14 @@
 	{% block customStyle %}{% endblock %}
     <link rel="shortcut icon" href="{{ asset('bundles/ljds/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('bundles/ljds/favicon.ico') }}" type="image/x-icon">
-    <link rel="alternate" type="application/rss+xml" title="Flux RSS - Gifs" href="/feed/" />
+    <link rel="alternate" type="application/rss+xml" title="Flux RSS - Gifs" href="{{ path('feed') }}" />
     {% block metas %}{% endblock %}
     {% block customScripts_head %}{% endblock %}
 </head>
 <body>
 <div class="container">
     <div class="content">
-        <div class="header {% if homePage is defined and homePage %}homeHeader{% endif %}">
+        <div class="header">
             <div>
                 <ul class="menu">
                     <li><a href="{{ path('top') }}">Top gifs</a></li>
@@ -29,13 +29,15 @@
                     <li><a href="{{ path('randomGif') }}">Au hasard</a></li>
                     <li><a href="{{ path('submit') }}">Proposer un gif</a></li>
                 </ul>
+
                 <a href="{{ path('index') }}" class="h1Link"><h1>Les Joies de SUPINFO</h1></a>
-                {% if homePage is defined and homePage %}
-                    {{ publicationCountdown() }}
-                    <div class="subTitle">
-                        <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
-                    </div>
-                {% endif %}
+
+                {{ publicationCountdown() }}
+
+                <div class="subTitle">
+                    <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
+                </div>
+
                 <div class="clear"></div>
             </div>
         </div>

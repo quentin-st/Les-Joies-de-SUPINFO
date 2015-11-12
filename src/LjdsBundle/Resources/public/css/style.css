@@ -25,11 +25,23 @@ hr {
   margin-bottom: 20px; }
 
 .header {
-  background: #E64A19;
   -webkit-border-radius: 2px 2px 0 0;
   -moz-border-radius: 2px 2px 0 0;
   -ms-border-radius: 2px 2px 0 0;
-  border-radius: 2px 2px 0 0; }
+  border-radius: 2px 2px 0 0;
+  background: url("../img/header_background.jpg") no-repeat top;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  .header > div {
+    background: -moz-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
+    background: -webkit-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
+    background: radial-gradient(ellipse at center, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#26000000',GradientType=1 ); }
+  .header h1 {
+    font-size: 32px;
+    margin: 15px 0; }
   .header a.h1Link {
     display: inline-block; }
     .header a.h1Link h1 {
@@ -49,20 +61,6 @@ hr {
       font-size: 19px;
       font-weight: 300;
       margin: 0; }
-  .header.homeHeader {
-    background: url("../img/header_background.jpg") no-repeat top;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover; }
-    .header.homeHeader > div {
-      background: -moz-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
-      background: -webkit-radial-gradient(center, ellipse cover, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
-      background: radial-gradient(ellipse at center, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.15) 100%);
-      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#26000000',GradientType=1 ); }
-    .header.homeHeader h1 {
-      font-size: 32px;
-      margin: 15px 0; }
   .header .subTitle {
     padding: 15px 30px;
     color: #fff;

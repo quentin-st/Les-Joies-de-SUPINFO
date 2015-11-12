@@ -61,8 +61,7 @@ class GifsController extends Controller
 
         $params = [
             'gifs' => $pagination,
-            'pagination' => true,
-            'homePage' => $page == 1
+            'pagination' => true
         ];
         return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
     }
