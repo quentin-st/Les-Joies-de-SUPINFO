@@ -1,5 +1,5 @@
 {
     "projectType":  "symfony2",
-    "branch" :      "release"
+    "branch" :      "release",
+    "passes":       "+scss"
 }
-
