@@ -12,7 +12,11 @@
 /web/bundles/
 
 .idea
-*.css.map
 /web/uploads/
 /web/css/
 /web/js/
+
+src/LjdsBundle/Resources/public/css/style.css
+src/LjdsBundle/Resources/public/css/style.css.map
+src/LjdsBundle/Resources/public/css/style_admin.css
+src/LjdsBundle/Resources/public/css/style_admin.css.map
