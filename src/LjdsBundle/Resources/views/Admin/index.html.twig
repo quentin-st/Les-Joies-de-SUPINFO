@@ -31,11 +31,13 @@
                             <textarea id="caption{{ gif.id }}" rows="2">{{ gif.caption }}</textarea>
                             <p>Par {{ gif.submittedBy }}</p>
 
-                            <p class="pull-right">
-                                <button type="button" class="btn btn-default btn-xs">
-                                    <i class="fa fa-download downloadGif" data-gifid="{{ gif.id }}"></i>
-                                </button>
-                            </p>
+                            {% if gif.originalGitUrl is null %}
+                                <p class="pull-right">
+                                    <button type="button" class="btn btn-default btn-xs">
+                                        <i class="fa fa-download downloadGif" data-gifid="{{ gif.id }}"></i>
+                                    </button>
+                                </p>
+                            {% endif %}
                             <p>
                                 {% if type == 'accepted' %}
                                     <button type="button" data-state="published" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Publier</button>
