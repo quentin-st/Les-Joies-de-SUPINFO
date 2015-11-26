@@ -56,24 +56,36 @@ class Gif
     private $reportStatus;
 
     /**
+     * Gif final URL.
      * @var string
      * @ORM\Column(name="fileName", type="string", length=255)
      */
     private $gifUrl;
 
     /**
+     * Original gif URL. Populated when locally downloading a gif from admin:
+     *  gifUrl will contain the local URL while originalGifUrl will contain the original gif URL.
+     * @var string
+     * @ORM\Column(name="originalGifUrl", type="string", length=255)
+     */
+    private $originalGifUrl;
+
+    /**
+     * Permalink for this gif (URL). Auto-generated from gif caption
      * @var string
      * @ORM\Column(name="permalink", type="string", length=255)
      */
     private $permalink;
 
     /**
+     * Source page for this link. Auto-generated when choosing using the Giphy widget
      * @var string
      * @ORM\Column(name="source", type="string", length=255)
      */
     private $source;
 
     /**
+     * Label associated with this gif. Currently, it allows us to know if student or SUPINFO staff
      * @var string
      * @ORM\Column(name="label", type="string", length=255, nullable=true)
      */
@@ -211,6 +223,24 @@ class Gif
     public function setGifUrl($gifUrl)
     {
         $this->gifUrl = $gifUrl;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOriginalGifUrl()
+    {
+        return $this->originalGifUrl;
+    }
+
+    /**
+     * @param string $originalGifUrl
+     * @return Gif
+     */
+    public function setOriginalGifUrl($originalGifUrl)
+    {
+        $this->originalGifUrl = $originalGifUrl;
         return $this;
     }
 
