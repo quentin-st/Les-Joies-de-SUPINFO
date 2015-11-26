@@ -15,50 +15,57 @@
             </ul>
         </div>
 
-        <ul class="gifsAdmin">
+        <div class="row-fluid gifs-validation">
             {% for gif in gifs %}
-                <li>
-					{% if gif.fileType == 'gif' %}
-                    	<img src="{{ gif.gifUrl }}" alt="{{ gif.caption }}" />
-					{% else %}
-						<video autoplay loop muted>
-							<source src="{{ gif.gifUrl }}" type="video/{{ gif.fileType }}">
-						</video>
-					{% endif %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        {% if gif.fileType == 'gif' %}
+                            <img src="{{ gif.gifUrl }}" alt="{{ gif.caption }}" class="gifPreview" />
+                        {% else %}
+                            <video autoplay loop muted>
+                                <source src="{{ gif.gifUrl }}" type="video/{{ gif.fileType }}" class="gifPreview">
+                            </video>
+                        {% endif %}
 
-                    <div class="gifValidation">
-                        <div>
-                            <span>
-                                <textarea id="caption{{ gif.id }}" rows="2">{{ gif.caption }}</textarea>
-                                <p>Par {{ gif.submittedBy }}</p>
-                            </span>
-                        </div>
-                        <div>
-                            <span>
-								{% if type == 'accepted' %}
-									<button type="button" data-state="published" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Publier</button>
-									<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
-								{% elseif type == 'refused' %}
-									<button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
-                        			<button type="button" data-state="deleted" data-gifid="{{ gif.id }}" class="btn btn-warning btnValidation">Supprimer</button>
-								{% elseif type == 'reported' %}
-									<button type="button" data-state="ignored" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Ignorer</button>
-                        			<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Supprimer</button>
-								{% elseif type == 'submitted' %}
-									<button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
-                        			<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
-								{% endif %}
-                            </span>
+                        <div class="caption">
+                            <textarea id="caption{{ gif.id }}" rows="2">{{ gif.caption }}</textarea>
+                            <p>Par {{ gif.submittedBy }}</p>
+
+                            <p class="pull-right">
+                                <button type="button" class="btn btn-default btn-xs">
+                                    <i class="fa fa-download downloadGif" data-gifid="{{ gif.id }}"></i>
+                                </button>
+                            </p>
+                            <p>
+                                {% if type == 'accepted' %}
+                                    <button type="button" data-state="published" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Publier</button>
+                                    <button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
+                                {% elseif type == 'refused' %}
+                                    <button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
+                                    <button type="button" data-state="deleted" data-gifid="{{ gif.id }}" class="btn btn-warning btnValidation">Supprimer</button>
+                                {% elseif type == 'reported' %}
+                                    <button type="button" data-state="ignored" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Ignorer</button>
+                                    <button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Supprimer</button>
+                                {% elseif type == 'submitted' %}
+                                    <button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
+                                    <button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
+                                {% endif %}
+                            </p>
+                            <div class="clear"></div>
                         </div>
                     </div>
-                </li>
+                </div>
+                {% if loop.index % 3 == 0 %}
+                    <div class="clear"></div>
+                {% endif %}
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}
 
 {% block customScripts %}
     <script>
+        // Validate GIF
         $('.btnValidation').click(function() {
             var domElement = $(this);
             var gifId = domElement.attr('data-gifid');
@@ -87,6 +94,25 @@
                 },
                 error:function(data){
                     console.log(data);
+                }
+            });
+        });
+
+        // Download gif on server
+        $('.downloadGif').click(function() {
+            var domElement = $(this);
+            var gifId = domElement.attr('data-gifid');
+
+            $.ajax({
+                url : '{{ path('adminApi') }}',
+                type : 'POST',
+                data : {
+                    action : 'download_gif',
+                    gif_id : parseInt(gifId),
+                    api_key : '{{ admin_api_key }}'
+                },
+                success: function (data) {
+                    domElement.closest('.thumbnail').find('.gifPreview').attr('src', data.gifUrl);
                 }
             });
         });
