@@ -56,3 +56,9 @@ In both case, you'll receive a JSON-encoded response such as this one :
 
 Depending on the `type` attribute (either `gif` or `mp4`), you may want to handle it differently. Please read
 [gif.html.twig](src/LjdsBundle/Resources/views/Gifs/gif.html.twig) to see how we handle this.
+
+## Permissions
+cd /path/to/project
+HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/gifs
+sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/gifs
