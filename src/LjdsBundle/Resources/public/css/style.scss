@@ -231,23 +231,10 @@ hr {
 			@include transition-duration(300ms);
 			font-size: 12px;
 		}
-
-		span.gifSourceIcon,
-		span.reportGifIcon {
-			width: 16px;
-			height: 16px;
-			display: inline-block;
-			vertical-align: middle;
-			margin-left: 3px;
-			@include opacity(0.2);
-			@include transition-duration(200ms);
-			background: url('../img/glyphicons-halflings.png');
-		}
-		span.gifSourceIcon {
-			background-position: -117px -72px;
-		}
-		span.reportGifIcon {
-			background-position: -142px -120px;
+		.fa {
+			font-size: 13px;
+			width: 14px;
+			text-align: center;
 		}
 	}
 	.actionIconContainer:hover {
