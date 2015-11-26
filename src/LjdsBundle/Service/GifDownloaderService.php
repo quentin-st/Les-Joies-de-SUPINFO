@@ -54,7 +54,7 @@ class GifDownloaderService
         // Generate client-side URL
         $url = $this->requestContextScheme . '://' . // http://
             $this->requestContextHost . $this->requestContextBaseUrl
-            . 'gifs/' . $fileName;
+            . '/gifs/' . $fileName;
         $gif->setGifUrl($url);
 
         return $url;
