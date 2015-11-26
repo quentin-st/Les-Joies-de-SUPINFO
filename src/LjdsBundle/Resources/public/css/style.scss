@@ -273,7 +273,7 @@ ul.menu {
 			color: #eee;
 			font-weight: 300;
 			text-transform: uppercase;
-			padding: 5px 13px;
+			padding: 5px 13px 5px 10px;
 			@include transition-duration(200ms);
 			@include border-radius(2px);
 			font-size: 15px;
@@ -300,6 +300,12 @@ ul.menu {
 				&.submit {
 					background-color: rgba(3, 169, 244, 0.5);
 				}
+			}
+
+			.fa {
+				font-size: 13px;
+				display: inline-block;
+				margin-right: 5px;
 			}
 		}
 	}
