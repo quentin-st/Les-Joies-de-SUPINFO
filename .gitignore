@@ -13,6 +13,8 @@
 
 .idea
 /web/uploads/
+/web/gifs/
+!/web/gifs/.gitkeep
 /web/css/
 /web/js/
 
