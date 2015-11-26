@@ -6,6 +6,7 @@ use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use LjdsBundle\Entity\ReportState;
+use LjdsBundle\Service\GifDownloaderService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,8 +35,11 @@ class AdminController extends Controller
 
 
 		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifRepo */
 		$gifRepo = $em->getRepository('LjdsBundle:Gif');
 
+		// Result array returned to client
+		$result = [];
 
 		switch ($post->get('action'))
 		{
@@ -94,12 +98,33 @@ class AdminController extends Controller
 				$em->remove($gif);
 				$em->flush();
 				break;
+			case 'download_gif':
+				$check = $this->checkParameters($post, ['gif_id']);
+				if ($check !== true)
+					$this->apiError($check);
+
+				/** @var Gif $gif */
+				$gif = $gifRepo->find($post->get('gif_id'));
+
+				if (!$gif)
+					$this->apiError('unknown_gif');
+
+				// Downloads a gif locally if the referrer (our domain) is blocked by the gif host
+				/** @var GifDownloaderService $gifDownloader */
+				$gifDownloader = $this->get('app.gif_downloader');
+
+				$url = $gifDownloader->download($gif);
+
+				$em->flush();
+
+				$result['gifUrl'] = $url;
+				break;
 			default:
 				return $this->apiError('unknown_action');
 				break;
 		}
 
-		return new JsonResponse(['success' => true]);
+		return new JsonResponse(array_merge($result, ['success' => true]));
 	}
 
 	private static function checkParameters(ParameterBag $post, $params)

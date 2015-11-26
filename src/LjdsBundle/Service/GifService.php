@@ -31,6 +31,11 @@ class GifService
         $this->twitterService = $twitterService;
     }
 
+    /**
+     * Publishes a gif and posts a link on social networks
+     * @param Gif $gif
+     * @return bool
+     */
     public function publish(Gif $gif)
     {
         if (!$gif)

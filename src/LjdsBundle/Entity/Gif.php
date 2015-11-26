@@ -66,7 +66,7 @@ class Gif
      * Original gif URL. Populated when locally downloading a gif from admin:
      *  gifUrl will contain the local URL while originalGifUrl will contain the original gif URL.
      * @var string
-     * @ORM\Column(name="originalGifUrl", type="string", length=255)
+     * @ORM\Column(name="originalGifUrl", type="string", length=255, nullable=true)
      */
     private $originalGifUrl;
 

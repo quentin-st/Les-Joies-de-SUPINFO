@@ -4,6 +4,7 @@ parameters:
 #    parameter_name: value
 
 services:
+    # Twig extension
     app.ljds_extension:
         class: LjdsBundle\Twig\LjdsExtension
         public: false
@@ -12,6 +13,8 @@ services:
         arguments:
             em: @doctrine.orm.entity_manager
 
+
+    # Services
     app.twitter:
         class: LjdsBundle\Service\TwitterService
         arguments:
@@ -44,3 +47,12 @@ services:
             router: @router
             em: @doctrine.orm.entity_manager
         tags: [{name: "presta.sitemap.listener"}]
+
+    app.gif_downloader:
+        class: LjdsBundle\Service\GifDownloaderService
+        arguments:
+            kernelRootDir: "%kernel.root_dir%"
+            requestContextHost: "%router.request_context.host%"
+            requestContextScheme: "%router.request_context.scheme%"
+            requestContextBaseUrl: "%router.request_context.base_url%"
+            em: @doctrine.orm.entity_manager
