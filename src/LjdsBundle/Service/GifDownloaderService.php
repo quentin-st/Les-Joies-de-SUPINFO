@@ -33,7 +33,7 @@ class GifDownloaderService
      */
     public function download(Gif $gif)
     {
-        $downloadDir = $this->kernelRootDir.'/../web/gifs/';
+        $downloadDir = $this->getDownloadDir();
         $gifUrl = $gif->getGifUrl();
 
         // Keep original gif URL
@@ -58,5 +58,30 @@ class GifDownloaderService
         $gif->setGifUrl($url);
 
         return $url;
+    }
+
+    /**
+     * Deletes the downloaded gif once the original gifs gets deleted
+     * @param Gif $gif
+     * @return bool
+     */
+    public function delete(Gif $gif)
+    {
+        $downloadDir = $this->getDownloadDir();
+
+        // Get file path from gif URL
+        $fileName = basename($gif->getGifUrl());
+
+        if (file_exists($downloadDir.$fileName)) {
+            unlink($downloadDir . $fileName);
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private function getDownloadDir()
+    {
+        return $this->kernelRootDir.'/../web/gifs/';
     }
 }

@@ -90,10 +90,19 @@ class AdminController extends Controller
 				if ($check !== true)
 					$this->apiError($check);
 
+				/** @var Gif $gif */
 				$gif = $gifRepo->find($post->get('gif_id'));
 
 				if (!$gif)
 					$this->apiError('unknown_gif');
+
+				// Delete downloaded gif if there is one
+				if ($gif->getOriginalGifUrl() != null) {
+					/** @var GifDownloaderService $gifDownloader */
+					$gifDownloader = $this->get('app.gif_downloader');
+
+					$gifDownloader->delete($gif);
+				}
 
 				$em->remove($gif);
 				$em->flush();
