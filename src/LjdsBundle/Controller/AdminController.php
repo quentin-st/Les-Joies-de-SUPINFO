@@ -41,8 +41,7 @@ class AdminController extends Controller
 		// Result array returned to client
 		$result = [];
 
-		switch ($post->get('action'))
-		{
+		switch ($post->get('action')) {
 			case 'change_gif_status':
 				$check = $this->checkParameters($post, ['gif_id', 'new_gif_state', 'caption']);
 				if ($check !== true)
@@ -62,8 +61,8 @@ class AdminController extends Controller
 
 				$gif->setCaption($caption);
 				$gif->setGifStatus($gifState);
-                // Regenerate permalink in case of caption changed
-                $gif->generateUrlReadyPermalink();
+				// Regenerate permalink in case of caption changed
+				$gif->generateUrlReadyPermalink();
 
 				$em->flush();
 
@@ -122,11 +121,15 @@ class AdminController extends Controller
 				/** @var GifDownloaderService $gifDownloader */
 				$gifDownloader = $this->get('app.gif_downloader');
 
-				$url = $gifDownloader->download($gif);
+				$result = $gifDownloader->download($gif);
 
-				$em->flush();
+				if ($result !== false) {
+					$em->flush();
 
-				$result['gifUrl'] = $url;
+					$result['gifUrl'] = $result;
+				} else {
+					$this->apiError('download_failed');
+				}
 				break;
 			default:
 				return $this->apiError('unknown_action');

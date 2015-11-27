@@ -36,9 +36,6 @@ class GifDownloaderService
         $downloadDir = $this->getDownloadDir();
         $gifUrl = $gif->getGifUrl();
 
-        // Keep original gif URL
-        $gif->setOriginalGifUrl($gifUrl);
-
         // Generate filename
         $fileName = $gif->getPermalink() . '.' . Util::getFileExtension($gifUrl);
 
@@ -51,13 +48,19 @@ class GifDownloaderService
         // Download file
         file_put_contents($downloadDir.$fileName, fopen($gifUrl, 'r'));
 
-        // Generate client-side URL
-        $url = $this->requestContextScheme . '://' . // http://
-            $this->requestContextHost . $this->requestContextBaseUrl
-            . '/gifs/' . $fileName;
-        $gif->setGifUrl($url);
+        // Check if file has been successfully downloaded (permissions issues)
+        if (file_exists($downloadDir.$fileName)) {
+            // Generate client-side URL
+            $url = $this->requestContextScheme . '://' . // http://
+                $this->requestContextHost . $this->requestContextBaseUrl
+                . '/gifs/' . $fileName;
+            $gif->setOriginalGifUrl($gifUrl);
+            $gif->setGifUrl($url);
 
-        return $url;
+            return $url;
+        } else {
+            return false;
+        }
     }
 
     /**
