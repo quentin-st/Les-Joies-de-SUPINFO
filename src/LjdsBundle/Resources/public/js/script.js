@@ -8,11 +8,11 @@ $(document).ready(function() {
 	var countdown = $('.countdown');
 	if (countdown.length) {
 		var container = countdown.find('ul');
-		var d = new Date(container.data('datetime'));
-		container.countdown({
-			until: d,
-			format: 'HMs',
-			layout: '<li>{hn}</li><li class="sep">:</li><li>{mnn}</li><li class="sep">:</li><li>{snn}</li>'
+
+		container.countdown(container.data('datetime'), function(event) {
+			$(this).html(
+				event.strftime('<li>%H</li><li class="sep">:</li><li>%M</li><li class="sep">:</li><li>%S</li>')
+			);
 		});
 	}
 });
