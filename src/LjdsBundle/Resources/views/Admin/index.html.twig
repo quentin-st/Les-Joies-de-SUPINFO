@@ -19,13 +19,7 @@
             {% for gif in gifs %}
                 <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        {% if gif.fileType == 'gif' %}
-                            <img src="{{ gif.gifUrl }}" alt="{{ gif.caption }}" class="gifPreview" />
-                        {% else %}
-                            <video autoplay loop muted>
-                                <source src="{{ gif.gifUrl }}" type="video/{{ gif.fileType }}" class="gifPreview">
-                            </video>
-                        {% endif %}
+                        {% include 'LjdsBundle:Snippets:gif.html.twig' with {class: 'gifPreview'} %}
 
                         <div class="caption">
                             <textarea id="caption{{ gif.id }}" rows="2">{{ gif.caption }}</textarea>

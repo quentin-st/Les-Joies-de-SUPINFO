@@ -55,7 +55,7 @@ In both case, you'll receive a JSON-encoded response such as this one :
 	}
 
 Depending on the `type` attribute (either `gif` or `mp4`), you may want to handle it differently. Please read
-[gif.html.twig](src/LjdsBundle/Resources/views/Gifs/gif.html.twig) to see how we handle this.
+[gif.html.twig](src/LjdsBundle/Resources/views/Snippets/gif.html.twig) to see how we handle this.
 
 ## Permissions
 cd /path/to/project

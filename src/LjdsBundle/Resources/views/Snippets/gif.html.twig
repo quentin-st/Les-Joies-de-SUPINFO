@@ -1,0 +1,7 @@
+{% if gif.fileType == 'gif' %}
+    <img src="{{ gif.gifUrl }}" alt="{{ gif.caption }}" {% if class is not null %}class="{{ class }}"{% endif %} />
+{% else %}
+    <video autoplay loop muted {% if class is not null %}class="{{ class }}"{% endif %}>
+        <source src="{{ gif.gifUrl }}" type="video/{{ gif.fileType }}">
+    </video>
+{% endif %}
