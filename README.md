@@ -34,7 +34,7 @@ cron jobs :
 	# Morning
 	0 11 * * 1-5 /root/joies-de-supinfo_cron.sh
 	# Afternoon
-	0 18 * * 1-5 /root/joies-de-supinfo_cron.sh
+	0 17 * * 1-5 /root/joies-de-supinfo_cron.sh
 	
 	# Week-end (once a day)
 	0 16 * * 6-7 /root/joies-de-supinfo_cron.sh
