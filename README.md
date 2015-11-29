@@ -11,33 +11,26 @@ If you want to contribute, here's how!
 ## Contribute
 Here is a checklist for running a functional project:
 
-* Clone the repository
-        `git clone git@github.com:chteuchteu/Les-Joies-de-Supinfo.git`
+* Fork the repository
+* Clone it `git clone git@github.com:your_username/Les-Joies-de-Supinfo.git`
 * Setup your Symfony environment using this [awesome official documentation doc](http://symfony.com/doc/current/book/installation.html)
 
-With all these things set, you should be able to contribute! If you have any configuration problem, don't hesitate to contact us or open an issue here on GitHub.
+With all these things set, you should be able to contribute! If you have any problem, don't hesitate to contact us or
+open an issue here on GitHub.
 
 ## Technical information
 ### Cron configuration
 To publish gifs without a manual action, a cron is configured on the server to automatically publish accepted gifs.
 Cron jobs are set to execute a custom command, `ljds:publish`:
 
-joies-de-supinfo_cron.sh :
-
-    #!/bin/bash
-    
-    php app/console ljds:publish
-
-cron jobs :
-
 	# Weekdays (twice a day)
 	# Morning
-	0 11 * * 1-5 /root/joies-de-supinfo_cron.sh
+	0 11 * * 1-5 /var/www/ljds/app/console ljds:publish
 	# Afternoon
-	0 17 * * 1-5 /root/joies-de-supinfo_cron.sh
+	0 17 * * 1-5 /var/www/ljds/app/console ljds:publish
 	
 	# Week-end (once a day)
-	0 16 * * 6-7 /root/joies-de-supinfo_cron.sh
+	0 16 * * 6-7 /var/www/ljds/app/console ljds:publish
 
 ## API
 You can either get the last published gif or a random one by dropping a GET request on the following URLS:
@@ -54,11 +47,12 @@ In both case, you'll receive a JSON-encoded response such as this one :
 		type: "gif"
 	}
 
-Depending on the `type` attribute (either `gif` or `mp4`), you may want to handle it differently. Please read
+Depending on the `type` attribute (either `gif`, `webm` or `mp4`), you may want to handle it differently. Please read
 [gif.html.twig](src/LjdsBundle/Resources/views/Snippets/gif.html.twig) to see how we handle this.
 
 ## Permissions
-cd /path/to/project
-HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
-sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/gifs
-sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/gifs
+
+	cd /path/to/project
+	HTTPDUSER=`ps axo user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1`
+	sudo setfacl -R -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/gifs
+	sudo setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX web/gifs
