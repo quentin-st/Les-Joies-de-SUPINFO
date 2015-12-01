@@ -5,6 +5,7 @@ namespace LjdsBundle\Service;
 use DateTime;
 use Doctrine\ORM\EntityManager;
 use LjdsBundle\Entity\Gif;
+use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 
 class GifService
@@ -47,6 +48,18 @@ class GifService
         $gif->setPublishDate(new DateTime());
         $gif->setGifStatus(GifState::PUBLISHED);
         $gif->generateUrlReadyPermalink();
+
+        // Check if permalink is unique
+        /** @var GifRepository $gifsRepo */
+        $gifsRepo = $this->em->getRepository('LjdsBundle:Gif');
+        $permalink = $gif->getPermalink();
+
+        $i=1;
+        while (!empty($gifsRepo->findBy(['permalink' => $gif->getPermalink(), 'gifStatus' => GifState::PUBLISHED]))) {
+            // Generate a new permalink
+            $gif->setPermalink($permalink.$i);
+            $i++;
+        };
 
         $this->em->flush();
 
