@@ -54,7 +54,9 @@ class GifsController extends Controller
         $totalCount = $totalCountAttr->getValue($pagination);
         $pagesCount = ceil($totalCount/$gifsPerPage);
 
-        if ($page < 1)
+        if ($pagesCount == 0)
+            throw new NotFoundHttpException();
+        else if ($page < 1)
             return $this->redirect($this->generateUrl('page', ['page' => 1]));
         else if ($page > $pagesCount)
             return $this->redirect($this->generateUrl('page', ['page' => $pagesCount]));
