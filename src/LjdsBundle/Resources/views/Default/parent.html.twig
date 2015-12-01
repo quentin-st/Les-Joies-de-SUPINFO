@@ -11,7 +11,8 @@
     {% stylesheets
         'bundles/ljds/css/bootstrap.min.css'
         'bundles/ljds/css/bootstrap-theme.min.css'
-        'bundles/ljds/css/style.css' filter='cssrewrite' %}
+        'bundles/ljds/css/style.css'
+        'bundles/ljds/css/materialdesignicons.min.css' filter='cssrewrite' %}
         <link href="{{ asset_url }}" rel="stylesheet" />
     {% endstylesheets %}
 
@@ -27,7 +28,6 @@
     <link rel="shortcut icon" href="{{ asset('bundles/ljds/favicon.ico') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('bundles/ljds/favicon.ico') }}" type="image/x-icon">
     <link rel="alternate" type="application/rss+xml" title="Flux RSS - Gifs" href="{{ path('feed') }}" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     {% block metas %}{% endblock %}
     {% block customScripts_head %}{% endblock %}
 </head>
@@ -37,10 +37,10 @@
         <div class="header">
             <div>
                 <ul class="menu">
-                    <li><a href="{{ path('top') }}"><i class="fa fa-trophy"></i>Top gifs</a></li>
-                    <li><a href="{{ path('topSubmitters') }}"><i class="fa fa-users"></i>Top contributeurs</a></li>
-                    <li><a href="{{ path('randomGif') }}"><i class="fa fa-random"></i> Au hasard</a></li>
-                    <li><a href="{{ path('submit') }}" class="submit"><i class="fa fa-plus"></i>Proposer un gif</a></li>
+                    <li><a href="{{ path('top') }}"><i class="mdi mdi-crown"></i>Top gifs</a></li>
+                    <li><a href="{{ path('topSubmitters') }}"><i class="mdi mdi-account-multiple"></i>Top contributeurs</a></li>
+                    <li><a href="{{ path('randomGif') }}"><i class="mdi mdi-shuffle"></i> Au hasard</a></li>
+                    <li><a href="{{ path('submit') }}" class="submit"><i class="mdi mdi-plus"></i>Proposer un gif</a></li>
                 </ul>
 
                 <a href="{{ path('index') }}" class="h1Link"><h1>Les Joies de SUPINFO</h1></a>

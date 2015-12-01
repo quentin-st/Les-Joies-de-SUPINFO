@@ -231,10 +231,11 @@ hr {
 			@include transition-duration(300ms);
 			font-size: 12px;
 		}
-		.fa {
+		i {
 			font-size: 13px;
 			width: 14px;
 			text-align: center;
+			font-weight: bold;
 		}
 	}
 	.actionIconContainer:hover {
@@ -302,10 +303,9 @@ ul.menu {
 				}
 			}
 
-			.fa {
-				font-size: 13px;
-				display: inline-block;
-				margin-right: 5px;
+			i {
+				font-size: 15px;
+				margin-right: 4px;
 			}
 		}
 	}
