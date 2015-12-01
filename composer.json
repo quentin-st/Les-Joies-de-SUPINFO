@@ -4,21 +4,23 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "": "src/",
-            "SymfonyStandard\\": "app/"
-        }
+            "": "src/"
+        },
+        "files": [
+            "app/AppKernel.php"
+        ]
     },
     "require": {
-        "php": ">=5.3.3",
-        "symfony/symfony": "~2.7@beta",
-        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/dbal": "<2.5",
+        "php": ">=5.3.9",
+        "symfony/symfony": "2.8.*",
+        "doctrine/orm": "^2.4.8",
+        "doctrine/dbal": "2.5.2",
         "doctrine/doctrine-bundle": "~1.4",
-        "symfony/assetic-bundle": "~2.3",
+        "symfony/assetic-bundle": "2.7.1",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~3.0,>=3.0.12",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
+        "sensio/distribution-bundle": "~4.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
         "facebook/php-sdk-v4" : "4.0.*",
         "jublonet/codebird-php": "dev-master",
@@ -26,7 +28,8 @@
         "presta/sitemap-bundle": "^1.4"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~3.0",
+        "symfony/phpunit-bridge": "~2.7"
     },
     "scripts": {
         "post-root-package-install": [
