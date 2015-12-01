@@ -24,7 +24,7 @@ class FacebookHelper
 		$likes = [];
 		for ($i=0; $i<count($xmlRes[0]); $i++) {
 			$url = $xmlRes->link_stat[$i]->url;
-			$likesCount = intval($xmlRes->link_stat[$i]->like_count);
+			$likesCount = intval($xmlRes->link_stat[$i]->total_count);
 
             // Each time a gif is published, it is posted on the Facebook page's wall
             // Se it has been liked if the likesCount is > than 1
