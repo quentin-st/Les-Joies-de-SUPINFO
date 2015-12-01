@@ -12,6 +12,7 @@
                 <li class="mAccepted {% if type == 'accepted' %}active{% endif %}"><a href="{{ path('admin', {'type': 'accepted'}) }}">Acceptés</a></li>
                 <li class="mRefused {% if type == 'refused' %}active{% endif %}"><a href="{{ path('admin', {'type': 'refused'}) }}">Refusés</a></li>
                 <li class="mReported {% if type == 'reported' %}active{% endif %}"><a href="{{ path('admin', {'type': 'reported'}) }}">Signalés</a></li>
+                <li class="mPublished {% if type == 'published' %}active{% endif %}"><a href="{{ path('admin', {'type': 'published'}) }}">Publiés</a></li>
             </ul>
         </div>
 
@@ -22,7 +23,7 @@
                         {% include 'LjdsBundle:Snippets:gif.html.twig' with {class: 'gifPreview'} %}
 
                         <div class="caption">
-                            <textarea id="caption{{ gif.id }}" rows="2">{{ gif.caption }}</textarea>
+                            <textarea id="caption{{ gif.id }}" rows="2" placeholder="Caption">{{ gif.caption }}</textarea>
                             <p>Par {{ gif.submittedBy }}</p>
 
                             {% if gif.originalGifUrl is null %}
@@ -45,6 +46,8 @@
                                 {% elseif type == 'submitted' %}
                                     <button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
                                     <button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
+                                {% elseif type == 'published' %}
+                                    <button type="button" data-state="deleted" data-gifid="{{ gif.id }}" class="btn btn-warning btnValidation">Supprimer</button>
                                 {% endif %}
                             </p>
                             <div class="clear"></div>

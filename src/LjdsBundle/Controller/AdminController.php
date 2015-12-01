@@ -176,6 +176,7 @@ class AdminController extends Controller
 			case 'submitted':
 			case 'accepted':
 			case 'refused':
+			case 'published':
 				$gifState = GifState::fromName($type);
 				$gifs = $gifRepo->findByGifState($gifState);
 				break;
