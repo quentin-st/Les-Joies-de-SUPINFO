@@ -121,12 +121,12 @@ class AdminController extends Controller
 				/** @var GifDownloaderService $gifDownloader */
 				$gifDownloader = $this->get('app.gif_downloader');
 
-				$result = $gifDownloader->download($gif);
+				$res = $gifDownloader->download($gif);
 
-				if ($result !== false) {
+				if ($res !== false) {
 					$em->flush();
 
-					$result['gifUrl'] = $result;
+					$result['gifUrl'] = $res;
 				} else {
 					$this->apiError('download_failed');
 				}
