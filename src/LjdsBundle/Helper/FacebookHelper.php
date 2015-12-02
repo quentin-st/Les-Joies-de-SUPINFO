@@ -15,14 +15,7 @@ class FacebookHelper
 	 */
 	public static function getFacebookLikes(array $gifs, Router $router)
 	{
-		// Build api call url
-		$urls = [];
-		foreach ($gifs as $gif)
-			$urls[] = urlencode($router->generate('gif', ['permalink' => $gif->getPermalink()], true));
-
-		$apiUrl = 'http://api.facebook.com/restserver.php?method=links.getStats&urls=' . implode(',', $urls) . '&format=json';
-		$result = file_get_contents($apiUrl);
-		$json = json_decode($result, true);
+		$json = FacebookHelper::getLikes($gifs, $router);
 
 		$likes = [];
 		foreach ($json as $item) {
@@ -46,6 +39,62 @@ class FacebookHelper
 		});
 
 		return $likes;
+	}
+
+	public static function getFacebookLikesGroupedBySubmitter(array $gifs, Router $router)
+	{
+		$json = FacebookHelper::getLikes($gifs, $router);
+
+		$submitters = [];
+		foreach ($json as $item) {
+			$url = $item['url'];
+			$likesCount = intval($item['total_count']);
+			/** @var Gif $gif */
+			$gif = FacebookHelper::findGif($gifs, $url);
+
+			if (!array_key_exists($gif->getSubmittedBy(), $submitters)) {
+				$submitters[$gif->getSubmittedBy()] = [
+					'gifs' => [],
+					'likes' => 0
+				];
+			}
+
+			$submitters[$gif->getSubmittedBy()]['gifs'][] = $gif;
+			$submitters[$gif->getSubmittedBy()]['likes'] += $likesCount;
+		}
+
+		// Sort array
+		$submittersIndexed = [];
+		foreach ($submitters as $submitter => $infos) {
+			$submittersIndexed[] = [
+				'submitter' => $submitter,
+				'gifs' => $infos['gifs'],
+				'likes' => $infos['likes']
+			];
+		}
+
+		usort($submittersIndexed, function($a, $b) {
+			return $b['likes'] - $a['likes'];
+		});
+
+		return $submittersIndexed;
+	}
+
+	/**
+	 * Get Facebook likes information from Facebook API
+	 * @param array $gifs
+	 * @return mixed
+	 */
+	private static function getLikes(array $gifs, Router $router)
+	{
+		// Build api call url
+		$urls = [];
+		foreach ($gifs as $gif)
+			$urls[] = urlencode($router->generate('gif', ['permalink' => $gif->getPermalink()], true));
+
+		$apiUrl = 'http://api.facebook.com/restserver.php?method=links.getStats&urls=' . implode(',', $urls) . '&format=json';
+		$result = file_get_contents($apiUrl);
+		return json_decode($result, true);
 	}
 
     /**

@@ -7,11 +7,12 @@
         <h1>Top contributeurs</h1>
 
         <ol>
-            {% for submitter in submitters %}
-                {% if submitter.name != '' %}
+            {% for item in submitters %}
+                {% if item.submitter != '' %}
                     <li>
-                        <a href="{{ path('submitter', {'submitter': submitter.name}) }}">{{ submitter.name }}</a>
-                        <span> - {{ submitter.gifsCount }} gif{% if submitter.gifsCount > 1 %}s{% endif %}</span>
+                        <a href="{{ path('submitter', {'submitter': item.submitter}) }}">{{ item.submitter }}</a>
+                        <span> - {{ item.likes }} like{% if item.likes > 1 %}s{% endif %}</span>
+                        <span> - {{ item.gifs|length }} gif{% if item.gifs|length > 1 %}s{% endif %}</span>
                     </li>
                 {% endif %}
             {% endfor %}
