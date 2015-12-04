@@ -177,15 +177,12 @@ hr {
 		padding-left: 0;
 		margin-bottom: 0;
 		list-style: none;
-
-		li {
-			a {}
-		}
 	}
 	.copyright {
 		text-align: center;
 		font-size: 9px;
 		@include opacity(0.5);
+		margin-top: 10px;
 	}
 }
 
