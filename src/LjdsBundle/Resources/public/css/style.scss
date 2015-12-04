@@ -182,6 +182,11 @@ hr {
 			a {}
 		}
 	}
+	.copyright {
+		text-align: center;
+		font-size: 9px;
+		@include opacity(0.5);
+	}
 }
 
 .gifItem {
