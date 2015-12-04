@@ -14,4 +14,12 @@ class DefaultController extends Controller
     {
         return $this->render('LjdsBundle:Default:rulesOfTheGame.html.twig');
     }
+
+    /**
+     * @Route("/cookies", name="cookies", options={"sitemap"=true})
+     */
+    public function cookiesInfosAction()
+    {
+        return $this->render('LjdsBundle:Default:cookies.html.twig');
+    }
 }

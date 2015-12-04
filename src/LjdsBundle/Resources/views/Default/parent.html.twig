@@ -132,10 +132,24 @@
     '@LjdsBundle/Resources/public/js/bootstrap.min.js'
     '@LjdsBundle/Resources/public/js/script.js'
     '@LjdsBundle/Resources/public/js/jquery.plugin.min.js'
-    '@LjdsBundle/Resources/public/js/jquery.countdown.min.js' %}
+    '@LjdsBundle/Resources/public/js/jquery.countdown.min.js'
+    '@LjdsBundle/Resources/public/js/jquery.cookiebar.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
+<script>
+    $(document).ready(function() {
+        $.cookieBar({
+            message: 'Nous utilisons des cookies pour améliorer votre expérience utilisateur.',
+            acceptText: 'J\'accepte',
+            policyButton: true,
+            policyText: 'En savoir plus',
+            policyURL: '{{ path('cookies') }}',
+            fixed: true,
+            bottom: true
+        });
+    });
+</script>
 {% block customScripts %}{% endblock %}
 {% include 'LjdsBundle:Default:analytics.html.twig' %}
 </body>

@@ -565,5 +565,45 @@ ul.menu {
 	}
 }
 
+.page p {
+	font-weight: 300;
+}
+
+#cookie-bar {
+	background-color: #111111;
+	background-color: rgba(0, 0, 0, 0.5);
+	height: auto;
+	line-height: 24px;
+	color: #eeeeee;
+	text-align: center;
+	padding: 3px 0;
+	z-index: 1;
+	font-weight: 300;
+	&.fixed {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		&.bottom {
+			bottom: 0;
+			top: auto;
+		}
+	}
+	p {margin: 0; padding: 0;}
+	a {color: #ffffff; display: inline-block; border-radius: 3px; text-decoration: none; padding: 0 6px; margin-left: 8px;}
+	.cb-enable {
+		background: #007700;
+		&:hover {background: #009900;}
+	}
+	.cb-disable {
+		background: #990000;
+		&:hover {background: #bb0000;}
+	}
+	.cb-policy {
+		background: #444;
+		&:hover {background: #555;}
+	}
+}
+
 /* Include style-responsive file */
 @import 'style-responsive';
