@@ -37,7 +37,7 @@ class TwitterService
             // Trim caption
             $availableLength = $tweetMaxLength - (strlen($hashTag) + $linkStrLength + strlen("..."));
 
-            $tweetContent = substr($gif->getCaption(), 0, $availableLength) . "... - Les Joies de #Supinfo " . $gifUrl;
+            $tweetContent = substr($gif->getCaption(), 0, $availableLength) . "... - Les Joies de #SUPINFO " . $gifUrl;
         }
 
 		return $this->postTweet($tweetContent);
