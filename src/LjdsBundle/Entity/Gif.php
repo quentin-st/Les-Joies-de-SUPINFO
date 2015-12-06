@@ -315,6 +315,29 @@ class Gif
     }
 
 
+    /**
+     * Generates a tweet with a link, the caption and the SUPINFO hashtag
+     * @param $url string generated using Router
+     * @return string
+     */
+    public function generateTweet($url)
+    {
+        $tweetMaxLength = 140;
+        $linkStrLength = 22;
+        $hashTag = " - Les Joies de #SUPINFO ";
+
+        if ((strlen($this->getCaption()) + strlen($hashTag) + $linkStrLength) <= $tweetMaxLength) {
+            // Good news, we don't have to trim anything
+            return $this->getCaption() . $hashTag . $url;
+        } else {
+            // Trim caption
+            $availableLength = $tweetMaxLength - (strlen($hashTag) + $linkStrLength + strlen("..."));
+
+            return substr($this->getCaption(), 0, $availableLength) . "..." . $hashTag . $url;
+        }
+    }
+
+
 	public function getFileType()
 	{
 		return Util::getFileExtension($this->getGifUrl());

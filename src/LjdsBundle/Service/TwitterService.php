@@ -25,20 +25,7 @@ class TwitterService
 		$gifUrl = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
 		$gifUrl = Util::fixSymfonyGeneratedURLs($gifUrl);
 
-
-        $tweetMaxLength = 140;
-        $linkStrLength = 22;
-        $hashTag = " - Les Joies de #SUPINFO ";
-
-        if ((strlen($gif->getCaption()) + strlen($hashTag) + $linkStrLength) <= $tweetMaxLength) {
-            // Good news, we don't have to trim anything
-            $tweetContent = $gif->getCaption() . $hashTag . $gifUrl;
-        } else {
-            // Trim caption
-            $availableLength = $tweetMaxLength - (strlen($hashTag) + $linkStrLength + strlen("..."));
-
-            $tweetContent = substr($gif->getCaption(), 0, $availableLength) . "... - Les Joies de #SUPINFO " . $gifUrl;
-        }
+        $tweetContent = $gif->generateTweet($gifUrl);
 
 		return $this->postTweet($tweetContent);
 	}
