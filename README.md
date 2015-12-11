@@ -25,12 +25,13 @@ Cron jobs are set to execute a custom command, `ljds:publish`:
 
 	# Weekdays (twice a day)
 	# Morning
-	0 11 * * 1-5 /var/www/ljds/app/console ljds:publish
+	0 11 * * 1-5 /var/www/joies-de-supinfo/app/console ljds:publish
+	0 11 * * 1-5 /var/www/joies-de-supinfo/app/console ljds:publish
 	# Afternoon
-	0 17 * * 1-5 /var/www/ljds/app/console ljds:publish
+	0 17 * * 1-5 /var/www/joies-de-supinfo/app/console ljds:publish
 	
 	# Week-end (once a day)
-	0 16 * * 6-7 /var/www/ljds/app/console ljds:publish
+	0 16 * * 6-7 /var/www/joies-de-supinfo/app/console ljds:publish
 
 ## API
 You can either get the last published gif or a random one by dropping a GET request on the following URLS:
