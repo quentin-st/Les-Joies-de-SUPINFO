@@ -113,7 +113,7 @@
                 success: function (data) {
                     // Update <img /> or <video /> source
                     domElement.closest('.thumbnail').find('.gifPreview').attr('src', data.gifUrl);
-                    domElement.remove();
+                    domElement.parent().remove();
                 },
                 error: function() {
                     alert('Download failed');
