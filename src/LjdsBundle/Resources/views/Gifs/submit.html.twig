@@ -22,23 +22,8 @@
         <p>Pour proposer un gif, vous pouvez soit saisir son URL dans le champ ci-dessous, soit sélectionner un des gifs proposés.
             Avant de proposer un gif, veuillez vous assurer que celui-ci est conforme <a href="{{ path('rulesOfTheGame') }}">aux règles
                 d'utilisation du service</a>.</p>
-        <br />
 
         <form method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-            <div class="labelsContainer">
-                Vous êtes
-                <div class="labels">
-                    <input type="radio" name="label" id="label_etudiant" value="étudiant" checked="checked" />
-                    <label for="label_etudiant">étudiant</label>
-                    <input type="radio" name="label" id="label_staff" value="staff" />
-                    <label for="label_staff">staff SUPINFO</label>
-                </div>
-            </div>
-
-            <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="{{ submittedBy }}" class="submittedBy" required />
-
-            <input type="hidden" id="source" name="source" class="source" />
-
             <input type="text" id="captionInput" name="caption" placeholder="Titre" required />
             <ul id="warnings"></ul>
 
@@ -50,6 +35,24 @@
                 <input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
                 <ul id="giphyGifsList"></ul>
             </div>
+
+            <div class="labelsContainer">
+                Vous êtes
+                <div class="labels">
+                    <input type="radio" name="label" id="label_etudiant" value="étudiant" checked="checked" />
+                    <label for="label_etudiant">étudiant</label>
+                    <input type="radio" name="label" id="label_staff" value="staff" />
+                    <label for="label_staff">staff SUPINFO</label>
+                </div>
+            </div>
+
+            <input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="{{ submittedBy }}" class="submittedBy" required />
+            <input type="email" name="email" placeholder="Adresse e-mail (facultatif)" value="{{ email }}" class="email" required />
+
+            <p>En spécifiant votre adresse e-mail dans le champ ci-dessus, vous serez prévenue(e) lorsque votre gif sera
+                accepté et publié.</p>
+
+            <input type="hidden" id="source" name="source" class="source" />
 
             <input type="submit" value="Proposer" />
         </form>

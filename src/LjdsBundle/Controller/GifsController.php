@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Constraints\Email;
 
 class GifsController extends Controller
 {
@@ -167,9 +168,26 @@ class GifsController extends Controller
             $caption = $post->get('caption');
             $source = $post->get('source');
             $label = $post->get('label');
+            $email = $post->get('email');
+            $email = $email == '' ? null : $email;
 
+            // Validate email
+            if ($email !== null) {
+                $validator = $this->get('validator');
+
+                $errors = $validator->validateValue($email, [new Email()]);
+
+                if (count($errors) > 0)
+                    $gifSubmittedError = 'l\'adresse mail n\'est pas valide.';
+            }
+
+            $expire = time()+60*60*24*30;
             // Create cookie with submittedBy value
-            $cookie = new Cookie('submittedBy', $submittedBy, time()+60*60*24*30);
+            $cookie = new Cookie('submittedBy', $submittedBy, $expire);
+            $response->headers->setCookie($cookie);
+
+            // Create cookie with email value
+            $cookie = new Cookie('email', $email, $expire);
             $response->headers->setCookie($cookie);
 
             if ($gifSubmittedError === false) {
@@ -183,10 +201,12 @@ class GifsController extends Controller
                 $gif->setSubmittedBy($submittedBy);
                 $gif->setSource($source);
                 $gif->setLabel($label);
+                $gif->setEmail($email);
 
                 $em->persist($gif);
                 $em->flush();
 
+                /** @var GifRepository $gifRepo */
                 $gifRepo = $this->getDoctrine()->getRepository('LjdsBundle:Gif');
                 $params['estimatedPublishDate'] = $gifRepo->getEstimatedPublicationDate();
             } else {
@@ -196,6 +216,9 @@ class GifsController extends Controller
 
         $params['submittedBy'] = $request->cookies->has('submittedBy')
             ? $request->cookies->get('submittedBy')
+            : '';
+        $params['email'] = $request->cookies->has('email')
+            ? $request->cookies->get('email')
             : '';
         $params['submitted'] = $gifSubmitted;
 

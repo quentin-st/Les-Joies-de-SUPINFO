@@ -91,6 +91,13 @@ class Gif
      */
     private $label;
 
+    /**
+     * Submitter's e-mail address
+     * @var string
+     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     */
+    private $email;
+
 
     /**
      * @return integer 
@@ -294,6 +301,24 @@ class Gif
     public function setLabel($label)
     {
         $this->label = $label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
     }
 
 
