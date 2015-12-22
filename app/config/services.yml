@@ -56,3 +56,12 @@ services:
             requestContextScheme: "%router.request_context.scheme%"
             requestContextBaseUrl: "%router.request_context.base_url%"
             em: @doctrine.orm.entity_manager
+
+    app.mail_service:
+        class: LjdsBundle\Service\MailService
+        arguments:
+            mailer: "@mailer"
+            twig: "@twig"
+            router: "@router"
+            sender_email: "%mailer_sender_email%"
+
