@@ -23,7 +23,7 @@ class GifsController extends Controller
      * @Route("/", name="index", options={"sitemap"=true})
      * @Route("/page/{page}", name="page")
      */
-    public function pageAction($page=1)
+    public function pageAction($page=1, Request $request)
     {
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
@@ -64,7 +64,8 @@ class GifsController extends Controller
 
         $params = [
             'gifs' => $pagination,
-            'pagination' => true
+            'pagination' => true,
+            'trump' => $request->query->has('trump')
         ];
         return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
     }

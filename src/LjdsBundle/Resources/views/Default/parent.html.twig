@@ -166,6 +166,11 @@
 
             return t;
         }(document, "script", "twitter-wjs"));
+
+        {# You haven't seen anything #}
+        {% if trump is defined and trump %}
+            $('.gifLink').find('img, video').replaceWith('<img src="https://media.giphy.com/media/26tPj9PmmKCB8Zopq/giphy.gif" />');
+        {% endif %}
     });
 </script>
 {% block customScripts %}{% endblock %}
