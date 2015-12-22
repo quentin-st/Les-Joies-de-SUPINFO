@@ -36,6 +36,7 @@ services:
         class: LjdsBundle\Service\GifService
         arguments:
             em: "@doctrine.orm.entity_manager"
+            mailService: "@app.mail_service"
             facebookAutopost: "%facebook_autopost%"
             facebookService: "@app.facebook"
             twitterAutopost: "%twitter_autopost%"

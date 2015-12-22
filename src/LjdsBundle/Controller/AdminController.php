@@ -66,8 +66,16 @@ class AdminController extends Controller
 
 				$em->flush();
 
-				if ($gifState == GifState::PUBLISHED)
-					$this->get('app.gif')->publish($gif);
+				switch ($gifState) {
+					case GifState::ACCEPTED:
+						if ($gif->getEmail() != null)
+							$this->get('app.mail_service')->sendGifApprovedMail($gif);
+						break;
+					case GifState::PUBLISHED:
+						if ($gifState == GifState::PUBLISHED)
+							$this->get('app.gif')->publish($gif);
+						break;
+				}
 
 				break;
 			case 'change_report_status':

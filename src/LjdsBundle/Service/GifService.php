@@ -12,6 +12,9 @@ class GifService
 {
     /** @var EntityManager */
     private $em;
+    /** @var MailService */
+    private $mailService;
+
     /** @var boolean */
     private $facebookAutopost;
     /** @var FacebookService */
@@ -21,11 +24,13 @@ class GifService
     /** @var TwitterService */
     private $twitterService;
 
-    public function __construct(EntityManager $em,
+    public function __construct(EntityManager $em, MailService $mailService,
                                 $facebookAutopost, FacebookService $facebookService,
                                 $twitterAutopost, TwitterService $twitterService)
     {
         $this->em = $em;
+        $this->mailService = $mailService;
+
         $this->facebookAutopost = $facebookAutopost;
         $this->facebookService = $facebookService;
         $this->twitterAutopost = $twitterAutopost;
@@ -68,6 +73,9 @@ class GifService
 
         if ($this->twitterAutopost)
             $this->twitterService->postGif($gif);
+
+        if ($gif->getEmail() != null)
+            $this->mailService->sendGifPublishedMail($gif);
 
         return true;
     }
