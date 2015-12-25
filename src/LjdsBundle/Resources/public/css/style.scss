@@ -200,8 +200,6 @@ hr {
 	.gifMain {
 		img, video {
 			@include border-radius(2px);
-		}
-		img {
 			min-width: 325px;
 			max-width: 100%;
 		}
