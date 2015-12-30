@@ -103,6 +103,11 @@ hr {
 	}
 }
 
+// Elevation levels
+.elevation-middle { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
+.elevation-high { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+.elevation-low { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); }
+
 .header {
 	@include border-radius(2px 2px 0 0);
 	background: url('../img/header_background.jpg') no-repeat top;
@@ -338,7 +343,7 @@ ul.menu {
 .submitGif {
 	p {
 		text-align: justify;
-		margin: 15px 0;
+		margin: 0;
 		font-weight: 300;
 	}
 	input[type="text"], input[type="email"] {
@@ -387,13 +392,14 @@ ul.menu {
 			line-height: 24px;
 		}
 	}
-	input[type="submit"] {
+	button[type="submit"] {
+		float: right;
 		margin: 40px auto 20px auto;
 		display: block;
 		border: 0;
 		background-color: $blue;
 		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
-		padding: 6px 17px;
+		padding: 7px 17px 7px 14px;
 		color: #fff;
 		font-size: 15px;
 		outline: none;
@@ -458,33 +464,36 @@ ul.menu {
 	form {
 		margin-top: 25px;
 	}
+
+	.info {
+		margin-left: 0;
+		margin-top: 10px;
+		padding-right: 40px;
+	}
 }
 
 /* Submit a gif - Giphy */
 .giphyGifs-wrap {
 	#giphyGifs {
 		background: #ededed;
-		background-image: -webkit-gradient(linear, 0 0, 0 2%, from(#dedede), to(#ededed));
-		background-image: -moz-linear-gradient(top, #dedede, #ededed 2%);
-		border: 1px solid #c8c8c8;
 		margin: 30px 15px 20px 15px;
-		padding: 15px;
-		overflow-y: auto;
-		max-height: 550px;
+		padding: 10px 5px;
 		position: relative;
 		text-align: left;
 		@include border-radius(2px);
+		@include box-shadow(inset 0px 4px 12px -3px rgba(0, 0, 0, 0.2));
 
 		.search {
-			margin: -5px 0 10px 0;
+			margin-left: 5px;
+			margin-bottom: 10px;
 			font-family: Roboto, sans-serif;
 			font-weight: 300;
 			width: 40%;
 		}
 
 		.giphyGifsContainer {
-			background: #f6f6f6;
-			border: 1px solid #c8c8c8;
+			overflow-y: auto;
+			max-height: 550px;
 			text-align: center;
 			@include border-radius(2px);
 
@@ -495,17 +504,22 @@ ul.menu {
 					padding: 7px;
 					@include box-sizing(border-box);
 
-					> img {
+					img {
 						cursor: pointer;
 						@include transition-duration(300ms);
 						@include border-radius(2px);
 						max-width: 100%;
 					}
-					> img.notSelected {
+					img.notSelected {
 						@include opacity(0.5);
 					}
-					> img.selected,
-					> img.notSelected:hover {
+					img.selected {
+						@extend .elevation-middle;
+						margin-top: -1px;
+						margin-bottom: 1px;
+					}
+					img.selected,
+					img.notSelected:hover {
 						@include opacity(1);
 					}
 				}
@@ -538,6 +552,7 @@ ul.menu {
 
 		.poweredByGiphy {
 			float: right;
+			margin-right: 15px;
 		}
 	}
 }
