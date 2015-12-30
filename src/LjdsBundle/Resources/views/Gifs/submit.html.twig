@@ -42,6 +42,9 @@
 					<div class="load-more-wrap">
 						<a id="loadMore" class="load-more button no-elevation" href="#" style="display:none;">Plus de gifs !</a>
 					</div>
+					<div id="noResult" class="no-result-wrap" style="display: none;">
+						<p>Aucun résultat pour la recherche &laquo; <span></span> &raquo;</p>
+					</div>
 				</div>
 			</div>
 
@@ -202,14 +205,17 @@
 		function search(keywords) {
 			var searchField = $('#giphySearch');
 			var loadMore = $('#loadMore');
+			var noResult = $('#noResult');
 
 			// Check if user supplied keywords
 			if (keywords.trim().length == 0)
 				return;
 
-			// Remove all the gifs we had, show loading indicator
+			// Remove all the gifs we had, show loading indicator & hide load-more button & no-result
 			$('#giphyGifsList').empty();
 			$('#ajaxLoading').show();
+			loadMore.hide();
+			noResult.hide();
 
 			// Update submitted-val & current offset
 			searchField.data('submitted-val', searchField.val());
@@ -261,6 +267,12 @@
 
 				li.append(img);
 				giphyGifsList.append(li);
+			}
+
+			if (gifsLength == 0) {
+				var noResult = $('#noResult');
+				noResult.show();
+				noResult.find('span').text($('#giphySearch').data('submitted-val'));
 			}
 
 			// Show/hide "moar" button
