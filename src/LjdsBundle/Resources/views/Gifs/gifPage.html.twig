@@ -2,25 +2,24 @@
 
 {% block title %}{{ gif.caption }} - {% endblock %}
 {% block metas %}
-    <meta property="og:title" content="{{ gif.caption }}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="{{ url('gif', {'permalink': gif.permalink}) }}" />
-    {% if gif.fileType == 'gif' %}
-        <meta property="og:image" content="{{ gif.gifUrl }}" />
-    {% endif %}
-    <meta property="og:site_name" content="Les Joies de Supinfo" />
+	<meta property="og:title" content="{{ gif.caption }}" />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content="{{ url('gif', {'permalink': gif.permalink}) }}" />
+	{% if gif.fileType == 'gif' %}
+		<meta property="og:image" content="{{ gif.gifUrl }}" />
+	{% endif %}
+	<meta property="og:site_name" content="Les Joies de Supinfo" />
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@joiesdesupinfo">
-    <meta name="twitter:creator" content="{{ gif.submittedBy }}">
-    <meta name="twitter:title" content="{{ gif.caption }}">
-    {% if gif.fileType == 'gif' %}
-        <meta name="twitter:image" content="{{ gif.gifUrl }}">
-    {% endif %}
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@joiesdesupinfo">
+	<meta name="twitter:creator" content="{{ gif.submittedBy }}">
+	<meta name="twitter:title" content="{{ gif.caption }}">
+	{% if gif.fileType == 'gif' %}
+		<meta name="twitter:image" content="{{ gif.gifUrl }}">
+	{% endif %}
 {% endblock %}
 {% block content %}
-	<div class="col-md-1"></div>
-	<div class="col-md-10">
+	<div class="col-md-10 col-md-offset-1">
 		{% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}
 	</div>
 {% endblock %}
