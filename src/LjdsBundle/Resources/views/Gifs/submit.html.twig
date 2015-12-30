@@ -33,7 +33,7 @@
 			<div id="giphyGifs" style="display: none;">
 				<img src="{{ asset('bundles/ljds/img/poweredByGiphy.png') }}" class="poweredByGiphy" />
 				<input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
-				<ul id="giphyGifsList" class="row"></ul>
+				<ul id="giphyGifsList"></ul>
 			</div>
 
 			<div class="labelsContainer">
@@ -124,11 +124,19 @@
 			// Select one gif
 			giphyGifsList.on('click', 'img', function(e) {
 				var img = $(this);
-				$('#source').val(img.attr('data-source'));
+
+				// Fill field attributes
+				$('#source').val(img.data('source'));
 				$('#gifUrl').val(img.attr('src'));
+
+				// Visually set as selected
 				giphyGifsList.find('img').removeClass('selected');
 				giphyGifsList.find('img').addClass('notSelected');
-				$(this).addClass('selected');
+				img.addClass('selected');
+
+				// Load a better quality version
+				if (img.attr('src') != img.data('src-hq'))
+					img.attr('src', img.data('src-hq'));
 
 				// Avoid onclick on giphyGifsList (that's for unselecting gif)
 				e.stopPropagation();
@@ -142,7 +150,7 @@
 				giphyGifsList.find('img').removeClass('notSelected');
 			});
 
-			// Empty source on giUrl keyup
+			// Empty source on gifUrl keyup
 			$('#gifUrl').keyup(function() {
 				$('#source').val('');
 			});
@@ -182,14 +190,19 @@
 			$('#giphyGifs').show();
 			$('#ajaxLoading').hide();
 
-			for (var i=0; i<gifs.length; i++) {
-				var imageUrl = gifs[i]['image'];
-				var sourceUrl = gifs[i]['url'];
+			var gifsLength = gifs.length;
+			for (var i=0; i<gifsLength; i++) {
+				var gif = gifs[i];
+
+				var imageUrl = gif['image_downsampled'];
+				var imageUrl_hq = gif['image'];
+				var sourceUrl = gif['url'];
 
 				var li = $('<li />');
 				var img = $('<img />')
 						.attr('src', imageUrl)
-						.attr('data-source', sourceUrl);
+						.data('src-hq', imageUrl_hq)
+						.data('source', sourceUrl);
 
 				li.append(img);
 				giphyGifsList.append(li);

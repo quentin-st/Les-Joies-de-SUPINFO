@@ -317,6 +317,7 @@ ul.menu {
 	p {
 		text-align: justify;
 		margin: 15px 0;
+		font-weight: 300;
 	}
 	input[type="text"], input[type="email"] {
 		@include border-radius(2px);

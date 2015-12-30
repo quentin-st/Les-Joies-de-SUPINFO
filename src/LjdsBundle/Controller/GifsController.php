@@ -10,6 +10,7 @@ use LjdsBundle\Entity\ReportState;
 use LjdsBundle\Helper\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -254,7 +255,9 @@ class GifsController extends Controller
     }
 
     /**
+     * This is endpoint is used by the /submit page to fetch trending gifs & search results
      * @Route("/giphyProxy/", name="giphyProxy")
+     * @Method({"POST"})
      */
     public function giphyApiProxyAction(Request $request)
     {
@@ -294,8 +297,11 @@ class GifsController extends Controller
         $gifs = [];
 
         foreach ($json['data'] as $giphyGif) {
+            $images = $giphyGif['images'];
+
             $gifs[] = [
-                'image' => $giphyGif['images']['downsized']['url'],
+                'image_downsampled' => $images['fixed_width_downsampled']['url'],
+                'image' => $images['fixed_width']['url'],
                 'url' => $giphyGif['bitly_url']
             ];
         }
