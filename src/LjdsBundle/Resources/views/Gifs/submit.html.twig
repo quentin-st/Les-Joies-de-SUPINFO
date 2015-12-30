@@ -2,72 +2,82 @@
 
 {% block title %}Proposer un gif - {% endblock %}
 {% block content %}
-	<div class="col-md-10 col-md-offset-1 submitGif">
-		<h2>Proposer un gif</h2>
+	<div class="submitGif">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<h2>Proposer un gif</h2>
 
-		{% if submitted %}
-			{% if submitError is defined and submitError %}
-				<div class="alert alert-danger">Erreur lors de l'envoi du gif : {{ submitError }}</div>
-			{% else %}
-				<div class="alert alert-success">Votre gif a bien été envoyé ! Il passe maintenant en modération en attente d'être publié.
-					{% if estimatedPublishDate is defined %}
-						S'il est accepté, il sera normalement publié le <b>{{ estimatedPublishDate|date('d-m-Y') }}</b> (en fonction du nombre de gifs en attente de publication),
-						<b>ou immédiatement s'il concerne un évènement d'actualité</b>.
+				{% if submitted %}
+					{% if submitError is defined and submitError %}
+						<div class="alert alert-danger">Erreur lors de l'envoi du gif : {{ submitError }}</div>
+					{% else %}
+						<div class="alert alert-success">Votre gif a bien été envoyé ! Il passe maintenant en modération en attente d'être publié.
+							{% if estimatedPublishDate is defined %}
+								S'il est accepté, il sera normalement publié le <b>{{ estimatedPublishDate|date('d-m-Y') }}</b> (en fonction du nombre de gifs en attente de publication),
+								<b>ou immédiatement s'il concerne un évènement d'actualité</b>.
+							{% endif %}
+							Merci !</div>
 					{% endif %}
-					Merci !</div>
-			{% endif %}
-		{% endif %}
+				{% endif %}
 
-		<p>Pour proposer un gif, vous pouvez soit saisir son URL dans le champ ci-dessous, soit sélectionner un des gifs proposés.
-			Avant de proposer un gif, veuillez vous assurer que celui-ci est conforme <a href="{{ path('rulesOfTheGame') }}">aux règles
-				d'utilisation du service</a>.</p>
-
-		<form method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-			<input type="text" id="captionInput" name="caption" placeholder="Titre" required />
-			<ul id="warnings"></ul>
-
-			<input type="text" id="gifUrl" name="gifUrl" placeholder="Url du gif" required />
-
-			<div id="giphyGifs">
-				<img src="{{ asset('bundles/ljds/img/poweredByGiphy.png') }}" class="poweredByGiphy" />
-				<input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
-
-				<div class="giphyGifsContainer">
-					<!-- Gifs will be added here: -->
-					<div id="giphyGifsList"></div>
-
-					<div id="ajaxLoading" class="loader-wrap">
-						<img src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" />
-					</div>
-					<div class="load-more-wrap">
-						<a id="loadMore" class="load-more button no-elevation" href="#" style="display:none;">Plus de gifs !</a>
-					</div>
-					<div id="noResult" class="no-result-wrap" style="display: none;">
-						<p>Aucun résultat pour la recherche &laquo; <span></span> &raquo;</p>
-					</div>
-				</div>
+				<p>Pour proposer un gif, vous pouvez soit saisir son URL dans le champ ci-dessous, soit sélectionner un des gifs proposés.
+					Avant de proposer un gif, veuillez vous assurer que celui-ci est conforme <a href="{{ path('rulesOfTheGame') }}">aux règles
+						d'utilisation du service</a>.</p>
 			</div>
+			<div class="col-md-12">
+				<form method="post" enctype="multipart/form-data" accept-charset="UTF-8" class="row">
+					<div class="col-md-10 col-md-offset-1">
+						<input type="text" id="captionInput" name="caption" placeholder="Titre" required />
+						<ul id="warnings"></ul>
 
-			<div class="labelsContainer">
-				Vous êtes
-				<div class="labels">
-					<input type="radio" name="label" id="label_etudiant" value="étudiant" checked="checked" />
-					<label for="label_etudiant">étudiant</label>
-					<input type="radio" name="label" id="label_staff" value="staff" />
-					<label for="label_staff">staff SUPINFO</label>
-				</div>
+						<input type="text" id="gifUrl" name="gifUrl" placeholder="Url du gif" required />
+					</div>
+
+					<div class="col-md-12 giphyGifs-wrap">
+						<div id="giphyGifs">
+							<img src="{{ asset('bundles/ljds/img/poweredByGiphy.png') }}" class="poweredByGiphy" />
+							<input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
+
+							<div class="giphyGifsContainer">
+								<!-- Gifs will be added here: -->
+								<div id="giphyGifsList"></div>
+
+								<div id="ajaxLoading" class="loader-wrap">
+									<img src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" />
+								</div>
+								<div class="load-more-wrap">
+									<a id="loadMore" class="load-more button no-elevation" href="#" style="display:none;">Plus de gifs !</a>
+								</div>
+								<div id="noResult" class="no-result-wrap" style="display: none;">
+									<p>Aucun résultat pour la recherche &laquo; <span></span> &raquo;</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-10 col-md-offset-1">
+						<div class="labelsContainer">
+							Vous êtes
+							<div class="labels">
+								<input type="radio" name="label" id="label_etudiant" value="étudiant" checked="checked" />
+								<label for="label_etudiant">étudiant</label>
+								<input type="radio" name="label" id="label_staff" value="staff" />
+								<label for="label_staff">staff SUPINFO</label>
+							</div>
+						</div>
+
+						<input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="{{ submittedBy }}" class="submittedBy" required />
+						<input type="email" name="email" placeholder="Adresse e-mail (facultatif)" value="{{ email }}" class="email" />
+
+						<p>En spécifiant votre adresse e-mail dans le champ ci-dessus, vous serez prévenue(e) lorsque votre gif sera
+							accepté et publié.</p>
+
+						<input type="hidden" id="source" name="source" class="source" />
+
+						<input type="submit" value="Proposer" />
+					</div>
+				</form>
 			</div>
-
-			<input type="text" name="submittedBy" placeholder="Proposé par (votre nom)" value="{{ submittedBy }}" class="submittedBy" required />
-			<input type="email" name="email" placeholder="Adresse e-mail (facultatif)" value="{{ email }}" class="email" />
-
-			<p>En spécifiant votre adresse e-mail dans le champ ci-dessus, vous serez prévenue(e) lorsque votre gif sera
-				accepté et publié.</p>
-
-			<input type="hidden" id="source" name="source" class="source" />
-
-			<input type="submit" value="Proposer" />
-		</form>
+		</div>
 	</div>
 {% endblock %}
 

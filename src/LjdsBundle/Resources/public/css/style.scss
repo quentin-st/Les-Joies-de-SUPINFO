@@ -461,83 +461,84 @@ ul.menu {
 }
 
 /* Submit a gif - Giphy */
-#giphyGifs {
-	background: #ededed;
-	background-image: -webkit-gradient(linear,0 0,0 2%,from(#dedede),to(#ededed));
-	background-image: -moz-linear-gradient(top,#dedede,#ededed 2%);
-	border: 1px solid #c8c8c8;
-	margin-top: 30px;
-	margin-bottom: 20px;
-	padding: 15px;
-	overflow-y: auto;
-	max-height: 550px;
-	position: relative;
-	text-align: left;
-	@include border-radius(2px);
-
-	.search {
-		margin: -5px 0 10px 0;
-		font-family: Roboto, sans-serif;
-		font-weight: 300;
-		width: 40%;
-	}
-
-	.giphyGifsContainer {
-		background: #f6f6f6;
+.giphyGifs-wrap {
+	#giphyGifs {
+		background: #ededed;
+		background-image: -webkit-gradient(linear, 0 0, 0 2%, from(#dedede), to(#ededed));
+		background-image: -moz-linear-gradient(top, #dedede, #ededed 2%);
 		border: 1px solid #c8c8c8;
-		text-align: center;
+		margin: 30px 15px 20px 15px;
+		padding: 15px;
+		overflow-y: auto;
+		max-height: 550px;
+		position: relative;
+		text-align: left;
 		@include border-radius(2px);
 
-		#giphyGifsList {
-			.gif-wrap {
-				width: 33%;
-				display: inline-block;
-				padding: 7px;
-				@include box-sizing(border-box);
-
-				> img {
-					cursor: pointer;
-					@include transition-duration(300ms);
-					@include border-radius(2px);
-					max-width: 100%;
-				}
-				> img.notSelected {
-					@include opacity(0.5);
-				}
-				> img.selected,
-				> img.notSelected:hover {
-					@include opacity(1);
-				}
-			}
+		.search {
+			margin: -5px 0 10px 0;
+			font-family: Roboto, sans-serif;
+			font-weight: 300;
+			width: 40%;
 		}
 
-		.loader-wrap {
-			clear: both;
-
-			img {
-				display: block;
-				margin: 10px auto;
-			}
-		}
-
-		.load-more-wrap {
-			clear: both;
-
-			.load-more {
-				margin: 10px 0 3px 0;
-			}
-		}
-
-		.no-result-wrap p {
+		.giphyGifsContainer {
+			background: #f6f6f6;
+			border: 1px solid #c8c8c8;
 			text-align: center;
-			font-weight: 500;
-			color: #888;
-			font-style: italic;
-		}
-	}
+			@include border-radius(2px);
 
-	.poweredByGiphy {
-		float: right;
+			#giphyGifsList {
+				.gif-wrap {
+					width: 25%;
+					display: inline-block;
+					padding: 7px;
+					@include box-sizing(border-box);
+
+					> img {
+						cursor: pointer;
+						@include transition-duration(300ms);
+						@include border-radius(2px);
+						max-width: 100%;
+					}
+					> img.notSelected {
+						@include opacity(0.5);
+					}
+					> img.selected,
+					> img.notSelected:hover {
+						@include opacity(1);
+					}
+				}
+			}
+
+			.loader-wrap {
+				clear: both;
+
+				img {
+					display: block;
+					margin: 10px auto;
+				}
+			}
+
+			.load-more-wrap {
+				clear: both;
+
+				.load-more {
+					margin: 10px 0 3px 0;
+				}
+			}
+
+			.no-result-wrap p {
+				text-align: center;
+				font-weight: 500;
+				color: #888;
+				font-style: italic;
+			}
+		}
+
+		.poweredByGiphy {
+			float: right;
+		}
 	}
 }
 
