@@ -2,8 +2,7 @@
 
 {% block title %}Proposer un gif - {% endblock %}
 {% block content %}
-	<div class="col-md-1"></div>
-	<div class="col-md-10 submitGif">
+	<div class="col-md-10 col-md-offset-1 submitGif">
 		<h2>Proposer un gif</h2>
 
 		{% if submitted %}
@@ -40,6 +39,9 @@
 					<div id="ajaxLoading" class="loader-wrap">
 						<img src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" />
 					</div>
+					<div class="load-more-wrap">
+						<a id="loadMore" class="load-more button no-elevation" href="#" style="display:none;">Plus de gifs !</a>
+					</div>
 				</div>
 			</div>
 
@@ -71,6 +73,11 @@
 		$(document).ready(function() {
 			var searchField = $('#giphySearch');
 			var giphyGifsList = $('#giphyGifsList');
+			var loadMore = $('#loadMore');
+
+			// Save search field submitted val & current offset
+			searchField.data('submitted-val', searchField.val());
+			loadMore.data('offset', 0);
 
 			// Search Giphy gifs ; prevent unwanted form submit from enter keypress
 			$(window).keydown(function(e){
@@ -117,7 +124,7 @@
 				},
 				success: function(jsonData) {
 					if (jsonData.success) {
-						populateGifsList(jsonData.gifs);
+						populateGifsList(jsonData.gifs, jsonData.pagination);
 					}
 				},
 				error: function(data) {
@@ -158,9 +165,45 @@
 			$('#gifUrl').keyup(function() {
 				$('#source').val('');
 			});
+
+			// Load more gifs
+			loadMore.click(function() {
+				// Hide this, show loading spinner
+				$(this).hide();
+				$('#ajaxLoading').show();
+
+				var searchFieldSubmittedVal = $('#giphySearch').data('submitted-val');
+				var action = searchFieldSubmittedVal != '' ? 'search' : 'getTrendingGifs';
+
+				$.ajax({
+					url: '{{ path('giphyProxy') }}',
+					method: 'POST',
+					data: {
+						action: action,
+						keywords: searchFieldSubmittedVal,
+						offset: loadMore.data('offset')
+					},
+					success: function(jsonData) {
+						$('#ajaxLoading').hide();
+
+						if (jsonData.success) {
+							populateGifsList(jsonData.gifs, jsonData.pagination);
+						}
+					},
+					error: function(data) {
+						$('#ajaxLoading').hide();
+
+						console.log(data);
+					}
+				});
+			});
 		});
 
 		function search(keywords) {
+			var searchField = $('#giphySearch');
+			var loadMore = $('#loadMore');
+
+			// Check if user supplied keywords
 			if (keywords.trim().length == 0)
 				return;
 
@@ -168,18 +211,23 @@
 			$('#giphyGifsList').empty();
 			$('#ajaxLoading').show();
 
+			// Update submitted-val & current offset
+			searchField.data('submitted-val', searchField.val());
+			loadMore.data('offset', 0);
+
 			$.ajax({
 				url: '{{ path('giphyProxy') }}',
 				method: 'POST',
 				data: {
 					action: 'search',
-					keywords: keywords
+					keywords: keywords,
+					offset: loadMore.data('offset')
 				},
 				success: function(jsonData) {
 					$('#ajaxLoading').hide();
 
 					if (jsonData.success) {
-						populateGifsList(jsonData.gifs);
+						populateGifsList(jsonData.gifs, jsonData.pagination);
 					}
 				},
 				error: function(data) {
@@ -190,12 +238,12 @@
 			});
 		}
 
-		function populateGifsList(gifs) {
+		function populateGifsList(gifs, pagination) {
 			var giphyGifsList = $('#giphyGifsList');
-			giphyGifsList.empty();
 			$('#giphyGifs').show();
 			$('#ajaxLoading').hide();
 
+			// Populate DOM
 			var gifsLength = gifs.length;
 			for (var i=0; i<gifsLength; i++) {
 				var gif = gifs[i];
@@ -214,6 +262,16 @@
 				li.append(img);
 				giphyGifsList.append(li);
 			}
+
+			// Show/hide "moar" button
+			var loadMore = $('#loadMore');
+			if (pagination.has_more)
+				loadMore.show();
+			else
+				loadMore.hide();
+
+			// Update offset value
+			loadMore.data('offset', loadMore.data('offset') + gifsLength);
 		}
 	</script>
 {% endblock %}

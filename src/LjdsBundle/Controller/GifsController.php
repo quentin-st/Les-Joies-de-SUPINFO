@@ -269,18 +269,29 @@ class GifsController extends Controller
         $giphy_api_key = $this->getParameter('giphy_api_key');
         $giphy_gifs_limit = $this->getParameter('giphy_gifs_limit');
 
+        $offset = $post->get('offset', 0);
+
         $action = $post->get('action');
         switch ($action)
         {
             case 'getTrendingGifs':
-                $url = 'http://api.giphy.com/v1/gifs/trending?api_key=' . $giphy_api_key . '&limit=' . $giphy_gifs_limit;
+                $url = 'http://api.giphy.com/v1/gifs/trending'
+                    . '?api_key=' . $giphy_api_key
+                    . '&limit=' . $giphy_gifs_limit
+                    . '&offset=' . $offset;
+
                 break;
             case 'search':
                 if (!$post->has('keywords'))
                     return new JsonResponse([ 'error' => 'Missing keywords' ], 500);
 
                 $keywords = $post->get('keywords');
-                $url = 'http://api.giphy.com/v1/gifs/search?q=' . urlencode($keywords) . '&api_key=' . $giphy_api_key . '&limit=' . $giphy_gifs_limit;
+                $url = 'http://api.giphy.com/v1/gifs/search'
+                    . '?q=' . urlencode($keywords)
+                    . '&api_key=' . $giphy_api_key
+                    . '&limit=' . $giphy_gifs_limit
+                    . '&offset=' . $offset;
+
                 break;
             default:
                 return new JsonResponse([ 'error' => 'Invalid action' ], 500);
@@ -306,8 +317,26 @@ class GifsController extends Controller
             ];
         }
 
+        // Compute pagination infos
+        $data_pagination = $json['pagination'];
+        $count = $data_pagination['count'];
+        $offset = $data_pagination['offset'];
+        $pagination = [
+            'count' => $count,
+            'offset' => $offset,
+            'has_more' => true
+        ];
+        // total_count may be missing (for trending search for example)
+        if (array_key_exists('total_count', $data_pagination)) {
+            $totalCount = $data_pagination['total_count'];
+
+            $pagination['total_count'] = $totalCount;
+            $pagination['has_more'] = $totalCount > $count + $offset;
+        }
+
         return new JsonResponse([
             'gifs' => $gifs,
+            'pagination' => $pagination,
             'success' => true
         ]);
     }
