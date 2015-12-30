@@ -29,11 +29,11 @@
 
 			<input type="text" id="gifUrl" name="gifUrl" placeholder="Url du gif" required />
 
-			<img id="ajaxLoading" src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" style="visibility: hidden;" />
-			<div id="giphyGifs" style="display: none;">
+			<div id="giphyGifs">
 				<img src="{{ asset('bundles/ljds/img/poweredByGiphy.png') }}" class="poweredByGiphy" />
 				<input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
 				<ul id="giphyGifsList"></ul>
+				<img id="ajaxLoading" src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" />
 			</div>
 
 			<div class="labelsContainer">
@@ -66,17 +66,15 @@
 			var giphyGifsList = $('#giphyGifsList');
 
 			// Prevent unwanted form submit from enter keypress
-			$(document).ready(function() {
-				$(window).keydown(function(e){
-					if(e.keyCode == 13) {
-						e.preventDefault();
+			$(window).keydown(function(e){
+				if(e.keyCode == 13) {
+					e.preventDefault();
 
-						if (searchField.is(':focus'))
-							search(searchField.val());
+					if (searchField.is(':focus'))
+						search(searchField.val());
 
-						return false;
-					}
-				});
+					return false;
+				}
 			});
 
 			$('#captionInput').keyup(function() {
@@ -101,8 +99,6 @@
 				for (var i=0; i<warningsList.length; i++)
 					warnings.append('<li>' + warningsList[i] + '</li>');
 			});
-
-			$('#ajaxLoading').css('visibility', 'visible');
 
 			// Get trending gifs
 			$.ajax({

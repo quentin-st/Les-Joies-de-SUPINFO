@@ -365,10 +365,6 @@ ul.menu {
 			line-height: 24px;
 		}
 	}
-	#ajaxLoading {
-		margin: 10px auto;
-		display: block;
-	}
 	input[type="submit"] {
 		margin: 40px auto 20px auto;
 		display: block;
@@ -464,10 +460,18 @@ ul.menu {
 		width: 40%;
 	}
 
+	#ajaxLoading {
+		display: block;
+		position: absolute;
+		left: 50%;
+		margin: -20px 0 0 -8px;
+	}
+
 	ul#giphyGifsList {
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		min-height: 25px;
 		background: #f6f6f6;
 		border: 1px solid #c8c8c8;
 		text-align: center;
