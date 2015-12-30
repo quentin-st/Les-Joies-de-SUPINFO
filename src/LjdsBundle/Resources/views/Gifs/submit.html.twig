@@ -32,8 +32,15 @@
 			<div id="giphyGifs">
 				<img src="{{ asset('bundles/ljds/img/poweredByGiphy.png') }}" class="poweredByGiphy" />
 				<input id="giphySearch" type="text" placeholder="Rechercher..." class="search" />
-				<ul id="giphyGifsList"></ul>
-				<img id="ajaxLoading" src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" />
+
+				<div class="giphyGifsContainer">
+					<!-- Gifs will be added here: -->
+					<div id="giphyGifsList"></div>
+
+					<div id="ajaxLoading" class="loader-wrap">
+						<img src="{{ asset('bundles/ljds/img/ajax-loader.gif') }}" />
+					</div>
+				</div>
 			</div>
 
 			<div class="labelsContainer">
@@ -65,7 +72,7 @@
 			var searchField = $('#giphySearch');
 			var giphyGifsList = $('#giphyGifsList');
 
-			// Prevent unwanted form submit from enter keypress
+			// Search Giphy gifs ; prevent unwanted form submit from enter keypress
 			$(window).keydown(function(e){
 				if(e.keyCode == 13) {
 					e.preventDefault();
@@ -77,6 +84,7 @@
 				}
 			});
 
+			// Check if caption looks alright
 			$('#captionInput').keyup(function() {
 				var text = $(this).val();
 
@@ -156,6 +164,8 @@
 			if (keywords.trim().length == 0)
 				return;
 
+			// Remove all the gifs we had, show loading indicator
+			$('#giphyGifsList').empty();
 			$('#ajaxLoading').show();
 
 			$.ajax({
@@ -194,7 +204,8 @@
 				var imageUrl_hq = gif['image'];
 				var sourceUrl = gif['url'];
 
-				var li = $('<li />');
+				var li = $('<div />')
+						.addClass('gif-wrap');
 				var img = $('<img />')
 						.attr('src', imageUrl)
 						.data('src-hq', imageUrl_hq)
