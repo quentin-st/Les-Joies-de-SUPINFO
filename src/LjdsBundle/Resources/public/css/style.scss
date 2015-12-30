@@ -473,14 +473,15 @@ ul.menu {
 		@include border-radius(2px);
 
 		> li {
-			max-width: 32%;
+			width: 33%;
 			display: inline-block;
-			padding: 10px;
+			padding: 7px;
 			@include box-sizing(border-box);
 
 			> img {
 				cursor: pointer;
 				@include transition-duration(300ms);
+				@include border-radius(2px);
 				max-width: 100%;
 			}
 			> img.notSelected { @include opacity(0.5); }
