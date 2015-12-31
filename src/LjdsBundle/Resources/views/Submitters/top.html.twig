@@ -2,20 +2,36 @@
 
 {% block title %}Top contributeurs - {% endblock %}
 {% block content %}
-	<div class="col-md-1"></div>
-    <div class="col-md-10 topSubmitters">
-        <h1>Top contributeurs</h1>
+    <div class="topSubmitters">
+        <div class="col-md-10 col-md-offset-1">
+            <h1>Top contributeurs</h1>
+        </div>
+        <div class="col-md-12">
+            <div class="container-fluid">
+                <ol class="row">
+                    {% set i=1 %}
+                    {% for item in submitters if item.submitter != '' %}
+                        <li class="col-md-4 col-xs-6">
+                            <a href="{{ path('submitter', {'submitter': item.submitter}) }}" class="button row rank-{{ i<10 ? i : 'others' }}">
+                                <div class="col-md-12">
+                                    <div class="stats">
+                                        <div class="stat">
+                                            <span>{{ item.likes }}</span> like{% if item.likes > 1 %}s{% endif %}
+                                        </div>
+                                        <div class="stat">
+                                            <span> {{ item.gifs_count }}</span> gif{% if item.gifs_count > 1 %}s{% endif %}
+                                        </div>
+                                    </div>
 
-        <ol>
-            {% for item in submitters %}
-                {% if item.submitter != '' %}
-                    <li>
-                        <a href="{{ path('submitter', {'submitter': item.submitter}) }}">{{ item.submitter }}</a>
-                        <span> - {{ item.likes }} like{% if item.likes > 1 %}s{% endif %}</span>
-                        <span> - {{ item.gifs|length }} gif{% if item.gifs|length > 1 %}s{% endif %}</span>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ol>
+                                    <div class="rank">{{ i }}</div>
+                                    <div class="submitter">{{ item.submitter }}</div>
+                                </div>
+                            </a>
+                        </li>
+                        {% set i=i+1 %}
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
     </div>
 {% endblock %}

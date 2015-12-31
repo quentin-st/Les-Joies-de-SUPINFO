@@ -196,16 +196,69 @@ hr {
 	text-align: center;
 }
 
-.topSubmitters ol li {
-	font-size: 27px;
-	color: #333;
-	font-family: Roboto, sans-serif;
-	font-weight: 300;
+.topSubmitters {
+	ol {
+		list-style: none;
+		padding-left: 0;
 
-	span {
-		font-size: 17px;
-		color: #555;
-		vertical-align: middle;
+		li {
+			margin-bottom: 10px;
+
+			a {
+				display: block;
+				color: #333;
+				@include transition-duration(150ms);
+				@extend .button.no-elevation;
+
+				.rank {
+					display: inline-block;
+					width: 32px;
+					height: 32px;
+					text-align: center;
+					line-height: 32px;
+					@include border-radius(50%);
+					color: #fff;
+					background-color: $blue;
+					font-size: 19px;
+					margin-top: 5px;
+				}
+				.submitter {
+					display: inline-block;
+					margin-left: 10px;
+					vertical-align: middle;
+					padding-bottom: 4px;
+					font-size: 15px;
+					max-width: 150px;
+				}
+				.stats {
+					float: right;
+
+					.stat {
+						display: inline-block;
+						font-size: 9px;
+						margin-left: 10px;
+						color: #555;
+						font-weight: 100;
+						text-align: right;
+
+						span {
+							display: block;
+							font-size: 20px;
+						}
+					}
+				}
+
+				// Dim a little bit the bottom of the list
+				@for $i from 1 to 10 {
+					&.rank-#{$i} {
+						@include opacity(1-($i / 25));
+					}
+				}
+				&.rank-others {
+					@include opacity(1-(10/25));
+				}
+			}
+		}
 	}
 }
 
