@@ -1,9 +1,5 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
-{% block customStyle %}
-	<link href="{{ asset('bundles/ljds/css/style_admin.css') }}" rel="stylesheet" />
-{% endblock %}
-
 {% block content %}
 	<div class="fullWidth">
 		<div class="adminTabs">
@@ -62,7 +58,7 @@
 	</div>
 {% endblock %}
 
-{% block customScripts %}
+{% block javascripts %}
 	<script>
 		// Validate GIF
 		$('.btnValidation').click(function() {
