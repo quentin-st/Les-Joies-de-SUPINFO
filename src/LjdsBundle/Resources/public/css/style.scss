@@ -66,6 +66,7 @@ $divider-color: #B6B6B6;
 /* Include _part files */
 @import 'ui';
 @import 'header';
+@import 'footer';
 @import 'page-submit';
 @import 'admin';
 
@@ -91,36 +92,15 @@ hr {
 		background-color: #fff;
 		margin-top: 20px;
 		padding: 0 0 10px 0;
+
+		.content-wrap {
+			@include box-shadow(inset 0px 7px 8px -8px rgba(0, 0, 0, 0.3));
+		}
 	}
 }
 
 .fullWidth{
 	max-width: 100%;
-}
-.footer {
-	font-weight: 300;
-	@include opacity(0.5);
-	@include transition-duration(200ms);
-	margin: 10px 0;
-	padding-bottom: 10px;
-
-	&:hover { @include opacity(0.75); }
-
-	h2 {
-		color: #333;
-		font-size: 17px;
-	}
-	ul {
-		padding-left: 0;
-		margin-bottom: 0;
-		list-style: none;
-	}
-	.copyright {
-		text-align: center;
-		font-size: 9px;
-		@include opacity(0.5);
-		margin-top: 10px;
-	}
 }
 
 .gifItem {

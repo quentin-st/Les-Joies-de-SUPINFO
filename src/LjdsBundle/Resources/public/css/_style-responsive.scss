@@ -3,23 +3,42 @@
  * It is included in style (main stylesheet)
  */
 
-/* Small devices (smartphones) */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+	.header {
+		a.h1Link {
+			float: none;
+		}
+		.menu {
+			float: none;
+			text-align: left;
+			padding-left: 15px;
+
+			li {
+				display: block;
+			}
+		}
+		.countdown {
+			margin-top: 10px;
+		}
+		.subTitle {
+			margin-top: 0;
+		}
+	}
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
 	.hide-mobile { display: none!important; }
 
-	.container { margin-top: 0; }
 	.header {
-		.row {
-			margin-left: 0;
-			margin-right: 0;
-		}
-
 		h1 { padding: 0 10px; }
 
 		.menu {
-			margin-top: 0;
 			margin-left: 10px;
 			padding-left: 0;
+
+			li {
+				display: block;
+			}
 		}
 	}
 
@@ -33,7 +52,6 @@
 	}
 }
 
-/* Medium devices (tablets) */
 @media (max-width: 992px) {
 	.gifItem {
 		.gifInfos {

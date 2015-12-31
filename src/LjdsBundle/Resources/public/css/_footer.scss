@@ -1,0 +1,29 @@
+.footer {
+	font-weight: 300;
+	@include opacity(0.5);
+	@include transition-duration(200ms);
+
+	&:hover { @include opacity(0.75); }
+
+	h2 {
+		color: #333;
+		font-size: 17px;
+	}
+	ul {
+		padding-left: 0;
+		margin-bottom: 0;
+		list-style: none;
+	}
+	.copyright {
+		text-align: center;
+		font-size: 9px;
+		@include opacity(0.5);
+		margin-top: 20px;
+	}
+
+	.facebook-widget {
+		margin-top: 10px;
+		// Prepare vertical space so there's no "jump" while loading
+		min-height: 70px;
+	}
+}

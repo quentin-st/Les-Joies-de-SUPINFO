@@ -1,7 +1,7 @@
 
 .header {
 	@include border-radius(2px 2px 0 0);
-	background: url('../img/header_background.jpg') no-repeat top;
+	background: #6F9FC1 url('../img/header_background.jpg') no-repeat top;
 	@include background-size(cover);
 
 	> div {
@@ -12,21 +12,22 @@
 		@include border-radius(2px 2px 0 0);
 	}
 
-	h1 {
-		font-size: 32px;
-		margin: 15px 0;
-	}
-
 	a.h1Link {
-		display: inline-block;
+		float: left;
+		display: block;
 
 		h1 {
 			color: #fff;
 			font-weight: 300;
 			font-size: 22px;
 			padding: 0 30px;
-			margin: 15px 0;
+			margin: 19px 0;
 			display: inline-block;
+			@include transition-duration(150ms);
+
+			&:hover {
+				text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+			}
 		}
 
 		&:hover { text-decoration: none; }
@@ -53,19 +54,10 @@
 			font-size: 19px;
 			font-weight: 300;
 			margin: 0;
-			text-shadow: 0 0 7px #000;
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 		}
 	}
 }
-
-.subHeader {
-	min-height: 70px;
-
-	.facebookPageLike {
-		text-align: right;
-	}
-}
-
 
 /* Menu */
 ul.menu {
@@ -80,10 +72,11 @@ ul.menu {
 		line-height: 27px;
 
 		a {
+			display: inline-block;
 			color: #eee;
 			font-weight: 300;
 			text-transform: uppercase;
-			padding: 5px 13px 5px 10px;
+			padding: 2px 13px 1px 10px;
 			@include transition-duration(200ms);
 			@include border-radius(2px);
 			font-size: 15px;
@@ -98,6 +91,7 @@ ul.menu {
 				color: #fff;
 				background-color: rgba(0, 0, 0, 0.3);
 				text-decoration: none;
+				@extend .elevation-low;
 
 				&.submit {
 					background-color: rgba(3, 169, 244, 0.7);
