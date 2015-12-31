@@ -11,14 +11,17 @@
 /vendor/
 /web/bundles/
 
+# PhpStorm files
 .idea
+
+# Web files
 /web/uploads/
 /web/gifs/
 !/web/gifs/.gitkeep
 /web/css/
 /web/js/
 
+# Generated CSS files
 src/LjdsBundle/Resources/public/css/style.css
 src/LjdsBundle/Resources/public/css/style.css.map
-src/LjdsBundle/Resources/public/css/style_admin.css
-src/LjdsBundle/Resources/public/css/style_admin.css.map
+.sass-cache
