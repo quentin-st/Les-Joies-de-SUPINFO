@@ -51,6 +51,6 @@ parameters:
     # This will be used on production and is only used for commands.
     # More info here: http://symfony.com/doc/current/cookbook/console/sending_emails.html#configuring-the-request-context-globally
     # localhost: localhost ; http ; /
-    router.request_context.host: joies-de-supinfo.s-quent.in
+    router.request_context.host: joies-de-supinfo.fr
     router.request_context.scheme: http
     router.request_context.base_url: /

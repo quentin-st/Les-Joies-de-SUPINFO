@@ -1,7 +1,7 @@
 # Les Joies de SUPINFO
 Welcome to the public repository for Les Joies de SUPINFO project!
 
-The project is currently hosted at [joies-de-supinfo.s-quent.in](http://joies-de-supinfo.s-quent.in/).
+The project is currently hosted at [joies-de-supinfo.fr](http://www.joies-de-supinfo.fr/).
 
 This project is based on Symfony2. But at first, we wrote it in vanilla PHP :
 you can check the original sources (in the `vanilla-php` branch), but it is neither used nor maintained anymore.
@@ -36,15 +36,15 @@ Cron jobs are set to execute a custom command, `ljds:publish`:
 ## API
 You can either get the last published gif or a random one by dropping a GET request on the following URLS:
 
-* last: http://joies-de-supinfo.s-quent.in/api/last
-* random: http://joies-de-supinfo.s-quent.in/api/random
+* last: http://www.joies-de-supinfo.fr/api/last
+* random: http://www.joies-de-supinfo.fr/api/random
 
 In both case, you'll receive a JSON-encoded response such as this one :
 
 	{
 		caption: "Quand ton CM passe dans l'open space ",
 		file: "http://media0.giphy.com/media/phaN2NxXBzHMs/giphy.gif",
-		permalink: "http://joies-de-supinfo.s-quent.in/gif/quand-ton-cm-passe-dans-lopen-space-",
+		permalink: "http://www.joies-de-supinfo.fr/gif/quand-ton-cm-passe-dans-lopen-space-",
 		type: "gif"
 	}
 
