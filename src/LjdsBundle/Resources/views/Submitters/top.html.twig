@@ -19,7 +19,7 @@
                                             <span>{{ item.likes }}</span> like{% if item.likes > 1 %}s{% endif %}
                                         </div>
                                         <div class="stat">
-                                            <span> {{ item.gifs_count }}</span> gif{% if item.gifs_count > 1 %}s{% endif %}
+                                            <span> {{ item.gifs|length }}</span> gif{% if item.gifs|length > 1 %}s{% endif %}
                                         </div>
                                     </div>
 
