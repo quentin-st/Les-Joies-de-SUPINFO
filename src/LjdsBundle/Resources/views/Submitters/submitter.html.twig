@@ -4,7 +4,7 @@
 {% block content %}
 	<div class="col-md-1"></div>
     <div class="col-md-10">
-        <h1>Contributions par {{ submitter }}</h1>
+        <h2>Contributions par {{ submitter }}</h2>
 
         {% for gif in gifs %}
             {% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}
