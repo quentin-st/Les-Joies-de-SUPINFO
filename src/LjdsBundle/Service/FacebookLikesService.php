@@ -49,7 +49,7 @@ class FacebookLikesService
 
 		// Sort array
 		usort($gifs, function(Gif $gif1, Gif $gif2) {
-			return $gif1->getLikes() - $gif2->getLikes();
+			return $gif2->getLikes() - $gif1->getLikes();
 		});
 
 		// Take the 20 first ones
