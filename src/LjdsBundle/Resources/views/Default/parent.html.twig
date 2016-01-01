@@ -7,7 +7,7 @@
 
     <title>{% block title %}{% endblock %}Les Joies de SUPINFO</title>
     <meta name="description" content="Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO">
-    <meta name="author" content="Quentin Stoeckel, Frédéric Strebler, Thomas Nold">
+    <meta name="author" content="{% if gif is defined %}{{ gif.submittedBy }}{% else %}Quentin Stoeckel, Frédéric Strebler, Thomas Nold{% endif %}">
     {% stylesheets
         'bundles/ljds/css/bootstrap.min.css'
         'bundles/ljds/css/bootstrap-theme.min.css'
