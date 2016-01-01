@@ -102,6 +102,27 @@ class FacebookLikesService
 	}
 
 	/**
+	 * Returns the like count for a submitter
+	 * @param $submitter
+	 * @return int
+	 */
+	public function getLikesCountForSubmitter($submitter)
+	{
+		/** @var GifRepository $gifsRepo */
+		$gifsRepo = $this->em->getRepository('LjdsBundle:Gif');
+		/** @var Gif[] $gifs */
+		$gifs = $gifsRepo->findBySubmitter($submitter);
+
+		$this->fetchLikes($gifs);
+
+		$count = 0;
+		foreach ($gifs as $gif)
+			$count += $gif->getLikes();
+
+		return $count;
+	}
+
+	/**
 	 * Sets the likes attribute of each gif in the gifs list passed as parameter
 	 * @param $gifsList Gif[]
 	 */

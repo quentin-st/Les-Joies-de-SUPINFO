@@ -248,6 +248,13 @@ hr {
 	}
 }
 
+.page-submitter {
+	.buttons-set {
+		.button-likesCount { color: #45619D; }
+		.button-gifsCount { color: $dark-primary-color; }
+	}
+}
+
 .errorPage {
 	div {
 		display: inline-block;
@@ -308,6 +315,10 @@ hr {
 		background: #444;
 		&:hover {background: #555;}
 	}
+}
+
+.align-right {
+	text-align: right;
 }
 
 /* Include style-responsive file */

@@ -25,3 +25,21 @@
 .elevation-middle { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
 .elevation-high { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
 .elevation-low { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); }
+
+.buttons-set {
+	margin: 10px 0;
+	padding: 0;
+	list-style: none;
+
+	.button {
+		@extend .button.no-elevation;
+		padding: 3px 20px;
+
+		i.mdi { font-size: 60px; }
+		p {
+			text-align: center;
+			margin: 7px 0 0 0;
+			line-height: 15px;
+		}
+	}
+}

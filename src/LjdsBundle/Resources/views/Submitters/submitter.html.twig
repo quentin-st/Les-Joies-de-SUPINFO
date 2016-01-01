@@ -3,8 +3,24 @@
 {% block title %}{{ submitter }} - {% endblock %}
 {% block content %}
 	<div class="col-md-1"></div>
-    <div class="col-md-10">
-        <h2>Contributions par {{ submitter }}</h2>
+    <div class="col-md-10 page-submitter">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Contributions par {{ submitter }}</h2>
+            </div>
+            <div class="col-md-4">
+                <ul class="buttons-set align-right">
+                    <li class="button button-likesCount">
+                        <i class="mdi mdi-thumb-up"></i>
+                        <p>{{ likes_count }} like{% if likes_count != 1 %}s{% endif %}</p>
+                    </li>
+                    <li class="button button-gifsCount">
+                        <i class="mdi mdi-image-area"></i>
+                        <p>{{ gifs|length }} gif{% if gifs|length != 1 %}s{% endif %}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         {% for gif in gifs %}
             {% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}

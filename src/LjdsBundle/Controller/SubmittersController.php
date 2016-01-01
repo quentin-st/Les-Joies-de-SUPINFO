@@ -34,9 +34,13 @@ class SubmittersController extends Controller
         if (count($gifs) == 0)
             throw new NotFoundHttpException();
 
+        // Compute stats
+        $likesCount = $this->get('app.facebook_likes')->getLikesCountForSubmitter($submitter);
+
         return $this->render('LjdsBundle:Submitters:submitter.html.twig', [
             'submitter' => $submitter,
-            'gifs' => $gifs
+            'gifs' => $gifs,
+            'likes_count' => $likesCount
         ]);
     }
 }
