@@ -98,6 +98,11 @@ class Gif
      */
     private $email;
 
+    /**
+     * @var int
+     */
+    private $likes;
+
 
     /**
      * @return integer 
@@ -318,6 +323,24 @@ class Gif
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param int $likes
+     * @return Gif
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
         return $this;
     }
 

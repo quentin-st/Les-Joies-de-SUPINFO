@@ -3,8 +3,6 @@
 namespace LjdsBundle\Controller;
 
 use LjdsBundle\Entity\GifRepository;
-use LjdsBundle\Entity\GifState;
-use LjdsBundle\Helper\FacebookHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,17 +14,9 @@ class SubmittersController extends Controller
      */
     public function submittersTopAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        /** @var GifRepository $gifRepo */
-        $gifRepo = $em->getRepository('LjdsBundle:Gif');
-
-        $gifs = $gifRepo->findByGifState(GifState::PUBLISHED);
-
-        $params = [
-            'submitters' => FacebookHelper::getFacebookLikesGroupedBySubmitter($gifs, $this->get('router'))
-        ];
-
-        return $this->render('LjdsBundle:Submitters:top.html.twig', $params);
+        return $this->render('LjdsBundle:Submitters:top.html.twig', [
+            'submitters' => $this->get('app.facebook_likes')->getTopSubmitters()
+        ]);
     }
 
     /**
@@ -44,11 +34,9 @@ class SubmittersController extends Controller
         if (count($gifs) == 0)
             throw new NotFoundHttpException();
 
-        $params = [
+        return $this->render('LjdsBundle:Submitters:submitter.html.twig', [
             'submitter' => $submitter,
             'gifs' => $gifs
-        ];
-
-        return $this->render('LjdsBundle:Submitters:submitter.html.twig', $params);
+        ]);
     }
 }

@@ -20,91 +20,89 @@ use Symfony\Component\Validator\Constraints\Email;
 
 class GifsController extends Controller
 {
-    /**
-     * @Route("/", name="index", options={"sitemap"=true})
-     * @Route("/page/{page}", name="page")
-     */
-    public function pageAction($page=1, Request $request)
-    {
-        /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+	/**
+	 * @Route("/", name="index", options={"sitemap"=true})
+	 * @Route("/page/{page}", name="page")
+	 */
+	public function pageAction($page=1, Request $request)
+	{
+		/** @var EntityManager $em */
+		$em = $this->getDoctrine()->getManager();
 
-        // Create query
-        $qb = $em->createQueryBuilder();
-        $qb->select('g')
-            ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . GifState::PUBLISHED)
-            ->orderBy('g.publishDate', 'DESC');
+		// Create query
+		$qb = $em->createQueryBuilder();
+		$qb->select('g')
+			->from('LjdsBundle\Entity\Gif', 'g')
+			->where('g.gifStatus = ' . GifState::PUBLISHED)
+			->orderBy('g.publishDate', 'DESC');
 
-        // Pagination
-        $page = intval($page);
-        $gifsPerPage = intval($this->getParameter('gifs_per_page'));
+		// Pagination
+		$page = intval($page);
+		$gifsPerPage = intval($this->getParameter('gifs_per_page'));
 
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate(
-            $qb->getQuery(),
-            $page,
-            $gifsPerPage
-        );
-        $pagination->setUsedRoute('page');
+		$paginator = $this->get('knp_paginator');
+		$pagination = $paginator->paginate(
+			$qb->getQuery(),
+			$page,
+			$gifsPerPage
+		);
+		$pagination->setUsedRoute('page');
 
 
-        // Redirect on wrong page
-        $ref = new \ReflectionClass(get_class($pagination));
-        $totalCountAttr = $ref->getProperty('totalCount');
-        $totalCountAttr->setAccessible(true);
-        $totalCount = $totalCountAttr->getValue($pagination);
-        $pagesCount = ceil($totalCount/$gifsPerPage);
+		// Redirect on wrong page
+		$ref = new \ReflectionClass(get_class($pagination));
+		$totalCountAttr = $ref->getProperty('totalCount');
+		$totalCountAttr->setAccessible(true);
+		$totalCount = $totalCountAttr->getValue($pagination);
+		$pagesCount = ceil($totalCount/$gifsPerPage);
 
-        if ($pagesCount == 0)
-            throw new NotFoundHttpException();
-        else if ($page < 1)
-            return $this->redirect($this->generateUrl('page', ['page' => 1]));
-        else if ($page > $pagesCount)
-            return $this->redirect($this->generateUrl('page', ['page' => $pagesCount]));
+		if ($pagesCount == 0)
+			throw new NotFoundHttpException();
+		else if ($page < 1)
+			return $this->redirect($this->generateUrl('page', ['page' => 1]));
+		else if ($page > $pagesCount)
+			return $this->redirect($this->generateUrl('page', ['page' => $pagesCount]));
 
-        $params = [
-            'gifs' => $pagination,
-            'pagination' => true,
-            'trump' => $request->query->has('trump')
-        ];
-        return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
-    }
+		$params = [
+			'gifs' => $pagination,
+			'pagination' => true,
+			'trump' => $request->query->has('trump')
+		];
+		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
+	}
 
 	/**
 	 * @Route("/top", name="top", options={"sitemap"=true})
 	 */
 	public function topGifsAction()
 	{
-		$em = $this->getDoctrine()->getManager();
-		/** @var GifRepository $gifsRepo */
-		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
+		$gifs = $this->get('app.facebook_likes')->getTop();
 
 		$params = [
-			'gifs' => $gifsRepo->getTop(20, $this->get('router')),
-            'pagination' => false
+			'gifs' => $gifs,
+			'pagination' => false
 		];
 
 		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
 	}
 
-    /**
-     * @Route("/gif/random", name="randomGif")
-     */
-    public function randomAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var GifRepository $gifsRepo */
-        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
+	/**
+	 * @Route("/gif/random", name="randomGif")
+	 */
+	public function randomAction()
+	{
+		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifsRepo */
+		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
 
-        /** @var Gif $gif */
-        $gif = $gifsRepo->getRandomGif();
+		/** @var Gif $gif */
+		$gif = $gifsRepo->getRandomGif();
 
-        if (!$gif)
-            throw new NotFoundHttpException();
+		if (!$gif)
+			throw new NotFoundHttpException();
 
-        return $this->redirect($this->generateUrl('gif', ['permalink' => $gif->getPermalink()]));
-    }
+		return $this->redirect($this->generateUrl('gif', ['permalink' => $gif->getPermalink()]));
+	}
 
 	/**
 	 * @Route("/gif/{permalink}", name="gif")
@@ -134,28 +132,28 @@ class GifsController extends Controller
 		return $this->render('LjdsBundle:Gifs:gifPage.html.twig', $params);
 	}
 
-    /**
-     * @Route("/submit", name="submit", options={"sitemap"=true})
-     */
-    public function submitAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
+	/**
+	 * @Route("/submit", name="submit", options={"sitemap"=true})
+	 */
+	public function submitAction(Request $request)
+	{
+		$em = $this->getDoctrine()->getManager();
 
-        $response = new Response();
+		$response = new Response();
 
-        $gifSubmitted = false;
-        $gifSubmittedError = false;
+		$gifSubmitted = false;
+		$gifSubmittedError = false;
 
-        // Form is submitted
-        $post = $request->request;
-        if ($post->has('caption')) {
-            // Check if mandatory fields are filled up
-            if (trim($post->get('submittedBy')) == ''
-                || trim($post->get('caption')) == ''
-                || trim($post->get('gifUrl')) == '')
-            {
-                $gifSubmittedError = "un des champs requis n'est pas renseigné, veuillez rééssayer.";
-            }
+		// Form is submitted
+		$post = $request->request;
+		if ($post->has('caption')) {
+			// Check if mandatory fields are filled up
+			if (trim($post->get('submittedBy')) == ''
+				|| trim($post->get('caption')) == ''
+				|| trim($post->get('gifUrl')) == '')
+			{
+				$gifSubmittedError = "un des champs requis n'est pas renseigné, veuillez rééssayer.";
+			}
 
 			// Check if URL is a gif/mp4 video
 			$allowedFilesTypes = ['gif', 'mp4', 'webm', 'ogg'];
@@ -165,231 +163,231 @@ class GifsController extends Controller
 				$gifSubmittedError = "l'URL ne semble pas être celle d'un fichier gif. Les types autorisés sont : gif, mp4, webm et ogg.";
 			}
 
-            $gifSubmitted = true;
-            $submittedBy = $post->get('submittedBy');
-            $caption = $post->get('caption');
-            $source = $post->get('source');
-            $label = $post->get('label');
-            $email = $post->get('email');
-            $email = $email == '' ? null : $email;
+			$gifSubmitted = true;
+			$submittedBy = $post->get('submittedBy');
+			$caption = $post->get('caption');
+			$source = $post->get('source');
+			$label = $post->get('label');
+			$email = $post->get('email');
+			$email = $email == '' ? null : $email;
 
-            // Validate email
-            if ($email !== null) {
-                $validator = $this->get('validator');
+			// Validate email
+			if ($email !== null) {
+				$validator = $this->get('validator');
 
-                $errors = $validator->validateValue($email, [new Email()]);
+				$errors = $validator->validateValue($email, [new Email()]);
 
-                if (count($errors) > 0)
-                    $gifSubmittedError = 'l\'adresse mail n\'est pas valide.';
-            }
+				if (count($errors) > 0)
+					$gifSubmittedError = 'l\'adresse mail n\'est pas valide.';
+			}
 
-            $expire = time()+60*60*24*30;
-            // Create cookie with submittedBy value
-            $cookie = new Cookie('submittedBy', $submittedBy, $expire);
-            $response->headers->setCookie($cookie);
+			$expire = time()+60*60*24*30;
+			// Create cookie with submittedBy value
+			$cookie = new Cookie('submittedBy', $submittedBy, $expire);
+			$response->headers->setCookie($cookie);
 
-            // Create cookie with email value
-            $cookie = new Cookie('email', $email, $expire);
-            $response->headers->setCookie($cookie);
+			// Create cookie with email value
+			$cookie = new Cookie('email', $email, $expire);
+			$response->headers->setCookie($cookie);
 
-            if ($gifSubmittedError === false) {
-                $gif = new Gif();
-                $gif->setCaption($caption);
-                $gif->setGifUrl($gifUrl);
-                $gif->setReportStatus(ReportState::NONE);
-                $gif->setGifStatus(GifState::SUBMITTED);
-                $gif->generateUrlReadyPermalink();
-                $gif->setSubmissionDate(new \DateTime());
-                $gif->setSubmittedBy($submittedBy);
-                $gif->setSource($source);
-                $gif->setLabel($label);
-                $gif->setEmail($email);
+			if ($gifSubmittedError === false) {
+				$gif = new Gif();
+				$gif->setCaption($caption);
+				$gif->setGifUrl($gifUrl);
+				$gif->setReportStatus(ReportState::NONE);
+				$gif->setGifStatus(GifState::SUBMITTED);
+				$gif->generateUrlReadyPermalink();
+				$gif->setSubmissionDate(new \DateTime());
+				$gif->setSubmittedBy($submittedBy);
+				$gif->setSource($source);
+				$gif->setLabel($label);
+				$gif->setEmail($email);
 
-                $em->persist($gif);
-                $em->flush();
+				$em->persist($gif);
+				$em->flush();
 
-                /** @var GifRepository $gifRepo */
-                $gifRepo = $this->getDoctrine()->getRepository('LjdsBundle:Gif');
-                $params['estimatedPublishDate'] = $gifRepo->getEstimatedPublicationDate();
-            } else {
-                $params['submitError'] = $gifSubmittedError;
-            }
-        }
+				/** @var GifRepository $gifRepo */
+				$gifRepo = $this->getDoctrine()->getRepository('LjdsBundle:Gif');
+				$params['estimatedPublishDate'] = $gifRepo->getEstimatedPublicationDate();
+			} else {
+				$params['submitError'] = $gifSubmittedError;
+			}
+		}
 
-        $params['submittedBy'] = $request->cookies->has('submittedBy')
-            ? $request->cookies->get('submittedBy')
-            : '';
-        $params['email'] = $request->cookies->has('email')
-            ? $request->cookies->get('email')
-            : '';
-        $params['submitted'] = $gifSubmitted;
+		$params['submittedBy'] = $request->cookies->has('submittedBy')
+			? $request->cookies->get('submittedBy')
+			: '';
+		$params['email'] = $request->cookies->has('email')
+			? $request->cookies->get('email')
+			: '';
+		$params['submitted'] = $gifSubmitted;
 
 
-        $response->setContent(
-            $this->renderView('LjdsBundle:Gifs:submit.html.twig', $params)
-        );
+		$response->setContent(
+			$this->renderView('LjdsBundle:Gifs:submit.html.twig', $params)
+		);
 
-        return $response;
-    }
+		return $response;
+	}
 
-    /**
-     * @Route("/feed/", name="feed")
-     * @Route("/feed")
-     */
-    public function feedAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var GifRepository $gifsRepo */
-        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
+	/**
+	 * @Route("/feed/", name="feed")
+	 * @Route("/feed")
+	 */
+	public function feedAction()
+	{
+		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifsRepo */
+		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
 
-        $params = [
-            'gifs' => $gifsRepo->getForFeed()
-        ];
+		$params = [
+			'gifs' => $gifsRepo->getForFeed()
+		];
 
-        $response = new Response(
-            $this->renderView('LjdsBundle:Default:feed.html.twig', $params)
-        );
-        $response->headers->set('Content-Type', 'application/rss+xml; charset=UTF-8');
+		$response = new Response(
+			$this->renderView('LjdsBundle:Default:feed.html.twig', $params)
+		);
+		$response->headers->set('Content-Type', 'application/rss+xml; charset=UTF-8');
 
-        return $response;
-    }
+		return $response;
+	}
 
-    /**
-     * This is endpoint is used by the /submit page to fetch trending gifs & search results
-     * @Route("/giphyProxy/", name="giphyProxy")
-     * @Method({"POST"})
-     */
-    public function giphyApiProxyAction(Request $request)
-    {
-        $post = $request->request;
+	/**
+	 * This is endpoint is used by the /submit page to fetch trending gifs & search results
+	 * @Route("/giphyProxy/", name="giphyProxy")
+	 * @Method({"POST"})
+	 */
+	public function giphyApiProxyAction(Request $request)
+	{
+		$post = $request->request;
 
-        if (!$post->has('action'))
-            return new JsonResponse([ 'error' => 'Invalid action' ], 500);
+		if (!$post->has('action'))
+			return new JsonResponse([ 'error' => 'Invalid action' ], 500);
 
-        $giphy_api_key = $this->getParameter('giphy_api_key');
-        $giphy_gifs_limit = $this->getParameter('giphy_gifs_limit');
+		$giphy_api_key = $this->getParameter('giphy_api_key');
+		$giphy_gifs_limit = $this->getParameter('giphy_gifs_limit');
 
-        $offset = $post->get('offset', 0);
+		$offset = $post->get('offset', 0);
 
-        $action = $post->get('action');
-        switch ($action)
-        {
-            case 'getTrendingGifs':
-                $url = 'http://api.giphy.com/v1/gifs/trending'
-                    . '?api_key=' . $giphy_api_key
-                    . '&limit=' . $giphy_gifs_limit
-                    . '&offset=' . $offset;
+		$action = $post->get('action');
+		switch ($action)
+		{
+			case 'getTrendingGifs':
+				$url = 'http://api.giphy.com/v1/gifs/trending'
+					. '?api_key=' . $giphy_api_key
+					. '&limit=' . $giphy_gifs_limit
+					. '&offset=' . $offset;
 
-                break;
-            case 'search':
-                if (!$post->has('keywords'))
-                    return new JsonResponse([ 'error' => 'Missing keywords' ], 500);
+				break;
+			case 'search':
+				if (!$post->has('keywords'))
+					return new JsonResponse([ 'error' => 'Missing keywords' ], 500);
 
-                $keywords = $post->get('keywords');
-                $url = 'http://api.giphy.com/v1/gifs/search'
-                    . '?q=' . urlencode($keywords)
-                    . '&api_key=' . $giphy_api_key
-                    . '&limit=' . $giphy_gifs_limit
-                    . '&offset=' . $offset;
+				$keywords = $post->get('keywords');
+				$url = 'http://api.giphy.com/v1/gifs/search'
+					. '?q=' . urlencode($keywords)
+					. '&api_key=' . $giphy_api_key
+					. '&limit=' . $giphy_gifs_limit
+					. '&offset=' . $offset;
 
-                break;
-            default:
-                return new JsonResponse([ 'error' => 'Invalid action' ], 500);
-                break;
-        }
+				break;
+			default:
+				return new JsonResponse([ 'error' => 'Invalid action' ], 500);
+				break;
+		}
 
-        $apiResult = file_get_contents($url);
+		$apiResult = file_get_contents($url);
 
-        if ($apiResult === false) {
-            return new JsonResponse([ 'error' => 'Invalid Giphy response' ], 500);
-        }
+		if ($apiResult === false) {
+			return new JsonResponse([ 'error' => 'Invalid Giphy response' ], 500);
+		}
 
-        $json = json_decode($apiResult, true);
-        $gifs = [];
+		$json = json_decode($apiResult, true);
+		$gifs = [];
 
-        foreach ($json['data'] as $giphyGif) {
-            $images = $giphyGif['images'];
+		foreach ($json['data'] as $giphyGif) {
+			$images = $giphyGif['images'];
 
-            $gifs[] = [
-                'image_downsampled' => $images['fixed_width_downsampled']['url'],
-                'image' => $images['fixed_width']['url'],
-                'url' => $giphyGif['bitly_url']
-            ];
-        }
+			$gifs[] = [
+				'image_downsampled' => $images['fixed_width_downsampled']['url'],
+				'image' => $images['fixed_width']['url'],
+				'url' => $giphyGif['bitly_url']
+			];
+		}
 
-        // Compute pagination infos
-        $data_pagination = $json['pagination'];
-        $count = $data_pagination['count'];
-        $offset = $data_pagination['offset'];
-        $pagination = [
-            'count' => $count,
-            'offset' => $offset,
-            'has_more' => true
-        ];
-        // total_count may be missing (for trending search for example)
-        if (array_key_exists('total_count', $data_pagination)) {
-            $totalCount = $data_pagination['total_count'];
+		// Compute pagination infos
+		$data_pagination = $json['pagination'];
+		$count = $data_pagination['count'];
+		$offset = $data_pagination['offset'];
+		$pagination = [
+			'count' => $count,
+			'offset' => $offset,
+			'has_more' => true
+		];
+		// total_count may be missing (for trending search for example)
+		if (array_key_exists('total_count', $data_pagination)) {
+			$totalCount = $data_pagination['total_count'];
 
-            $pagination['total_count'] = $totalCount;
-            $pagination['has_more'] = $totalCount > $count + $offset;
-        }
+			$pagination['total_count'] = $totalCount;
+			$pagination['has_more'] = $totalCount > $count + $offset;
+		}
 
-        return new JsonResponse([
-            'gifs' => $gifs,
-            'pagination' => $pagination,
-            'success' => true
-        ]);
-    }
+		return new JsonResponse([
+			'gifs' => $gifs,
+			'pagination' => $pagination,
+			'success' => true
+		]);
+	}
 
-    /**
-     * @Route("/abuse")
-     */
-    public function abuseAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        /** @var GifRepository $gifsRepo */
-        $gifsRepo = $em->getRepository('LjdsBundle:Gif');
+	/**
+	 * @Route("/abuse")
+	 */
+	public function abuseAction(Request $request)
+	{
+		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifsRepo */
+		$gifsRepo = $em->getRepository('LjdsBundle:Gif');
 
-        $post = $request->request;
+		$post = $request->request;
 
-        if (!$post->has('id')) {
-            return new JsonResponse([
-                'success' => false,
-                'message' => 'Invalid request'
-            ], 500);
-        }
+		if (!$post->has('id')) {
+			return new JsonResponse([
+				'success' => false,
+				'message' => 'Invalid request'
+			], 500);
+		}
 
-        /** @var Gif $gif */
-        $gif = $gifsRepo->find($post->get('id'));
+		/** @var Gif $gif */
+		$gif = $gifsRepo->find($post->get('id'));
 
-        if (!$gif) {
-            return new JsonResponse([
-                'success' => false,
-                'message' => 'Gif not found'
-            ], 404);
-        }
+		if (!$gif) {
+			return new JsonResponse([
+				'success' => false,
+				'message' => 'Gif not found'
+			], 404);
+		}
 
-        switch ($gif->getReportStatus()) {
-            case ReportState::REPORTED:
-                $message = "Ce gif a déjà été reporté par quelqu'un, nous y jetterons un œil dès que possible";
-                $class = 'alert-warning';
-                break;
-            case ReportState::IGNORED:
-                $message = 'La modération a décidé de ne pas supprimer ce gif malgré un précédent signalement.';
-                $class = 'alert-danger';
-                break;
-            default:
-                $gif->setReportStatus(ReportState::REPORTED);
-                $em->flush();
-                $message = "Merci d'avoir signalé ce gif, nous y jetterons un œil dès que possible";
-                $class = 'alert-info';
-                break;
-        }
+		switch ($gif->getReportStatus()) {
+			case ReportState::REPORTED:
+				$message = "Ce gif a déjà été reporté par quelqu'un, nous y jetterons un œil dès que possible";
+				$class = 'alert-warning';
+				break;
+			case ReportState::IGNORED:
+				$message = 'La modération a décidé de ne pas supprimer ce gif malgré un précédent signalement.';
+				$class = 'alert-danger';
+				break;
+			default:
+				$gif->setReportStatus(ReportState::REPORTED);
+				$em->flush();
+				$message = "Merci d'avoir signalé ce gif, nous y jetterons un œil dès que possible";
+				$class = 'alert-info';
+				break;
+		}
 
-        return new JsonResponse([
-            'success' => true,
-            'message' => $message,
-            'class' => $class
-        ]);
-    }
+		return new JsonResponse([
+			'success' => true,
+			'message' => $message,
+			'class' => $class
+		]);
+	}
 }

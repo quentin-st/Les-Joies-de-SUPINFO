@@ -54,3 +54,5 @@ parameters:
     router.request_context.host: joies-de-supinfo.fr
     router.request_context.scheme: http
     router.request_context.base_url: /
+
+    domains: [joies-de-supinfo.s-quent.in, www.joies-de-supinfo.fr]
