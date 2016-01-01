@@ -104,6 +104,12 @@ class Gif
     private $likes;
 
 
+    public function __construct()
+    {
+        $this->likes = 0;
+    }
+
+
     /**
      * @return integer 
      */
@@ -390,4 +396,23 @@ class Gif
 	{
 		return Util::getFileExtension($this->getGifUrl());
 	}
+
+    /**
+     * Depending on this gif age, we adapt its likes count cache lifetime
+     * (Older gifs gets longer lifetime)
+     * @return int Cache lifetime in seconds
+     */
+    public function getCacheLifeTime()
+    {
+        $days = (new \DateTime())->diff($this->publishDate)->days;
+
+        if ($days < 1)
+            return 30;
+        else if ($days < 2)
+            return 60;
+        else if ($days < 7)
+            return 120;
+        else
+            return 600;
+    }
 }

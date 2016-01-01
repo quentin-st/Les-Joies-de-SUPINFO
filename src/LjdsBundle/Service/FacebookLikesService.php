@@ -2,6 +2,7 @@
 
 namespace LjdsBundle\Service;
 
+use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\EntityManager;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
@@ -19,12 +20,16 @@ class FacebookLikesService
 	/** @var EntityManager */
 	private $em;
 
+	/** @var Cache */
+	private $cache;
 
-	public function __construct(array $domains, Router $router, EntityManager $em)
+
+	public function __construct(array $domains, Router $router, EntityManager $em, Cache $memcached)
 	{
 		$this->domains = $domains;
 		$this->router = $router;
 		$this->em = $em;
+		$this->cache = $memcached;
 	}
 
 
@@ -98,15 +103,33 @@ class FacebookLikesService
 
 	/**
 	 * Sets the likes attribute of each gif in the gifs list passed as parameter
-	 * @param $gifs Gif[]
+	 * @param $gifsList Gif[]
 	 */
-	private function fetchLikes($gifs)
+	private function fetchLikes($gifsList)
 	{
-		// Reset likes count for these gifs
-		foreach ($gifs as $gif)
+		// Check which gifs needs an up-to-date likes count
+		/** @var Gif[] $gifs */
+		$gifs = [];
+		foreach ($gifsList as $gif)
 		{
-			$gif->setLikes(0);
+			// We already checked likes count for this one
+			if ($gif->getLikes() > 0)
+				continue;
+
+			// Cache hit
+			$key = 'gif#' . $gif->getId() . '_likes';
+			if ($this->cache->contains($key)) {
+				$gif->setLikes(intval($this->cache->fetch($key)));
+				continue;
+			}
+
+			$gifs[] = $gif;
 		}
+
+		// Cache hit for all list items: don't call API
+		if (count($gifs) == 0)
+			return;
+
 
 		// Build API call URL
 		$urls = [];
@@ -135,6 +158,8 @@ class FacebookLikesService
 		$urlsList = urlencode(implode(',', array_keys($urls)));
 		$apiUrl = 'http://api.facebook.com/restserver.php?method=links.getStats&urls=' . $urlsList . '&format=json';
 		$result = file_get_contents($apiUrl);
+
+		// Read API call result
 		$json = json_decode($result, true);
 
 		foreach ($json as $item)
@@ -147,6 +172,16 @@ class FacebookLikesService
 
 			// Add this count to the gifs likes count
 			$gif->setLikes($gif->getLikes() + $likesCount);
+		}
+
+		// Save likes counts in cache
+		foreach ($gifs as $gif)
+		{
+			$this->cache->save(
+				'gif#' . $gif->getId() . '_likes',
+				$gif->getLikes(),
+				$gif->getCacheLifeTime()
+			);
 		}
 
 		// That's it!

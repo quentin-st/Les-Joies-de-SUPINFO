@@ -28,6 +28,7 @@ services:
             domains: %domains%
             router: @router
             em: @doctrine.orm.entity_manager
+            memcached: @memcached_cache
 
     app.recaptcha:
         class: LjdsBundle\Service\ReCAPTCHAService

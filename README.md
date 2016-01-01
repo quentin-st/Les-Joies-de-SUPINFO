@@ -19,6 +19,12 @@ With all these things set, you should be able to contribute! If you have any pro
 open an issue here on GitHub.
 
 ## Technical information
+### memcached
+We're using memcached to cache the Facebook likes count for each gif. This avoids polling Facebook API at every page load,
+which reduces significantly pages loading times.
+
+Both development environments & production server must have `php5-memcached` & `memcached` packages installed. 
+
 ### Cron configuration
 To publish gifs without a manual action, a cron is configured on the server to automatically publish accepted gifs.
 Cron jobs are set to execute a custom command, `ljds:publish`:

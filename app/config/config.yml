@@ -92,3 +92,13 @@ knp_paginator:
         distinct: true
     template:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig
+
+services:
+    memcached:
+        class: Memcached
+        calls:
+            - [ addServer, ['localhost', 11211] ]
+    memcached_cache:
+        class: Doctrine\Common\Cache\MemcachedCache
+        calls:
+            - [ setMemcached, [@memcached] ]
