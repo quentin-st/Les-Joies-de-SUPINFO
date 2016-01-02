@@ -219,7 +219,7 @@ hr {
 
 	img, video {
 		@include border-radius(2px);
-		min-width: 325px;
+		min-width: 360px;
 		max-width: 100%;
 	}
 }

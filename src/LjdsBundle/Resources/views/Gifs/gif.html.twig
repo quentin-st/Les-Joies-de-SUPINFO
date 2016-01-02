@@ -1,6 +1,6 @@
 <div class="gifItem">
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-2 likesCount-wrap">
 			{% set likesDiffInfo = gif.publishDate.format('Y') == 2015 %}
 			<a href="#" class="likesCount {% if likesDiffInfo %}likesDiffInfo{% endif %}" {% if likesDiffInfo %}data-jq-dropdown="#likesDiffInfo"{% endif %}>
 				<span class="count">{{ gif.likes }}</span>

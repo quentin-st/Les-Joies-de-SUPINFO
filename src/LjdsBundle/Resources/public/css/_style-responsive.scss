@@ -26,17 +26,27 @@
 	}
 
 	.gifItem {
-		.gifMain {
-			.gifLink {
-				display: block;
-				margin-left: -15px;
-				margin-right: -15px;
+		margin: 30px -20px;
 
-				img, video {
-					min-width: 0;
-					max-width: 100%;
-				}
+		.likesCount-wrap { display: none; }
+		.socialButtons {
+			@include opacity(1);
+			text-align: left;
+			float: none!important;
+			margin-top: 0!important;
+
+			> * {
+				margin: 5px 0;
 			}
+		}
+
+		.overflow-actions {
+			display: none;
+		}
+
+		img, video {
+			min-width: 0;
+			max-width: 100%;
 		}
 	}
 }
@@ -58,24 +68,24 @@
 	}
 
 	.gifItem {
-		.gifMain {
-			img, video {
-				min-width: 0;
-				max-width: 100%;
-			}
+		.likesCount, .socialButtons { @include opacity(1); }
+		.overflow-actions { display: none; }
+
+		img, video {
+			min-width: 0;
+			max-width: 100%;
 		}
 	}
 }
 
 @media (max-width: 992px) {
 	.gifItem {
-		.gifInfos {
-			* {
-				display: inline-block;
-				margin: 0 10px;
-			}
-			br { display: none; }
-			.actionIconContainer { display: none; }
+		.likesCount-wrap {
+			float: left;
+		}
+		.socialButtons {
+			float: right;
+			margin-top: -60px;
 		}
 	}
 }
