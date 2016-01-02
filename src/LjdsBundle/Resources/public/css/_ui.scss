@@ -43,3 +43,13 @@
 		}
 	}
 }
+
+.alert {
+	@include border-radius(2px);
+	background-image: none;
+	border: 0;
+
+	&.alert-success {
+		background-color: #9CCC65;
+	}
+}
