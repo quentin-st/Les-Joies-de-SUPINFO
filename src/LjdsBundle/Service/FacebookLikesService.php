@@ -126,7 +126,7 @@ class FacebookLikesService
 	 * Sets the likes attribute of each gif in the gifs list passed as parameter
 	 * @param $gifsList Gif[]
 	 */
-	private function fetchLikes($gifsList)
+	public function fetchLikes($gifsList)
 	{
 		// Check which gifs needs an up-to-date likes count
 		/** @var Gif[] $gifs */

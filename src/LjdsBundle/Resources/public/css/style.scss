@@ -114,66 +114,113 @@ hr {
 	margin-bottom: 30px;
 	font-family: Roboto, sans-serif;
 
-	.gifInfos {
-		padding-right: 25px;
-		@include opacity(0.2);
-		transition-duration: 200ms;
-	}
+	.likesCount {
+		display: block;
+		width: 40px;
+		height: 40px;
+		margin: 6px 0 0 auto;
+		background-color: #2196F3;
+		color: #fff;
+		font-weight: 400;
+		text-align: center;
+		cursor: default;
+		@include border-radius(50%);
+		@include transition-duration(150ms);
+		@include opacity(0.7);
 
-	.gifMain {
-		img, video {
-			@include border-radius(2px);
-			min-width: 325px;
-			max-width: 100%;
+		.count {
+			display: block;
+			font-size: 19px;
+		}
+		.likes {
+			display: block;
+			font-size: 9px;
+			text-transform: uppercase;
+			margin-top: -4px;
+		}
+
+		&:hover, &:active {
+			text-decoration: none;
+		}
+
+		&.likesDiffInfo {
+			cursor: help;
 		}
 	}
-
-	.gifLink { color: #333; }
-	.gifLink:hover {
-		color: #0087F7;
-		text-decoration: none;
+	&:hover .likesCount {
+		@include box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.3));
+		@include opacity(1);
 	}
 
-	.caption {
-		font-size: 18px;
-		margin-bottom: 15px;
-	}
-	.gifInfos {
-		text-align: right;
-		font-weight: 300;
-
-		> * { margin: 6px; }
-	}
-
-	.actionIconContainer {
+	a.caption {
 		display: inline-block;
-		margin: 0 10px;
-		text-decoration: none!important;
+		color: #333;
+		font-size: 20px;
+		@include transition-duration(150ms);
 
-		.actionIconText {
-			@include opacity(0);
-			@include transition-duration(300ms);
-			font-size: 12px;
-		}
-		i {
-			font-size: 13px;
-			width: 14px;
-			text-align: center;
-			font-weight: bold;
+		&:hover {
+			color: #0087F7;
+			text-decoration: none;
 		}
 	}
-	.actionIconContainer:hover {
-		.actionIconText {
+
+	.overflow-actions {
+		@include opacity(0);
+		@include transition-duration(150ms);
+		float: right;
+		font-size: 17px;
+		color: #666;
+
+		&.force-visible {
+			@extend .button.no-elevation:active;
 			@include opacity(1);
 		}
-		span.gifSourceIcon,
-		span.reportGifIcon {
-			@include opacity(0.8);
+	}
+	&:hover .overflow-actions {
+		@include opacity(1);
+	}
+
+	.metas {
+		color: #777;
+		font-size: 13px;
+		@include opacity(0.8);
+		margin-bottom: 15px;
+		letter-spacing: -0.5px;
+
+		.separator {
+			display: inline-block;
+			margin: 0 2px;
+			font-size: 10px;
+			vertical-align: middle;
+			color: #aaa;
+		}
+
+		.gif-label {
+			display: inline-block;
+			background-color: #777;
+			padding: 0 3px;
+			color: #fff;
+			@include border-radius(2px);
 		}
 	}
 
-	&:hover .gifInfos {
+	.socialButtons {
+		text-align: right;
+		@include opacity(0.2);
+
+		> * {
+			display: block;
+			margin: 5px 0 5px auto;
+		}
+	}
+	&:hover .socialButtons {
 		@include opacity(1);
+	}
+
+	img, video {
+		@include border-radius(2px);
+		min-width: 325px;
+		max-width: 100%;
 	}
 }
 

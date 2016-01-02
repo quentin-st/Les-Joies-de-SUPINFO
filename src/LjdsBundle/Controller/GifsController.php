@@ -49,7 +49,7 @@ class GifsController extends Controller
 		$pagination->setUsedRoute('page');
 
 
-		// Redirect on wrong page
+		// Redirect when trying to hit wrong page
 		$ref = new \ReflectionClass(get_class($pagination));
 		$totalCountAttr = $ref->getProperty('totalCount');
 		$totalCountAttr->setAccessible(true);
@@ -63,12 +63,16 @@ class GifsController extends Controller
 		else if ($page > $pagesCount)
 			return $this->redirect($this->generateUrl('page', ['page' => $pagesCount]));
 
-		$params = [
+
+		// Fetch likes count for those gifs
+		$this->get('app.facebook_likes')->fetchLikes($pagination);
+
+
+		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', [
 			'gifs' => $pagination,
 			'pagination' => true,
 			'trump' => $request->query->has('trump')
-		];
-		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
+		]);
 	}
 
 	/**
@@ -78,12 +82,13 @@ class GifsController extends Controller
 	{
 		$gifs = $this->get('app.facebook_likes')->getTop();
 
-		$params = [
+		// Fetch likes count for those gifs
+		$this->get('app.facebook_likes')->fetchLikes($gifs);
+
+		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', [
 			'gifs' => $gifs,
 			'pagination' => false
-		];
-
-		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', $params);
+		]);
 	}
 
 	/**
@@ -101,7 +106,9 @@ class GifsController extends Controller
 		if (!$gif)
 			throw new NotFoundHttpException();
 
-		return $this->redirect($this->generateUrl('gif', ['permalink' => $gif->getPermalink()]));
+		return $this->redirectToRoute('gif', [
+			'permalink' => $gif->getPermalink()
+		]);
 	}
 
 	/**
@@ -125,11 +132,12 @@ class GifsController extends Controller
 		if ($gif->getGifStatus() != GifState::PUBLISHED)
 			throw new NotFoundHttpException();
 
-		$params = [
-			'gif' => $gif
-		];
+		// Fetch likes count for this gif
+		$this->get('app.facebook_likes')->fetchLikes([$gif]);
 
-		return $this->render('LjdsBundle:Gifs:gifPage.html.twig', $params);
+		return $this->render('LjdsBundle:Gifs:gifPage.html.twig', [
+			'gif' => $gif
+		]);
 	}
 
 	/**

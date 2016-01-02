@@ -74,12 +74,11 @@ ul.menu {
 		a {
 			display: inline-block;
 			color: #eee;
-			font-weight: 300;
 			text-transform: uppercase;
-			padding: 2px 13px 1px 10px;
+			padding: 1px 13px 1px 10px;
 			@include transition-duration(200ms);
 			@include border-radius(2px);
-			font-size: 15px;
+			font-size: 13px;
 			background-color: rgba(0, 0, 0, 0.15);
 
 			&.submit {

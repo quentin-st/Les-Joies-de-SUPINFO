@@ -11,6 +11,7 @@
     {% stylesheets
         'bundles/ljds/css/bootstrap.min.css'
         'bundles/ljds/css/bootstrap-theme.min.css'
+        'bundles/ljds/css/jquery.dropdown.min.css'
         'bundles/ljds/css/style.css'
         'bundles/ljds/css/materialdesignicons.min.css' filter='cssrewrite' %}
         <link href="{{ asset_url }}" rel="stylesheet" />
@@ -23,7 +24,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link href='http://fonts.googleapis.com/css?family=Roboto:500,300' rel='stylesheet' type='text/css'>
+    <script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
 
     {# Favicons #}
     <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/ljds/icons/apple-touch-icon-57x57.png') }}">
@@ -135,13 +138,25 @@
     </div>
 </div>
 
+<div id="dropdowns"></div>
+
+<!-- Likes diff info -->
+<div id="likesDiffInfo" class="jq-dropdown jq-dropdown-tip">
+    <div class="jq-dropdown-panel">
+        <p class="title">A propos de la différence des compteurs de likes</p>
+        <p>Nous avons changé de nom de domaine fin 2015, passant de <i>joies-de-supinfo.s-quent.in</i> à <i>joies-de-supinfo.fr</i>.</p>
+        <p>Ce changement nous oblige à comptabiliser les likes Facebook sur les anciennes URLs en plus des nouvelles. Les compteurs
+        du widget Facebook affichent le nombre de likes sur les nouvelles URLs uniquement, d'où la différence.</p>
+    </div>
+</div>
+
 {% javascripts
-    '@LjdsBundle/Resources/public/js/jquery-1.11.2.min.js'
     '@LjdsBundle/Resources/public/js/bootstrap.min.js'
     '@LjdsBundle/Resources/public/js/script.js'
     '@LjdsBundle/Resources/public/js/jquery.plugin.min.js'
     '@LjdsBundle/Resources/public/js/jquery.countdown.min.js'
-    '@LjdsBundle/Resources/public/js/jquery.cookiebar.js' %}
+    '@LjdsBundle/Resources/public/js/jquery.cookiebar.js'
+    '@LjdsBundle/Resources/public/js/jquery.dropdown.min.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 

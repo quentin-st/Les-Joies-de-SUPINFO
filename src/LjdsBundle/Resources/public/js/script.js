@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    // Avoid the hash (#) in the URL
-    $('a[href="#"]').on('click', function(e){ e.preventDefault() });
+	// Avoid the hash (#) in the URL
+	$('a[href="#"]').on('click', function(e){ e.preventDefault() });
 
-    report();
+	report();
 
 	// Countdown until upcoming gif
 	var countdown = $('.countdown');
@@ -15,16 +15,24 @@ $(document).ready(function() {
 			);
 		});
 	}
+
+	// Overflow buttons
+	$('.gif-overflow-actions')
+		.appendTo($('#dropdowns'))
+		.on('show', function(event, dropdownData) {
+			dropdownData.trigger.addClass('force-visible');
+		}).on('hide', function(event, dropdownData) {
+			$('.overflow-actions').removeClass('force-visible');
+		});
 });
 
 function report() {
 	$('.report').click(function(){
-
-		// Ajax call to abuse.php
+		// Ajax call to /abuse
 		$.ajax({
 			url : '/abuse',
 			type : 'POST',
-			data : 'id=' + $(this).attr('data-id'),
+			data : 'id=' + $(this).data('id'),
 			context: this,
 			success : function(data){
 				$(this).parent().append('<div class="alert ' + data.class + ' reported">' + data.message + '</div>');
