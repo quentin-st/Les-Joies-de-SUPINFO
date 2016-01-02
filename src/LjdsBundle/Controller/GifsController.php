@@ -269,6 +269,7 @@ class GifsController extends Controller
 
 		$offset = $post->get('offset', 0);
 
+		// Generate API call URL depending on action (trending gifs / search)
 		$action = $post->get('action');
 		switch ($action)
 		{
@@ -296,12 +297,14 @@ class GifsController extends Controller
 				break;
 		}
 
+		// Fetch result
 		$apiResult = file_get_contents($url);
 
 		if ($apiResult === false) {
 			return new JsonResponse([ 'error' => 'Invalid Giphy response' ], 500);
 		}
 
+		// Decode response, build gifs list
 		$json = json_decode($apiResult, true);
 		$gifs = [];
 
@@ -309,8 +312,9 @@ class GifsController extends Controller
 			$images = $giphyGif['images'];
 
 			$gifs[] = [
-				'image_downsampled' => $images['fixed_width_downsampled']['url'],
-				'image' => $images['fixed_width']['url'],
+				'preview_downsampled' => $images['fixed_width_downsampled']['url'],
+				'preview' => $images['fixed_width']['url'],
+				'image' => $images['downsized']['url'],
 				'url' => $giphyGif['bitly_url']
 			];
 		}

@@ -163,8 +163,8 @@
 				img.addClass('selected');
 
 				// Load a better quality version
-				if (img.attr('src') != img.data('src-hq'))
-					img.attr('src', img.data('src-hq'));
+				if (img.attr('src') != img.data('src-preview'))
+					img.attr('src', img.data('src-preview'));
 
 				// Avoid onclick on giphyGifsList (that's for unselecting gif)
 				e.stopPropagation();
@@ -268,15 +268,17 @@
 			for (var i=0; i<gifsLength; i++) {
 				var gif = gifs[i];
 
-				var imageUrl = gif['image_downsampled'];
-				var imageUrl_hq = gif['image'];
+				var preview_downsampled = gif['preview_downsampled'];
+				var preview = gif['preview'];
+				var hq = gif['image'];
 				var sourceUrl = gif['url'];
 
 				var li = $('<div />')
 						.addClass('gif-wrap');
 				var img = $('<img />')
-						.attr('src', imageUrl)
-						.data('src-hq', imageUrl_hq)
+						.attr('src', preview_downsampled)
+						.data('src-preview', preview)
+						.data('src-hq', hq)
 						.data('source', sourceUrl);
 
 				li.append(img);
