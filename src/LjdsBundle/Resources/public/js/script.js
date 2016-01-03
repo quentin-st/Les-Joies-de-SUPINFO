@@ -2,6 +2,7 @@ $(document).ready(function() {
 	// Avoid the hash (#) in the URL
 	$('a[href="#"]').on('click', function(e){ e.preventDefault() });
 
+	// Report action
 	report();
 
 	// Countdown until upcoming gif
@@ -24,6 +25,35 @@ $(document).ready(function() {
 		}).on('hide', function(event, dropdownData) {
 			$('.overflow-actions').removeClass('force-visible');
 		});
+
+	/* SOCIAL BUTTONS */
+	// Twitter buttons
+	window.twttr = (function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0],
+			t = window.twttr || {};
+		if (d.getElementById(id)) return t;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "https://platform.twitter.com/widgets.js";
+		fjs.parentNode.insertBefore(js, fjs);
+
+		t._e = [];
+		t.ready = function(f) {
+			t._e.push(f);
+		};
+
+		return t;
+	}(document, "script", "twitter-wjs"));
+
+	// Facebook buttons
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=125396707609867";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
 });
 
 function report() {

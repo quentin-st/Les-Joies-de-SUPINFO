@@ -206,6 +206,7 @@ hr {
 	.socialButtons {
 		text-align: right;
 		@include opacity(0.2);
+		@include transition-duration(150ms);
 
 		> * {
 			display: block;

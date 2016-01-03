@@ -27,9 +27,7 @@
 			<a class="twitter-share-button"
 			   href="https://twitter.com/share"
 			   data-url="{{ path('gif', {'permalink': gif.permalink}) }}"
-			   data-text="{{ gif.generateTweet(url('gif', {'permalink': gif.permalink})) }}">
-				Tweet
-			</a>
+			   data-text="{{ gif.generateTweet(url('gif', {'permalink': gif.permalink})) }}"></a>
 		</div>
 		<div class="col-md-10">
 			<a href="{{ path('gif', {'permalink': gif.permalink}) }}">
