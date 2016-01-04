@@ -4,6 +4,7 @@ namespace LjdsBundle\Command;
 
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
+use LjdsBundle\Service\GifService;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -30,6 +31,7 @@ class PublishCommand extends ContainerAwareCommand
         if (count($acceptedGifs) > 0) {
             // Publish the first one (oldest one = FIFO)
             $gif = $acceptedGifs[0];
+            /** @var GifService $gifService */
             $gifService = $this->getContainer()->get('app.gif');
 
             if ($gifService->publish($gif))
@@ -37,7 +39,7 @@ class PublishCommand extends ContainerAwareCommand
             else
                 $output->writeln('Failed somewhere while publishing gif...');
         }
-
-        $output->writeln('Empty publish queue.');
+        else
+            $output->writeln('Empty publish queue.');
     }
 }

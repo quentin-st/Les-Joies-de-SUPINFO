@@ -47,7 +47,7 @@ class GifService
         if (!$gif)
             return false;
 
-        if (!$gif->getGifStatus() == GifState::ACCEPTED)
+        if ($gif->getGifStatus() != GifState::ACCEPTED)
             return false;
 
         $gif->setPublishDate(new DateTime());
