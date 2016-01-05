@@ -158,36 +158,17 @@ class FacebookLikesService
 		// Save router context host to set it back afterwards
 		$currentHost = $this->router->getContext()->getHost();
 
-		foreach ($this->domains as $domain)
-		{
-			$this->router->getContext()->setHost($domain);
-
-			foreach ($gifs as $gif)
-			{
-				$url = $this->router->generate('gif', [
-					'permalink' => $gif->getPermalink()
-				], true);
-
-				$urls[$url] = $gif;
-			}
-		}
+		// Get a list of all URLs for those gifs
+		$urls = $this->getURLsForGifs($gifs);
 
 		// Set back host
 		$this->router->getContext()->setHost($currentHost);
 
 		// Call API
-		$urlsList = urlencode(implode(',', array_keys($urls)));
-		$apiUrl = 'http://api.facebook.com/restserver.php?method=links.getStats&urls=' . $urlsList . '&format=json';
-		$result = file_get_contents($apiUrl);
+		$likes = $this->getLikesFromFacebookAPI($urls);
 
-		// Read API call result
-		$json = json_decode($result, true);
-
-		foreach ($json as $item)
+		foreach ($likes as $url => $likesCount)
 		{
-			$url = $item['url'];
-			$likesCount = intval($item['total_count']);
-
 			/** @var Gif $gif */
 			$gif = $urls[$url];
 
@@ -206,5 +187,60 @@ class FacebookLikesService
 		}
 
 		// That's it!
+	}
+
+	/**
+	 * Returns the likes count for each of these URLs
+	 * @param array $urls
+	 * @return array
+	 */
+	public function getLikesFromFacebookAPI(array $urls)
+	{
+		$urlsList = urlencode(implode(',', array_keys($urls)));
+		$apiUrl = 'http://api.facebook.com/restserver.php?method=links.getStats&urls=' . $urlsList . '&format=json';
+		$result = file_get_contents($apiUrl);
+
+		// Read API call result
+		$json = json_decode($result, true);
+
+		// Create likes array (url => likesCount)
+		$likes = [];
+
+		foreach ($json as $item)
+		{
+			$url = $item['url'];
+			$likesCount = intval($item['total_count']);
+
+			$likes[$url] = $likesCount;
+		}
+
+		return $likes;
+	}
+
+	/**
+	 * Returns all the URLs we know for this gif (one for each domain we have)
+	 * @param array $gifs
+	 * @return array
+	 */
+	public function getURLsForGifs(array $gifs)
+	{
+		$urls = [];
+
+		foreach ($this->domains as $domain)
+		{
+			$this->router->getContext()->setHost($domain);
+
+			/** @var Gif $gif */
+			foreach ($gifs as $gif)
+			{
+				$url = $this->router->generate('gif', [
+					'permalink' => $gif->getPermalink()
+				], true);
+
+				$urls[$url] = $gif;
+			}
+		}
+
+		return $urls;
 	}
 }
