@@ -13,9 +13,9 @@ class AutoPostHelper
     {
         switch ($wp) {
             case WeekPart::WEEK_DAYS:
-                return ['9:40', '11:20', '16:00'];
+                return ['10:45', '15:45'];
             case WeekPart::WEEK_END:
-                return ['16:00'];
+                return ['14:00'];
             default:
                 return [];
         }
