@@ -37,6 +37,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         analytics_tracking_code: %analytics_tracking_code%
+        piwik_u: %piwik_u%
         recaptcha_sitekey: '%recaptcha_sitekey%'
         recaptcha_secretkey: '%recaptcha_secretkey%'
 
