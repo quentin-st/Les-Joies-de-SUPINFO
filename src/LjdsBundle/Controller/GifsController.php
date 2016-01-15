@@ -150,7 +150,8 @@ class GifsController extends Controller
 			: 'LjdsBundle:Gifs:gifWidget.html.twig';
 
 		return $this->render($view, [
-			'gif' => $gif
+			'gif' => $gif,
+			'target' => $route == 'gif' ? '_self' : '_parent'
 		]);
 	}
 

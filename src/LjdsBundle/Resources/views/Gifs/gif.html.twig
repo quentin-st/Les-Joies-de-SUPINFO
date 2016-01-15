@@ -10,9 +10,9 @@
 		<div class="col-md-10">
 			<a href="#" data-jq-dropdown="#actions_{{ gif.id }}" class="overflow-actions button button-medium no-elevation"><i class="mdi mdi-dots-vertical"></i></a>
 
-			<a href="{{ path('gif', {'permalink': gif.permalink}) }}" class="caption">{{ gif.caption }}</a>
+			<a href="{{ path('gif', {'permalink': gif.permalink}) }}" class="caption" target="{{ target|default('_self') }}">{{ gif.caption }}</a>
 			<div class="metas">
-				<a href="{{ path('submitter', { 'submitter': gif.submittedBy }) }}">{{ gif.submittedBy }}</a>
+				<a href="{{ path('submitter', { 'submitter': gif.submittedBy }) }}" target="{{ target|default('_self') }}">{{ gif.submittedBy }}</a>
 				{% if gif.label is not null and gif.label != 'étudiant' %}
 					<span class="gif-label">{{ gif.label }}</span>
 				{% endif %}
@@ -30,7 +30,7 @@
 			   data-text="{{ gif.generateTweet(url('gif', {'permalink': gif.permalink})) }}"></a>
 		</div>
 		<div class="col-md-10">
-			<a href="{{ path('gif', {'permalink': gif.permalink}) }}">
+			<a href="{{ path('gif', {'permalink': gif.permalink}) }}" target="{{ target|default('_self') }}">
 				{% include 'LjdsBundle:Snippets:gif.html.twig' with {class: null} %}
 			</a>
 		</div>
