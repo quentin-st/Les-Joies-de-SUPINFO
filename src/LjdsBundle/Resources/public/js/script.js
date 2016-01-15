@@ -49,7 +49,9 @@ $(document).ready(function() {
 			}
 		}
 	});
+});
 
+$(window).load(function() {
 	/* SOCIAL BUTTONS */
 	// Twitter buttons
 	window.twttr = (function(d, s, id) {
