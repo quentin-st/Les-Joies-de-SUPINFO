@@ -1,11 +1,8 @@
 $(document).ready(function() {
-	// Avoid the hash (#) in the URL
+	// Avoid the hash (#) in the URL when clicking on href="#"
 	$('a[href="#"]').on('click', function(e){ e.preventDefault() });
 
-	// Report action
-	report();
-
-	// Countdown until upcoming gif
+	// Countdown until upcoming gif (in header)
 	var countdown = $('.countdown');
 	if (countdown.length) {
 		var container = countdown.find('ul');
@@ -17,7 +14,7 @@ $(document).ready(function() {
 		});
 	}
 
-	// Overflow buttons
+	// Gif overflow buttons
 	$('.gif-overflow-actions')
 		.appendTo($('#dropdowns'))
 		.on('show', function(event, dropdownData) {
@@ -25,6 +22,33 @@ $(document).ready(function() {
 		}).on('hide', function(event, dropdownData) {
 			$('.overflow-actions').removeClass('force-visible');
 		});
+
+	// Report action
+	report();
+
+	// Embed action
+	$('.embed').magnificPopup({
+		type: 'inline',
+		preloader: false,
+
+		// When elemened is focused, some mobile browsers in some cases zoom in
+		// It looks not nice, so we disable it:
+		callbacks: {
+			beforeOpen: function() {
+				var magnificPopup = $.magnificPopup.instance,
+					cur = magnificPopup.st.el,
+					target = cur.attr('data-target');
+
+				// Generate HTML
+				var html = '<iframe src="' + target + '" seamless frameBorder="0" style="width: 100%; height: 300px;"></iframe>';
+
+				$('#embed-modal-preview').html(html);
+				$('#embed-modal-code').val(html).click(function() {
+					$(this).select();
+				});
+			}
+		}
+	});
 
 	/* SOCIAL BUTTONS */
 	// Twitter buttons

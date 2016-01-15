@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Les Joies de SUPINFO</title>
+	<meta name="description" content="Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO">
+
+	{% stylesheets
+	'bundles/ljds/css/bootstrap.min.css'
+	'bundles/ljds/css/widget.css'
+	'bundles/ljds/css/jquery.dropdown.min.css'
+	'bundles/ljds/css/materialdesignicons.min.css' filter='cssrewrite' %}
+	<link href="{{ asset_url }}" rel="stylesheet" />
+	{% endstylesheets %}
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+<div class="container-fluid">
+	{% include 'LjdsBundle:Gifs:gif.html.twig' %}
+</div>
+
+{% javascripts
+'@LjdsBundle/Resources/public/js/bootstrap.min.js'
+'@LjdsBundle/Resources/public/js/jquery.cookiebar.js'
+'@LjdsBundle/Resources/public/js/jquery.dropdown.min.js'
+'@LjdsBundle/Resources/public/js/script.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% include 'LjdsBundle:Snippets:analytics.html.twig' %}
+{% include 'LjdsBundle:Snippets:facebookSdk.html.twig' %}
+</body>
+</html>

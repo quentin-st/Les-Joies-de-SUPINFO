@@ -7,61 +7,10 @@
  *  Sass compiler arguments:  --style expanded
  */
 
-/* SASS mixins */
-@mixin border-radius($radius) {
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-	-ms-border-radius: $radius;
-	border-radius: $radius;
-}
-@mixin box-shadow($shadow1, $shadow2:false) {
-	$params: $shadow1;
-	@if $shadow2 { $params: $shadow1, $shadow2; }
-	-webkit-box-shadow: $params;
-	-moz-box-shadow: $params;
-	-o-box-shadow: $params;
-	box-shadow: $params;
-}
-@mixin opacity($opacity) {
-	opacity: $opacity;
-	$opacity-ie: $opacity * 100;
-	filter: alpha(opacity=$opacity-ie); //IE8
-}
-@mixin box-sizing($param) {
-	box-sizing: $param;
-	-moz-box-sizing: $param;
-	-webkit-box-sizing: $param;
-}
-@mixin transition($transition1, $transition2:false) {
-	$params: $transition1;
-	@if $transition2 { $params: $transition1, $transition2; }
-	-webkit-transition: $params;
-	-moz-transition: $params;
-	-o-transition: $params;
-	transition: $params;
-}
-@mixin transition-duration($duration) {
-	-webkit-transition-duration: $duration;
-	-moz-transition-duration: $duration;
-	-o-transition-duration: $duration;
-	transition-duration: $duration;
-}
-@mixin background-size($param) {
-	-webkit-background-size: $param;
-	-moz-background-size: $param;
-	-o-background-size: $param;
-	background-size: $param;
-}
-
-/* Define colors */
-$primary-color: #FF5722;
-$dark-primary-color: #E64A19;
-$light-primary-color: #FFCCBC;
-$accent-color: #795548;
-$blue: #03a9f4;
-$primary-text-color: #212121;
-$secondary-text-color: #727272;
-$divider-color: #B6B6B6;
+// Import mixins
+@import 'mixins';
+// Import vars
+@import 'vars';
 
 /* Include _part files */
 @import 'ui';
@@ -69,6 +18,7 @@ $divider-color: #B6B6B6;
 @import 'footer';
 @import 'page-submit';
 @import 'admin';
+@import 'gif';
 
 body, html {
 	padding: 0;
@@ -107,121 +57,6 @@ hr {
 
 .fullWidth{
 	max-width: 100%;
-}
-
-.gifItem {
-	margin-top: 30px;
-	margin-bottom: 30px;
-	font-family: Roboto, sans-serif;
-
-	.likesCount {
-		display: block;
-		width: 40px;
-		height: 40px;
-		margin: 6px 0 0 auto;
-		background-color: #2196F3;
-		color: #fff;
-		font-weight: 400;
-		text-align: center;
-		cursor: default;
-		@include border-radius(50%);
-		@include transition-duration(150ms);
-		@include opacity(0.7);
-
-		.count {
-			display: block;
-			font-size: 19px;
-		}
-		.likes {
-			display: block;
-			font-size: 9px;
-			text-transform: uppercase;
-			margin-top: -4px;
-		}
-
-		&:hover, &:active {
-			text-decoration: none;
-		}
-
-		&.likesDiffInfo {
-			cursor: help;
-		}
-	}
-	&:hover .likesCount {
-		@include box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.3));
-		@include opacity(1);
-	}
-
-	a.caption {
-		color: #333;
-		font-size: 20px;
-		@include transition-duration(150ms);
-
-		&:hover {
-			color: #0087F7;
-			text-decoration: none;
-		}
-	}
-
-	.overflow-actions {
-		@include opacity(0);
-		@include transition-duration(150ms);
-		float: right;
-		font-size: 17px;
-		color: #666;
-
-		&.force-visible {
-			@extend .button.no-elevation:active;
-			@include opacity(1);
-		}
-	}
-	&:hover .overflow-actions {
-		@include opacity(1);
-	}
-
-	.metas {
-		color: #777;
-		font-size: 13px;
-		@include opacity(0.8);
-		margin-bottom: 15px;
-		letter-spacing: -0.5px;
-
-		.separator {
-			display: inline-block;
-			margin: 0 2px;
-			font-size: 10px;
-			vertical-align: middle;
-			color: #aaa;
-		}
-
-		.gif-label {
-			display: inline-block;
-			background-color: #777;
-			padding: 0 3px;
-			color: #fff;
-			@include border-radius(2px);
-		}
-	}
-
-	.socialButtons {
-		text-align: right;
-		@include opacity(0.2);
-		@include transition-duration(150ms);
-
-		> * {
-			display: block;
-			margin: 5px 0 5px auto;
-		}
-	}
-	&:hover .socialButtons {
-		@include opacity(1);
-	}
-
-	img, video {
-		@include border-radius(2px);
-		min-width: 360px;
-		max-width: 100%;
-	}
 }
 
 /* Pagination */
@@ -366,6 +201,44 @@ hr {
 
 .align-right {
 	text-align: right;
+}
+
+.white-popup-block {
+	background: #FFF;
+	padding: 20px 30px;
+	text-align: left;
+	max-width: 650px;
+	margin: 40px auto;
+	position: relative;
+	border-radius: 2px;
+}
+
+.embed-modal {
+	h2 {
+		margin-top: 0;
+		margin-bottom: 10px;
+	}
+	h3 {
+		font-weight: 400;
+	}
+	p {
+		text-align: justify;
+	}
+	textarea {
+		width: 100%;
+		max-width: 500px;
+		font-size: 12px;
+		line-height: 13px;
+		resize: none;
+		padding: 6px 10px;
+		font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+		background-color: #343131;
+		color: #fff;
+		border: 0;
+	}
+	iframe {
+		width: 100%;
+	}
 }
 
 /* Include style-responsive file */

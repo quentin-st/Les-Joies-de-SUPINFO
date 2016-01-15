@@ -1,0 +1,23 @@
+/**
+ * Widgets-specific CSS
+ */
+
+// Import mixins
+@import 'mixins';
+// Import vars
+@import 'vars';
+
+// Import parts
+@import 'ui';
+@import 'gif';
+
+.gifItem {
+	margin: 6px auto;
+	padding: 5px 10px;
+	max-width: 800px;
+	@extend .elevation-middle;
+
+	.overflow-actions {
+		display: none;
+	}
+}

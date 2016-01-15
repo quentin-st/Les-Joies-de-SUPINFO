@@ -3,7 +3,7 @@
 		<div class="col-md-2 likesCount-wrap">
 			{% set likesDiffInfo = gif.publishDate.format('Y') == 2015 %}
 			<a href="#" class="likesCount {% if likesDiffInfo %}likesDiffInfo{% endif %}" {% if likesDiffInfo %}data-jq-dropdown="#likesDiffInfo"{% endif %}>
-				<span class="count">{{ gif.likes }}</span>
+				<span class="count">{{ gif.likes != null ? gif.likes : 0 }}</span>
 				<span class="likes">like{% if gif.likes != 1 %}s{% endif %}</span>
 			</a>
 		</div>
@@ -43,5 +43,6 @@
 			<li><a href="{{ gif.source }}" target="_blank"><i class="mdi mdi-export"></i> Source</a></li>
 		{% endif %}
 		<li><a href="#" class="report" data-id="{{ gif.id }}"><i class="mdi mdi-exclamation"></i> Signaler</a></li>
+		<li><a href="#embed-modal" class="embed" data-target="{{ url('gif', {route:'widget', permalink:gif.permalink}) }}"><i class="mdi mdi-code-tags"></i> Intégrer</a></li>
 	</ul>
 </div>

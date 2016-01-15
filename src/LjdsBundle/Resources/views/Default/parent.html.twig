@@ -12,8 +12,9 @@
         'bundles/ljds/css/bootstrap.min.css'
         'bundles/ljds/css/bootstrap-theme.min.css'
         'bundles/ljds/css/jquery.dropdown.min.css'
+        'bundles/ljds/css/materialdesignicons.min.css'
         'bundles/ljds/css/style.css'
-        'bundles/ljds/css/materialdesignicons.min.css' filter='cssrewrite' %}
+        'bundles/ljds/css/magnific-popup.css' filter='cssrewrite' %}
         <link href="{{ asset_url }}" rel="stylesheet" />
     {% endstylesheets %}
 
@@ -149,6 +150,17 @@
         du widget Facebook affichent le nombre de likes sur les nouvelles URLs uniquement, d'où la différence.</p>
     </div>
 </div>
+<div id="embed-modal" class="white-popup-block mfp-hide embed-modal">
+    <h2>Intégrer</h2>
+    <p>Intégrez ce gif sur votre site web en y insérant le code suivant. Vous pouvez personnaliser la propriété CSS
+        <code>width</code> selon le contexte et la place que vous voulez y attribuer, ou même utiliser l'URL
+        <code>{{ url('randomGif', {route:'widget'}) }}</code> pour afficher un gif aléatoire à chaque chargement de page.</p>
+
+    <textarea id="embed-modal-code" placeholder="Code" readonly></textarea>
+
+    <h3>Prévisualisation</h3>
+    <div id="embed-modal-preview"></div>
+</div>
 
 {% javascripts
     '@LjdsBundle/Resources/public/js/bootstrap.min.js'
@@ -156,7 +168,8 @@
     '@LjdsBundle/Resources/public/js/jquery.plugin.min.js'
     '@LjdsBundle/Resources/public/js/jquery.countdown.min.js'
     '@LjdsBundle/Resources/public/js/jquery.cookiebar.js'
-    '@LjdsBundle/Resources/public/js/jquery.dropdown.min.js' %}
+    '@LjdsBundle/Resources/public/js/jquery.dropdown.min.js'
+    '@LjdsBundle/Resources/public/js/jquery.magnific-popup.min.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
