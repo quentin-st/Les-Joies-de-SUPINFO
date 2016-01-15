@@ -66,6 +66,7 @@ class AdminController extends Controller
 
 				$em->flush();
 
+				// Post-update actions
 				switch ($gifState) {
 					case GifState::ACCEPTED:
 						if ($gif->getEmail() != null)

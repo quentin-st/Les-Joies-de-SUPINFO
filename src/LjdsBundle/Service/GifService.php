@@ -47,9 +47,6 @@ class GifService
         if (!$gif)
             return false;
 
-        if ($gif->getGifStatus() != GifState::ACCEPTED)
-            return false;
-
         $gif->setPublishDate(new DateTime());
         $gif->setGifStatus(GifState::PUBLISHED);
         $gif->generateUrlReadyPermalink();
