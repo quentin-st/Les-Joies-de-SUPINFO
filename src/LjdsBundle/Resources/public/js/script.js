@@ -40,7 +40,7 @@ $(document).ready(function() {
 					target = cur.attr('data-target');
 
 				// Generate HTML
-				var html = '<iframe src="' + target + '" seamless frameBorder="0" style="width: 100%; height: 300px;"></iframe>';
+				var html = '<iframe src="' + target + '" seamless frameBorder="0" allowtransparency="true" style="width: 100%; height: 300px;"></iframe>';
 
 				$('#embed-modal-preview').html(html);
 				$('#embed-modal-code').val(html).click(function() {

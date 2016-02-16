@@ -11,10 +11,15 @@
 @import 'ui';
 @import 'gif';
 
+body {
+	background-color: transparent;
+}
+
 .gifItem {
 	margin: 6px auto;
 	padding: 5px 10px;
 	max-width: 800px;
+	background-color: #fff;
 	@extend .elevation-middle;
 
 	.overflow-actions {
