@@ -19,6 +19,7 @@ class GifRepository extends EntityRepository
             ->from('LjdsBundle\Entity\Gif', 'g')
             ->where('g.gifStatus = ' . $gifState)
             ->orderBy('g.publishDate', 'DESC')
+            ->addOrderBy('g.submissionDate', 'ASC')
             ->getQuery();
 
         $query->execute();

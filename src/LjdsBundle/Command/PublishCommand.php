@@ -21,25 +21,25 @@ class PublishCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
-
         /** @var GifRepository $gifRepository */
         $gifRepository = $em->getRepository('LjdsBundle:Gif');
 
         // Find next gif to publish
         $acceptedGifs = $gifRepository->findByGifState(GifState::ACCEPTED);
 
-        if (count($acceptedGifs) > 0) {
-            // Publish the first one (oldest one = FIFO)
-            $gif = $acceptedGifs[0];
-            /** @var GifService $gifService */
-            $gifService = $this->getContainer()->get('app.gif');
-
-            if ($gifService->publish($gif))
-                $output->writeln('Gif published!');
-            else
-                $output->writeln('Failed somewhere while publishing gif...');
-        }
-        else
+        if (empty($acceptedGifs)) {
             $output->writeln('Empty publish queue.');
+            return;
+        }
+
+        // Publish the first one (oldest one = FIFO)
+        $gif = $acceptedGifs[0];
+        /** @var GifService $gifService */
+        $gifService = $this->getContainer()->get('app.gif');
+
+        if ($gifService->publish($gif))
+            $output->writeln('Gif published!');
+        else
+            $output->writeln('Failed somewhere while publishing gif...');
     }
 }
