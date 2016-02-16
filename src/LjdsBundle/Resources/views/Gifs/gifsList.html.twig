@@ -1,6 +1,9 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
-{% block title %}{% if pagination and page != 1 %}Page {{ page }} - {% endif %}{% endblock %}
+{% block title -%}
+	{% if pagination %}{% if page != 1 %}Page {{ page }} - {% endif %}{% else %}Top gifs - {% endif %}
+{%- endblock %}
+
 {% block content %}
 	<div class="col-md-10 col-md-offset-1">
 		{% for gif in gifs %}
