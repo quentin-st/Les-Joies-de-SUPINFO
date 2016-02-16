@@ -71,6 +71,7 @@ class GifsController extends Controller
 		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', [
 			'gifs' => $pagination,
 			'pagination' => true,
+			'page' => $page,
 			'trump' => $request->query->has('trump')
 		]);
 	}
