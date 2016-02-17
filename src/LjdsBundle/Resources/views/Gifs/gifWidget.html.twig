@@ -46,9 +46,16 @@
 {% include 'LjdsBundle:Snippets:facebookSdk.html.twig' %}
 
 <script>
+	var gifItem = $('.gifItem'),
+		padding = (gifItem.innerHeight() - gifItem.height())/2,
+		margin = (gifItem.outerHeight(true) - gifItem.outerHeight())/2;
 	var container = $('.gifItem-container');
+
 	function updateContainerHeight() {
-		container.css('height', ($(window).height() - container.position().top) + 'px');
+		var windowHeight = $(window).height();
+
+		var height = windowHeight - container.position().top - padding - margin;
+		container.css('height', height + 'px');
 	}
 
 	$(document).ready(function() {
