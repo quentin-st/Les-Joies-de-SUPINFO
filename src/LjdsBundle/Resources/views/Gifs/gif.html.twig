@@ -1,5 +1,5 @@
 <div class="gifItem">
-	<div class="row">
+	<div class="row gifItem-header">
 		<div class="col-md-2 likesCount-wrap">
 			{% set likesDiffInfo = gif.publishDate.format('Y') == 2015 %}
 			<a href="#" class="likesCount {% if likesDiffInfo %}likesDiffInfo{% endif %}" {% if likesDiffInfo %}data-jq-dropdown="#likesDiffInfo"{% endif %}>
@@ -29,7 +29,7 @@
 			   data-url="{{ path('gif', {'permalink': gif.permalink}) }}"
 			   data-text="{{ gif.generateTweet(url('gif', {'permalink': gif.permalink})) }}"></a>
 		</div>
-		<div class="col-md-10">
+		<div class="col-md-10 gifItem-container">
 			<a href="{{ path('gif', {'permalink': gif.permalink}) }}" target="{{ target|default('_self') }}">
 				{% include 'LjdsBundle:Snippets:gif.html.twig' with {class: null} %}
 			</a>
