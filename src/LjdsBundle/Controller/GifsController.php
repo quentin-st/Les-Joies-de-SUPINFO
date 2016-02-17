@@ -99,7 +99,7 @@ class GifsController extends Controller
 	 *     "route": "gif"
 	 * })
 	 */
-	public function randomAction($route)
+	public function randomAction($route, Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 		/** @var GifRepository $gifsRepo */
@@ -111,10 +111,13 @@ class GifsController extends Controller
 		if (!$gif)
 			throw new NotFoundHttpException();
 
-		return $this->redirectToRoute('gif', [
+		// Get back current GET params and pass them to the next page
+		$params = array_merge($request->query->all(), [
 			'permalink' => $gif->getPermalink(),
 			'route' => $route
 		]);
+
+		return $this->redirectToRoute('gif', $params);
 	}
 
 	/**
@@ -124,7 +127,7 @@ class GifsController extends Controller
 	 *     "route": "gif"
 	 * })
 	 */
-	public function gifAction($route, $permalink)
+	public function gifAction($route, $permalink, Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 		/** @var GifRepository $gifsRepo */
@@ -152,7 +155,8 @@ class GifsController extends Controller
 
 		return $this->render($view, [
 			'gif' => $gif,
-			'target' => $route == 'gif' ? '_self' : '_parent'
+			'target' => $route == 'gif' ? '_self' : '_parent',
+			'widget_no_card' => $request->query->get('card', false)
 		]);
 	}
 

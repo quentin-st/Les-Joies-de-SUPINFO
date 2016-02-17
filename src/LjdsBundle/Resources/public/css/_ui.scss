@@ -66,9 +66,10 @@ button[type="submit"] {
 }
 
 // Elevation levels
-.elevation-middle { box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); }
-.elevation-high { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
-.elevation-low { box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); }
+.elevation-middle { @include box-shadow(0 2px 6px rgba(0, 0, 0, 0.2)); }
+.elevation-high { @include box-shadow(0 4px 10px rgba(0, 0, 0, 0.2)); }
+.elevation-low { @include box-shadow(0 1px 4px rgba(0, 0, 0, 0.15)); }
+.elevation-none { @include box-shadow(none); }
 
 .buttons-set {
 	margin: 10px 0;

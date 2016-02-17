@@ -1,4 +1,4 @@
-<div class="gifItem">
+<div class="gifItem {% if widget_no_card is defined and widget_no_card %}no-card{% endif %}">
 	<div class="row gifItem-header">
 		<div class="col-md-2 likesCount-wrap">
 			{% set likesDiffInfo = gif.publishDate.format('Y') == 2015 %}

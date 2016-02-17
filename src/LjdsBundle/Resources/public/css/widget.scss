@@ -25,4 +25,10 @@ body {
 	.overflow-actions {
 		display: none;
 	}
+
+	&.no-card {
+		margin: auto;
+		background-color: transparent;
+		@extend .elevation-none;
+	}
 }
