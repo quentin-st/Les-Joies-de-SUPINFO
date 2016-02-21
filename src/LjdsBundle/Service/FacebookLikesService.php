@@ -23,7 +23,7 @@ class FacebookLikesService
 	/** @var Cache */
 	private $cache;
 
-	private $max_urls_per_api_call = 10;
+	private $max_urls_per_api_call = 30;
 
 
 	public function __construct(array $domains, Router $router, EntityManager $em, Cache $memcached)
