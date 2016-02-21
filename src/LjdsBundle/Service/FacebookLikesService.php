@@ -23,6 +23,8 @@ class FacebookLikesService
 	/** @var Cache */
 	private $cache;
 
+	private $max_urls_per_api_call = 10;
+
 
 	public function __construct(array $domains, Router $router, EntityManager $em, Cache $memcached)
 	{
@@ -152,39 +154,43 @@ class FacebookLikesService
 			return;
 
 
-		// Build API call URL
-		$urls = [];
-
 		// Save router context host to set it back afterwards
 		$currentHost = $this->router->getContext()->getHost();
 
 		// Get a list of all URLs for those gifs
 		$urls = $this->getURLsForGifs($gifs);
+		// Chunk the array to run X batchs
+		$urls_chunks = array_chunk($urls, $this->max_urls_per_api_call, true);
 
 		// Set back host
 		$this->router->getContext()->setHost($currentHost);
 
-		// Call API
-		$likes = $this->getLikesFromFacebookAPI($urls);
-
-		foreach ($likes as $url => $likesCount)
+		foreach ($urls_chunks as $chunk)
 		{
-			/** @var Gif $gif */
-			$gif = $urls[$url];
+			// Call API
+			$likes = $this->getLikesFromFacebookAPI($chunk);
 
-			// Add this count to the gifs likes count
-			$gif->setLikes($gif->getLikes() + $likesCount);
+			// Read API return array
+			foreach ($likes as $url => $likesCount)
+			{
+				/** @var Gif $gif */
+				$gif = $chunk[$url];
+
+				// Add this count to the gifs likes count
+				$gif->setLikes($gif->getLikes() + $likesCount);
+			}
+
+			// Save likes counts in cache
+			foreach ($gifs as $gif)
+			{
+				$this->cache->save(
+					'gif#' . $gif->getId() . '_likes',
+					$gif->getLikes(),
+					$gif->getCacheLifeTime()
+				);
+			}
 		}
 
-		// Save likes counts in cache
-		foreach ($gifs as $gif)
-		{
-			$this->cache->save(
-				'gif#' . $gif->getId() . '_likes',
-				$gif->getLikes(),
-				$gif->getCacheLifeTime()
-			);
-		}
 
 		// That's it!
 	}
@@ -218,7 +224,7 @@ class FacebookLikesService
 	}
 
 	/**
-	 * Returns all the URLs we know for this gif (one for each domain we have)
+	 * Returns all the URLs we know for these gifs (one for each domain we have)
 	 * @param array $gifs
 	 * @return array
 	 */
