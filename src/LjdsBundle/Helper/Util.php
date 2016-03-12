@@ -15,10 +15,6 @@ class Util {
 		return pathinfo($fileUri)['extension'];
 	}
 
-	public static function extensionMatches($fileUri, $extension) {
-		return Util::getFileExtension($fileUri) == $extension;
-	}
-
 	/**
 	 * Adapted from JS to PHP, source: https://stackoverflow.com/questions/11/how-do-i-calculate-relative-time
 	 * @param \DateTime $dateTime DateTime to be compared to now. We assume it is in the past
