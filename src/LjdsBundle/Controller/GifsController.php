@@ -184,13 +184,7 @@ class GifsController extends Controller
 			}
 
 			// Check if URL is a gif/mp4 video
-			$allowedFilesTypes = ['gif', 'mp4', 'webm', 'ogg'];
 			$gifUrl = $post->get('gifUrl');
-			if (!in_array(Util::getFileExtension($gifUrl), $allowedFilesTypes))
-			{
-				$gifSubmittedError = "l'URL ne semble pas être celle d'un fichier gif. Les types autorisés sont : gif, mp4, webm et ogg.";
-			}
-
 			$gifSubmitted = true;
 			$submittedBy = $post->get('submittedBy');
 			$caption = $post->get('caption');
