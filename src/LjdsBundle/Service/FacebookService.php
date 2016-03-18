@@ -7,6 +7,7 @@ use Facebook\FacebookSession;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Helper\Util;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 
 class FacebookService
@@ -45,7 +46,7 @@ class FacebookService
 			return false;
 		}
 
-		$link = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
+		$link = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL);
 		$link = Util::fixSymfonyGeneratedURLs($link);
 
 		try {

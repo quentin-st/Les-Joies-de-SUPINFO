@@ -5,6 +5,7 @@ use Codebird\Codebird;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Helper\Util;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 
 class TwitterService
@@ -22,7 +23,7 @@ class TwitterService
 
 	public function postGif(Gif $gif)
 	{
-		$gifUrl = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
+		$gifUrl = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL);
 		$gifUrl = Util::fixSymfonyGeneratedURLs($gifUrl);
 
         $tweetContent = $gif->generateTweet($gifUrl);

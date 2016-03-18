@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 
 class FacebookLikesService
@@ -241,7 +242,7 @@ class FacebookLikesService
 			{
 				$url = $this->router->generate('gif', [
 					'permalink' => $gif->getPermalink()
-				], true);
+				], UrlGeneratorInterface::ABSOLUTE_URL);
 
 				$urls[$url] = $gif;
 			}

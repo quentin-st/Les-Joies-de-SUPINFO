@@ -5,6 +5,7 @@ namespace LjdsBundle\Service;
 use LjdsBundle\Entity\Gif;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class MailService
 {
@@ -46,7 +47,7 @@ class MailService
 
 	public function sendGifPublishedMail(Gif $gif)
 	{
-		$target = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], true);
+		$target = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL);
 
 		$this->sendFormattedMail(
 			$gif->getEmail(),

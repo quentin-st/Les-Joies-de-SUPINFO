@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/api")
@@ -52,7 +53,7 @@ class ApiController extends Controller
             'caption' => $gif->getCaption(),
             'type' => $gif->getFileType(),
             'file' => $gif->getGifUrl(),
-            'permalink' => $this->generateUrl('gif', ['permalink' => $gif->getPermalink()], true)
+            'permalink' => $this->generateUrl('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL)
         ];
     }
 }
