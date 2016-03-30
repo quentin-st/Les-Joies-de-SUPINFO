@@ -43,3 +43,8 @@
 	-o-background-size: $param;
 	background-size: $param;
 }
+@mixin user-select($param) {
+	-moz-user-select: $param;
+	-ms-user-select: $param;
+	-webkit-user-select: $param;
+}

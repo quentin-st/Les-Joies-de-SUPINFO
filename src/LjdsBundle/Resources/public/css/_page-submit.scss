@@ -1,5 +1,7 @@
 /* Submit a gif */
 .submitGif {
+	@include user-select(none);
+
 	p {
 		text-align: justify;
 		margin: 0;
@@ -117,7 +119,7 @@
 
 		.giphyGifsContainer {
 			overflow-y: auto;
-			max-height: 550px;
+			height: 550px;
 			text-align: center;
 			@include border-radius(2px);
 
@@ -171,6 +173,28 @@
 				font-weight: 500;
 				color: #888;
 				font-style: italic;
+			}
+		}
+
+		.giphyGifsResizeHandle {
+			height: 7px;
+			margin-top: 2px;
+			margin-bottom: -7px;
+			background-color: rgba(0, 0, 0, 0.0);
+			cursor: n-resize;
+			text-align: center;
+			@include transition-duration(150ms);
+			@include border-radius(2px);
+
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.1);
+			}
+
+			i {
+				line-height: 6px;
+				font-size: 12px;
+				color: #666;
+				vertical-align: top;
 			}
 		}
 

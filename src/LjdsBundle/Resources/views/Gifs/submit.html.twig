@@ -52,6 +52,7 @@
 									<p>Aucun résultat pour la recherche &laquo; <span></span> &raquo;</p>
 								</div>
 							</div>
+							<div class="giphyGifsResizeHandle"><i class="mdi mdi-drag-horizontal"></i></div>
 						</div>
 					</div>
 					<div class="col-md-10 col-md-offset-1">
@@ -88,9 +89,10 @@
 {% block javascripts %}
 	<script>
 		$(document).ready(function() {
-			var searchField = $('#giphySearch');
-			var giphyGifsList = $('#giphyGifsList');
-			var loadMore = $('#loadMore');
+			var searchField = $('#giphySearch'),
+				giphyGifsList = $('#giphyGifsList'),
+				giphyGifsContainer = $('.giphyGifsContainer'),
+				loadMore = $('#loadMore');
 
 			// Save search field submitted val & current offset
 			searchField.data('submitted-val', searchField.val());
@@ -214,6 +216,30 @@
 					}
 				});
 			});
+
+			// Resizable gifs list
+			var onMouseDown = function() {
+				$('body')
+						.bind('mousemove', onMouseMove)
+						.bind('mouseup', onMouseUp);
+			};
+			var onMouseMove = function(e) {
+				var y = e.pageY,
+					containerTop = giphyGifsContainer.offset().top,
+					height = y - containerTop;
+
+				if (height > 0)
+					giphyGifsContainer.css('height', height + 'px');
+			};
+			var onMouseUp = function() {
+				$('body')
+						.unbind('mousemove')
+						.unbind('mouseup');
+			};
+
+			// TODO
+			var resizeHandle = $('.giphyGifsResizeHandle');
+			resizeHandle.bind('mousedown', onMouseDown);
 		});
 
 		function search(keywords) {
