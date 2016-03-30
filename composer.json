@@ -29,8 +29,7 @@
         "cocur/slugify": "^2.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0",
-        "symfony/phpunit-bridge": "~2.7"
+        "sensio/generator-bundle": "~3.0"
     },
     "scripts": {
         "post-root-package-install": [
