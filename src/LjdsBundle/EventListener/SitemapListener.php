@@ -37,7 +37,7 @@ class SitemapListener implements SitemapListenerInterface
 					$url,
 					new \DateTime(),
 					UrlConcrete::CHANGEFREQ_WEEKLY,
-					1
+					0.8
 				),
 				'default'
 			);
