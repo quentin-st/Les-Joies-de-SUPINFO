@@ -45,6 +45,10 @@ class GifDownloaderService
             $i++;
         }
 
+        // Remove possible query string from extension
+        if (strpos($fileName, '?') !== false)
+            $fileName = substr($fileName, 0, strpos($fileName, '?'));
+
         // Download file
         file_put_contents($downloadDir.$fileName, fopen($gifUrl, 'r'));
 
