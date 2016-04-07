@@ -49,18 +49,17 @@ class GifDownloaderService
         file_put_contents($downloadDir.$fileName, fopen($gifUrl, 'r'));
 
         // Check if file has been successfully downloaded (permissions issues)
-        if (file_exists($downloadDir.$fileName)) {
-            // Generate client-side URL
-            $url = $this->requestContextScheme . '://' . // http://
-                $this->requestContextHost . $this->requestContextBaseUrl
-                . '/gifs/' . $fileName;
-            $gif->setOriginalGifUrl($gifUrl);
-            $gif->setGifUrl($url);
-
-            return $url;
-        } else {
+        if (!file_exists($downloadDir.$fileName))
             return false;
-        }
+        
+        // Generate client-side URL
+        $url = $this->requestContextScheme . '://' . // http://
+            $this->requestContextHost . $this->requestContextBaseUrl
+            . '/gifs/' . $fileName;
+        $gif->setOriginalGifUrl($gifUrl);
+        $gif->setGifUrl($url);
+
+        return $url;
     }
 
     /**

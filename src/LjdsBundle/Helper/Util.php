@@ -12,6 +12,10 @@ class Util {
     }
 
 	public static function getFileExtension($fileUri) {
+		// Remove possible query string from $fileUri
+		if (strpos($fileUri, '?') !== false)
+			$fileUri = substr($fileUri, 0, strpos($fileUri, '?'));
+
 		return pathinfo($fileUri)['extension'];
 	}
 
