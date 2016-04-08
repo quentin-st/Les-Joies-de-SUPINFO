@@ -107,7 +107,7 @@ class ApiController extends Controller
             'type' => $gif->getFileType(),
             'file' => $gif->getGifUrl(),
             'permalink' => $this->generateUrl('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL),
-            'publishedDate' => $gif->getPublishDate()->format('Y-m-d H:i')
+            'publishDate' => $gif->getPublishDate()->format('Y-m-d H:i')
         ];
     }
 }
