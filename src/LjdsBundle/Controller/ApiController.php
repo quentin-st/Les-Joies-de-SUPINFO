@@ -18,6 +18,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class ApiController extends Controller
 {
+    const LIST_DEFAULT = 20;
+    const LIST_MAX = 75;
+
     private function isMainRoute(Request $request, $mainRoute)
     {
         return $request->get('_route') === $mainRoute;
@@ -73,7 +76,10 @@ class ApiController extends Controller
     public function apiLatestGifsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $maxResults = $request->query->getInt('count', 20);
+        $maxResults = $request->query->get('count', self::LIST_DEFAULT);
+
+        if (!filter_var($maxResults, FILTER_VALIDATE_INT) || $maxResults > self::LIST_MAX)
+            $maxResults = self::LIST_DEFAULT;
 
         // Create query
         /** @var QueryBuilder $qb */
