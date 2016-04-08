@@ -42,10 +42,11 @@ Cron jobs are set to execute a custom command, `ljds:publish`:
 ## API
 You can either get the last published gif or a random one by dropping a GET request on the following URLS:
 
-* last: http://www.joies-de-supinfo.fr/api/gif/latest
+* latest: http://www.joies-de-supinfo.fr/api/gif/latest
 * random: http://www.joies-de-supinfo.fr/api/gif/random
+* latest 20: http://www.joies-de-supinfo.fr/api/gif/list?count=20
 
-In both case, you'll receive a JSON-encoded response such as this one :
+In both case, you'll receive a JSON-encoded response such as this one:
 
 	{
 		caption: "Quand ton CM passe dans l'open space ",
