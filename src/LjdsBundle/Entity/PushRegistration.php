@@ -24,6 +24,18 @@ class PushRegistration
 	 */
 	private $registrationId;
 
+	/**
+	 * @var \DateTime
+	 * @ORM\Column(name="registrationDate", type="datetime")
+	 */
+	private $registrationDate;
+
+
+	public function __construct()
+	{
+		$this->registrationDate = new \DateTime();
+	}
+
 
 	public static function fromId($id)
 	{
@@ -56,6 +68,24 @@ class PushRegistration
 	public function setRegistrationId($registrationId)
 	{
 		$this->registrationId = $registrationId;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getRegistrationDate()
+	{
+		return $this->registrationDate;
+	}
+
+	/**
+	 * @param mixed $registrationDate
+	 * @return PushRegistration
+	 */
+	public function setRegistrationDate($registrationDate)
+	{
+		$this->registrationDate = $registrationDate;
 		return $this;
 	}
 }

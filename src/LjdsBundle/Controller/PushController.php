@@ -11,22 +11,18 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * @Route("/push")
- */
 class PushController extends Controller
 {
 	/**
-	 * @Route("/register")
+	 * @Route("/push/subscribe")
 	 * @Method({"POST"})
 	 */
-	public function register(Request $request)
+	public function subscribeAction(Request $request)
 	{
 		$post = $request->request;
 
-		if (!$post->has('id')) {
+		if (!$post->has('id'))
 			return self::response(false, 'Missing id');
-		}
 
 		$regId = $post->get('id');
 		$em = $this->getDoctrine()->getManager();
@@ -48,7 +44,36 @@ class PushController extends Controller
 	}
 
 	/**
-	 * @Route("/worker.js")
+	 * @Route("/push/unsubscribe")
+	 * @Method({"DELETE"})
+	 */
+	public function unsubscribeAction(Request $request)
+	{
+		$post = $request->request;
+
+		if (!$post->has('id'))
+			return self::response(false, 'Missing id');
+
+		$regId = $post->get('id');
+		$em = $this->getDoctrine()->getManager();
+		/** @var EntityRepository $registrationRepo */
+		$registrationRepo = $em->getRepository('LjdsBundle:PushRegistration');
+		$registration = $registrationRepo->findOneBy([
+			'registrationId' => $regId
+		]);
+
+		if (!$registration)
+			return self::response(false, 'Unknown id');
+
+		$em->remove($registration);
+		$em->flush();
+
+		return self::response(true);
+	}
+
+	/**
+	 * This file must be at the root of the app: https://bugs.chromium.org/p/chromium/issues/detail?id=462529
+	 * @Route("/push-worker.js")
 	 */
 	public function workerAction()
 	{
@@ -62,6 +87,6 @@ class PushController extends Controller
 		return new JsonResponse([
 			'success' => $success,
 			'message' => $message
-		], $success ? 200 : 500);
+		]);
 	}
 }

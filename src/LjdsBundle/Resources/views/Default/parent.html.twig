@@ -75,6 +75,10 @@
 
                 {{ publicationCountdown() }}
 
+                <div class="notificationsSwitch">
+                    <button id="notifications-switch" class="btn btn-primary" disabled>Notifs</button>
+                </div>
+
                 <div class="subTitle">
                     <h2>Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO</h2>
                 </div>
@@ -167,6 +171,7 @@
 {% javascripts
     '@LjdsBundle/Resources/public/js/bootstrap.min.js'
     '@LjdsBundle/Resources/public/js/script.js'
+    '@LjdsBundle/Resources/public/js/script-push-notifications.js'
     '@LjdsBundle/Resources/public/js/jquery.plugin.min.js'
     '@LjdsBundle/Resources/public/js/jquery.countdown.min.js'
     '@LjdsBundle/Resources/public/js/jquery.cookiebar.js'

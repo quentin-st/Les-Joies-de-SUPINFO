@@ -1,4 +1,5 @@
 <div id="push-notifications"
 	 data-worker="{{ path('ljds_push_worker') }}"
-	 data-registrationuri="{{ path('ljds_push_register') }}"
+	 data-subscriptionuri="{{ path('ljds_push_subscribe') }}"
+	 data-unsubscriptionuri="{{ path('ljds_push_unsubscribe') }}"
 	 data-debug="{{ app.environment == 'dev' ? 'true' : 'false' }}"></div>
