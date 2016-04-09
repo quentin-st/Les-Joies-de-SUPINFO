@@ -14,7 +14,7 @@ self.addEventListener('push', function(event) {
 	}).then(function(data) {
 		var tag_split = data.permalink.split('/');
 
-		self.registration.showNotification('Les Joies de SUPINFO : un nouveau gif a été publié !', {
+		return self.registration.showNotification('Les Joies de SUPINFO : un nouveau gif a été publié !', {
 			body: data.caption,
 			icon: data.file,
 			tag: tag_split[tag_split.length-1]
