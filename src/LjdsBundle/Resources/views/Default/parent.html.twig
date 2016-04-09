@@ -9,12 +9,12 @@
     <meta name="description" content="{% block meta_description %}Les situations de la vie quotidienne d'un(e) étudiant(e) de SUPINFO{% endblock %}">
     <meta name="author" content="{% if gif is defined %}{{ gif.submittedBy }}{% else %}Quentin Stoeckel, Frédéric Strebler, Thomas Nold{% endif %}">
     {% stylesheets
-        'bundles/ljds/css/bootstrap.min.css'
-        'bundles/ljds/css/bootstrap-theme.min.css'
-        'bundles/ljds/css/jquery.dropdown.min.css'
-        'bundles/ljds/css/materialdesignicons.min.css'
+        'bundles/ljds/3d/css/bootstrap.min.css'
+        'bundles/ljds/3d/css/bootstrap-theme.min.css'
+        'bundles/ljds/3d/css/jquery.dropdown.min.css'
+        'bundles/ljds/3d/css/materialdesignicons.min.css'
         'bundles/ljds/css/style.css'
-        'bundles/ljds/css/magnific-popup.css' filter='cssrewrite' %}
+        'bundles/ljds/3d/css/magnific-popup.css' filter='cssrewrite' %}
         <link href="{{ asset_url }}" rel="stylesheet" />
     {% endstylesheets %}
 
@@ -25,7 +25,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="{{ asset('bundles/ljds/js/jquery-1.11.2.min.js') }}"></script>
+    <script src="{{ asset('bundles/ljds/3d/js/jquery-1.11.2.min.js') }}"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
 
@@ -169,14 +169,14 @@
 </div>
 
 {% javascripts
-    '@LjdsBundle/Resources/public/js/bootstrap.min.js'
+    '@LjdsBundle/Resources/public/3d/js/bootstrap.min.js'
     '@LjdsBundle/Resources/public/js/script.js'
     '@LjdsBundle/Resources/public/js/script-push-notifications.js'
-    '@LjdsBundle/Resources/public/js/jquery.plugin.min.js'
-    '@LjdsBundle/Resources/public/js/jquery.countdown.min.js'
-    '@LjdsBundle/Resources/public/js/jquery.cookiebar.js'
-    '@LjdsBundle/Resources/public/js/jquery.dropdown.min.js'
-    '@LjdsBundle/Resources/public/js/jquery.magnific-popup.min.js' %}
+    '@LjdsBundle/Resources/public/3d/js/jquery.plugin.min.js'
+    '@LjdsBundle/Resources/public/3d/js/jquery.countdown.min.js'
+    '@LjdsBundle/Resources/public/3d/js/jquery.cookiebar.js'
+    '@LjdsBundle/Resources/public/3d/js/jquery.dropdown.min.js'
+    '@LjdsBundle/Resources/public/3d/js/jquery.magnific-popup.min.js' %}
     <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
