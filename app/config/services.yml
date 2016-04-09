@@ -44,6 +44,8 @@ services:
             facebookService: "@app.facebook"
             twitterAutopost: "%twitter_autopost%"
             twitterService: "@app.twitter"
+            pushEnabled: "%push_enabled%"
+            pushService: "@app.push_notifications"
 
     app.sitemap.listener:
         class: LjdsBundle\EventListener\SitemapListener
