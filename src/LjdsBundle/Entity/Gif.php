@@ -5,6 +5,8 @@ namespace LjdsBundle\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use LjdsBundle\Helper\Util;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @ORM\Table()
@@ -406,5 +408,16 @@ class Gif
             return 120;
         else
             return 600;
+    }
+
+    public function toJson(Router $router)
+    {
+        return [
+            'caption' => $this->getCaption(),
+            'type' => $this->getFileType(),
+            'file' => $this->getGifUrl(),
+            'permalink' => $router->generate('gif', ['permalink' => $this->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL),
+            'publishDate' => $this->getPublishDate()->format('Y-m-d H:i')
+        ];
     }
 }

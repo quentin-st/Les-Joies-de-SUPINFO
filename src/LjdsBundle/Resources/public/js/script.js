@@ -31,7 +31,7 @@ $(document).ready(function() {
 		type: 'inline',
 		preloader: false,
 
-		// When elemened is focused, some mobile browsers in some cases zoom in
+		// When element is focused, some mobile browsers in some cases zoom in
 		// It looks not nice, so we disable it:
 		callbacks: {
 			beforeOpen: function() {
@@ -49,6 +49,29 @@ $(document).ready(function() {
 			}
 		}
 	});
+
+	// Push notifications
+	if ('serviceWorker' in navigator) {
+		var domItem = $('#push-notifications');
+		var debug = domItem.data('debug');
+
+		navigator.serviceWorker.register(domItem.data('worker')).then(function(reg) {
+			reg.pushManager.subscribe({
+				userVisibleOnly: true
+			}).then(function(sub) {
+				// Get registration id
+				var endpoint = sub.endpoint;
+				var registrationId = endpoint.substr('https://android.googleapis.com/gcm/send/'.length);
+
+				$.post(domItem.data('registrationuri'), {
+					id: registrationId
+				});
+			});
+		}).catch(function(error) {
+			if (debug)
+				console.log(error);
+		});
+	}
 });
 
 $(window).load(function() {

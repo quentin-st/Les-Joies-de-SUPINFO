@@ -44,7 +44,7 @@ class ApiController extends Controller
         /** @var Gif $gif */
         $gif = $gifsRepo->getRandomGif();
 
-        return new JsonResponse($this->getJsonForGif($gif));
+        return new JsonResponse($gif->toJson($this->get('router')));
     }
 
     /**
@@ -65,7 +65,7 @@ class ApiController extends Controller
         /** @var Gif $gif */
         $gif = $gifsRepo->getLastPublishedGif();
 
-        return new JsonResponse($this->getJsonForGif($gif));
+        return new JsonResponse($gif->toJson($this->get('router')));
     }
 
     /**
@@ -93,21 +93,10 @@ class ApiController extends Controller
 
         $query->execute();
 
-        $gifs = [];
-        foreach ($query->getResult() as $gif)
-            $gifs[] = $this->getJsonForGif($gif);
+        $gifs = array_map(function(Gif $gif) {
+            return $gif->toJson($this->get('router'));
+        }, $query->getResult());
 
         return new JsonResponse($gifs);
-    }
-
-    private function getJsonForGif(Gif $gif)
-    {
-        return [
-            'caption' => $gif->getCaption(),
-            'type' => $gif->getFileType(),
-            'file' => $gif->getGifUrl(),
-            'permalink' => $this->generateUrl('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL),
-            'publishDate' => $gif->getPublishDate()->format('Y-m-d H:i')
-        ];
     }
 }

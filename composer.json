@@ -26,7 +26,8 @@
         "jublonet/codebird-php": "dev-master",
         "knplabs/knp-paginator-bundle": "^2.5",
         "presta/sitemap-bundle": "^1.4",
-        "cocur/slugify": "^2.0"
+        "cocur/slugify": "^2.0",
+        "sensio/buzz-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0"

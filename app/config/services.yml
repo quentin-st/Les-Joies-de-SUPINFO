@@ -6,34 +6,34 @@ services:
         tags:
             - { name: twig.extension }
         arguments:
-            em: @doctrine.orm.entity_manager
+            em: "@doctrine.orm.entity_manager"
 
 
     # Services
     app.twitter:
         class: LjdsBundle\Service\TwitterService
         arguments:
-            container: @service_container
-            router: @router
+            container: "@service_container"
+            router: "@router"
 
     app.facebook:
         class: LjdsBundle\Service\FacebookService
         arguments:
-            container: @service_container
-            router: @router
+            container: "@service_container"
+            router: "@router"
 
     app.facebook_likes:
         class: LjdsBundle\Service\FacebookLikesService
         arguments:
-            domains: %domains%
-            router: @router
-            em: @doctrine.orm.entity_manager
-            memcached: @memcached_cache
+            domains: "%domains%"
+            router: "@router"
+            em: "@doctrine.orm.entity_manager"
+            memcached: "@memcached_cache"
 
     app.recaptcha:
         class: LjdsBundle\Service\ReCAPTCHAService
         arguments:
-            container: @service_container
+            container: "@service_container"
 
     app.gif:
         class: LjdsBundle\Service\GifService
@@ -48,8 +48,8 @@ services:
     app.sitemap.listener:
         class: LjdsBundle\EventListener\SitemapListener
         arguments:
-            router: @router
-            em: @doctrine.orm.entity_manager
+            router: "@router"
+            em: "@doctrine.orm.entity_manager"
         tags: [{name: "presta.sitemap.listener"}]
 
     app.gif_downloader:
@@ -59,7 +59,7 @@ services:
             requestContextHost: "%router.request_context.host%"
             requestContextScheme: "%router.request_context.scheme%"
             requestContextBaseUrl: "%router.request_context.base_url%"
-            em: @doctrine.orm.entity_manager
+            em: "@doctrine.orm.entity_manager"
 
     app.mail_service:
         class: LjdsBundle\Service\MailService
@@ -69,3 +69,10 @@ services:
             router: "@router"
             sender_email: "%mailer_sender_email%"
 
+    app.push_notifications:
+        class: LjdsBundle\Service\PushNotificationsService
+        arguments:
+            em: "@doctrine.orm.entity_manager"
+            buzz: "@buzz"
+            router: "@router"
+            apiKey: "%push_public_api_key%"
