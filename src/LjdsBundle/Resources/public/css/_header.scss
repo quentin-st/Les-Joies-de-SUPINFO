@@ -1,10 +1,10 @@
-
-.header {
-	@include border-radius(2px 2px 0 0);
+header {
 	background: #6F9FC1 url('../img/header_background.jpg') no-repeat top;
+	@include border-radius(2px 2px 0 0);
 	@include background-size(cover);
+	@include box-shadow(inset 0 0 1px rgba(0, 0, 0, 0.5));
 
-	> div {
+	.header-background {
 		background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 52%, rgba(0,0,0,0.15) 100%);
 		background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.15) 100%);
 		background: radial-gradient(ellipse at center,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 52%,rgba(0,0,0,0.15) 100%);
@@ -12,102 +12,100 @@
 		@include border-radius(2px 2px 0 0);
 	}
 
-	a.h1Link {
+	.title {
 		float: left;
-		display: block;
+		cursor: default;
+		padding: 17px 20px 15px;
 
-		h1 {
-			color: #fff;
-			font-weight: 300;
-			font-size: 22px;
-			padding: 0 30px;
-			margin: 19px 0;
-			display: inline-block;
-			@include transition-duration(150ms);
+		a.h1Link {
+			display: block;
 
-			&:hover {
-				text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+			h1 {
+				color: #fff;
+				font-weight: 300;
+				font-size: 25px;
+				margin: 0;
+				text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+				@include transition-duration(150ms);
+
+				&:hover {
+					text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+				}
 			}
+
+			&:hover, &:focus { text-decoration: none; }
 		}
 
-		&:hover { text-decoration: none; }
-	}
-
-	.subHeader {
-		padding: 15px 30px;
-		color: #fff;
-		margin-top: 30px;
-
-		h2 {
-			font-size: 19px;
-			font-weight: 300;
-			margin: 0;
-		}
-	}
-
-	.subTitle {
-		padding: 15px 30px;
-		margin-top: 50px;
-
-		h2 {
+		h2.subtitle {
 			color: #fff;
-			font-size: 19px;
-			font-weight: 300;
-			margin: 0;
+			font-size: 15px;
+			margin: 5px 0 0 0;
+			max-width: 265px;
 			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 		}
 	}
 }
 
 /* Menu */
-ul.menu {
-	list-style: none;
+nav.menu {
 	text-align: right;
-	margin: 10px;
-	float: right;
+	padding: 11px;
 
-	li {
+	a {
 		display: inline-block;
+		color: #eee;
 		margin: 3px 4px;
+		padding: 1px 13px 1px 10px;
 		line-height: 27px;
+		font-size: 13px;
+		text-transform: uppercase;
+		@include transition-duration(200ms);
+		@include border-radius(2px);
+		background-color: rgba(0, 0, 0, 0.15);
 
-		a {
-			display: inline-block;
-			color: #eee;
-			text-transform: uppercase;
-			padding: 1px 13px 1px 10px;
-			@include transition-duration(200ms);
-			@include border-radius(2px);
-			font-size: 13px;
-			background-color: rgba(0, 0, 0, 0.15);
+		&.submit {
+			background-color: rgba(3, 169, 244, 1);
+			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+		}
+
+		&:hover {
+			color: #fff;
+			background-color: rgba(0, 0, 0, 0.3);
+			@extend .elevation-low;
 
 			&.submit {
-				background-color: rgba(3, 169, 244, 1);
-				text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+				background-color: rgba(3, 169, 244, 0.7);
 			}
+		}
 
-			&:hover {
-				color: #fff;
-				background-color: rgba(0, 0, 0, 0.3);
-				text-decoration: none;
-				@extend .elevation-low;
+		&:hover, &:focus {
+			text-decoration: none;
+		}
 
-				&.submit {
-					background-color: rgba(3, 169, 244, 0.7);
+		&:active {
+			background-color: rgba(0, 0, 0, 0.4);
+
+			&.submit {
+				background-color: rgba(3, 169, 244, 0.5);
+			}
+		}
+
+		i {
+			font-size: 15px;
+			margin-right: 4px;
+		}
+
+		&.notifications-switch {
+			&.disabled {
+				cursor: default;
+				@include opacity(0.7);
+
+				// Remove hover
+				&:hover {
+					color: #eee;
+					background-color: rgba(0, 0, 0, 0.15);
+					@extend .elevation-none;
 				}
-			}
-
-			&:active {
-				background-color: rgba(0, 0, 0, 0.4);
-
-				&.submit {
-					background-color: rgba(3, 169, 244, 0.5);
-				}
-			}
-
-			i {
-				font-size: 15px;
-				margin-right: 4px;
 			}
 		}
 	}
@@ -121,7 +119,7 @@ ul.menu {
 	text-align: right;
 	padding-right: 10px;
 	font-weight: 200;
-	margin-top: 40px;
+	margin-top: 25px;
 
 	p {
 		margin-bottom: 0;

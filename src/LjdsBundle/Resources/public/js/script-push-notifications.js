@@ -8,12 +8,20 @@
 		debug = domItem.data('debug'),
 		worker = domItem.data('worker'),
 		texts = {
+			initial: 'Notifications',
 			enable: 'Activer les notifications',
 			disable: 'Désactiver les notifications'
+		},
+		buttonState = {
+			disabled: false,
+			text: texts.initial
 		};
 
 	$(window).load(function () {
 		pushButton.click(function () {
+			if ($(this).is('.disabled'))
+				return;
+
 			if (isPushEnabled)
 				unsubscribe();
 			else
@@ -59,11 +67,17 @@
 				.then(function(subscription) {
 					// Enable any UI which subscribes / unsubscribes from
 					// push messages.
-					pushButton.removeAttr('disabled');
+					updateButtonState({
+						disabled: false
+					});
 
 					if (!subscription) {
 						// We aren't subscribed to push, so set UI
 						// to allow the user to enable push
+
+						updateButtonState({
+							text: texts.enable
+						});
 						return;
 					}
 
@@ -72,7 +86,9 @@
 
 					// Set your UI to show they have subscribed for
 					// push messages
-					pushButton.text(texts.disable);
+					updateButtonState({
+						text: texts.disable
+					});
 					isPushEnabled = true;
 				})
 				.catch(function(err) {
@@ -102,17 +118,25 @@
 	}
 
 	function subscribe() {
+		if (debug)
+			console.log('subscribe()');
+
 		// Disable the button so it can't be changed while
 		// we process the permission request
-		pushButton.attr('disabled', 'disabled');
+		updateButtonState({
+			disabled: true
+		});
 
 		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-			serviceWorkerRegistration.pushManager.subscribe({userVisibleOnly: true})
+			serviceWorkerRegistration.pushManager
+				.subscribe({userVisibleOnly: true})
 				.then(function(subscription) {
 					// The subscription was successful
 					isPushEnabled = true;
-					pushButton.text(texts.disable);
-					pushButton.removeAttr('disabled');
+					updateButtonState({
+						disabled: false,
+						text: texts.disable
+					});
 
 					return sendSubscriptionToServer(subscription);
 				})
@@ -124,26 +148,37 @@
 						// subscribe to push messages
 						if (debug)
 							console.warn('Permission for Notifications was denied');
-						pushButton.disabled = true;
+
+						updateButtonState({
+							disabled: true
+						});
 					} else {
 						// A problem occurred with the subscription; common reasons
 						// include network errors, and lacking gcm_sender_id and/or
 						// gcm_user_visible_only in the manifest.
 						if (debug)
 							console.error('Unable to subscribe to push.', e);
-						pushButton.attr('disabled', 'disabled');
-						pushButton.text(texts.enable);
+
+						updateButtonState({
+							disabled: false,
+							text: texts.enable
+						});
 					}
 				});
 		});
 	}
 
 	function unsubscribe() {
-		pushButton.removeAttr('disabled');
+		if (debug)
+			console.log('unsubscribe()');
+
+		updateButtonState({
+			disabled: true
+		});
 
 		navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
-			// To unsubscribe from push messaging, you need get the  
-			// subscription object, which you can call unsubscribe() on.  
+			// To unsubscribe from push messaging, you need get the
+			// subscription object, which you can call unsubscribe() on.
 			serviceWorkerRegistration.pushManager.getSubscription().then(
 				function(pushSubscription) {
 					// Check we have a subscription to unsubscribe  
@@ -151,8 +186,11 @@
 						// No subscription object, so set the state  
 						// to allow the user to subscribe to push  
 						isPushEnabled = false;
-						pushButton.disabled = false;
-						pushButton.textContent = texts.enable;
+
+						updateButtonState({
+							disabled: false,
+							text: texts.enable
+						});
 						return;
 					}
 
@@ -161,8 +199,11 @@
 
 					// We have a subscription, so call unsubscribe on it  
 					pushSubscription.unsubscribe().then(function(successful) {
-						pushButton.disabled = false;
-						pushButton.textContent = texts.enable;
+						updateButtonState({
+							disabled: false,
+							text: texts.enable
+						});
+
 						isPushEnabled = false;
 					}).catch(function(e) {
 						// We failed to unsubscribe, this can lead to  
@@ -172,8 +213,11 @@
 
 						if (debug)
 							console.log('Unsubscription error: ', e);
-						pushButton.disabled = false;
-						pushButton.textContent = texts.enable;
+
+						updateButtonState({
+							disabled: false,
+							text: texts.enable
+						});
 					});
 				}
 			).catch(function(e) {
@@ -181,5 +225,14 @@
 					console.error('Error thrown while unsubscribing from push messaging.', e);
 			});
 		});
+	}
+
+	function updateButtonState(params) {
+		buttonState = $.extend(buttonState, params);
+
+		// Enabled/disabled
+		pushButton.toggleClass('disabled', buttonState.disabled);
+		// Text
+		pushButton.find('.text').text(buttonState.text);
 	}
 })();
