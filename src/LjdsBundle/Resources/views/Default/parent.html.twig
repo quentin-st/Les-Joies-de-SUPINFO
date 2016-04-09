@@ -72,10 +72,13 @@
                     <a href="{{ path('topSubmitters') }}"><i class="mdi mdi-account-multiple"></i>Top contributeurs</a>
                     <a href="{{ path('randomGif') }}"><i class="mdi mdi-shuffle"></i> Au hasard</a>
                     <a href="{{ path('submit') }}" class="submit"><i class="mdi mdi-plus"></i>Proposer un gif</a>
-                    <a href="#" id="notifications-switch" class="notifications-switch">
-                        <i class="mdi mdi-bell-ring"></i>
-                        <span class="text">Notifications</span>
-                    </a>
+
+                    {% if push_enabled %}
+                        <a href="#" id="notifications-switch" class="notifications-switch">
+                            <i class="mdi mdi-bell-ring"></i>
+                            <span class="text">Notifications</span>
+                        </a>
+                    {% endif %}
                 </nav>
 
                 <div class="clearfix"></div>

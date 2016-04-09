@@ -2,8 +2,12 @@
  * Google Cloud Messaging push notifications
  */
 (function() {
+	var domItem = $('#push-notifications');
+
+	if (!domItem.data('globalenabled'))
+		return;
+	
 	var isPushEnabled = false,
-		domItem = $('#push-notifications'),
 		pushButton = $('#notifications-switch'),
 		debug = domItem.data('debug'),
 		worker = domItem.data('worker'),
