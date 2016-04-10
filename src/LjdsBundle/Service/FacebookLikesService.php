@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
+use LjdsBundle\Helper\Util;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 
@@ -14,17 +15,14 @@ class FacebookLikesService
 {
 	/** @var string[] */
 	private $domains;
-
 	/** @var Router */
 	private $router;
-
 	/** @var EntityManager */
 	private $em;
-
 	/** @var Cache */
 	private $cache;
 
-	private $max_urls_per_api_call = 30;
+	const MAX_URLS_PER_API_CALL = 30;
 
 
 	public function __construct(array $domains, Router $router, EntityManager $em, Cache $memcached)
@@ -156,14 +154,16 @@ class FacebookLikesService
 
 
 		// Save router context host to set it back afterwards
+		$currentScheme = $this->router->getContext()->getScheme();
 		$currentHost = $this->router->getContext()->getHost();
 
 		// Get a list of all URLs for those gifs
 		$urls = $this->getURLsForGifs($gifs);
 		// Chunk the array to run X batchs
-		$urls_chunks = array_chunk($urls, $this->max_urls_per_api_call, true);
+		$urls_chunks = array_chunk($urls, self::MAX_URLS_PER_API_CALL, true);
 
-		// Set back host
+		// Set back host & scheme
+		$this->router->getContext()->setScheme($currentScheme);
 		$this->router->getContext()->setHost($currentHost);
 
 		foreach ($urls_chunks as $chunk)
@@ -235,6 +235,15 @@ class FacebookLikesService
 
 		foreach ($this->domains as $domain)
 		{
+			$scheme = 'http';
+
+			// domain contains scheme: let's split it
+			if (preg_match("/(http|https):\\/\\/(.*?)$/i", $domain, $matches) > 0) {
+				$scheme = $matches[1];
+				$domain = $matches[2];
+			}
+
+			$this->router->getContext()->setScheme($scheme);
 			$this->router->getContext()->setHost($domain);
 
 			/** @var Gif $gif */
@@ -243,6 +252,8 @@ class FacebookLikesService
 				$url = $this->router->generate('gif', [
 					'permalink' => $gif->getPermalink()
 				], UrlGeneratorInterface::ABSOLUTE_URL);
+
+				$url = Util::fixSymfonyGeneratedURLs($url);
 
 				$urls[$url] = $gif;
 			}
