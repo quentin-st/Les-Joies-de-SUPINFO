@@ -330,13 +330,17 @@ class GifsController extends Controller
 		$json = json_decode($apiResult, true);
 		$gifs = [];
 
+		$httpToHttps = function($url) {
+			return preg_replace("/^http:/i", "https:", $url);
+		};
+
 		foreach ($json['data'] as $giphyGif) {
 			$images = $giphyGif['images'];
 
 			$gifs[] = [
-				'preview_downsampled' => $images['fixed_width_downsampled']['url'],
-				'preview' => $images['fixed_width']['url'],
-				'image' => $images['downsized']['url'],
+				'preview_downsampled' => $httpToHttps($images['fixed_width_downsampled']['url']),
+				'preview' => $httpToHttps($images['fixed_width']['url']),
+				'image' => $httpToHttps($images['downsized']['url']),
 				'url' => $giphyGif['bitly_url']
 			];
 		}
