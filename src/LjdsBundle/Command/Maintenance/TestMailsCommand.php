@@ -1,17 +1,20 @@
 <?php
 
-namespace LjdsBundle\Command;
+namespace LjdsBundle\Command\Maintenance;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Sends a test mail to the specified email address
+ */
 class TestMailsCommand extends ContainerAwareCommand
 {
 	protected function configure()
 	{
 		$this
-			->setName('ljds:test-mails')
+			->setName('ljds:mail:test')
 			->setDescription('Tests mails')
 			->addArgument('to');
 	}

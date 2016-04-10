@@ -1,6 +1,6 @@
 <?php
 
-namespace LjdsBundle\Command;
+namespace LjdsBundle\Command\Maintenance;
 
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
@@ -10,12 +10,16 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Prints a JSON structure showing the like count for each gif
+ */
 class DebugLikesCountAllCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('ljds:debug-likes-all');
+            ->setName('ljds:likes:debug-all')
+            ->setDescription('Prints a JSON structure showing the like count for each gif');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

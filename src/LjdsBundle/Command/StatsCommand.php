@@ -9,12 +9,16 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Get some stats about gifs.
+ * Queried by munin
+ */
 class StatsCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('ljds:stats')
+            ->setName('ljds:gifs:stats')
             ->setDescription('Get some stats about gifs')
             ->addArgument('gifState', InputArgument::REQUIRED, 'Which gifState do you want to stat?');
     }

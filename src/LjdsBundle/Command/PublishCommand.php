@@ -9,12 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Publishes the oldest accepted Gif
+ */
 class PublishCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('ljds:publish')
+            ->setName('ljds:gifs:publish')
             ->setDescription('Publishes the oldest accepted Gif');
     }
 

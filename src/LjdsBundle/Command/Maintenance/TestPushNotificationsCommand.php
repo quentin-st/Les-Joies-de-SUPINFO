@@ -1,11 +1,14 @@
 <?php
 
-namespace LjdsBundle\Command;
+namespace LjdsBundle\Command\Maintenance;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Sends a fake notification to all registered devices
+ */
 class TestPushNotificationsCommand extends ContainerAwareCommand
 {
 	protected function configure()

@@ -7,12 +7,16 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Posts a link to this gif one more time on Facebook and Twitter
+ * Useful if one or another failed
+ */
 class RepublishCommand extends ContainerAwareCommand
 {
 	protected function configure()
 	{
 		$this
-			->setName('ljds:republish')
+			->setName('ljds:gifs:republish')
 			->setDescription('Posts a link to this gif one more time on Facebook and Twitter')
 			->addArgument('permalink', InputArgument::REQUIRED, 'Which gif do you want to republish?');
 	}

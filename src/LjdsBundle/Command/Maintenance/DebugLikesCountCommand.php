@@ -1,6 +1,6 @@
 <?php
 
-namespace LjdsBundle\Command;
+namespace LjdsBundle\Command\Maintenance;
 
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
@@ -14,12 +14,15 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 
+/**
+ * Prints the likes count for one specific gif
+ */
 class DebugLikesCountCommand extends ContainerAwareCommand
 {
 	protected function configure()
 	{
 		$this
-			->setName('ljds:debug-likes')
+			->setName('ljds:likes:debug')
 			->setDescription('Prints likes counts for one gif')
 			->addArgument(
 				'permalink',

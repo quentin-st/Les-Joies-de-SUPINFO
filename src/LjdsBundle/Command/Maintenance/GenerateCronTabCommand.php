@@ -1,6 +1,6 @@
 <?php
 
-namespace LjdsBundle\Command;
+namespace LjdsBundle\Command\Maintenance;
 
 use LjdsBundle\Helper\AutoPostHelper;
 use LjdsBundle\Helper\WeekPart;
@@ -8,12 +8,16 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Prints crontab instructions for the cron, according to publication times
+ *  defined in AutoPostHelper
+ */
 class GenerateCronTabCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
         $this
-            ->setName('ljds:generate-cron-tab')
+            ->setName('ljds:cron:generate-cron-tab')
             ->setDescription('Generates instructions to be put in the server cron file');
     }
 
