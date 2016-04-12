@@ -8,6 +8,7 @@ abstract class GifState
 	const ACCEPTED = 1;
 	const REFUSED = 2;
 	const PUBLISHED = 3;
+	const REPORTED = 4; // That's not really a type, but hey
 
 	public static function fromName($name)
 	{
@@ -16,7 +17,29 @@ abstract class GifState
 			case 'accepted': 	return GifState::ACCEPTED;
 			case 'refused':		return GifState::REFUSED;
 			case 'published':	return GifState::PUBLISHED;
-			default: 			return -1;
+			case 'reported':	return GifState::REPORTED;
+			default:			return -1;
 		}
+	}
+
+	public static function getAll()
+	{
+		return ['submitted', 'accepted', 'refused', 'published', 'reported'];
+	}
+
+	public static function getLabels()
+	{
+		return [
+			self::SUBMITTED => 'En attente',
+			self::ACCEPTED => 'Acceptés',
+			self::REFUSED => 'Refusés',
+			self::PUBLISHED => 'Publiés',
+			self::REPORTED => 'Signalés'
+		];
+	}
+
+	public static function getLabel($name)
+	{
+		return self::getLabels()[self::fromName($name)];
 	}
 }

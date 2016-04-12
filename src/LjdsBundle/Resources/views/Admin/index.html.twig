@@ -1,69 +1,81 @@
 {% extends 'LjdsBundle:Default:parent.html.twig' %}
 
+{% block title %}{{ typeLabel }} - {% endblock %}
+
 {% block content %}
-	<div class="fullWidth">
-		<div class="adminTabs">
-			<ul class="nav nav-tabs" role="tablist">
-				<li class="mSubmitted {% if type == 'submitted' %}active{% endif %}">
-					<a href="{{ path('admin', {'type': 'submitted'}) }}"><i class="mdi mdi-clock"></i> En attente</a>
-				</li>
-				<li class="mAccepted {% if type == 'accepted' %}active{% endif %}">
-					<a href="{{ path('admin', {'type': 'accepted'}) }}"><i class="mdi mdi-check"></i> Acceptés</a>
-				</li>
-				<li class="mRefused {% if type == 'refused' %}active{% endif %}">
-					<a href="{{ path('admin', {'type': 'refused'}) }}"><i class="mdi mdi-close-circle"></i> Refusés</a>
-				</li>
-				<li class="mReported {% if type == 'reported' %}active{% endif %}">
-					<a href="{{ path('admin', {'type': 'reported'}) }}"><i class="mdi mdi-alert-octagon"></i> Signalés</a>
-				</li>
-				<li class="mPublished {% if type == 'published' %}active{% endif %}">
-					<a href="{{ path('admin', {'type': 'published'}) }}"><i class="mdi mdi-check-all"></i> Publiés</a>
-				</li>
-			</ul>
-		</div>
+	<div class="adminTabs">
+		<a href="{{ path('admin', {'type': 'submitted'}) }}" class="btn btn-lg btn-warning {% if type == 'submitted' %}active{% endif %}">
+			<i class="mdi mdi-help"></i>
+			En attente <small>({{ counts.submitted }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'accepted'}) }}" class="btn btn-lg btn-success {% if type == 'accepted' %}active{% endif %}">
+			<i class="mdi mdi-clock"></i>
+			Acceptés <small>({{ counts.accepted }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'refused'}) }}" class="btn btn-lg btn-primary {% if type == 'refused' %}active{% endif %}">
+			<i class="mdi mdi-close"></i>
+			Refusés <small>({{ counts.refused }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'reported'}) }}" class="btn btn-lg btn-danger {% if type == 'reported' %}active{% endif %}">
+			<i class="mdi mdi-alert-octagon"></i>
+			Signalés <small>({{ counts.reported }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'published'}) }}" class="btn btn-lg btn-success {% if type == 'published' %}active{% endif %}">
+			<i class="mdi mdi-check-all"></i>
+			Publiés <small>({{ counts.published }})</small>
+		</a>
+	</div>
 
-		<div class="row-fluid gifs-validation">
-			{% for gif in gifs %}
-				<div class="col-sm-6 col-md-4">
-					<div class="thumbnail">
-						{% include 'LjdsBundle:Snippets:gif.html.twig' with {class: 'gifPreview'} %}
+	<div class="gifs-validation">
+		{% if gifs|length == 0 %}
+			<div class="no-gif">
+				<i class="mdi mdi-emoticon-poop"></i> <p>Aucun gif n'est actuellement à l'état <i>{{ typeLabel }}</i>.</p>
+			</div>
+		{% endif %}
+		{% for gif in gifs %}
+			<div class="gifs-validation-item col-sm-6 col-md-4" data-gifid="{{ gif.id }}">
+				<div class="thumbnail">
+					{% include 'LjdsBundle:Snippets:gif.html.twig' with {class: 'gifPreview'} %}
 
-						<div class="caption">
-							<textarea id="caption{{ gif.id }}" rows="2" placeholder="Caption">{{ gif.caption }}</textarea>
-							<p>Par {{ gif.submittedBy }}</p>
+					<div class="caption">
+						<textarea id="caption{{ gif.id }}" rows="2" placeholder="Caption">{{ gif.caption }}</textarea>
+						<p>Par {{ gif.submittedBy }}</p>
 
-							{% if gif.originalGifUrl is null %}
-								<p class="pull-right">
-									<button type="button" class="btn btn-success btn-xs">
-										<i class="mdi mdi-download downloadGif" data-gifid="{{ gif.id }}"></i>
-									</button>
-								</p>
-							{% endif %}
-							<p>
-								{% if type == 'accepted' %}
-									<button type="button" data-state="published" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Publier</button>
-									<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
-								{% elseif type == 'refused' %}
-									<button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
-									<button type="button" data-state="deleted" data-gifid="{{ gif.id }}" class="btn btn-warning btnValidation">Supprimer</button>
-								{% elseif type == 'reported' %}
-									<button type="button" data-state="ignored" data-gifid="{{ gif.id }}" class="btn btn-primary btnValidation">Ignorer</button>
-									<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Supprimer</button>
-								{% elseif type == 'submitted' %}
-									<button type="button" data-state="accepted" data-gifid="{{ gif.id }}" class="btn btn-success btnValidation">Valider</button>
-									<button type="button" data-state="refused" data-gifid="{{ gif.id }}" class="btn btn-danger btnValidation">Rejeter</button>
-								{% elseif type == 'published' %}
-									<button type="button" data-state="deleted" data-gifid="{{ gif.id }}" class="btn btn-warning btnValidation">Supprimer</button>
-								{% endif %}
+						{% if gif.originalGifUrl is null %}
+							<p class="pull-right">
+								<button type="button" class="btn btn-success btn-xs">
+									<i class="mdi mdi-download downloadGif"></i>
+								</button>
 							</p>
-							<div class="clearfix"></div>
-						</div>
+						{% endif %}
+						<p class="validation-actions">
+							{% if type == 'accepted' %}
+								<button type="button" data-state="published" class="btn btn-primary">Publier</button>
+								<button type="button" data-state="refused" class="btn btn-danger">Rejeter</button>
+							{% elseif type == 'refused' %}
+								<button type="button" data-state="accepted" class="btn btn-success">Valider</button>
+								<button type="button" data-state="deleted" class="btn btn-warning">Supprimer</button>
+							{% elseif type == 'reported' %}
+								<button type="button" data-state="ignored" class="btn btn-primary">Ignorer</button>
+								<button type="button" data-state="refused" class="btn btn-danger">Supprimer</button>
+							{% elseif type == 'submitted' %}
+								<button type="button" data-state="accepted" class="btn btn-success">Valider</button>
+								<button type="button" data-state="refused" class="btn btn-danger">Rejeter</button>
+							{% elseif type == 'published' %}
+								<button type="button" data-state="deleted" class="btn btn-warning">Supprimer</button>
+							{% endif %}
+						</p>
+						<div class="clearfix"></div>
 					</div>
 				</div>
-				{% if loop.index % 3 == 0 %}
-					<div class="clearfix"></div>
-				{% endif %}
-			{% endfor %}
+			</div>
+			{% if loop.index % 3 == 0 %}
+				<div class="clearfix"></div>
+			{% endif %}
+		{% endfor %}
+
+		<div class="pagination-wrap">
+			{{ knp_pagination_render(gifs) }}
 		</div>
 	</div>
 {% endblock %}
@@ -71,17 +83,20 @@
 {% block javascripts %}
 	<script>
 		// Validate GIF
-		$('.btnValidation').click(function() {
-			var domElement = $(this);
-			var gifId = domElement.attr('data-gifid');
-			var state = domElement.attr('data-state');
-			var caption = $('#caption'+gifId).val();
-			var action;
-			if (state == 'deleted'){
+		$('.validation-actions').find('button').click(function() {
+			var domElement = $(this),
+				gifContainer = domElement.closest('.gifs-validation-item'),
+				gifId = gifContainer.attr('data-gifid'),
+				state = domElement.attr('data-state'),
+				caption = $('#caption'+gifId).val(),
+				action;
+
+			if (state == 'deleted')
 				action = 'delete_gif';
-			} else if (state == 'ignored') {
+			else if (state == 'ignored')
 				action = 'change_report_status';
-			} else action = 'change_gif_status';
+			else
+				action = 'change_gif_status';
 
 			$.ajax({
 				url : '{{ path('adminApi') }}',
@@ -93,20 +108,20 @@
 					new_gif_state : state,
 					api_key : '{{ admin_api_key }}'
 				},
-				success: function (data) {
-					console.log(data);
-					domElement.parent().parent().parent().parent().remove();
+				success: function () {
+					gifContainer.remove();
 				},
-				error: function(data){
-					console.log(data);
+				error: function(){
+					alert('Action failed');
 				}
 			});
 		});
 
 		// Download gif on server
 		$('.downloadGif').click(function() {
-			var domElement = $(this);
-			var gifId = domElement.attr('data-gifid');
+			var domElement = $(this),
+				gifContainer = domElement.closest('.gifs-validation-item'),
+				gifId = gifContainer.attr('data-gifid');
 
 			$.ajax({
 				url : '{{ path('adminApi') }}',

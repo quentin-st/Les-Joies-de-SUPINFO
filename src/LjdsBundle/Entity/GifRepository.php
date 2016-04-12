@@ -14,19 +14,22 @@ class GifRepository extends EntityRepository
 {
     public function findByGifState($gifState)
     {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $query = $qb->select('g')
-            ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . $gifState)
-            ->orderBy('g.publishDate', 'DESC')
-            ->addOrderBy('g.submissionDate', 'ASC')
-            ->getQuery();
-
+        $query = $this->findByGifState_queryBuilder($gifState)->getQuery();
         $query->execute();
         return $query->getResult();
     }
 
-    public function getReportedGifs($ignored = false)
+    public function findByGifState_queryBuilder($gifState)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        return $qb->select('g')
+            ->from('LjdsBundle\Entity\Gif', 'g')
+            ->where('g.gifStatus = ' . $gifState)
+            ->orderBy('g.publishDate', 'DESC')
+            ->addOrderBy('g.submissionDate', 'ASC');
+    }
+
+    public function getReportedGifs_queryBuilder($ignored = false)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('g')
@@ -37,9 +40,7 @@ class GifRepository extends EntityRepository
         else
             $qb->where('g.reportStatus = 1');
 
-        $query = $qb->getQuery();
-        $query->execute();
-        return $query->getResult();
+        return $qb;
     }
 
     public function findBySubmitter($submitter)
@@ -111,49 +112,49 @@ class GifRepository extends EntityRepository
      * Get the DateTime of the upcoming publication
      * @return bool|\DateTime false if none
      */
-	public function getUpcomingPublication()
-	{
-		// First, check if there is something to post
-		$acceptedGifs = $this->findByGifState(GifState::ACCEPTED);
+    public function getUpcomingPublication()
+    {
+        // First, check if there is something to post
+        $acceptedGifs = $this->findByGifState(GifState::ACCEPTED);
 
-		if (count($acceptedGifs) == 0)
-			return false;
+        if (count($acceptedGifs) == 0)
+            return false;
 
-		// Build a list of DateTime : publications for the upcoming 7 days
-		/** @var \DateTime[] $publications */
-		$publications = [];
-		foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $weekDay) {
-			foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_DAYS) as $hour)
-				$publications[] = new \DateTime('this ' . $weekDay . ' ' . $hour);
-		}
-		foreach (['saturday', 'sunday'] as $weekEndDay) {
+        // Build a list of DateTime : publications for the upcoming 7 days
+        /** @var \DateTime[] $publications */
+        $publications = [];
+        foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $weekDay) {
+            foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_DAYS) as $hour)
+                $publications[] = new \DateTime('this ' . $weekDay . ' ' . $hour);
+        }
+        foreach (['saturday', 'sunday'] as $weekEndDay) {
             foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_END) as $hour)
                 $publications[] = new \DateTime('this ' . $weekEndDay . ' ' . $hour);
-		}
+        }
 
-		// Sort this array
-		usort($publications, function($a, $b) {
-			return $a < $b ? -1 : 1;
-		});
+        // Sort this array
+        usort($publications, function($a, $b) {
+            return $a < $b ? -1 : 1;
+        });
 
-		$now = new \DateTime();
+        $now = new \DateTime();
 
-		// Browse this array, and find the first upcoming date
-		$upcomingPublication = null;
-		foreach ($publications as $publication) {
-			if ($publication > $now) {
-				$upcomingPublication = $publication;
-				break;
-			}
-		}
+        // Browse this array, and find the first upcoming date
+        $upcomingPublication = null;
+        foreach ($publications as $publication) {
+            if ($publication > $now) {
+                $upcomingPublication = $publication;
+                break;
+            }
+        }
 
-		if ($upcomingPublication === null) {
-			// This shouldn't happen...
-			return false;
-		}
+        if ($upcomingPublication === null) {
+            // This shouldn't happen...
+            return false;
+        }
 
-		return $upcomingPublication;
-	}
+        return $upcomingPublication;
+    }
 
     /**
      * Returns when the recently submitted gif will be published

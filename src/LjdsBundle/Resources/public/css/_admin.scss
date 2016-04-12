@@ -1,5 +1,18 @@
 .adminTabs {
-	margin: 5px 10px;
+	text-align: center;
+	margin: 15px 0;
+
+	a {
+		@include opacity(0.5);
+		@include transition-duration(150ms);
+
+		&:hover {
+			@include opacity(0.6);
+		}
+		&.active {
+			@include opacity(1);
+		}
+	}
 }
 
 .gifs-validation {
@@ -14,5 +27,16 @@
 	img, video {
 		border-radius: 2px;
 		max-width: 100%;
+	}
+
+	.no-gif {
+		margin: 60px 0;
+		text-align: center;
+		color: #888;
+		font-size: 22px;
+
+		i.mdi {
+			font-size: 60px;
+		}
 	}
 }

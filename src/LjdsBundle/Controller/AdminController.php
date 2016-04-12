@@ -9,6 +9,7 @@ use LjdsBundle\Entity\ReportState;
 use LjdsBundle\Service\GifDownloaderService;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,8 +17,73 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdminController extends Controller
 {
+	const GIFS_PER_PAGE = 9;
+
+	private function getQueryBuilderByType($type)
+	{
+		$em = $this->getDoctrine()->getManager();
+		/** @var GifRepository $gifRepo */
+		$gifRepo = $em->getRepository('LjdsBundle:Gif');
+
+		switch ($type) {
+			case 'submitted':
+			case 'accepted':
+			case 'refused':
+			case 'published':
+				$gifState = GifState::fromName($type);
+				return $gifRepo->findByGifState_queryBuilder($gifState);
+				break;
+			case 'reported':
+				return $gifRepo->getReportedGifs_queryBuilder();
+				break;
+			default:
+				throw new NotFoundHttpException();
+				break;
+		}
+	}
+
+	/**
+	 * @Route("/admin/{type}/{page}", name="admin")
+	 * @Route("/admin/")
+	 */
+	public function adminAction($type='submitted', $page=1)
+	{
+		$queryBuilder = self::getQueryBuilderByType($type);
+
+		// Prepare counts
+		$counts = [];
+		foreach (GifState::getAll() as $gifType) {
+			$query = $this->getQueryBuilderByType($gifType)->getQuery();
+			$query->execute();
+
+			$counts[$gifType] = count($query->getResult());
+		}
+
+		// Prepare pagination
+		$page = intval($page);
+		$paginator = $this->get('knp_paginator');
+		$pagination = $paginator->paginate(
+			$queryBuilder->getQuery(),
+			$page,
+			self::GIFS_PER_PAGE
+		);
+		$pagination->setUsedRoute('admin');
+
+		$params = [
+			'gifs' => $pagination,
+			'page' => $page,
+			'type' => $type,
+			'typeLabel' => GifState::getLabel($type),
+			'counts' => $counts,
+			'admin_api_key' => $this->getParameter('admin_api_key')
+		];
+
+		return $this->render('LjdsBundle:Admin:index.html.twig', $params);
+	}
+
 	/**
 	 * @Route("/admin/api", name="adminApi")
+	 * @Method({"POST"})
 	 */
 	public function adminApiAction(Request $request)
 	{
@@ -169,40 +235,4 @@ class AdminController extends Controller
 			'error' => $error
 		], 500);
 	}
-
-
-    /**
-	 * @Route("/admin/{type}", name="admin")
-     * @Route("/admin/")
-     */
-    public function adminAction($type='submitted')
-    {
-		$em = $this->getDoctrine()->getManager();
-		/** @var GifRepository $gifRepo */
-		$gifRepo = $em->getRepository('LjdsBundle:Gif');
-
-		switch ($type) {
-			case 'submitted':
-			case 'accepted':
-			case 'refused':
-			case 'published':
-				$gifState = GifState::fromName($type);
-				$gifs = $gifRepo->findByGifState($gifState);
-				break;
-			case 'reported':
-				$gifs = $gifRepo->getReportedGifs();
-				break;
-			default:
-				throw new NotFoundHttpException();
-				break;
-		}
-
-        $params = [
-			'gifs' => $gifs,
-			'type' => $type,
-            'admin_api_key' => $this->getParameter('admin_api_key')
-        ];
-
-        return $this->render('LjdsBundle:Admin:index.html.twig', $params);
-    }
 }
