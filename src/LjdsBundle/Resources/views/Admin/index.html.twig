@@ -3,12 +3,22 @@
 {% block content %}
 	<div class="fullWidth">
 		<div class="adminTabs">
-			<ul class="nav nav-pills">
-				<li class="mSubmitted {% if type == 'submitted' %}active{% endif %}"><a href="{{ path('admin', {'type': 'submitted'}) }}">A modérer</a></li>
-				<li class="mAccepted {% if type == 'accepted' %}active{% endif %}"><a href="{{ path('admin', {'type': 'accepted'}) }}">Acceptés</a></li>
-				<li class="mRefused {% if type == 'refused' %}active{% endif %}"><a href="{{ path('admin', {'type': 'refused'}) }}">Refusés</a></li>
-				<li class="mReported {% if type == 'reported' %}active{% endif %}"><a href="{{ path('admin', {'type': 'reported'}) }}">Signalés</a></li>
-				<li class="mPublished {% if type == 'published' %}active{% endif %}"><a href="{{ path('admin', {'type': 'published'}) }}">Publiés</a></li>
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="mSubmitted {% if type == 'submitted' %}active{% endif %}">
+					<a href="{{ path('admin', {'type': 'submitted'}) }}"><i class="mdi mdi-clock"></i> En attente</a>
+				</li>
+				<li class="mAccepted {% if type == 'accepted' %}active{% endif %}">
+					<a href="{{ path('admin', {'type': 'accepted'}) }}"><i class="mdi mdi-check"></i> Acceptés</a>
+				</li>
+				<li class="mRefused {% if type == 'refused' %}active{% endif %}">
+					<a href="{{ path('admin', {'type': 'refused'}) }}"><i class="mdi mdi-close-circle"></i> Refusés</a>
+				</li>
+				<li class="mReported {% if type == 'reported' %}active{% endif %}">
+					<a href="{{ path('admin', {'type': 'reported'}) }}"><i class="mdi mdi-alert-octagon"></i> Signalés</a>
+				</li>
+				<li class="mPublished {% if type == 'published' %}active{% endif %}">
+					<a href="{{ path('admin', {'type': 'published'}) }}"><i class="mdi mdi-check-all"></i> Publiés</a>
+				</li>
 			</ul>
 		</div>
 
@@ -24,7 +34,7 @@
 
 							{% if gif.originalGifUrl is null %}
 								<p class="pull-right">
-									<button type="button" class="btn btn-default btn-xs">
+									<button type="button" class="btn btn-success btn-xs">
 										<i class="mdi mdi-download downloadGif" data-gifid="{{ gif.id }}"></i>
 									</button>
 								</p>
