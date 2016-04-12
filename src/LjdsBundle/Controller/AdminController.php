@@ -43,45 +43,6 @@ class AdminController extends Controller
 	}
 
 	/**
-	 * @Route("/admin/{type}/{page}", name="admin")
-	 * @Route("/admin/")
-	 */
-	public function adminAction($type='submitted', $page=1)
-	{
-		$queryBuilder = self::getQueryBuilderByType($type);
-
-		// Prepare counts
-		$counts = [];
-		foreach (GifState::getAll() as $gifType) {
-			$query = $this->getQueryBuilderByType($gifType)->getQuery();
-			$query->execute();
-
-			$counts[$gifType] = count($query->getResult());
-		}
-
-		// Prepare pagination
-		$page = intval($page);
-		$paginator = $this->get('knp_paginator');
-		$pagination = $paginator->paginate(
-			$queryBuilder->getQuery(),
-			$page,
-			self::GIFS_PER_PAGE
-		);
-		$pagination->setUsedRoute('admin');
-
-		$params = [
-			'gifs' => $pagination,
-			'page' => $page,
-			'type' => $type,
-			'typeLabel' => GifState::getLabel($type),
-			'counts' => $counts,
-			'admin_api_key' => $this->getParameter('admin_api_key')
-		];
-
-		return $this->render('LjdsBundle:Admin:index.html.twig', $params);
-	}
-
-	/**
 	 * @Route("/admin/api", name="adminApi")
 	 * @Method({"POST"})
 	 */
@@ -234,5 +195,44 @@ class AdminController extends Controller
 			'success' => false,
 			'error' => $error
 		], 500);
+	}
+
+	/**
+	 * @Route("/admin/{type}/{page}", name="admin")
+	 * @Route("/admin/")
+	 */
+	public function adminAction($type='submitted', $page=1)
+	{
+		$queryBuilder = self::getQueryBuilderByType($type);
+
+		// Prepare counts
+		$counts = [];
+		foreach (GifState::getAll() as $gifType) {
+			$query = $this->getQueryBuilderByType($gifType)->getQuery();
+			$query->execute();
+
+			$counts[$gifType] = count($query->getResult());
+		}
+
+		// Prepare pagination
+		$page = intval($page);
+		$paginator = $this->get('knp_paginator');
+		$pagination = $paginator->paginate(
+			$queryBuilder->getQuery(),
+			$page,
+			self::GIFS_PER_PAGE
+		);
+		$pagination->setUsedRoute('admin');
+
+		$params = [
+			'gifs' => $pagination,
+			'page' => $page,
+			'type' => $type,
+			'typeLabel' => GifState::getLabel($type),
+			'counts' => $counts,
+			'admin_api_key' => $this->getParameter('admin_api_key')
+		];
+
+		return $this->render('LjdsBundle:Admin:index.html.twig', $params);
 	}
 }
