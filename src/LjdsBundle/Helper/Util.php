@@ -70,6 +70,8 @@ class Util {
 		$url = str_replace('//', '/', $url);
 		// Put back http:// (it has become http:/)
 		$url = str_replace('http:/', 'http://', $url);
+		// Same for https://
+		$url = str_replace('https:/', 'https://', $url);;
 		return $url;
 	}
 }
