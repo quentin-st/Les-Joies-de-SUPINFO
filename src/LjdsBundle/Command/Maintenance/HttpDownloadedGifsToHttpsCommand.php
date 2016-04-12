@@ -36,10 +36,13 @@ class HttpDownloadedGifsToHttpsCommand extends ContainerAwareCommand
 				$httpsDomain = $domain;
 			else {
 				$isHttp = preg_match('/' . self::REGEX_HTTP . '/', $domain);
-				$httpDomains[] = $domain;
 
-				if (!$isHttp)
-					$io->error('Unable to identify domain scheme for ' . $domain . ', assuming http.');
+				if (!$isHttp) {
+					$io->warning('Unable to identify domain scheme for ' . $domain . ', assuming http.');
+					$domain = 'http://' . $domain;
+				}
+
+				$httpDomains[] = $domain;
 			}
 		}
 
