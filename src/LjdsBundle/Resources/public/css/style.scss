@@ -100,11 +100,11 @@ hr {
 
 		> .active {
 			> span, > a {
-				color: $primary-color;
+				background-color: $primary-color;
 				@extend .elevation-low;
 
 				&:hover, &:focus {
-					color: $dark-primary-color;
+					background-color: $dark-primary-color;
 					@extend .elevation-medium;
 				}
 			}
