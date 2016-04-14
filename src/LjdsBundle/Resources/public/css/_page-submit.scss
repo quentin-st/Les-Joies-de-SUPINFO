@@ -140,7 +140,7 @@
 						@include opacity(0.5);
 					}
 					img.selected {
-						@extend .elevation-middle;
+						@extend .elevation-medium;
 						margin-top: -1px;
 						margin-bottom: 1px;
 					}
