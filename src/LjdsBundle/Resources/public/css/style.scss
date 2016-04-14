@@ -107,6 +107,9 @@ hr {
 					background-color: $dark-primary-color;
 					@extend .elevation-medium;
 				}
+				&, &:hover, &:focus {
+					color: #ffffff;
+				}
 			}
 		}
 	}
