@@ -57,7 +57,59 @@ hr {
 
 /* Pagination */
 .pagination-wrap {
+	$border-radius: 16px;
 	text-align: center;
+
+	.pagination {
+		> li {
+			> a, > span {
+				padding: 5px 11px;
+				margin: 0 1px;
+				border: 0;
+				@include transition-duration(150ms);
+				@include border-radius($border-radius);
+
+				&, &:hover, &:focus {
+					color: #999999;
+				}
+			}
+
+			&:first-child {
+				> a, > span {
+					border-bottom-left-radius: $border-radius;
+					border-top-left-radius: $border-radius;
+				}
+			}
+			&:last-child {
+				> a, > span {
+					border-bottom-right-radius: $border-radius;
+					border-top-right-radius: $border-radius;
+				}
+			}
+		}
+
+		> .disabled {
+			@include opacity(0.7);
+
+			> span, > a {
+				&, &:hover, &:focus {
+					cursor: default;
+				}
+			}
+		}
+
+		> .active {
+			> span, > a {
+				color: $primary-color;
+				@extend .elevation-low;
+
+				&:hover, &:focus {
+					color: $dark-primary-color;
+					@extend .elevation-medium;
+				}
+			}
+		}
+	}
 }
 
 .topSubmitters {
