@@ -20,7 +20,7 @@ class SubmittersController extends Controller
     }
 
     /**
-     * @Route("/submitter/{submitter}", name="submitter")
+     * @Route("/submitter/{submitter}", name="submitter", options={"sitemap"=true})
      */
     public function submitterGifsAction($submitter)
     {
@@ -37,7 +37,7 @@ class SubmittersController extends Controller
         if (count($gifs) == 0)
             throw new NotFoundHttpException();
 
-        // Compute stats
+        // Fetch likes counts
         $likesCount = $this->get('app.facebook_likes')->getLikesCountForSubmitter($submitter);
 
         return $this->render('LjdsBundle:Submitters:submitter.html.twig', [
