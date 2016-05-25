@@ -28,6 +28,9 @@ class SubmittersController extends Controller
         /** @var GifRepository $gifRepo */
         $gifRepo = $em->getRepository('LjdsBundle:Gif');
 
+        if (strlen($submitter) == 0)
+            throw new NotFoundHttpException();
+
         $gifs = $gifRepo->findBySubmitter($submitter);
 
         // Don't serve pages for unknown persons
