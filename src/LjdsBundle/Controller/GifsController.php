@@ -83,9 +83,6 @@ class GifsController extends Controller
 	{
 		$gifs = $this->get('app.facebook_likes')->getTop();
 
-		// Fetch likes count for those gifs
-		$this->get('app.facebook_likes')->fetchLikes($gifs);
-
 		return $this->render('LjdsBundle:Gifs:gifsList.html.twig', [
 			'gifs' => $gifs,
 			'pagination' => false
