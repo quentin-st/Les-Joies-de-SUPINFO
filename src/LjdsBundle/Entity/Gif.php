@@ -114,7 +114,7 @@ class Gif
 
 
     /**
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -132,7 +132,7 @@ class Gif
     }
 
     /**
-     * @return string 
+     * @return string
      */
     public function getCaption()
     {
@@ -150,7 +150,7 @@ class Gif
     }
 
     /**
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getSubmissionDate()
     {
@@ -168,7 +168,7 @@ class Gif
     }
 
     /**
-     * @return string 
+     * @return string
      */
     public function getSubmittedBy()
     {
@@ -186,7 +186,7 @@ class Gif
     }
 
     /**
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getPublishDate()
     {
@@ -204,7 +204,7 @@ class Gif
     }
 
     /**
-     * @return integer 
+     * @return integer
      */
     public function getGifStatus()
     {
@@ -222,7 +222,7 @@ class Gif
     }
 
     /**
-     * @return integer 
+     * @return integer
      */
     public function getReportStatus()
     {
@@ -276,7 +276,7 @@ class Gif
     }
 
     /**
-     * @return string 
+     * @return string
      */
     public function getPermalink()
     {
@@ -294,7 +294,7 @@ class Gif
     }
 
     /**
-     * @return string 
+     * @return string
      */
     public function getSource()
     {
@@ -398,16 +398,22 @@ class Gif
      */
     public function getCacheLifeTime()
     {
-        $days = (new \DateTime())->diff($this->publishDate)->days;
+        $diff = (new \DateTime())->diff($this->publishDate);
+        $days = ($diff->days * 24) + $diff->h;
 
-        if ($days < 1)
-            return 30;
-        else if ($days < 2)
-            return 60;
-        else if ($days < 7)
-            return 120;
-        else
-            return 600;
+        if ($days > 7)
+            return 60*30;   // More than 7 days: 30 minutes
+        else if ($days > 2)
+            return 60*20;   // Between 2 and 7 days: 20 minutes
+
+        $hours = ($diff->days * 24) + $diff->h;
+
+        if ($hours > 6)
+            return 60*10;   // Between 6 hours and 2 days: 10 minutes
+        else if ($hours > 1)
+            return 60*5;    // Between 1 and 6 hours: 5 minutes
+
+        return 60*2;        // Between 0 and 1 hour: 2 minutes
     }
 
     public function toJson(Router $router)
