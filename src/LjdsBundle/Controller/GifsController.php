@@ -24,7 +24,7 @@ class GifsController extends Controller
 	 * @Route("/", name="index", options={"sitemap"=true})
 	 * @Route("/page/{page}", name="page")
 	 */
-	public function pageAction($page=1, Request $request)
+	public function pageAction($page=1, Request $request, $_route)
 	{
 		/** @var EntityManager $em */
 		$em = $this->getDoctrine()->getManager();
@@ -39,6 +39,10 @@ class GifsController extends Controller
 		// Pagination
 		$page = intval($page);
 		$gifsPerPage = intval($this->getParameter('gifs_per_page'));
+
+        // Redirect /page to /
+        if ($page == 1 && $_route == 'page')
+            return $this->redirectToRoute('index');
 
 		$paginator = $this->get('knp_paginator');
 		$pagination = $paginator->paginate(

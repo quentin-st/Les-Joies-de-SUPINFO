@@ -24,7 +24,7 @@ class SubmittersController extends Controller
      * @Route("/submitter/{submitter}", name="submitter", options={"sitemap"=true})
      * @Route("/submitter/{submitter}/page/{page}", name="submitter_page")
      */
-    public function submitterGifsAction($submitter, $page=1)
+    public function submitterGifsAction($submitter, $page=1, $_route)
     {
         $em = $this->getDoctrine()->getManager();
         /** @var GifRepository $gifRepo */
@@ -48,6 +48,10 @@ class SubmittersController extends Controller
         // Pagination
         $page = intval($page);
         $gifsPerPage = intval($this->getParameter('gifs_per_page'));
+
+        // Redirect /submitter/{submitter}/page to /submitter/{submitter}
+        if ($page == 1 && $_route == 'submitter_page')
+            return $this->redirectToRoute('submitter', ['submitter' => $submitter]);
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
