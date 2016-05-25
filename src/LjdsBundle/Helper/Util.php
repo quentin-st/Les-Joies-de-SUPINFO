@@ -1,6 +1,8 @@
 <?php
 namespace LjdsBundle\Helper;
 
+use Knp\Component\Pager\Pagination\PaginationInterface;
+
 class Util {
     public static function startsWith($haystack, $needle) {
         // search backwards starting from haystack length characters from the end
@@ -74,4 +76,16 @@ class Util {
 		$url = str_replace('https:/', 'https://', $url);;
 		return $url;
 	}
+
+    /**
+     * @param PaginationInterface $pagination
+     * @return int
+     */
+    public static function getPaginationTotalCount($pagination)
+    {
+        $ref = new \ReflectionClass(get_class($pagination));
+        $totalCountAttr = $ref->getProperty('totalCount');
+        $totalCountAttr->setAccessible(true);
+        return $totalCountAttr->getValue($pagination);
+    }
 }

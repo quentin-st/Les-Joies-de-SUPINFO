@@ -26,5 +26,10 @@
             {% include 'LjdsBundle:Gifs:gif.html.twig' with {'gif': gif} %}
             {% if not loop.last %}<hr />{% endif %}
         {% endfor %}
+
+        {# Pagination #}
+        <div class="pagination-wrap">
+            {{ knp_pagination_render(gifs) }}
+        </div>
     </div>
 {% endblock %}

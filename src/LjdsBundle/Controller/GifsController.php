@@ -7,6 +7,7 @@ use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
 use LjdsBundle\Entity\ReportState;
+use LjdsBundle\Helper\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -47,20 +48,16 @@ class GifsController extends Controller
 		);
 		$pagination->setUsedRoute('page');
 
-
 		// Redirect when trying to hit wrong page
-		$ref = new \ReflectionClass(get_class($pagination));
-		$totalCountAttr = $ref->getProperty('totalCount');
-		$totalCountAttr->setAccessible(true);
-		$totalCount = $totalCountAttr->getValue($pagination);
+		$totalCount = Util::getPaginationTotalCount($pagination);
 		$pagesCount = ceil($totalCount/$gifsPerPage);
 
 		if ($pagesCount == 0)
 			throw new NotFoundHttpException();
 		else if ($page < 1)
-			return $this->redirect($this->generateUrl('page', ['page' => 1]));
+			return $this->redirectToRoute('page', ['page' => 1]);
 		else if ($page > $pagesCount)
-			return $this->redirect($this->generateUrl('page', ['page' => $pagesCount]));
+			return $this->redirectToRoute('page', ['page' => $pagesCount]);
 
 
 		// Fetch likes count for those gifs

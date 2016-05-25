@@ -43,16 +43,20 @@ class GifRepository extends EntityRepository
         return $qb;
     }
 
-    public function findBySubmitter($submitter)
+    public function findBySubmitter_queryBuilder($submitter)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('g')
+        return $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g')
             ->where('g.gifStatus = ' . GifState::PUBLISHED)
             ->andWhere('g.submittedBy = :submittedBy')
             ->setParameter('submittedBy', $submitter)
             ->orderBy('g.publishDate', 'DESC');
+    }
 
+    public function findBySubmitter($submitter)
+    {
+        $qb = $this->findBySubmitter_queryBuilder($submitter);
         $query = $qb->getQuery();
         $query->execute();
         return $query->getResult();
