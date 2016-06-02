@@ -1,6 +1,6 @@
 .footer {
 	font-weight: 300;
-	@include opacity(0.5);
+	@include opacity(0.6);
 	@include transition-duration(200ms);
 
 	&:hover { @include opacity(0.75); }
@@ -14,12 +14,28 @@
 		padding-left: 0;
 		margin-bottom: 0;
 		list-style: none;
+
+        li a {
+            font-size: 13px;
+        }
 	}
+
 	.copyright {
+        cursor: default;
 		text-align: center;
-		font-size: 9px;
-		@include opacity(0.5);
+		font-size: 10px;
 		margin-top: 20px;
+        font-family: monospace;
+		@include opacity(0.8);
+        @include transition-duration(300ms);
+
+        .first-row {
+            font-size: 12px;
+        }
+
+        &:hover {
+            @include opacity(1);
+        }
 	}
 
 	.facebook-widget {
