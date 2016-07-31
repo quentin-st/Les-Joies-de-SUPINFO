@@ -21,7 +21,7 @@ class SubmittersController extends Controller
     }
 
     /**
-     * @Route("/submitter/{submitter}", name="submitter", options={"sitemap"=true})
+     * @Route("/submitter/{submitter}", name="submitter")
      * @Route("/submitter/{submitter}/page/{page}", name="submitter_page")
      */
     public function submitterGifsAction($submitter, $page=1, $_route)
