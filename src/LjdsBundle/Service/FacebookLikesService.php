@@ -4,6 +4,9 @@ namespace LjdsBundle\Service;
 
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\EntityManager;
+use Facebook\Exceptions\FacebookSDKException;
+use Facebook\Facebook;
+use Facebook\FacebookResponse;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
@@ -22,15 +25,24 @@ class FacebookLikesService
 	/** @var Cache */
 	private $cache;
 
+    private $facebookAppId;
+    private $facebookAppSecret;
+    private $facebookAccessToken;
+
 	const MAX_URLS_PER_API_CALL = 30;
 
 
-	public function __construct(array $domains, Router $router, EntityManager $em, Cache $memcached)
+	public function __construct(array $domains, Router $router, EntityManager $em, Cache $memcached,
+                                $facebookAppId, $facebookAppSecret, $facebookAccessToken)
 	{
 		$this->domains = $domains;
 		$this->router = $router;
 		$this->em = $em;
 		$this->cache = $memcached;
+
+        $this->facebookAppId = $facebookAppId;
+        $this->facebookAppSecret = $facebookAppSecret;
+        $this->facebookAccessToken = $facebookAccessToken;
 	}
 
 
@@ -203,31 +215,44 @@ class FacebookLikesService
 	 */
 	public function getLikesFromFacebookAPI(array $urls)
 	{
-	    // TODO REST API is deprecated for versions v2.1 and higher (12)
-	    $likes = [];
+	    $fb = new Facebook([
+	        'app_id' => $this->facebookAppId,
+            'app_secret' => $this->facebookAppSecret,
+            'default_graph_version' => 'v2.7'
+        ]);
 
+        // Generate Facebook graph requests
+        $batch = [];
         foreach ($urls as $url => $gif)
-            $likes[$url] = 0;
+        {
+            $batch[] = $fb->request('GET', '/', [
+                'id' => $url,
+                'fields' => 'og_object{engagement{count}}'
+            ]);
+        }
 
-        return $likes;
+        // Execute requests
+        try {
+            $responses = $fb->sendBatchRequest($batch, $this->facebookAccessToken);
+        } catch (FacebookSDKException $e) {
+            //var_dump($e->getMessage());
+            return null;
+        }
 
-		$urlsList = urlencode(implode(',', array_keys($urls)));
-		$apiUrl = 'http://api.facebook.com/restserver.php?method=links.getStats&urls=' . $urlsList . '&format=json';
-		$result = file_get_contents($apiUrl);
+        // Create likes array (url => likesCount)
+        $likes = [];
 
-		// Read API call result
-		$json = json_decode($result, true);
+        /** @var FacebookResponse $response */
+        foreach ($responses as $key => $response) {
+            if (!$response->isError()) {
+                $graph = $response->getGraphNode();
 
-		// Create likes array (url => likesCount)
-		$likes = [];
+                $url = $graph->getField('id');
+                $count = $graph->getField('og_object')->getField('engagement')->getProperty('count');
 
-		foreach ($json as $item)
-		{
-			$url = $item['url'];
-			$likesCount = intval($item['total_count']);
-
-			$likes[$url] = $likesCount;
-		}
+                $likes[$url] = $count;
+            }
+        }
 
 		return $likes;
 	}
