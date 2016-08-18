@@ -203,6 +203,14 @@ class FacebookLikesService
 	 */
 	public function getLikesFromFacebookAPI(array $urls)
 	{
+	    // TODO REST API is deprecated for versions v2.1 and higher (12)
+	    $likes = [];
+
+        foreach ($urls as $url => $gif)
+            $likes[$url] = 0;
+
+        return $likes;
+
 		$urlsList = urlencode(implode(',', array_keys($urls)));
 		$apiUrl = 'http://api.facebook.com/restserver.php?method=links.getStats&urls=' . $urlsList . '&format=json';
 		$result = file_get_contents($apiUrl);
