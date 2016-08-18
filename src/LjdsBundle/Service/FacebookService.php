@@ -1,9 +1,8 @@
 <?php
 namespace LjdsBundle\Service;
 
-use Facebook\FacebookRequest;
-use Facebook\FacebookRequestException;
-use Facebook\FacebookSession;
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Facebook;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Helper\Util;
 use Symfony\Component\DependencyInjection\Container;
@@ -29,28 +28,17 @@ class FacebookService
 		$appSecret = $this->container->getParameter('facebook_app_secret');
 		$accessToken = $this->container->getParameter('facebook_access_token');
 
-		FacebookSession::setDefaultApplication($appId, $appSecret);
-
-		// Open Facebook SDK session
-		$session = FacebookSession::newAppSession();
-		// To validate the session:
-		try {
-			$session->validate();
-		} catch (FacebookRequestException $ex) {
-			// Session not valid, Graph API returned an exception with the reason.
-			//echo $ex->getMessage();
-			return false;
-		} catch (\Exception $ex) {
-			// Graph API returned info, but it may mismatch the current app or have expired.
-			//echo $ex->getMessage();
-			return false;
-		}
+        $fb = new Facebook([
+            'app_id' => $appId,
+            'app_secret' => $appSecret,
+            'default_graph_version' => 'v2.7'
+        ]);
 
 		$link = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL);
 		$link = Util::fixSymfonyGeneratedURLs($link);
 
 		try {
-			$requestParaps = [
+			$requestParams = [
 				'access_token' => $accessToken,
 				'link' => $link,
 				'message' => $gif->getCaption()
@@ -58,13 +46,13 @@ class FacebookService
 
 			// Only provide picture if this is a gif
 			if ($gif->getFileType() == 'gif')
-				$requestParaps['picture'] = $gif->getGifUrl();
+                $requestParams['picture'] = $gif->getGifUrl();
 
-			$facebookRequest = new FacebookRequest($session, 'POST', '/joiesDeSupinfo/feed', $requestParaps);
+            $request = $fb->post('/joiesDeSupinfo/feed', $requestParams, $accessToken);
 
-			/*$response = */$facebookRequest->execute()->getGraphObject();
+			/*$response = */$request->getGraphNode();
 			//echo "Posted with id: " . $response->getProperty('id');
-		} catch(FacebookRequestException $e) {
+		} catch(FacebookResponseException $e) {
 			//echo "Exception occured, code: " . $e->getCode();
 			//echo " with message: " . $e->getMessage();
 			return false;
