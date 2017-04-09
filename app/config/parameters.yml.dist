@@ -33,7 +33,6 @@ parameters:
     admin_api_key: null
 
     analytics_tracking_code: null
-    piwik_u: null
 
     facebook_autopost: false
     facebook_app_id: null
