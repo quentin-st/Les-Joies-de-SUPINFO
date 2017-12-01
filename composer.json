@@ -11,7 +11,7 @@
         ]
     },
     "require": {
-        "php": ">=5.3.9",
+        "php": ">=7.1",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/dbal": "2.5.2",
