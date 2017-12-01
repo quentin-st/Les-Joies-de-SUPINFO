@@ -1,171 +1,173 @@
 .gifItem {
-	margin-top: 30px;
-	margin-bottom: 30px;
-	font-family: Roboto, sans-serif;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: Roboto, sans-serif;
 
-	.likesCount {
-		display: block;
-		width: 40px;
-		height: 40px;
-		margin: 6px 0 0 auto;
-		background-color: #2196F3;
-		color: #fff;
-		font-weight: 400;
-		text-align: center;
-		cursor: default;
-		@include border-radius(50%);
-		@include transition-duration(150ms);
-		@include opacity(0.7);
+    .likesCount {
+        display: block;
+        width: 40px;
+        height: 40px;
+        margin: 6px 0 0 auto;
+        background-color: #2196F3;
+        color: #fff;
+        font-weight: 400;
+        text-align: center;
+        cursor: default;
+        @include border-radius(50%);
+        @include transition-duration(150ms);
+        @include opacity(0.7);
 
-		.count {
-			display: block;
-			font-size: 19px;
-		}
-		.likes {
-			display: block;
-			font-size: 9px;
-			text-transform: uppercase;
-			margin-top: -4px;
-		}
+        .count {
+            display: block;
+            font-size: 19px;
+        }
+        .likes {
+            display: block;
+            font-size: 9px;
+            text-transform: uppercase;
+            margin-top: -4px;
+        }
 
-		&:hover, &:active {
-			text-decoration: none;
-		}
+        &:hover, &:active {
+            text-decoration: none;
+        }
 
-		&.likesDiffInfo {
-			cursor: help;
-		}
-	}
-	&:hover .likesCount {
-		@include box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.3));
-		@include opacity(1);
-	}
+        &.likesDiffInfo {
+            cursor: help;
+        }
+    }
+    &:hover .likesCount {
+        @include box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.3));
+        @include opacity(1);
+    }
 
-	a.caption {
-		color: #333;
-		font-size: 20px;
-		@include transition-duration(150ms);
+    a.caption {
+        color: #333;
+        font-size: 20px;
+        @include transition-duration(150ms);
 
-		&:hover {
-			color: #0087F7;
-			text-decoration: none;
-		}
-	}
+        &:hover {
+            color: #0087F7;
+            text-decoration: none;
+        }
+    }
 
-	.overflow-actions {
-		@include opacity(0);
-		@include transition-duration(150ms);
-		float: right;
-		font-size: 17px;
-		color: #666;
+    .overflow-actions {
+        @include opacity(0);
+        @include transition-duration(150ms);
+        float: right;
+        font-size: 17px;
+        color: #666;
 
-		&.force-visible {
-			@extend .button.no-elevation:active;
-			@include opacity(1);
-		}
-	}
-	&:hover .overflow-actions {
-		@include opacity(1);
-	}
+        &.force-visible {
+            @extend .button.no-elevation:active;
+            @include opacity(1);
+        }
+    }
+    &:hover .overflow-actions {
+        @include opacity(1);
+    }
 
-	.metas {
-		color: #777;
-		font-size: 13px;
-		@include opacity(0.8);
-		margin-bottom: 15px;
-		letter-spacing: -0.5px;
+    .metas {
+        color: #777;
+        font-size: 13px;
+        @include opacity(0.8);
+        margin-bottom: 15px;
+        letter-spacing: -0.5px;
 
-		.separator {
-			display: inline-block;
-			margin: 0 2px;
-			font-size: 10px;
-			vertical-align: middle;
-			color: #aaa;
-		}
+        .separator {
+            display: inline-block;
+            margin: 0 2px;
+            font-size: 10px;
+            vertical-align: middle;
+            color: #aaa;
+        }
 
-		.gif-label {
-			display: inline-block;
-			background-color: #777;
-			padding: 0 3px;
-			color: #fff;
-			@include border-radius(2px);
-		}
-	}
+        .gif-label {
+            display: inline-block;
+            background-color: #777;
+            padding: 0 3px;
+            color: #fff;
+            @include border-radius(2px);
+        }
+    }
 
-	.socialButtons {
-		text-align: right;
-		@include opacity(0.2);
-		@include transition-duration(150ms);
+    .socialButtons {
+        text-align: right;
+        @include opacity(0.2);
+        @include transition-duration(150ms);
 
-		> * {
-			display: block;
-			margin: 5px 0 5px auto;
-		}
-	}
-	&:hover .socialButtons {
-		@include opacity(1);
-	}
+        > * {
+            display: block;
+            margin: 5px 0 5px auto;
+        }
+    }
+    &:hover .socialButtons {
+        @include opacity(1);
+    }
 
-	img, video {
-		@include border-radius(2px);
-		min-width: 360px;
-		max-width: 100%;
-		max-height: 100%;
-	}
+    img, video {
+        @include border-radius(2px);
+        min-width: 360px;
+        max-width: 100%;
+        max-height: 100%;
+    }
 }
 
 // Responsive part
 @media (max-width: 480px) {
-	.gifItem {
-		margin: 30px -20px;
+    .gifItem {
+        margin: 30px -20px;
 
-		.likesCount-wrap { display: none; }
-		.socialButtons {
-			@include opacity(1);
-			text-align: left;
-			float: none!important;
-			margin-top: 0!important;
+        .likesCount-wrap {
+            display: none;
+        }
+        .socialButtons {
+            @include opacity(1);
+            text-align: left;
+            float: none !important;
+            margin-top: 0 !important;
 
-			> * {
-				margin: 5px 0;
-			}
-		}
+            > * {
+                margin: 5px 0;
+            }
+        }
 
-		.overflow-actions {
-			display: none;
-		}
+        .overflow-actions {
+            display: none;
+        }
 
-		img, video {
-			min-width: 0;
-			max-width: 100%;
-		}
-	}
+        img, video {
+            min-width: 0;
+            max-width: 100%;
+        }
+    }
 }
 
 @media (min-width: 480px) and (max-width: 768px) {
-	.gifItem {
-		.likesCount, .socialButtons {
-			@include opacity(1);
-		}
-		.overflow-actions {
-			display: none;
-		}
+    .gifItem {
+        .likesCount, .socialButtons {
+            @include opacity(1);
+        }
+        .overflow-actions {
+            display: none;
+        }
 
-		img, video {
-			min-width: 0;
-			max-width: 100%;
-		}
-	}
+        img, video {
+            min-width: 0;
+            max-width: 100%;
+        }
+    }
 }
 
 @media (max-width: 992px) {
-	.gifItem {
-		.likesCount-wrap {
-			float: left;
-		}
-		.socialButtons {
-			float: right;
-			margin-top: -60px;
-		}
-	}
+    .gifItem {
+        .likesCount-wrap {
+            float: left;
+        }
+        .socialButtons {
+            float: right;
+            margin-top: -60px;
+        }
+    }
 }
