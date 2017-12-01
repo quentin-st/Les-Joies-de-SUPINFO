@@ -36,8 +36,7 @@ class DebugLikesCountAllCommand extends ContainerAwareCommand
 
         $likes = [];
         /** @var Gif $gif */
-        foreach ($gifs as $gif)
-        {
+        foreach ($gifs as $gif) {
             $likes[] = [
                 'permalink' => $gif->getPermalink(),
                 'likes' => $gif->getLikes()

@@ -19,83 +19,82 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
  */
 class DebugLikesCountCommand extends ContainerAwareCommand
 {
-	protected function configure()
-	{
-		$this
-			->setName('ljds:likes:debug')
-			->setDescription('Prints likes counts for one gif')
-			->addArgument(
-				'permalink',
-				InputArgument::OPTIONAL,
-				'Which gif should we check?'
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('ljds:likes:debug')
+            ->setDescription('Prints likes counts for one gif')
+            ->addArgument(
+                'permalink',
+                InputArgument::OPTIONAL,
+                'Which gif should we check?'
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$em = $this->getContainer()->get('doctrine.orm.entity_manager');
-		/** @var GifRepository $gifRepo */
-		$gifRepo = $em->getRepository('LjdsBundle:Gif');
-		$gifs = $gifRepo->findByGifState(GifState::PUBLISHED);
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        /** @var GifRepository $gifRepo */
+        $gifRepo = $em->getRepository('LjdsBundle:Gif');
+        $gifs = $gifRepo->findByGifState(GifState::PUBLISHED);
 
-		$permalink = $input->getArgument('permalink');
+        $permalink = $input->getArgument('permalink');
 
-		if (!$permalink || !$gifRepo->findOneBy(['permalink' => $permalink]))
-		{
-			// Print some recent gifs and ask again
-			$gifsTable = new Table($output);
-			$gifsTable->setHeaders(['Id', 'Submitted by', 'Permalink']);
+        if (!$permalink || !$gifRepo->findOneBy(['permalink' => $permalink])) {
+            // Print some recent gifs and ask again
+            $gifsTable = new Table($output);
+            $gifsTable->setHeaders(['Id', 'Submitted by', 'Permalink']);
 
-			for ($i=0; $i<min(20, count($gifs)); $i++) {
-				/** @var Gif $gif */
-				$gif = $gifs[$i];
+            for ($i = 0; $i < min(20, count($gifs)); ++$i) {
+                /** @var Gif $gif */
+                $gif = $gifs[$i];
 
-				$gifsTable->addRow([
-					$gif->getId(),
-					$gif->getSubmittedBy(),
-					$gif->getPermalink()
-				]);
-			}
+                $gifsTable->addRow([
+                    $gif->getId(),
+                    $gif->getSubmittedBy(),
+                    $gif->getPermalink()
+                ]);
+            }
 
-			$gifsTable->render();
+            $gifsTable->render();
 
-			// Ask for it
-			$hints = [];
-			foreach ($gifs as $gif)
-				$hints[] = $gif->getPermalink();
+            // Ask for it
+            $hints = [];
+            foreach ($gifs as $gif) {
+                $hints[] = $gif->getPermalink();
+            }
 
-			/** @var QuestionHelper $helper */
-			$helper = $this->getHelper('question');
-			$permalink = $helper->ask($input, $output, new ChoiceQuestion('Which permalink?', $hints));
-		}
+            /** @var QuestionHelper $helper */
+            $helper = $this->getHelper('question');
+            $permalink = $helper->ask($input, $output, new ChoiceQuestion('Which permalink?', $hints));
+        }
 
-		$gif = $gifRepo->findOneBy(['permalink' => $permalink]);
+        $gif = $gifRepo->findOneBy(['permalink' => $permalink]);
 
-		if (!$gif) {
-			$output->writeln('No gif found for permalink ' . $permalink);
-			return;
-		}
+        if (!$gif) {
+            $output->writeln('No gif found for permalink '.$permalink);
+            return;
+        }
 
-		// Get likes!
-		/** @var FacebookLikesService $facebookLikesService */
-		$facebookLikesService = $this->getContainer()->get('app.facebook_likes');
+        // Get likes!
+        /** @var FacebookLikesService $facebookLikesService */
+        $facebookLikesService = $this->getContainer()->get('app.facebook_likes');
 
-		// Check cached value
-		$output->writeln('CACHED VALUE FOR "' . $gif->getPermalink() . '":');
-		$facebookLikesService->fetchLikes([$gif]);
-		$output->writeln($gif->getLikes() . ' like(s)');
+        // Check cached value
+        $output->writeln('CACHED VALUE FOR "'.$gif->getPermalink().'":');
+        $facebookLikesService->fetchLikes([$gif]);
+        $output->writeln($gif->getLikes().' like(s)');
 
-		// Fetch value by calling Facebook API
-		$output->writeln('LIVE VALUE FOR "' . $gif->getPermalink() . '":');
-		// Generate URLs
-		$urls = $facebookLikesService->getURLsForGifs([$gif]);
-		$likes = $facebookLikesService->getLikesFromFacebookAPI($urls);
+        // Fetch value by calling Facebook API
+        $output->writeln('LIVE VALUE FOR "'.$gif->getPermalink().'":');
+        // Generate URLs
+        $urls = $facebookLikesService->getURLsForGifs([$gif]);
+        $likes = $facebookLikesService->getLikesFromFacebookAPI($urls);
 
-		foreach ($likes as $url => $likesCount)
-		{
-			$output->writeln($url . ' => ' . $likesCount . ' like(s)');
-		}
+        foreach ($likes as $url => $likesCount) {
+            $output->writeln($url.' => '.$likesCount.' like(s)');
+        }
 
-		// That's it!
-	}
+        // That's it!
+    }
 }

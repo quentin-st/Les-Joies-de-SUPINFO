@@ -28,7 +28,7 @@ class GifDownloaderService
 
     /**
      * Downloads a gif on the server. Useful if our domain is not accepted as referrer (avoids hotlinking)
-     * @param Gif $gif
+     * @param  Gif    $gif
      * @return string
      */
     public function download(Gif $gif)
@@ -37,25 +37,26 @@ class GifDownloaderService
         $gifUrl = $gif->getGifUrl();
 
         // Generate filename
-        $fileName = $gif->getPermalink() . '.' . Util::getFileExtension($gifUrl);
+        $fileName = $gif->getPermalink().'.'.Util::getFileExtension($gifUrl);
 
-        $i=0;
+        $i = 0;
         while (file_exists($downloadDir.$fileName)) {
-            $fileName = $gif->getPermalink() . '_' . $i . '.' . Util::getFileExtension($gifUrl);
-            $i++;
+            $fileName = $gif->getPermalink().'_'.$i.'.'.Util::getFileExtension($gifUrl);
+            ++$i;
         }
 
         // Download file
         file_put_contents($downloadDir.$fileName, fopen($gifUrl, 'r'));
 
         // Check if file has been successfully downloaded (permissions issues)
-        if (!file_exists($downloadDir.$fileName))
+        if (!file_exists($downloadDir.$fileName)) {
             return false;
-        
+        }
+
         // Generate client-side URL
-        $url = $this->requestContextScheme . '://' . // http://
-            $this->requestContextHost . $this->requestContextBaseUrl
-            . '/gifs/' . $fileName;
+        $url = $this->requestContextScheme.'://'. // http://
+            $this->requestContextHost.$this->requestContextBaseUrl
+            .'/gifs/'.$fileName;
         $gif->setOriginalGifUrl($gifUrl);
         $gif->setGifUrl($url);
 
@@ -64,7 +65,7 @@ class GifDownloaderService
 
     /**
      * Deletes the downloaded gif once the original gifs gets deleted
-     * @param Gif $gif
+     * @param  Gif  $gif
      * @return bool
      */
     public function delete(Gif $gif)
@@ -75,11 +76,11 @@ class GifDownloaderService
         $fileName = basename($gif->getGifUrl());
 
         if (file_exists($downloadDir.$fileName)) {
-            unlink($downloadDir . $fileName);
+            unlink($downloadDir.$fileName);
             return true;
-        }
-        else
+        } else {
             return false;
+        }
     }
 
     private function getDownloadDir()

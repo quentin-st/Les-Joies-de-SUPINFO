@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class Gif
 {
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -47,13 +47,13 @@ class Gif
     private $publishDate;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(name="gifStatus", type="integer")
      */
     private $gifStatus;
 
     /**
-     * @var integer
+     * @var int
      * @ORM\Column(name="reportStatus", type="integer")
      */
     private $reportStatus;
@@ -106,15 +106,13 @@ class Gif
      */
     private $likes;
 
-
     public function __construct()
     {
         $this->likes = 0;
     }
 
-
     /**
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -122,7 +120,7 @@ class Gif
     }
 
     /**
-     * @param string $caption
+     * @param  string $caption
      * @return Gif
      */
     public function setCaption($caption)
@@ -140,7 +138,7 @@ class Gif
     }
 
     /**
-     * @param \DateTime $submissionDate
+     * @param  \DateTime $submissionDate
      * @return Gif
      */
     public function setSubmissionDate($submissionDate)
@@ -158,7 +156,7 @@ class Gif
     }
 
     /**
-     * @param string $submittedBy
+     * @param  string $submittedBy
      * @return Gif
      */
     public function setSubmittedBy($submittedBy)
@@ -176,7 +174,7 @@ class Gif
     }
 
     /**
-     * @param \DateTime $publishDate
+     * @param  \DateTime $publishDate
      * @return Gif
      */
     public function setPublishDate($publishDate)
@@ -194,7 +192,7 @@ class Gif
     }
 
     /**
-     * @param integer $gifStatus
+     * @param  int $gifStatus
      * @return Gif
      */
     public function setGifStatus($gifStatus)
@@ -204,7 +202,7 @@ class Gif
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getGifStatus()
     {
@@ -212,7 +210,7 @@ class Gif
     }
 
     /**
-     * @param integer $reportStatus
+     * @param  int $reportStatus
      * @return Gif
      */
     public function setReportStatus($reportStatus)
@@ -222,7 +220,7 @@ class Gif
     }
 
     /**
-     * @return integer
+     * @return int
      */
     public function getReportStatus()
     {
@@ -238,7 +236,7 @@ class Gif
     }
 
     /**
-     * @param string $gifUrl
+     * @param  string $gifUrl
      * @return $this
      */
     public function setGifUrl($gifUrl)
@@ -256,7 +254,7 @@ class Gif
     }
 
     /**
-     * @param string $originalGifUrl
+     * @param  string $originalGifUrl
      * @return Gif
      */
     public function setOriginalGifUrl($originalGifUrl)
@@ -266,7 +264,7 @@ class Gif
     }
 
     /**
-     * @param string $permalink
+     * @param  string $permalink
      * @return Gif
      */
     public function setPermalink($permalink)
@@ -284,7 +282,7 @@ class Gif
     }
 
     /**
-     * @param string $source
+     * @param  string $source
      * @return Gif
      */
     public function setSource($source)
@@ -326,7 +324,7 @@ class Gif
     }
 
     /**
-     * @param string $email
+     * @param  string $email
      * @return $this
      */
     public function setEmail($email)
@@ -344,7 +342,7 @@ class Gif
     }
 
     /**
-     * @param int $likes
+     * @param  int $likes
      * @return Gif
      */
     public function setLikes($likes)
@@ -353,7 +351,6 @@ class Gif
         return $this;
     }
 
-
     public function generateUrlReadyPermalink()
     {
         $permalink = (new Slugify())->slugify($this->caption);
@@ -361,7 +358,6 @@ class Gif
         $this->permalink = $permalink;
         return $permalink;
     }
-
 
     /**
      * Generates a tweet with a link, the caption and the SUPINFO hashtag
@@ -372,24 +368,23 @@ class Gif
     {
         $tweetMaxLength = 140;
         $linkStrLength = 22;
-        $hashTag = " - Les Joies de #SUPINFO ";
+        $hashTag = ' - Les Joies de #SUPINFO ';
 
         if ((strlen($this->getCaption()) + strlen($hashTag) + $linkStrLength) <= $tweetMaxLength) {
             // Good news, we don't have to trim anything
-            return $this->getCaption() . $hashTag . $url;
+            return $this->getCaption().$hashTag.$url;
         } else {
             // Trim caption
-            $availableLength = $tweetMaxLength - (strlen($hashTag) + $linkStrLength + strlen("..."));
+            $availableLength = $tweetMaxLength - (strlen($hashTag) + $linkStrLength + strlen('...'));
 
-            return substr($this->getCaption(), 0, $availableLength) . "..." . $hashTag . $url;
+            return substr($this->getCaption(), 0, $availableLength).'...'.$hashTag.$url;
         }
     }
 
-
-	public function getFileType()
-	{
-		return Util::getFileExtension($this->getGifUrl());
-	}
+    public function getFileType()
+    {
+        return Util::getFileExtension($this->getGifUrl());
+    }
 
     /**
      * Depending on this gif age, we adapt its likes count cache lifetime
@@ -401,19 +396,23 @@ class Gif
         $diff = (new \DateTime())->diff($this->publishDate);
         $days = ($diff->days * 24) + $diff->h;
 
-        if ($days > 7)
-            return 60*30;   // More than 7 days: 30 minutes
-        else if ($days > 2)
-            return 60*20;   // Between 2 and 7 days: 20 minutes
+        if ($days > 7) {
+            return 60 * 30;
+        }   // More than 7 days: 30 minutes
+        elseif ($days > 2) {
+            return 60 * 20;
+        }   // Between 2 and 7 days: 20 minutes
 
         $hours = ($diff->days * 24) + $diff->h;
 
-        if ($hours > 6)
-            return 60*10;   // Between 6 hours and 2 days: 10 minutes
-        else if ($hours > 1)
-            return 60*5;    // Between 1 and 6 hours: 5 minutes
+        if ($hours > 6) {
+            return 60 * 10;
+        }   // Between 6 hours and 2 days: 10 minutes
+        elseif ($hours > 1) {
+            return 60 * 5;
+        }    // Between 1 and 6 hours: 5 minutes
 
-        return 60*2;        // Between 0 and 1 hour: 2 minutes
+        return 60 * 2;        // Between 0 and 1 hour: 2 minutes
     }
 
     public function toJson(Router $router)

@@ -5,7 +5,6 @@ namespace LjdsBundle\Entity;
 use Doctrine\ORM\EntityRepository;
 use LjdsBundle\Helper\AutoPostHelper;
 use LjdsBundle\Helper\WeekPart;
-use Symfony\Component\Routing\Router;
 
 /**
  * GifRepository
@@ -24,7 +23,7 @@ class GifRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         return $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . $gifState)
+            ->where('g.gifStatus = '.$gifState)
             ->orderBy('g.publishDate', 'DESC')
             ->addOrderBy('g.submissionDate', 'ASC');
     }
@@ -35,10 +34,11 @@ class GifRepository extends EntityRepository
         $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g');
 
-        if ($ignored)
+        if ($ignored) {
             $qb->where('g.reportStatus > 0');
-        else
+        } else {
             $qb->where('g.reportStatus = 1');
+        }
 
         return $qb;
     }
@@ -48,7 +48,7 @@ class GifRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         return $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->where('g.gifStatus = '.GifState::PUBLISHED)
             ->andWhere('g.submittedBy = :submittedBy')
             ->setParameter('submittedBy', $submitter)
             ->orderBy('g.publishDate', 'DESC');
@@ -67,7 +67,7 @@ class GifRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->where('g.gifStatus = '.GifState::PUBLISHED)
             ->orderBy('g.publishDate', 'DESC');
 
         $query = $qb->getQuery();
@@ -80,24 +80,24 @@ class GifRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('COUNT(g.id)')
             ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . $gifState);
+            ->where('g.gifStatus = '.$gifState);
         $query = $qb->getQuery();
 
-        return intval($query->getSingleScalarResult());
+        return (int) ($query->getSingleScalarResult());
     }
 
     public function getRandomGif()
     {
         $count = $this->createQueryBuilder('g')
             ->select('COUNT(g)')
-            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->where('g.gifStatus = '.GifState::PUBLISHED)
             ->getQuery()
             ->getSingleScalarResult();
 
         return $this->createQueryBuilder('g')
             ->setFirstResult(rand(0, $count - 1))
             ->setMaxResults(1)
-            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->where('g.gifStatus = '.GifState::PUBLISHED)
             ->getQuery()
             ->getSingleResult();
     }
@@ -105,7 +105,7 @@ class GifRepository extends EntityRepository
     public function getLastPublishedGif()
     {
         return $this->createQueryBuilder('g')
-            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->where('g.gifStatus = '.GifState::PUBLISHED)
             ->orderBy('g.publishDate', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
@@ -121,23 +121,26 @@ class GifRepository extends EntityRepository
         // First, check if there is something to post
         $acceptedGifs = $this->findByGifState(GifState::ACCEPTED);
 
-        if (count($acceptedGifs) == 0)
+        if (count($acceptedGifs) == 0) {
             return false;
+        }
 
         // Build a list of DateTime : publications for the upcoming 7 days
         /** @var \DateTime[] $publications */
         $publications = [];
         foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $weekDay) {
-            foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_DAYS) as $hour)
-                $publications[] = new \DateTime('this ' . $weekDay . ' ' . $hour);
+            foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_DAYS) as $hour) {
+                $publications[] = new \DateTime('this '.$weekDay.' '.$hour);
+            }
         }
         foreach (['saturday', 'sunday'] as $weekEndDay) {
-            foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_END) as $hour)
-                $publications[] = new \DateTime('this ' . $weekEndDay . ' ' . $hour);
+            foreach (AutoPostHelper::getPublicationTimes(WeekPart::WEEK_END) as $hour) {
+                $publications[] = new \DateTime('this '.$weekEndDay.' '.$hour);
+            }
         }
 
         // Sort this array
-        usort($publications, function($a, $b) {
+        usort($publications, function ($a, $b) {
             return $a < $b ? -1 : 1;
         });
 
@@ -168,11 +171,9 @@ class GifRepository extends EntityRepository
         $remainingGifs = count($this->findByGifState(GifState::ACCEPTED));
 
         $currentDate = new \DateTime();
-        while ($remainingGifs >= 0)
-        {
-            $dow = intval($currentDate->format('w'));
-            switch ($dow)
-            {
+        while ($remainingGifs >= 0) {
+            $dow = (int) ($currentDate->format('w'));
+            switch ($dow) {
                 case 1:
                 case 2:
                 case 3:

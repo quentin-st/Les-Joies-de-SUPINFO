@@ -15,15 +15,15 @@ class GifService
     /** @var MailService */
     private $mailService;
 
-    /** @var boolean */
+    /** @var bool */
     private $facebookAutopost;
     /** @var FacebookService */
     private $facebookService;
-    /** @var boolean */
+    /** @var bool */
     private $twitterAutopost;
     /** @var TwitterService */
     private $twitterService;
-    /** @var boolean */
+    /** @var bool */
     private $pushEnabled;
     /** @var PushNotificationsService */
     private $pushService;
@@ -46,13 +46,14 @@ class GifService
 
     /**
      * Publishes a gif and posts a link on social networks
-     * @param Gif $gif
+     * @param  Gif  $gif
      * @return bool
      */
     public function publish(Gif $gif)
     {
-        if (!$gif)
+        if (!$gif) {
             return false;
+        }
 
         $gif->setPublishDate(new DateTime());
         $gif->setGifStatus(GifState::PUBLISHED);
@@ -63,26 +64,30 @@ class GifService
         $gifsRepo = $this->em->getRepository('LjdsBundle:Gif');
         $permalink = $gif->getPermalink();
 
-        $i=1;
+        $i = 1;
         while (!empty($gifsRepo->findBy(['permalink' => $gif->getPermalink(), 'gifStatus' => GifState::PUBLISHED]))) {
             // Generate a new permalink
             $gif->setPermalink($permalink.$i);
-            $i++;
-        };
+            ++$i;
+        }
 
         $this->em->flush();
 
-        if ($this->facebookAutopost)
+        if ($this->facebookAutopost) {
             $this->facebookService->postGif($gif);
+        }
 
-        if ($this->twitterAutopost)
+        if ($this->twitterAutopost) {
             $this->twitterService->postGif($gif);
+        }
 
-        if ($this->pushEnabled)
+        if ($this->pushEnabled) {
             $this->pushService->notify($gif);
+        }
 
-        if ($gif->getEmail() != null)
+        if ($gif->getEmail() != null) {
             $this->mailService->sendGifPublishedMail($gif);
+        }
 
         return true;
     }

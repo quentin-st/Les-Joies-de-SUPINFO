@@ -11,24 +11,24 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TestMailsCommand extends ContainerAwareCommand
 {
-	protected function configure()
-	{
-		$this
-			->setName('ljds:mail:test')
-			->setDescription('Tests mails')
-			->addArgument('to');
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('ljds:mail:test')
+            ->setDescription('Tests mails')
+            ->addArgument('to');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$to = $input->getArgument('to');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $to = $input->getArgument('to');
 
-		if (!$to) {
-			$dialog = $this->getHelper('dialog');
-			$to = $dialog->ask($output, 'Please enter "to" address: ');
-		}
+        if (!$to) {
+            $dialog = $this->getHelper('dialog');
+            $to = $dialog->ask($output, 'Please enter "to" address: ');
+        }
 
-		$this->getContainer()->get('app.mail_service')->sendTestMail($to);
-		$output->writeln('Mail sent.');
-	}
+        $this->getContainer()->get('app.mail_service')->sendTestMail($to);
+        $output->writeln('Mail sent.');
+    }
 }

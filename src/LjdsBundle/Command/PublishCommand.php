@@ -40,9 +40,10 @@ class PublishCommand extends ContainerAwareCommand
         /** @var GifService $gifService */
         $gifService = $this->getContainer()->get('app.gif');
 
-        if ($gifService->publish($gif))
+        if ($gifService->publish($gif)) {
             $output->writeln('Gif published!');
-        else
+        } else {
             $output->writeln('Failed somewhere while publishing gif...');
+        }
     }
 }

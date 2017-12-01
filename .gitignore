@@ -9,6 +9,7 @@
 /composer.phar
 /vendor/
 /web/bundles/
+.php_cs.cache
 
 # PhpStorm files
 .idea

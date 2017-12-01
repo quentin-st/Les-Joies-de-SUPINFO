@@ -10,82 +10,80 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PushRegistration
 {
-	/**
-	 * @var integer
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @var int
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-	/**
-	 * @var string
-	 * @ORM\Column(name="registrationId", unique=true, nullable=false)
-	 */
-	private $registrationId;
+    /**
+     * @var string
+     * @ORM\Column(name="registrationId", unique=true, nullable=false)
+     */
+    private $registrationId;
 
-	/**
-	 * @var \DateTime
-	 * @ORM\Column(name="registrationDate", type="datetime")
-	 */
-	private $registrationDate;
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="registrationDate", type="datetime")
+     */
+    private $registrationDate;
 
+    public function __construct()
+    {
+        $this->registrationDate = new \DateTime();
+    }
 
-	public function __construct()
-	{
-		$this->registrationDate = new \DateTime();
-	}
+    public static function fromId($id)
+    {
+        $registration = new self();
+        $registration->setRegistrationId($id);
 
+        return $registration;
+    }
 
-	public static function fromId($id)
-	{
-		$registration = new PushRegistration();
-		$registration->setRegistrationId($id);
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-		return $registration;
-	}
+    /**
+     * @return string
+     */
+    public function getRegistrationId()
+    {
+        return $this->registrationId;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
+    /**
+     * @param  string           $registrationId
+     * @return PushRegistration
+     */
+    public function setRegistrationId($registrationId)
+    {
+        $this->registrationId = $registrationId;
+        return $this;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getRegistrationId()
-	{
-		return $this->registrationId;
-	}
+    /**
+     * @return mixed
+     */
+    public function getRegistrationDate()
+    {
+        return $this->registrationDate;
+    }
 
-	/**
-	 * @param string $registrationId
-	 * @return PushRegistration
-	 */
-	public function setRegistrationId($registrationId)
-	{
-		$this->registrationId = $registrationId;
-		return $this;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getRegistrationDate()
-	{
-		return $this->registrationDate;
-	}
-
-	/**
-	 * @param mixed $registrationDate
-	 * @return PushRegistration
-	 */
-	public function setRegistrationDate($registrationDate)
-	{
-		$this->registrationDate = $registrationDate;
-		return $this;
-	}
+    /**
+     * @param  mixed            $registrationDate
+     * @return PushRegistration
+     */
+    public function setRegistrationDate($registrationDate)
+    {
+        $this->registrationDate = $registrationDate;
+        return $this;
+    }
 }

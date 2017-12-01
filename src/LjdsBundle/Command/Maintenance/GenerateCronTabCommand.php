@@ -35,16 +35,14 @@ class GenerateCronTabCommand extends ContainerAwareCommand
         ];
 
         $output->writeln('# Joies de SUPINFO');
-        foreach ([WeekPart::WEEK_DAYS, WeekPart::WEEK_END] as $weekPart)
-        {
-            $output->writeln('# ' . $labels[$weekPart]);
+        foreach ([WeekPart::WEEK_DAYS, WeekPart::WEEK_END] as $weekPart) {
+            $output->writeln('# '.$labels[$weekPart]);
 
-            foreach (AutoPostHelper::getPublicationTimes($weekPart) as $job)
-            {
+            foreach (AutoPostHelper::getPublicationTimes($weekPart) as $job) {
                 $hours = explode(':', $job)[0];
                 $minutes = explode(':', $job)[1];
 
-                $output->writeln($minutes . ' ' . $hours . ' * * ' . $cronDow[$weekPart] . ' ' . $command);
+                $output->writeln($minutes.' '.$hours.' * * '.$cronDow[$weekPart].' '.$command);
             }
 
             $output->writeln('');

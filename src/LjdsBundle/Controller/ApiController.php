@@ -6,12 +6,11 @@ use Doctrine\ORM\QueryBuilder;
 use LjdsBundle\Entity\Gif;
 use LjdsBundle\Entity\GifRepository;
 use LjdsBundle\Entity\GifState;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/api")
@@ -34,8 +33,9 @@ class ApiController extends Controller
     public function apiRandomGifAction(Request $request)
     {
         // Redirect to main route
-        if (!$this->isMainRoute($request, 'api_gif_random'))
+        if (!$this->isMainRoute($request, 'api_gif_random')) {
             return $this->redirectToRoute('api_gif_random');
+        }
 
         $em = $this->getDoctrine()->getManager();
         /** @var GifRepository $gifsRepo */
@@ -55,8 +55,9 @@ class ApiController extends Controller
     public function apiLatestGifAction(Request $request)
     {
         // Redirect to main route
-        if (!$this->isMainRoute($request, 'api_gif_latest'))
+        if (!$this->isMainRoute($request, 'api_gif_latest')) {
             return $this->redirectToRoute('api_gif_latest');
+        }
 
         $em = $this->getDoctrine()->getManager();
         /** @var GifRepository $gifsRepo */
@@ -78,22 +79,23 @@ class ApiController extends Controller
         $em = $this->getDoctrine()->getManager();
         $maxResults = $request->query->get('count', self::LIST_DEFAULT);
 
-        if (!filter_var($maxResults, FILTER_VALIDATE_INT) || $maxResults > self::LIST_MAX)
+        if (!filter_var($maxResults, FILTER_VALIDATE_INT) || $maxResults > self::LIST_MAX) {
             $maxResults = self::LIST_DEFAULT;
+        }
 
         // Create query
         /** @var QueryBuilder $qb */
         $qb = $em->createQueryBuilder();
         $query = $qb->select('g')
             ->from('LjdsBundle\Entity\Gif', 'g')
-            ->where('g.gifStatus = ' . GifState::PUBLISHED)
+            ->where('g.gifStatus = '.GifState::PUBLISHED)
             ->orderBy('g.publishDate', 'DESC')
             ->setMaxResults($maxResults)
             ->getQuery();
 
         $query->execute();
 
-        $gifs = array_map(function(Gif $gif) {
+        $gifs = array_map(function (Gif $gif) {
             return $gif->toJson($this->get('router'));
         }, $query->getResult());
 
