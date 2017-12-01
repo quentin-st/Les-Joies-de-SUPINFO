@@ -66,7 +66,7 @@ class GifsController extends Controller
         }
 
         // Fetch likes count for those gifs
-        $this->get('app.facebook_likes')->fetchLikes($pagination);
+        //$this->get('app.facebook_likes')->fetchLikes($pagination);
 
         return $this->render('LjdsBundle:Gifs:gifsList.html.twig', [
             'gifs' => $pagination,
@@ -81,6 +81,7 @@ class GifsController extends Controller
      */
     public function topGifsAction()
     {
+        throw new NotFoundHttpException();
         $gifs = $this->get('app.facebook_likes')->getTop();
 
         return $this->render('LjdsBundle:Gifs:gifsList.html.twig', [
@@ -90,11 +91,16 @@ class GifsController extends Controller
     }
 
     /**
-     * @Route("/{route}/random", name="randomGif", requirements={
-     * 		"route": "(gif|widget)"
-     * }, defaults={
-     *     "route": "gif"
-     * })
+     * @Route(
+     *     "/{route}/random",
+     *     name="randomGif",
+     *     requirements={
+     *         "route": "(gif|widget)"
+     *     },
+     *     defaults={
+     *         "route": "gif"
+     *     }
+     * )
      */
     public function randomAction($route, Request $request)
     {
@@ -143,9 +149,9 @@ class GifsController extends Controller
             throw new NotFoundHttpException();
         }
         // Fetch likes count for this gif
-        if ($this->getParameter('kernel.environment') != 'dev') {
-            $this->get('app.facebook_likes')->fetchLikes([$gif]);
-        }
+        //if ($this->getParameter('kernel.environment') != 'dev') {
+        //    $this->get('app.facebook_likes')->fetchLikes([$gif]);
+        //}
 
         $view = $route == 'gif'
             ? 'LjdsBundle:Gifs:gifPage.html.twig'

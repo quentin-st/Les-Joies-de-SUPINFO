@@ -68,8 +68,6 @@
                 </div>
 
                 <nav class="menu">
-                    <a href="{{ path('top') }}"><i class="mdi mdi-crown"></i>Top gifs</a>
-                    <a href="{{ path('topSubmitters') }}"><i class="mdi mdi-account-multiple"></i>Top contributeurs</a>
                     <a href="{{ path('randomGif') }}"><i class="mdi mdi-shuffle"></i> Au hasard</a>
                     <a href="{{ path('submit') }}" class="submit"><i class="mdi mdi-plus"></i>Proposer un gif</a>
 
@@ -149,7 +147,7 @@
 
 <div id="dropdowns"></div>
 
-<!-- Likes diff info -->
+{#<!-- Likes diff info -->
 <div id="likesDiffInfo" class="jq-dropdown jq-dropdown-tip">
     <div class="jq-dropdown-panel">
         <p class="title">A propos de la différence des compteurs de likes</p>
@@ -157,7 +155,7 @@
         <p>Ce changement nous oblige à comptabiliser les likes Facebook sur les anciennes URLs en plus des nouvelles. Les compteurs
         du widget Facebook affichent le nombre de likes sur les nouvelles URLs uniquement, d'où la différence.</p>
     </div>
-</div>
+</div>#}
 <div id="embed-modal" class="white-popup-block mfp-hide embed-modal">
     <h2>Intégrer</h2>
     <p>Intégrez ce gif sur votre site web en y insérant le code suivant. Vous pouvez personnaliser les propriétés CSS

@@ -102,6 +102,7 @@ class Gif
     private $email;
 
     /**
+     * @deprecated
      * @var int
      */
     private $likes;
@@ -334,6 +335,7 @@ class Gif
     }
 
     /**
+     * @deprecated
      * @return int
      */
     public function getLikes()
@@ -342,6 +344,7 @@ class Gif
     }
 
     /**
+     * @deprecated
      * @param  int $likes
      * @return Gif
      */

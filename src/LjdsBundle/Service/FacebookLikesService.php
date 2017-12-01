@@ -14,6 +14,9 @@ use LjdsBundle\Helper\Util;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Router;
 
+/**
+ * @deprecated
+ */
 class FacebookLikesService
 {
     /** @var string[] */
@@ -45,6 +48,7 @@ class FacebookLikesService
     }
 
     /**
+     * @deprecated
      * Returns a sorted list of the 20 most liked gifs
      * @return Gif[]
      */
@@ -68,6 +72,7 @@ class FacebookLikesService
     }
 
     /**
+     * @deprecated
      * Returns all gifs, grouped by submitters and sorted by gifs likes sum count
      * @return Gif[]
      */
@@ -112,6 +117,7 @@ class FacebookLikesService
     }
 
     /**
+     * @deprecated
      * Returns the like count for a submitter
      * @param $submitter
      * @return int
@@ -134,6 +140,7 @@ class FacebookLikesService
     }
 
     /**
+     * @deprecated
      * Sets the likes attribute of each gif in the gifs list passed as parameter
      * @param $gifsList Gif[]
      */
@@ -203,6 +210,7 @@ class FacebookLikesService
     }
 
     /**
+     * @deprecated
      * Returns the likes count for each of these URLs
      * @param  array $urls
      * @return array
@@ -251,6 +259,7 @@ class FacebookLikesService
     }
 
     /**
+     * @deprecated
      * Returns all the URLs we know for these gifs (one for each domain we have)
      * @param  array $gifs
      * @return array

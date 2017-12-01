@@ -1,11 +1,11 @@
 <div class="gifItem {% if widget_no_card is defined and widget_no_card %}no-card{% endif %}">
 	<div class="row gifItem-header">
-		<div class="col-md-2 likesCount-wrap">
-			{% set likesDiffInfo = gif.publishDate.format('Y') == 2015 %}
+		<div class="col-md-2 {#likesCount-wrap#}">
+            {#{% set likesDiffInfo = gif.publishDate.format('Y') == 2015 %}
 			<a href="#" class="likesCount {% if likesDiffInfo %}likesDiffInfo{% endif %}" {% if likesDiffInfo %}data-jq-dropdown="#likesDiffInfo"{% endif %}>
 				<span class="count">{{ gif.likes != null ? gif.likes : 0 }}</span>
 				<span class="likes">like{% if gif.likes != 1 %}s{% endif %}</span>
-			</a>
+			</a>#}
 		</div>
 		<div class="col-md-10">
 			<a href="#" data-jq-dropdown="#actions_{{ gif.id }}" class="overflow-actions button button-medium no-elevation"><i class="mdi mdi-dots-vertical"></i></a>

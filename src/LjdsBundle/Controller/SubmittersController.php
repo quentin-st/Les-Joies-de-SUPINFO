@@ -15,6 +15,7 @@ class SubmittersController extends Controller
      */
     public function submittersTopAction()
     {
+        throw new NotFoundHttpException();
         return $this->render('LjdsBundle:Submitters:top.html.twig', [
             'submitters' => $this->get('app.facebook_likes')->getTopSubmitters()
         ]);
@@ -26,6 +27,7 @@ class SubmittersController extends Controller
      */
     public function submitterGifsAction($submitter, $page = 1, $_route)
     {
+        throw new NotFoundHttpException();
         $em = $this->getDoctrine()->getManager();
         /** @var GifRepository $gifRepo */
         $gifRepo = $em->getRepository('LjdsBundle:Gif');
