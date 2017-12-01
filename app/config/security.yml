@@ -3,7 +3,7 @@ security:
         in_memory:
             memory:
                 users:
-                    SupAdmin: { password: IknowYouCanSeeThisAllRight?, roles: 'ROLE_ADMIN' }
+                    SupAdmin: { password: '%admin_password%', roles: 'ROLE_ADMIN' }
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
@@ -20,4 +20,4 @@ security:
             pattern:    ^/
             anonymous: ~
             http_basic:
-                realm: "Secured Demo Area"
+                realm: "Admin area"
