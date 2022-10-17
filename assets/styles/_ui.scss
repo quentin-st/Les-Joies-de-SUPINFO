@@ -1,0 +1,147 @@
+// Generic UI items & styles
+input[type="text"], input[type="email"], textarea {
+	@include border-radius(2px);
+	@include box-sizing(border-box);
+	padding: 0 10px;
+	min-height: 30px;
+	border: 1px solid #ccc;
+	@include box-shadow(inset 0 1px 1px rgba(0,0,0,.075));
+	@include transition(border-color ease-in-out .15s, box-shadow ease-in-out .15s);
+
+	&:focus {
+		border-color: #66afe9;
+		outline: 0;
+		@include box-shadow(inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6));
+	}
+}
+.btn {
+	border: 0;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+	color: #fff;
+	font-size: 15px;
+	outline: none;
+	background-image: none;
+	@include border-radius(2px);
+	@include box-shadow(inset 0 0 0 1px rgba(0, 0, 0, 0.1));
+	@include transition-duration(50ms);
+
+	&:hover {
+		@include box-shadow(inset 0px -1px 0px 1px rgba(0, 0, 0, 0.1));
+	}
+	&:active {
+		@include box-shadow(inset 0px 1px 3px 0px rgba(0, 0, 0, 0.3));
+	}
+
+	&.btn-primary {
+		&, &:active:focus {
+			outline: none;
+			background-color: $blue;
+		}
+	}
+	&.btn-lg {
+		padding: 7px 17px 7px 14px;
+	}
+}
+button[type="submit"] {
+	float: right;
+	margin: 40px auto 20px auto;
+	display: block;
+}
+
+.no-elevation {
+	color: #333;
+	display: inline-block;
+	text-transform: uppercase;
+	padding: 6px 10px;
+	font-size: 12px;
+	font-weight: 500;
+	@include border-radius(2px);
+	@include transition-duration(150ms);
+
+	&:hover {
+		text-decoration: none;
+		background-color: rgba(0, 0, 0, 0.1);
+	}
+}
+.no-elevation-active,
+.no-elevation:active {
+	background-color: rgba(0, 0, 0, 0.15);
+	@include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.3));
+}
+.button-medium {
+	padding: 3px 7px;
+}
+.button-small {
+	padding: 2px 4px;
+}
+
+// Elevation levels
+.elevation-low { @include box-shadow(0 1px 4px rgba(0, 0, 0, 0.15)); }
+.elevation-medium { @include box-shadow(0 2px 6px rgba(0, 0, 0, 0.2)); }
+.elevation-high { @include box-shadow(0 4px 10px rgba(0, 0, 0, 0.2)); }
+.elevation-none { @include box-shadow(none); }
+
+.buttons-set {
+	margin: 10px 0;
+	padding: 0;
+	list-style: none;
+
+	.button {
+		@extend .no-elevation;
+		padding: 3px 20px;
+
+		i.mdi { font-size: 60px; }
+		p {
+			text-align: center;
+			margin: 7px 0 0 0;
+			line-height: 15px;
+		}
+	}
+}
+
+.alert {
+	@include border-radius(2px);
+	background-image: none;
+	border: 0;
+
+	&.alert-success {
+		background-color: #9CCC65;
+	}
+}
+
+// Dropdowns
+.jq-dropdown {
+	.jq-dropdown-menu, .jq-dropdown-panel {
+		box-shadow: rgba(0, 0, 0, 0.1) 0 1px 6px, rgba(0, 0, 0, 0.2) 0 1px 4px;
+		border-radius: 2px;
+		border: 0;
+	}
+	.jq-dropdown-menu {
+		li > a {
+			padding: 6px 18px;
+			transition-duration: 150ms;
+			color: #444;
+
+			&:hover, &.active {
+				background-color: rgba(0, 0, 0, 0.07);
+			}
+
+			i {
+				width: 18px;
+			}
+		}
+	}
+	.jq-dropdown-panel {
+		p.title {
+			font-size: 15px;
+			border-bottom: 1px solid #eee;
+			padding-bottom: 5px;
+			color: #333;
+		}
+		p {
+			text-align: justify;
+			color: #555;
+			font-size: 13px;
+		}
+	}
+}

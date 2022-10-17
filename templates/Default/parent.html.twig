@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}{% endblock %}Les Joies de SUPINFO</title>
+    <meta name="description" content="{% block meta_description %}Les situations de la vie quotidienne des étudiants de SUPINFO{% endblock %}">
+    <meta name="author" content="{% if gif is defined %}{{ gif.submittedBy }}{% else %}Quentin Stoeckel, Frédéric Strebler, Thomas Nold{% endif %}">
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300' rel='stylesheet' type='text/css'>
+
+    {# Favicons #}
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/ljds/icons/apple-touch-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('bundles/ljds/icons/apple-touch-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/ljds/icons/apple-touch-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/ljds/icons/apple-touch-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/ljds/icons/apple-touch-icon-114x114.png')}}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/ljds/icons/apple-touch-icon-120x120.png')}}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/ljds/icons/apple-touch-icon-144x144.png')}}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/ljds/icons/apple-touch-icon-152x152.png')}}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('bundles/ljds/icons/apple-touch-icon-180x180.png')}}">
+    <link rel="icon" type="image/png" href="{{ asset('bundles/ljds/icons/favicon-32x32.png') }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ asset('bundles/ljds/icons/android-chrome-192x192.png') }}" sizes="192x192">
+    <link rel="icon" type="image/png" href="{{ asset('bundles/ljds/icons/favicon-96x96.png') }}" sizes="96x96">
+    <link rel="icon" type="image/png" href="{{ asset('bundles/ljds/icons/favicon-16x16.png') }}" sizes="16x16">
+    <link rel="manifest" href="{{ asset('bundles/ljds/icons/manifest.json') }}">
+    <link rel="mask-icon" href="{{ asset('bundles/ljds/icons/safari-pinned-tab.svg') }}" color="#5bbad5">
+    <link rel="shortcut icon" href="{{ asset('bundles/ljds/icons/favicon.ico') }}">
+    <meta name="apple-mobile-web-app-title" content="Les Joies de SUPINFO">
+    <meta name="application-name" content="Les Joies de SUPINFO">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="{{ asset('bundles/ljds/icons/mstile-144x144.png') }}">
+    <meta name="msapplication-config" content="{{ asset('bundles/ljds/icons/browserconfig.xml') }}">
+    <meta name="theme-color" content="#1889E6">
+
+    <link rel="alternate" type="application/rss+xml" title="Flux RSS - Gifs" href="{{ path('feed') }}" />
+
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
+
+    {% block metas %}{% endblock %}
+    {% block javascripts_head %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <header>
+            <div class="header-background">
+                <div class="title">
+                    <a href="{{ path('index') }}" class="h1Link"><h1>Les Joies de SUPINFO</h1></a>
+                    <h2 class="subtitle">Les situations de la vie quotidienne des étudiants de SUPINFO</h2>
+                </div>
+
+                <nav class="menu">
+                    <a href="{{ path('randomGif') }}"><i class="mdi mdi-shuffle"></i> Au hasard</a>
+                    <a href="{{ path('submit') }}" class="submit"><i class="mdi mdi-plus"></i>Proposer un gif</a>
+                </nav>
+
+                <div class="clearfix"></div>
+
+            </div>
+        </header>
+        <div class="container-fluid content-wrap">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="footer">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-1 col-sm-4 col-xs-12">
+                <h2>Gifs</h2>
+                <ul>
+                    {#<li><a href="{{ path('top') }}">Top gifs</a></li>
+                    <li><a href="{{ path('topSubmitters') }}">Top contributeurs</a></li>#}
+                    <li><a href="{{ path('randomGif') }}">Au hasard</a></li>
+                    <li><a href="{{ path('submit') }}">Proposer un gif</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-12">
+                <h2>Projet</h2>
+                <ul>
+                    <li><a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo" target="_blank">Contribuer</a></li>
+                    <li><a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo#api" target="_blank">API</a></li>
+                    <li><a href="{{ path('rulesOfTheGame') }}">Conditions d'utilisation</a></li>
+                </ul>
+            </div>
+            <div class="col-md-5 col-sm-3 col-xs-12">
+                <h2>Réseaux sociaux</h2>
+                <ul>
+                    <li><a href="https://www.facebook.com/joiesDeSupinfo/">Facebook</a></li>
+                    <li><a href="https://twitter.com/joiesdesupinfo">Twitter</a></li>
+                </ul>
+                <div class="facebook-widget">
+                    <div class="fb-page"
+                         data-href="https://www.facebook.com/joiesDeSupinfo"
+                         data-small-header="true"
+                         data-adapt-container-width="true"
+                         data-hide-cover="true"
+                         data-show-facepile="false"
+                         data-show-posts="false">
+                        <div class="fb-xfbml-parse-ignore">
+                            <blockquote cite="https://www.facebook.com/joiesDeSupinfo">
+                                <a href="https://www.facebook.com/joiesDeSupinfo">Les Joies de SUPINFO</a>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 copyright">
+                <p><span class="first-row"><a href="{{ path('index') }}">Les Joies de SUPINFO</a> &copy; {{ 'now'|date('Y') }}</span><br />
+                    Réalisation : Frédéric Strebler, Thomas Nold, <a href="https://www.s-quent.in" target="_blank">Quentin Stoeckel</a>
+                    &amp; <a href="https://github.com/chteuchteu/Les-Joies-de-Supinfo/graphs/contributors" target="_blank">autres contributeurs</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dropdowns"></div>
+
+{# {% javascripts
+    '@App/Resources/public/3d/js/bootstrap.min.js'
+    '@App/Resources/public/js/script.js'
+    '@App/Resources/public/3d/js/jquery.plugin.min.js'
+    '@App/Resources/public/3d/js/jquery.cookiebar.js'
+    '@App/Resources/public/3d/js/jquery.dropdown.min.js'
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}#}
+
+{% block javascripts %}{% endblock %}
+{% include '/Snippets/analytics.html.twig' %}
+</body>
+</html>

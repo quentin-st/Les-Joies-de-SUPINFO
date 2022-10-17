@@ -1,0 +1,33 @@
+/*
+ * This file contains everything that makes the website responsive.
+ * It is included in style (main stylesheet)
+ */
+
+@media (max-width: 480px) {
+	header {
+		.title {
+			float: none;
+		}
+		.menu {
+			text-align: left;
+		}
+	}
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+	.hide-mobile { display: none!important; }
+
+	header {
+		.menu {
+			float: right;
+
+			a {
+				display: block;
+				max-width: 150px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+	}
+}

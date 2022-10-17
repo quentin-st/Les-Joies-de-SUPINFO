@@ -1,0 +1,145 @@
+{% extends '/Default/parent.html.twig' %}
+
+{% block title %}{{ typeLabel }} - {% endblock %}
+
+{% block content %}
+	<div class="adminTabs">
+		<a href="{{ path('admin', {'type': 'submitted'}) }}" class="btn btn-lg btn-warning {% if type == 'submitted' %}active{% endif %}">
+			<i class="mdi mdi-help"></i>
+			En attente <small>({{ counts.submitted }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'accepted'}) }}" class="btn btn-lg btn-success {% if type == 'accepted' %}active{% endif %}">
+			<i class="mdi mdi-clock"></i>
+			Acceptés <small>({{ counts.accepted }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'refused'}) }}" class="btn btn-lg btn-primary {% if type == 'refused' %}active{% endif %}">
+			<i class="mdi mdi-close"></i>
+			Refusés <small>({{ counts.refused }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'reported'}) }}" class="btn btn-lg btn-danger {% if type == 'reported' %}active{% endif %}">
+			<i class="mdi mdi-alert-octagon"></i>
+			Signalés <small>({{ counts.reported }})</small>
+		</a>
+		<a href="{{ path('admin', {'type': 'published'}) }}" class="btn btn-lg btn-success {% if type == 'published' %}active{% endif %}">
+			<i class="mdi mdi-check-all"></i>
+			Publiés <small>({{ counts.published }})</small>
+		</a>
+	</div>
+
+	<div class="gifs-validation">
+		{% if gifs|length == 0 %}
+			<div class="no-gif">
+				<i class="mdi mdi-emoticon-poop"></i> <p>Aucun gif n'est actuellement à l'état <i>{{ typeLabel }}</i>.</p>
+			</div>
+		{% endif %}
+		{% for gif in gifs %}
+			<div class="gifs-validation-item col-sm-6 col-md-4" data-gifid="{{ gif.id }}">
+				<div class="thumbnail">
+					{% include '/Snippets/gif.html.twig' with {class: 'gifPreview'} %}
+
+					<div class="caption">
+						<textarea id="caption{{ gif.id }}" rows="2" placeholder="Caption">{{ gif.caption }}</textarea>
+						<p>Par {{ gif.submittedBy }}</p>
+
+						{% if gif.originalGifUrl is null %}
+							<p class="pull-right">
+								<button type="button" class="btn btn-success btn-xs">
+									<i class="mdi mdi-download downloadGif"></i>
+								</button>
+							</p>
+						{% endif %}
+						<p class="validation-actions">
+							{% if type == 'accepted' %}
+								<button type="button" data-state="published" class="btn btn-primary">Publier</button>
+								<button type="button" data-state="refused" class="btn btn-danger">Rejeter</button>
+							{% elseif type == 'refused' %}
+								<button type="button" data-state="accepted" class="btn btn-success">Valider</button>
+								<button type="button" data-state="deleted" class="btn btn-warning">Supprimer</button>
+							{% elseif type == 'reported' %}
+								<button type="button" data-state="ignored" class="btn btn-primary">Ignorer</button>
+								<button type="button" data-state="refused" class="btn btn-danger">Supprimer</button>
+							{% elseif type == 'submitted' %}
+								<button type="button" data-state="accepted" class="btn btn-success">Valider</button>
+								<button type="button" data-state="refused" class="btn btn-danger">Rejeter</button>
+							{% elseif type == 'published' %}
+								<button type="button" data-state="deleted" class="btn btn-warning">Supprimer</button>
+							{% endif %}
+						</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+			{% if loop.index % 3 == 0 %}
+				<div class="clearfix"></div>
+			{% endif %}
+		{% endfor %}
+
+		<div class="pagination-wrap">
+			{{ knp_pagination_render(gifs) }}
+		</div>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+		// Validate GIF
+		$('.validation-actions').find('button').click(function() {
+			var domElement = $(this),
+				gifContainer = domElement.closest('.gifs-validation-item'),
+				gifId = gifContainer.attr('data-gifid'),
+				state = domElement.attr('data-state'),
+				caption = $('#caption'+gifId).val(),
+				action;
+
+			if (state == 'deleted')
+				action = 'delete_gif';
+			else if (state == 'ignored')
+				action = 'change_report_status';
+			else
+				action = 'change_gif_status';
+
+			$.ajax({
+				url : '{{ path('adminApi') }}',
+				type : 'POST',
+				data : {
+					action : action,
+					gif_id : parseInt(gifId),
+					caption : caption,
+					new_gif_state : state,
+					api_key : '{{ admin_api_key }}'
+				},
+				success: function () {
+					gifContainer.remove();
+				},
+				error: function(){
+					alert('Action failed');
+				}
+			});
+		});
+
+		// Download gif on server
+		$('.downloadGif').click(function() {
+			var domElement = $(this),
+				gifContainer = domElement.closest('.gifs-validation-item'),
+				gifId = gifContainer.attr('data-gifid');
+
+			$.ajax({
+				url : '{{ path('adminApi') }}',
+				type : 'POST',
+				data : {
+					action : 'download_gif',
+					gif_id : parseInt(gifId),
+					api_key : '{{ admin_api_key }}'
+				},
+				success: function (data) {
+					// Update <img /> or <video /> source
+					domElement.closest('.thumbnail').find('.gifPreview').attr('src', data.gifUrl);
+					domElement.parent().remove();
+				},
+				error: function() {
+					alert('Download failed');
+				}
+			});
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends '/Default/parent.html.twig' %}
+
+{% block title -%}
+	{% if pagination %}{% if page != 1 %}Page {{ page }} - {% endif %}{% else %}Top gifs - {% endif %}
+{%- endblock %}
+
+{% block content %}
+	<div class="col-md-10 col-md-offset-1">
+		{% for gif in gifs %}
+			{% include '/Gifs/gif.html.twig' with {'gif': gif} %}
+			{% if not loop.last %}<hr />{% endif %}
+		{% endfor %}
+
+		{# Pagination #}
+		{% if pagination %}
+			<div class="pagination-wrap">
+				{{ knp_pagination_render(gifs) }}
+			</div>
+		{% endif %}
+	</div>
+{% endblock %}

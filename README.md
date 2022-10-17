@@ -1,4 +1,5 @@
 # Les Joies de SUPINFO
+
 Welcome to the public repository for Les Joies de SUPINFO project!
 
 The project is currently hosted at [joies-de-supinfo.fr](http://www.joies-de-supinfo.fr/).
@@ -19,25 +20,18 @@ With all these things set, you should be able to contribute! If you have any pro
 open an issue here on GitHub.
 
 ## Technical information
-### memcached
-We're using memcached to cache the Facebook likes count for each gif. This avoids polling Facebook API at every page load,
-which reduces significantly pages loading times.
-
-Both development environments & production server must have `php5-memcached` & `memcached` packages installed. 
-
 ### Cron configuration
 To publish gifs without a manual action, a cron is configured on the server to automatically publish accepted gifs.
 Cron jobs are set to execute a custom command, `ljds:publish`:
 
-	# Weekdays (twice a day)
-	# Morning
-	0 11 * * 1-5 /var/www/joies-de-supinfo/app/console ljds:publish
-	0 11 * * 1-5 /var/www/joies-de-supinfo/app/console ljds:publish
-	# Afternoon
-	0 17 * * 1-5 /var/www/joies-de-supinfo/app/console ljds:publish
-	
-	# Week-end (once a day)
-	0 16 * * 6-7 /var/www/joies-de-supinfo/app/console ljds:publish
+```crontab
+# Joies de SUPINFO
+# Week days
+45 15 * * 1-5 /var/www/joies-de-supinfo/app/console ljds:publish
+
+# Weekend
+00 14 * * 6-7 /var/www/joies-de-supinfo/app/console ljds:publish
+```
 
 ## API
 You can either get the last published gif or a random one by dropping a GET request on the following URLS:

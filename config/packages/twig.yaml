@@ -1,0 +1,8 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        analytics_tracking_code: "%env(ANALYTICS_TRACKING_CODE)%"
+
+when@test:
+    twig:
+        strict_variables: true

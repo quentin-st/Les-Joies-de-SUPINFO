@@ -1,0 +1,268 @@
+/**
+ * IMPORTANT: please de not edit style.css file manually.
+ *	We're using SASS to maintain styling, so your changes would be overriden.
+ *	Please edit style.scss file instead, and use a sass compiler.
+ *		Learn more about SASS: http://sass-lang.com/guide
+ *
+ *  Sass compiler arguments:  --style expanded
+ */
+
+// Import mixins
+@import 'mixins';
+// Import vars
+@import 'vars';
+
+/* Include _part files */
+@import 'ui';
+@import 'header';
+@import 'footer';
+@import 'page-submit';
+@import 'admin';
+@import 'gif';
+
+body, html {
+	padding: 0;
+	margin: 0;
+	color: $primary-text-color;
+}
+
+body {
+	background-color: #ebebeb;
+	font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+	font-weight: 300;
+	margin-bottom: 30px;
+	color: #444;
+}
+
+hr {
+	margin-top: 45px;
+	margin-bottom: 20px;
+}
+
+.container {
+	.content {
+		@include box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.1));
+		background-color: #fff;
+		margin-top: 20px;
+		padding: 0 0 10px 0;
+
+		.content-wrap {
+			@include box-shadow(inset 0px 7px 8px -8px rgba(0, 0, 0, 0.3));
+		}
+	}
+}
+
+/* Pagination */
+.pagination-wrap {
+	$border-radius: 16px;
+	text-align: center;
+
+	.pagination {
+		> li {
+			> a, > span {
+				padding: 5px 11px;
+				margin: 0 1px;
+				border: 0;
+				@include transition-duration(150ms);
+				@include border-radius($border-radius);
+
+				&, &:hover, &:focus {
+					color: #999999;
+				}
+			}
+
+			&:first-child {
+				> a, > span {
+					border-bottom-left-radius: $border-radius;
+					border-top-left-radius: $border-radius;
+				}
+			}
+			&:last-child {
+				> a, > span {
+					border-bottom-right-radius: $border-radius;
+					border-top-right-radius: $border-radius;
+				}
+			}
+		}
+
+		> .disabled {
+			@include opacity(0.7);
+
+			> span, > a {
+				&, &:hover, &:focus {
+					cursor: default;
+				}
+			}
+		}
+
+		> .active {
+			> span, > a {
+				background-color: $primary-color;
+				@extend .elevation-low;
+
+				&:hover, &:focus {
+					background-color: $dark-primary-color;
+					@extend .elevation-medium;
+				}
+				&, &:hover, &:focus {
+					color: #ffffff;
+				}
+			}
+		}
+	}
+}
+
+.topSubmitters {
+	ol {
+		list-style: none;
+		padding-left: 0;
+
+		li {
+			margin-bottom: 10px;
+
+			a {
+				display: block;
+				color: #333;
+				@include transition-duration(150ms);
+				@extend .no-elevation;
+
+				.rank {
+					display: inline-block;
+					width: 32px;
+					height: 32px;
+					text-align: center;
+					line-height: 32px;
+					@include border-radius(50%);
+					color: #fff;
+					background-color: $blue;
+					font-size: 19px;
+					margin-top: 5px;
+				}
+				.submitter {
+					display: inline-block;
+					margin-left: 10px;
+					vertical-align: middle;
+					padding-bottom: 4px;
+					font-size: 15px;
+					max-width: 150px;
+				}
+				.stats {
+					float: right;
+
+					.stat {
+						display: inline-block;
+						font-size: 9px;
+						margin-left: 10px;
+						color: #555;
+						font-weight: 100;
+						text-align: right;
+
+						span {
+							display: block;
+							font-size: 20px;
+						}
+					}
+				}
+
+				// Dim a little bit the bottom of the list
+				@for $i from 1 to 10 {
+					&.rank-#{$i} {
+						@include opacity(1-($i / 25));
+					}
+				}
+				&.rank-others {
+					@include opacity(1-(10/25));
+				}
+			}
+		}
+	}
+}
+
+.page-submitter {
+	.buttons-set {
+		.button-likesCount { color: #45619D; }
+		.button-gifsCount { color: $dark-primary-color; }
+	}
+}
+
+.errorPage {
+	div {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	div.errorNumber {
+		font-size: 160px;
+		font-family: Helvetica, sans-serif;
+		color: #555;
+		margin: 0 10px;
+	}
+}
+
+.gifLabel {
+	font-size: 11px;
+	background-color: #777;
+	display: inline-block;
+	padding: 2px 4px;
+	color: #fff;
+	@include border-radius(2px);
+}
+
+.page p {
+	font-weight: 300;
+}
+
+#cookie-bar {
+	background-color: #111111;
+	background-color: rgba(0, 0, 0, 0.5);
+	height: auto;
+	line-height: 24px;
+	color: #eeeeee;
+	text-align: center;
+	padding: 3px 0;
+	z-index: 1;
+	font-weight: 300;
+	&.fixed {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		&.bottom {
+			bottom: 0;
+			top: auto;
+		}
+	}
+	p {margin: 0; padding: 0;}
+	a {color: #ffffff; display: inline-block; border-radius: 3px; text-decoration: none; padding: 0 6px; margin-left: 8px;}
+	.cb-enable {
+		background: #007700;
+		&:hover {background: #009900;}
+	}
+	.cb-disable {
+		background: #990000;
+		&:hover {background: #bb0000;}
+	}
+	.cb-policy {
+		background: #444;
+		&:hover {background: #555;}
+	}
+}
+
+.align-right {
+	text-align: right;
+}
+
+.white-popup-block {
+	background: #FFF;
+	padding: 20px 30px;
+	text-align: left;
+	max-width: 750px;
+	margin: 40px auto;
+	position: relative;
+	border-radius: 2px;
+}
+
+/* Include style-responsive file */
+@import 'style-responsive';

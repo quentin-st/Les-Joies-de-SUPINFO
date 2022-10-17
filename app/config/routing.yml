@@ -1,8 +1,0 @@
-ljds:
-    resource: "@LjdsBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-PrestaSitemapBundle:
-    resource: "@PrestaSitemapBundle/Resources/config/routing.yml"
-    prefix:   /

@@ -1,29 +1,31 @@
-/app/bootstrap.php.cache
-/app/cache/*
-!app/cache/.gitkeep
-/app/config/parameters.yml
-/app/logs/*
-!app/logs/.gitkeep
-/app/phpunit.xml
-/bin/
-/composer.phar
+/.idea
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
 /vendor/
-/web/bundles/
-.php_cs.cache
+###< symfony/framework-bundle ###
 
-# PhpStorm files
-.idea
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
 
-# Web files
-/web/uploads/
-/web/gifs/
-!/web/gifs/.gitkeep
-/web/css/
-/web/js/
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
 
-# Generated CSS files
-src/LjdsBundle/Resources/public/css/style.css
-src/LjdsBundle/Resources/public/css/style.css.map
-src/LjdsBundle/Resources/public/css/widget.css
-src/LjdsBundle/Resources/public/css/widget.css.map
-.sass-cache
+/public/gifs
+!/public/gifs/.gitkeep
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###
