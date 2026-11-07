@@ -2,43 +2,29 @@
 
 namespace App\EventListener;
 
-use Doctrine\ORM\EntityManager;
-use App\Entity\Gif;
 use App\Entity\GifState;
+use App\Repository\GifRepository;
 use Presta\SitemapBundle\Event\SitemapPopulateEvent;
-use Presta\SitemapBundle\Service\SitemapListenerInterface;
 use Presta\SitemapBundle\Sitemap\Url\UrlConcrete;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
 
-class SitemapListener implements SitemapListenerInterface
+#[AsEventListener]
+class SitemapListener
 {
-    /** @var RouterInterface */
-    private $router;
-    /** @var EntityManager */
-    private $em;
-
-    public function __construct(RouterInterface $router, EntityManager $em)
+    public function __construct(
+        private readonly GifRepository $gifRepo,
+    )
     {
-        $this->router = $router;
-        $this->em = $em;
     }
 
-    public function populateSitemap(SitemapPopulateEvent $event)
+    public function __invoke(SitemapPopulateEvent $event): void
     {
-        $gifs = $this->em->getRepository(Gif::class)->findByGifState(GifState::PUBLISHED);
+        foreach ($this->gifRepo->findByGifState(GifState::PUBLISHED) as $gif) {
+            $url = $event->getUrlGenerator()->generate('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        /** @var Gif $gif */
-        foreach ($gifs as $gif) {
-            $url = $this->router->generate('gif', ['permalink' => $gif->getPermalink()], UrlGeneratorInterface::ABSOLUTE_URL);
-
-            $event->getGenerator()->addUrl(
-                new UrlConcrete(
-                    $url,
-                    new \DateTime(),
-                    UrlConcrete::CHANGEFREQ_WEEKLY,
-                    0.8
-                ),
+            $event->getUrlContainer()->addUrl(
+                new UrlConcrete($url, new \DateTime(), UrlConcrete::CHANGEFREQ_WEEKLY, 0.8),
                 'default'
             );
         }

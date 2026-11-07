@@ -1,16 +1,18 @@
+@use "mixins";
+
 .adminTabs {
 	text-align: center;
 	margin: 15px 0;
 
 	a {
-		@include opacity(0.5);
-		@include transition-duration(150ms);
+		@include mixins.opacity(0.5);
+		@include mixins.transition-duration(150ms);
 
 		&:hover {
-			@include opacity(0.6);
+			@include mixins.opacity(0.6);
 		}
 		&.active {
-			@include opacity(1);
+			@include mixins.opacity(1);
 		}
 	}
 }

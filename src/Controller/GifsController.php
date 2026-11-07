@@ -15,15 +15,14 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class GifsController extends AbstractController
 {
-    /**
-     * @Route("/", name="index", options={"sitemap"=true}, defaults={"page": 1})
-     * @Route("/page/{page}", name="page", defaults={"page": 1}, requirements={"page": "\d+"})
-     */
+    #[Route('/', name: 'index', options: ['sitemap' => true], defaults: ['page' => 1])]
+    #[Route('/page/{page}', name: 'page', defaults: ['page' => 1], requirements: ['page' => '\d+'])]
     public function pageAction(EntityManagerInterface $em, PaginatorInterface $paginator, int $page, string $_route)
     {
         // Create query
@@ -68,18 +67,7 @@ class GifsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route(
-     *     "/{route}/random",
-     *     name="randomGif",
-     *     requirements={
-     *         "route": "(gif|widget)"
-     *     },
-     *     defaults={
-     *         "route": "gif"
-     *     }
-     * )
-     */
+    #[Route('/{route}/random', name: 'randomGif', requirements: ['route' => '(gif|widget)'], defaults: ['route' => 'gif'])]
     public function randomAction(EntityManagerInterface $em, string $route, Request $request)
     {
         /** @var GifRepository $gifsRepo */
@@ -100,9 +88,7 @@ class GifsController extends AbstractController
         return $this->redirectToRoute('gif', $params);
     }
 
-    /**
-     * @Route("/gif/{permalink}", name="gif")
-     */
+    #[Route('/gif/{permalink}', name: 'gif')]
     public function gifAction(EntityManagerInterface $em, $permalink, Request $request)
     {
         /** @var GifRepository $gifsRepo */
@@ -126,10 +112,8 @@ class GifsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/submit", name="submit", options={"sitemap"=true})
-     */
-    public function submitAction(Request $request, EntityManagerInterface $em)
+    #[Route('/submit', name: 'submit', options: ['sitemap' => true])]
+    public function submitAction(Request $request, EntityManagerInterface $em, ValidatorInterface $validator)
     {
         $response = new Response();
 
@@ -158,9 +142,7 @@ class GifsController extends AbstractController
 
             // Validate email
             if ($email !== null) {
-                $validator = $this->get('validator');
-
-                $errors = $validator->validateValue($email, [new Email()]);
+                $errors = $validator->validate($email, [new Email()]);
 
                 if (count($errors) > 0) {
                     $gifSubmittedError = 'l\'adresse mail n\'est pas valide.';
@@ -215,10 +197,8 @@ class GifsController extends AbstractController
         return $response;
     }
 
-    /**
-     * @Route("/feed/", name="feed")
-     * @Route("/feed")
-     */
+    #[Route('/feed/', name: 'feed')]
+    #[Route('/feed')]
     public function feedAction(EntityManagerInterface $em)
     {
         /** @var GifRepository $gifsRepo */
@@ -238,8 +218,8 @@ class GifsController extends AbstractController
 
     /**
      * This is endpoint is used by the /submit page to fetch trending gifs & search results
-     * @Route("/giphyProxy/", name="giphyProxy", methods={"POST"})
      */
+    #[Route('/giphyProxy/', name: 'giphyProxy', methods: ['POST'])]
     public function giphyApiProxyAction(Request $request)
     {
         $post = $request->request;
@@ -331,9 +311,7 @@ class GifsController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/abuse")
-     */
+    #[Route('/abuse')]
     public function abuseAction(Request $request, EntityManagerInterface $em)
     {
         /** @var GifRepository $gifsRepo */

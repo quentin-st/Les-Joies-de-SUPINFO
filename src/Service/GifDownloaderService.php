@@ -76,6 +76,6 @@ class GifDownloaderService
 
     private function getDownloadDir()
     {
-        return $this->projectDir.'/../public/gifs/';
+        return $this->projectDir.'/public/gifs/';
     }
 }

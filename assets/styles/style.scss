@@ -8,22 +8,24 @@
  */
 
 // Import mixins
-@import 'mixins';
+@use "sass:math";
+@use "sass:meta";
+@use 'mixins';
 // Import vars
-@import 'vars';
+@use 'vars';
 
 /* Include _part files */
-@import 'ui';
-@import 'header';
-@import 'footer';
-@import 'page-submit';
-@import 'admin';
-@import 'gif';
+@use 'ui';
+@use 'header';
+@use 'footer';
+@use 'page-submit';
+@use 'admin';
+@use 'gif';
 
 body, html {
 	padding: 0;
 	margin: 0;
-	color: $primary-text-color;
+	color: vars.$primary-text-color;
 }
 
 body {
@@ -44,13 +46,13 @@ hr {
 
 .container {
 	.content {
-		@include box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.1));
+		@include mixins.box-shadow(0 2px 5px 0 rgba(0, 0, 0, 0.1));
 		background-color: #fff;
 		margin-top: 20px;
 		padding: 0 0 10px 0;
 
 		.content-wrap {
-			@include box-shadow(inset 0px 7px 8px -8px rgba(0, 0, 0, 0.3));
+			@include mixins.box-shadow(inset 0px 7px 8px -8px rgba(0, 0, 0, 0.3));
 		}
 	}
 }
@@ -66,8 +68,8 @@ hr {
 				padding: 5px 11px;
 				margin: 0 1px;
 				border: 0;
-				@include transition-duration(150ms);
-				@include border-radius($border-radius);
+				@include mixins.transition-duration(150ms);
+				@include mixins.border-radius($border-radius);
 
 				&, &:hover, &:focus {
 					color: #999999;
@@ -89,7 +91,7 @@ hr {
 		}
 
 		> .disabled {
-			@include opacity(0.7);
+			@include mixins.opacity(0.7);
 
 			> span, > a {
 				&, &:hover, &:focus {
@@ -100,11 +102,11 @@ hr {
 
 		> .active {
 			> span, > a {
-				background-color: $primary-color;
+				background-color: vars.$primary-color;
 				@extend .elevation-low;
 
 				&:hover, &:focus {
-					background-color: $dark-primary-color;
+					background-color: vars.$dark-primary-color;
 					@extend .elevation-medium;
 				}
 				&, &:hover, &:focus {
@@ -126,7 +128,7 @@ hr {
 			a {
 				display: block;
 				color: #333;
-				@include transition-duration(150ms);
+				@include mixins.transition-duration(150ms);
 				@extend .no-elevation;
 
 				.rank {
@@ -135,9 +137,9 @@ hr {
 					height: 32px;
 					text-align: center;
 					line-height: 32px;
-					@include border-radius(50%);
+					@include mixins.border-radius(50%);
 					color: #fff;
-					background-color: $blue;
+					background-color: vars.$blue;
 					font-size: 19px;
 					margin-top: 5px;
 				}
@@ -170,11 +172,11 @@ hr {
 				// Dim a little bit the bottom of the list
 				@for $i from 1 to 10 {
 					&.rank-#{$i} {
-						@include opacity(1-($i / 25));
+						@include mixins.opacity(1 - math.div($i, 25));
 					}
 				}
 				&.rank-others {
-					@include opacity(1-(10/25));
+					@include mixins.opacity(1 - math.div(10, 25));
 				}
 			}
 		}
@@ -184,7 +186,7 @@ hr {
 .page-submitter {
 	.buttons-set {
 		.button-likesCount { color: #45619D; }
-		.button-gifsCount { color: $dark-primary-color; }
+		.button-gifsCount { color: vars.$dark-primary-color; }
 	}
 }
 
@@ -207,7 +209,7 @@ hr {
 	display: inline-block;
 	padding: 2px 4px;
 	color: #fff;
-	@include border-radius(2px);
+	@include mixins.border-radius(2px);
 }
 
 .page p {
@@ -265,4 +267,4 @@ hr {
 }
 
 /* Include style-responsive file */
-@import 'style-responsive';
+@include meta.load-css('style-responsive');

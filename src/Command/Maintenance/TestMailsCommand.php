@@ -6,6 +6,7 @@ use App\Service\MailService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
 
 /**
  * Sends a test mail to the specified email address
@@ -19,7 +20,7 @@ class TestMailsCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ljds:mail:test')
@@ -27,16 +28,16 @@ class TestMailsCommand extends Command
             ->addArgument('to');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $to = $input->getArgument('to');
 
         if (!$to) {
-            $dialog = $this->getHelper('dialog');
-            $to = $dialog->ask($output, 'Please enter "to" address: ');
+            $to = $this->getHelper('question')->ask($input, $output, new Question('Please enter "to" address: '));
         }
 
         $this->mailService->sendTestMail($to);
         $output->writeln('Mail sent.');
+        return Command::SUCCESS;
     }
 }

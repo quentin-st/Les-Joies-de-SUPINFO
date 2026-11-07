@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class AdminController extends AbstractController
 {
@@ -50,9 +50,7 @@ class AdminController extends AbstractController
         }
     }
 
-    /**
-     * @Route("/admin/api", name="adminApi", methods={"POST"})
-     */
+    #[Route('/admin/api', name: 'adminApi', methods: ['POST'])]
     public function adminApiAction(Request $request)
     {
         $post = $request->request;
@@ -209,10 +207,8 @@ class AdminController extends AbstractController
         ], 500);
     }
 
-    /**
-     * @Route("/admin/{type}/{page}", name="admin")
-     * @Route("/admin/")
-     */
+    #[Route('/admin/{type}/{page}', name: 'admin')]
+    #[Route('/admin/')]
     public function adminAction(PaginatorInterface $paginator, $type = 'submitted', $page = 1)
     {
         $queryBuilder = $this->getQueryBuilderByType($type);

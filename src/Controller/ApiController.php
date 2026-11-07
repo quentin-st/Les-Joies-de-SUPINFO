@@ -10,12 +10,10 @@ use App\Entity\GifState;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * @Route("/api")
- */
+#[Route('/api')]
 class ApiController extends AbstractController
 {
     const LIST_DEFAULT = 20;
@@ -33,10 +31,8 @@ class ApiController extends AbstractController
         return $request->get('_route') === $mainRoute;
     }
 
-    /**
-     * @Route("/gif/random", name="api_gif_random", methods={"GET"})
-     * @Route("/random", name="api_gif_random_old", methods={"GET"})
-     */
+    #[Route('/gif/random', name: 'api_gif_random', methods: ['GET'])]
+    #[Route('/random', name: 'api_gif_random_old', methods: ['GET'])]
     public function apiRandomGifAction(Request $request)
     {
         // Redirect to main route
@@ -55,8 +51,8 @@ class ApiController extends AbstractController
 
     /**
      * Returns X latest published gifs
-     * @Route("/gif/list", methods={"GET"})
      */
+    #[Route('/gif/list', methods: ['GET'])]
     public function apiLatestGifsAction(Request $request)
     {
         $maxResults = $request->query->get('count', self::LIST_DEFAULT);

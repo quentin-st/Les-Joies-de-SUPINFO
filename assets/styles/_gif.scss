@@ -1,3 +1,6 @@
+@use "ui";
+@use "mixins";
+
 .gifItem {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -13,9 +16,9 @@
         font-weight: 400;
         text-align: center;
         cursor: default;
-        @include border-radius(50%);
-        @include transition-duration(150ms);
-        @include opacity(0.7);
+        @include mixins.border-radius(50%);
+        @include mixins.transition-duration(150ms);
+        @include mixins.opacity(0.7);
 
         .count {
             display: block;
@@ -37,14 +40,14 @@
         }
     }
     &:hover .likesCount {
-        @include box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.3));
-        @include opacity(1);
+        @include mixins.box-shadow(0 1px 1px 0 rgba(0, 0, 0, 0.3));
+        @include mixins.opacity(1);
     }
 
     a.caption {
         color: #333;
         font-size: 20px;
-        @include transition-duration(150ms);
+        @include mixins.transition-duration(150ms);
 
         &:hover {
             color: #0087F7;
@@ -53,25 +56,25 @@
     }
 
     .overflow-actions {
-        @include opacity(0);
-        @include transition-duration(150ms);
+        @include mixins.opacity(0);
+        @include mixins.transition-duration(150ms);
         float: right;
         font-size: 17px;
         color: #666;
 
         &.force-visible {
             @extend .no-elevation-active;
-            @include opacity(1);
+            @include mixins.opacity(1);
         }
     }
     &:hover .overflow-actions {
-        @include opacity(1);
+        @include mixins.opacity(1);
     }
 
     .metas {
         color: #777;
         font-size: 13px;
-        @include opacity(0.8);
+        @include mixins.opacity(0.8);
         margin-bottom: 15px;
         letter-spacing: -0.5px;
 
@@ -88,14 +91,14 @@
             background-color: #777;
             padding: 0 3px;
             color: #fff;
-            @include border-radius(2px);
+            @include mixins.border-radius(2px);
         }
     }
 
     .socialButtons {
         text-align: right;
-        @include opacity(0.2);
-        @include transition-duration(150ms);
+        @include mixins.opacity(0.2);
+        @include mixins.transition-duration(150ms);
 
         > * {
             display: block;
@@ -103,12 +106,12 @@
         }
     }
     &:hover .socialButtons {
-        @include opacity(1);
+        @include mixins.opacity(1);
     }
 
     .gifItem-container {
         img, video {
-            @include border-radius(2px);
+            @include mixins.border-radius(2px);
             min-width: 360px;
             max-width: 100%;
             max-height: 100%;
@@ -125,7 +128,7 @@
             display: none;
         }
         .socialButtons {
-            @include opacity(1);
+            @include mixins.opacity(1);
             text-align: left;
             float: none !important;
             margin-top: 0 !important;
@@ -149,7 +152,7 @@
 @media (min-width: 480px) and (max-width: 768px) {
     .gifItem {
         .likesCount, .socialButtons {
-            @include opacity(1);
+            @include mixins.opacity(1);
         }
         .overflow-actions {
             display: none;

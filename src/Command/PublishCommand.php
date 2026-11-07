@@ -29,22 +29,24 @@ class PublishCommand extends Command
             ->setDescription('Publishes the oldest accepted Gif');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         // Find next gif to publish
         $acceptedGifs = $this->gifRepo->findByGifState(GifState::ACCEPTED);
 
         if (empty($acceptedGifs)) {
             $output->writeln('Empty publish queue.');
-            return;
+            return Command::SUCCESS;
         }
 
         // Publish the first one (oldest one = FIFO)
         $gif = $acceptedGifs[0];
         if ($this->gifService->publish($gif)) {
             $output->writeln('Gif published!');
-        } else {
-            $output->writeln('Failed somewhere while publishing gif...');
+            return Command::SUCCESS;
         }
+
+        $output->writeln('Failed somewhere while publishing gif...');
+        return Command::FAILURE;
     }
 }

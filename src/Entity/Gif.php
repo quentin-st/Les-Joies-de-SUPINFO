@@ -5,100 +5,99 @@ namespace App\Entity;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Helper\Util;
+use App\Repository\GifRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="App\Repository\GifRepository")
- */
+#[ORM\Table]
+#[ORM\Entity(repositoryClass: GifRepository::class)]
 class Gif
 {
     /**
      * @var int
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
     /**
      * @var string
-     * @ORM\Column(name="catchPhrase", type="string", length=255)
      */
+    #[ORM\Column(name: 'catchPhrase', type: 'string', length: 255)]
     private $caption;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="submissionDate", type="datetime")
      */
+    #[ORM\Column(name: 'submissionDate', type: 'datetime')]
     private $submissionDate;
 
     /**
      * @var string
-     * @ORM\Column(name="submittedBy", type="string", length=255)
      */
+    #[ORM\Column(name: 'submittedBy', type: 'string', length: 255)]
     private $submittedBy;
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="publishDate", type="datetime", nullable=true)
      */
+    #[ORM\Column(name: 'publishDate', type: 'datetime', nullable: true)]
     private $publishDate;
 
     /**
      * @var int
-     * @ORM\Column(name="gifStatus", type="integer")
      */
+    #[ORM\Column(name: 'gifStatus', type: 'integer')]
     private $gifStatus;
 
     /**
      * @var int
-     * @ORM\Column(name="reportStatus", type="integer")
      */
+    #[ORM\Column(name: 'reportStatus', type: 'integer')]
     private $reportStatus;
 
     /**
      * Gif final URL.
      * @var string
-     * @ORM\Column(name="fileName", type="string", length=255)
      */
+    #[ORM\Column(name: 'fileName', type: 'string', length: 255)]
     private $gifUrl;
 
     /**
      * Original gif URL. Populated when locally downloading a gif from admin:
      *  gifUrl will contain the local URL while originalGifUrl will contain the original gif URL.
      * @var string
-     * @ORM\Column(name="originalGifUrl", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'originalGifUrl', type: 'string', length: 255, nullable: true)]
     private $originalGifUrl;
 
     /**
      * Permalink for this gif (URL). Auto-generated from gif caption
      * @var string
-     * @ORM\Column(name="permalink", type="string", length=255)
      */
+    #[ORM\Column(name: 'permalink', type: 'string', length: 255)]
     private $permalink;
 
     /**
      * Source page for this link. Auto-generated when choosing using the Giphy widget
      * @var string
-     * @ORM\Column(name="source", type="string", length=255)
      */
+    #[ORM\Column(name: 'source', type: 'string', length: 255)]
     private $source;
 
     /**
      * Label associated with this gif. Currently, it allows us to know if student or SUPINFO staff
      * @var string
-     * @ORM\Column(name="label", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'label', type: 'string', length: 255, nullable: true)]
     private $label;
 
     /**
      * Submitter's e-mail address
      * @var string
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
      */
+    #[ORM\Column(name: 'email', type: 'string', length: 255, nullable: true)]
     private $email;
 
     /**
